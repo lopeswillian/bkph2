@@ -1,6 +1,10 @@
 import 'package:apph2/main.dart';
 import 'package:apph2/theme/theme.dart';
+import 'package:apph2/views/h2pay/verify/verify_complement_page.dart';
+import 'package:apph2/views/h2pay/verify/verify_document_page.dart';
 import 'package:apph2/views/h2pay/verify/verify_page.dart';
+import 'package:apph2/views/h2pay/verify/verify_sms_page.dart';
+import 'package:apph2/views/h2pay/verify/verify_terms_page.dart';
 import 'package:apph2/views/product/list_product_page.dart';
 import 'package:apph2/views/product/list_schedule_page.dart';
 import 'package:apph2/views/product/schedule_page.dart';
@@ -43,14 +47,27 @@ abstract class BaseAppModuleRouting {
   static const BasePath listProduct = BasePath('/list_product');
 
   /// list of schedules
-  static const BasePath listSchedule  =  BasePath('/list_schedule');
+  static const BasePath listSchedule = BasePath('/list_schedule');
 
   /// Schedule detail
-  static const BasePath scheduleDetail  =  BasePath('/schedule_detail');
+  static const BasePath scheduleDetail = BasePath('/schedule_detail');
 
   /// VerifyPage
-  static const BasePath verifyPage  =  BasePath('/verifyPage');
-  
+  static const BasePath verifyPage = BasePath('/verifyPage');
+
+  /// VerifySmsPage
+  static const BasePath verifySmsPage = BasePath('/verifySmsPage');
+
+  /// VerifyTermsPage
+  static const BasePath verifyTermsPage = BasePath('/verifyTermsPage');
+
+  /// VerifyComplementPage
+  static const BasePath verifyComplementPage =
+      BasePath('/VerifyComplementPage');
+
+  /// VerifyComplementPage
+  static const BasePath verifyDocumentPage = BasePath('/VerifyDocumentPage');
+
   ///
   /// Module routes definitions
   ///
@@ -124,6 +141,22 @@ abstract class BaseAppModuleRouting {
         ChildRoute(
           verifyPage.path,
           child: (_, __) => const VerifyPage(title: "H2 Pay"),
+        ),
+        ChildRoute(
+          verifySmsPage.path,
+          child: (_, __) => const VerifySmsPage(title: "H2 Pay"),
+        ),
+        ChildRoute(
+          verifyTermsPage.path,
+          child: (_, __) => const VerifyTermsPage(title: "H2 Pay"),
+        ),
+        ChildRoute(
+          verifyComplementPage.path,
+          child: (_, __) => const VerifyComplementPage(),
+        ),
+        ChildRoute(
+          verifyDocumentPage.path,
+          child: (_, __) => const VerifyDocumentPage(),
         ),
       ];
 }

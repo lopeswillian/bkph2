@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:apph2/base_app_module_routing.dart';
+import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
 import 'package:flutter/material.dart';
@@ -94,9 +96,10 @@ class _VerifyPageState extends State<VerifyPage> {
                             Dimension.xxl.vertical,
                             const TextField(
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Número de Telefone',
-                                  hintText: '(com DDD)'),
+                                border: OutlineInputBorder(),
+                                labelText: 'Número de Telefone',
+                                hintText: '(com DDD)',
+                              ),
                             ),
                             const Dimension(25).vertical,
                           ],
@@ -110,10 +113,16 @@ class _VerifyPageState extends State<VerifyPage> {
                 visible: !isKeyboardVisible,
                 child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: Container(
-                    height: const Dimension(18).height,
-                    color: Colors.white,
-                    child: NextWidget(title: 'Avançar', action: () {}),
+                  child: IntrinsicHeight(
+                    child: Container(
+                      color: Colors.white,
+                      child: NextWidget(
+                        title: 'Avançar',
+                        action: () {
+                          Nav.pushNamed(BaseAppModuleRouting.verifySmsPage);
+                        },
+                      ),
+                    ),
                   ),
                 ),
               ),

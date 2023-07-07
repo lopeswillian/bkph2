@@ -3,6 +3,7 @@ import 'package:apph2/domain/entities/login_params.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
+import 'package:apph2/theme/widgets/custom_text.dart';
 import 'package:apph2/views/login/login_state.dart';
 import 'package:apph2/views/login/login_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -47,32 +48,26 @@ class _LoginPageState extends ViewState<LoginPage, LoginViewModel> {
           ),
           child: Column(
             children: [
-              TextField(
+              CustomTextFormField(
                 controller: identifier,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: Dimension.sm.width,
-                    vertical: Dimension.sm.width,
-                  ),
-                  border: const OutlineInputBorder(),
-                  labelText: 'E-mail ou CPF',
+                labelText: 'E-mail ou CPF',
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: Dimension.sm.width,
+                  vertical: Dimension.sm.width,
                 ),
               ),
               Dimension.sm.vertical,
-              TextField(
+              CustomTextFormField(
                 obscureText: true,
                 controller: password,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: 'Senha',
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: Dimension.sm.width,
-                    vertical: Dimension.sm.width,
-                  ),
-                  suffixIcon: const IconButton(
-                    onPressed: null,
-                    icon: Icon(Icons.visibility),
-                  ),
+                labelText: 'Senha',
+                suffixAction: const IconButton(
+                  onPressed: null,
+                  icon: Icon(Icons.visibility),
+                ),
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: Dimension.sm.width,
+                  vertical: Dimension.sm.width,
                 ),
               ),
               Row(
@@ -128,6 +123,10 @@ class _LoginPageState extends ViewState<LoginPage, LoginViewModel> {
               Dimension.sm.vertical,
               GhostButton.large(
                 expanded: true,
+                textStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.fontSize,
+                ),
                 onPressed: () => Nav.pushNamed(
                   BaseAppModuleRouting.registerStep1.completePath,
                 ),

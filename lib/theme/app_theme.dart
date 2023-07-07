@@ -110,7 +110,7 @@ class AppTheme {
       ],
       iconTheme: IconThemeData(
         color: foreground.active,
-        // size: AppFontSize.button.value,
+        size: AppFontSize.button.value,
       ),
       appBarTheme: AppBarTheme(
         elevation: 0,
@@ -139,23 +139,19 @@ class AppTheme {
         ),
       ),
       radioTheme: RadioThemeData(
-        fillColor: MaterialStateProperty.all(foreground.active),
+        fillColor: MaterialStateProperty.all(AppThemeBase.colorPrimaryMedium),
         overlayColor: MaterialStateProperty.all(foreground.disabled),
       ),
       disabledColor: foreground.soft,
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 1.0,
-            color: colorPalette.secondary[50]!,
-          ),
+          borderSide: const BorderSide(
+              width: 1.0, color: AppThemeBase.colorNeutralLightmodeLightest),
           borderRadius: BorderRadius.circular(Dimension.xs.value),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 1.0,
-            color: colorPalette.secondary[50]!,
-          ),
+          borderSide: const BorderSide(
+              width: 1.0, color: AppThemeBase.colorNeutralLightmodeLightest),
           borderRadius: BorderRadius.circular(Dimension.xs.value),
         ),
         focusedBorder: OutlineInputBorder(
@@ -170,27 +166,32 @@ class AppTheme {
           borderRadius: BorderRadius.circular(Dimension.xs.value),
         ),
         labelStyle: TextStyle(
+          color: AppThemeBase.colorPrimaryDark,
           fontWeight: AppFontWeight.regular.value,
           fontSize: AppFontSize.body2.value,
           height: AppLineHeight.sm.value,
+          fontFamily: 'Roboto'
         ),
         hintStyle: TextStyle(
           color: foreground.disabled,
-          // fontWeight: AppFontWeight.regular.value,
-          // fontSize: AppFontSize.body1.value,
-          // height: AppLineHeight.sm.value,
+          fontWeight: AppFontWeight.regular.value,
+          fontSize: AppFontSize.body2.value,
+          height: AppLineHeight.sm.value,
+          fontFamily: 'Roboto'
         ),
         helperStyle: TextStyle(
           color: foreground.active,
-          // fontWeight: AppFontWeight.regular.value,
-          // fontSize: AppFontSize.caption.value,
-          // height: AppLineHeight.xs.value,
+          fontWeight: AppFontWeight.regular.value,
+          fontSize: AppFontSize.caption.value,
+          height: AppLineHeight.xs.value,
+          fontFamily: 'Roboto'
         ),
         errorStyle: TextStyle(
           color: colorPalette.deepOrange,
-          // fontWeight: AppFontWeight.regular.value,
-          // fontSize: AppFontSize.caption.value,
-          // height: AppLineHeight.xs.value,
+          fontWeight: AppFontWeight.regular.value,
+          fontSize: AppFontSize.caption.value,
+          height: AppLineHeight.xs.value,
+          fontFamily: 'Roboto'
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -217,9 +218,7 @@ class AppTheme {
             return invertedForeground.active;
           }),
           textStyle: MaterialStateProperty.all(
-            appTextStyle.buttonMedium.copyWith(
-              height: AppLineHeight.md.value,
-            ),
+            appTextStyle.buttonMedium.copyWith(fontFamily: 'Roboto'),
           ),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
@@ -234,6 +233,9 @@ class AppTheme {
               vertical: Dimension.sm.height,
               horizontal: Dimension.xl.width,
             ),
+          ),
+          textStyle: MaterialStateProperty.all(
+            appTextStyle.buttonMedium.copyWith(fontFamily: 'Roboto'),
           ),
           backgroundColor: MaterialStateProperty.all(Colors.transparent),
           side: MaterialStateProperty.all(
@@ -284,11 +286,10 @@ class AppTheme {
         ),
         showCheckmark: false,
         labelStyle: appTextStyle.calloutMedium.copyWith(
-
-            /// Figma has 1.5 as line height. With this setting in Flutter,
-            /// the text renders decentralized. Changed to 1.0 to fix this.
-            // height: AppLineHeight.xs.value,
-            ),
+          /// Figma has 1.5 as line height. With this setting in Flutter,
+          /// the text renders decentralized. Changed to 1.0 to fix this.
+          height: AppLineHeight.xs.value,
+        ),
         selectedColor: foreground.active,
       ),
       tabBarTheme: TabBarTheme(

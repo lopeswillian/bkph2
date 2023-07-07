@@ -179,7 +179,6 @@ class ContainedButton extends StatelessWidget {
           end: Alignment.bottomCenter,
         ),
       ),
-      height: minimumHeight,
       child: ElevatedButton(
         onPressed: enabled ? onPressed : null,
         style: style ??

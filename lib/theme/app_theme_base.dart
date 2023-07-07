@@ -371,7 +371,7 @@ class AppThemeBase {
   );
 
   /// fontFamily
-  static String get fontFamily => 'Source Sans Pro';
+  static String get fontFamily => 'Poppins';
 
   ///fontWeightBold
   static FontWeight get fontWeightBold => FontWeight.w700;

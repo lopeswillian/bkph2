@@ -451,7 +451,7 @@ extension InputDecorationThemeExtension on InputDecorationTheme {
         fontWeight: AppThemeBase.fontWeightBold,
         // Font size changes automatically on focus.
         // Changing this causes a strange behavior on TextField...
-        // fontSize: AppThemeBase.fontSizeBody2,
+        fontSize: AppThemeBase.fontSizeBody2,
       );
 }
 
@@ -520,14 +520,14 @@ class AppThemeFactory {
   /// Creates a Light Theme
   static ThemeData createLightTheme() {
     /// Builds the new theming text styles to load the [AppTextStyle] extension.
-    // final foreground = LightForeground();
-    // final textTheme = TypographyBuilder.buildTextTheme(
-    //   foreground.active,
-    //   DarkForeground().active,
-    // );
+    final foreground = LightForeground();
+    final textTheme = TypographyBuilder.buildTextTheme(
+      foreground.active,
+      DarkForeground().active,
+    );
 
-    // final appTextStyle =
-    //     TypographyBuilder.buildAppTextStyle(textTheme, foreground);
+    final appTextStyle =
+        TypographyBuilder.buildAppTextStyle(textTheme, foreground);
 
     return ThemeData(
       useMaterial3: true,
@@ -538,7 +538,7 @@ class AppThemeFactory {
       canvasColor: AppThemeBase.colorPrimarySuperlight,
 
       /// If this extension is not in the theme context, some widgets may crash.
-      // extensions: [appTextStyle],
+      extensions: [appTextStyle],
       iconTheme: IconThemeData(
         color: AppThemeBase.colorPrimaryDark,
         size: AppThemeBase.fontSizeButton,
@@ -567,7 +567,7 @@ class AppThemeFactory {
       ),
       radioTheme: RadioThemeData(
         fillColor: MaterialStateProperty.all(
-          AppThemeBase.colorPrimaryDark,
+          AppThemeBase.colorPrimaryMedium,
         ),
         overlayColor: MaterialStateProperty.all(
           AppThemeBase.colorNeutralLightmodeLight,
