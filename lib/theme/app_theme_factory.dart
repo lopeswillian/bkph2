@@ -555,7 +555,7 @@ class AppThemeFactory {
           AppThemeBase.colorPrimarySuperlight,
         ),
         fillColor: MaterialStateProperty.all(
-          AppThemeBase.colorPrimaryDark,
+          AppThemeBase.colorPrimaryInDark,
         ),
         side: const BorderSide(
           color: AppThemeBase.colorNeutralLightmodeLight,

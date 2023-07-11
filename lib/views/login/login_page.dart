@@ -1,5 +1,4 @@
 import 'package:apph2/base_app_module_routing.dart';
-import 'package:apph2/domain/entities/login_params.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
@@ -116,7 +115,7 @@ class _LoginPageState extends ViewState<LoginPage, LoginViewModel> {
                 //   );
                 // },
                 onPressed: () => Nav.pushNamed(
-                  BaseAppModuleRouting.verifyPage.completePath,
+                  BaseAppModuleRouting.hiringSumaryPage,
                 ),
                 text: "Entrar",
               ),

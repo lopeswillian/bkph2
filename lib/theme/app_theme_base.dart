@@ -17,6 +17,9 @@ class AppThemeBase {
   /// colorPrimaryDarkest
   static const Color colorPrimaryDark = Color(0xFF00092A);
 
+  /// colorPrimaryDarkes
+  static const Color colorPrimaryInDark = Color(0xFF071F77);
+
   /// colorPrimaryMedium
   static const Color colorPrimaryMedium = Color(0xFF166FED);
 

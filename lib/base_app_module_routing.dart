@@ -1,10 +1,15 @@
 import 'package:apph2/main.dart';
 import 'package:apph2/theme/theme.dart';
+import 'package:apph2/views/h2pay/hiring/hiring_conditions_page.dart';
+import 'package:apph2/views/h2pay/hiring/hiring_finish_page.dart';
+import 'package:apph2/views/h2pay/hiring/hiring_page.dart';
+import 'package:apph2/views/h2pay/hiring/hiring_sms_page.dart';
 import 'package:apph2/views/h2pay/verify/verify_complement_page.dart';
 import 'package:apph2/views/h2pay/verify/verify_document_page.dart';
 import 'package:apph2/views/h2pay/verify/verify_page.dart';
 import 'package:apph2/views/h2pay/verify/verify_sms_page.dart';
 import 'package:apph2/views/h2pay/verify/verify_terms_page.dart';
+import 'package:apph2/views/h2pay/verify/verify_validate_document_page.dart';
 import 'package:apph2/views/product/list_product_page.dart';
 import 'package:apph2/views/product/list_schedule_page.dart';
 import 'package:apph2/views/product/schedule_page.dart';
@@ -67,6 +72,23 @@ abstract class BaseAppModuleRouting {
 
   /// VerifyComplementPage
   static const BasePath verifyDocumentPage = BasePath('/VerifyDocumentPage');
+
+  /// VerifyValidateDocumentPage
+  static const BasePath verifyValidateDocumentPage =
+      BasePath('/VerifyValidateDocumentPage');
+
+  /// VerifyValidateDocumentPage
+  static const BasePath hiringSumaryPage = BasePath('/hiringSumaryPage');
+
+  /// HiringConditionsPage
+  static const BasePath hiringConditionsPage = BasePath('/hiringConditionsPage');
+
+  /// HiringSmsPage
+  static const BasePath hiringSmsPage = BasePath('/hiringSmsPage');
+
+  /// HiringFinishPage
+  static const BasePath hiringFinishPage = BasePath('/hiringFinishPage');
+
 
   ///
   /// Module routes definitions
@@ -157,6 +179,26 @@ abstract class BaseAppModuleRouting {
         ChildRoute(
           verifyDocumentPage.path,
           child: (_, __) => const VerifyDocumentPage(),
+        ),
+        ChildRoute(
+          verifyValidateDocumentPage.path,
+          child: (_, __) => const VerifyValidateDocumentPage(),
+        ),
+        ChildRoute(
+          hiringSumaryPage.path,
+          child: (_, __) => const HiringPage(),
+        ),
+        ChildRoute(
+          hiringConditionsPage.path,
+          child: (_, __) => const HiringConditionsPage(),
+        ),
+        ChildRoute(
+          hiringSmsPage.path,
+          child: (_, __) => const HiringSmsPage(),
+        ),
+        ChildRoute(
+          hiringFinishPage.path,
+          child: (_, __) => const HiringFinishPage(),
         ),
       ];
 }

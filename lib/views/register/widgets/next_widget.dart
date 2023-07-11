@@ -17,41 +17,39 @@ class NextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: Dimension.sm.width,
-          vertical: Dimension.md.height,
-        ),
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            children: [
-              if (topWidget != null) topWidget!,
-              if (topWidget != null) const Dimension(3.75).vertical,
-              ContainedButton.large(
-                onPressed: () => {action!()},
-                padding: EdgeInsets.only(
-                  right: const Dimension(1.375).width,
-                  left: const Dimension(2.5).width,
-                  top: Dimension.sm.height,
-                  bottom: Dimension.sm.height,
-                ),
-                child:  Row(
-                  children: [
-                    Text(
-                      "Avançar",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.fontSize,
-                      ),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: Dimension.sm.width,
+        vertical: Dimension.md.height,
+      ),
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            if (topWidget != null) topWidget!,
+            if (topWidget != null) const Dimension(3.75).vertical,
+            ContainedButton.large(
+              onPressed: () => {action!()},
+              padding: EdgeInsets.only(
+                right: const Dimension(1.375).width,
+                left: const Dimension(2.5).width,
+                top: Dimension.sm.height,
+                bottom: Dimension.sm.height,
+              ),
+              child:  Row(
+                children: [
+                  Text(
+                    title,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.fontSize,
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );

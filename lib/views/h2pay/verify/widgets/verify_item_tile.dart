@@ -46,8 +46,9 @@ class VerifyItemTile extends StatelessWidget {
             : AppThemeBase.colorSecondary02,
       ),
       padding: EdgeInsets.symmetric(
-          horizontal: Dimension.sm.width,
-          vertical: const Dimension(2.5).height),
+        horizontal: Dimension.sm.width,
+        vertical: Dimension.sm.height,
+      ),
       child: Row(
         children: [
           SvgPicture.string(svgItem),
@@ -59,7 +60,7 @@ class VerifyItemTile extends StatelessWidget {
                 title,
                 style: context.text.body1Bold,
               ),
-              const Dimension(1.25).vertical,
+              Dimension.xxs.vertical,
               Text(
                 subTitle,
                 style: context.text.caption,

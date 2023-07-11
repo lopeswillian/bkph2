@@ -3,6 +3,7 @@ import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/views/h2pay/verify/widgets/widgets.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class VerifyDocumentPage extends StatefulWidget {
@@ -56,12 +57,33 @@ class _VerifyDocumentPageState extends State<VerifyDocumentPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Dimension.xl.vertical,
-                            Text(
-                              '2. Captura do documento',
-                              style: TextStyle(
-                                fontSize: 19.fontSize,
-                                fontWeight: FontWeight.w600,
-                              ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '2.',
+                                  style: TextStyle(
+                                    fontSize: 19.fontSize,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                Dimension.xxs.horizontal,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Captura do documento',
+                                      style: TextStyle(
+                                        fontSize: 19.fontSize,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    Dimension.xxs.vertical,
+                                    Text('Tenha em mãos o seu RG ou CNH',
+                                        style: context.text.caption),
+                                  ],
+                                )
+                              ],
                             ),
                             Dimension.md.vertical,
                             const Divider(),
@@ -93,9 +115,44 @@ class _VerifyDocumentPageState extends State<VerifyDocumentPage> {
                   child: Container(
                     color: Colors.white,
                     child: NextWidget(
+                      topWidget: Row(
+                        children: [
+                          Checkbox(value: true, onChanged: (_) {}),
+                          Expanded(
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text:
+                                        'Sim, quero verificar minha identidade.\n',
+                                    style: context.text.caption
+                                  ),
+                                  TextSpan(
+                                    text: 'Eu li e aceito os ',
+                                    style: context.text.caption
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        'termos de uso e políticas de privacidade',
+                                    style: context.text.caption.copyWith(
+                                      decoration: TextDecoration.underline
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = (){Nav.pop();},
+                                  ),
+                                  TextSpan(
+                                    text: '.',
+                                    style: context.text.caption
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                       title: 'Avançar',
                       action: () {
-                        Nav.pushNamed(BaseAppModuleRouting.verifySmsPage);
+                        Nav.pushNamed(BaseAppModuleRouting.verifyValidateDocumentPage);
                       },
                     ),
                   ),

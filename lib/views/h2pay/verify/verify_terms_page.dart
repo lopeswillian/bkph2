@@ -148,24 +148,6 @@ Para os fins deste documento, devem se considerar as seguintes definições e de
                                 textAlign: TextAlign.justify,
                               ),
                             ),
-                            Dimension.sm.vertical,
-                            Text(
-                              'Insira o código de 4 números',
-                              style: context.textTheme.bodySmall!.copyWith(
-                                  color: AppThemeBase.colorSecondary04,
-                                  fontWeight: FontWeight.normal),
-                            ),
-                            Dimension.md.vertical,
-                            TextButton(
-                              child: Text(
-                                'Não recebeu nenhum código? Reenviar',
-                                style: TextStyle(
-                                  color: context.colorScheme.colorPrimaryMedium,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                              onPressed: () {},
-                            ),
                           ],
                         ),
                       ),
