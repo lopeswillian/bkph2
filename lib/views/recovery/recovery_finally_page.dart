@@ -15,8 +15,12 @@ class _RecoveryFinallyPageState extends State<RecoveryFinallyPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3)).then((value) =>
-        Nav.pushNamedAndRemoveUntil(BaseAppModuleRouting.root, (p0) => false));
+    Future.delayed(const Duration(seconds: 3)).then(
+      (value) => Nav.pushNamedAndRemoveUntil(
+        BaseAppModuleRouting.root,
+        (p0) => false,
+      ),
+    );
   }
 
   @override

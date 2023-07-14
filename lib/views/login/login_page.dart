@@ -1,4 +1,5 @@
 import 'package:apph2/base_app_module_routing.dart';
+import 'package:apph2/domain/entities/entities.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
@@ -20,7 +21,7 @@ class _LoginPageState extends ViewState<LoginPage, LoginViewModel> {
   Widget build(BuildContext context) {
     return ViewModelConsumer<LoginViewModel, LoginState>(
       viewModel: viewModel,
-      listenWhen: (previous, current) => previous.error != previous.error,
+      listenWhen: (previous, current) => previous.error != current.error,
       listener: (context, state) => {},
       builder: _buildPage,
     );
@@ -31,14 +32,10 @@ class _LoginPageState extends ViewState<LoginPage, LoginViewModel> {
     final password = TextEditingController();
     return Column(
       children: [
-        Container(
-          color: Colors.transparent,
-          height: 1,
-        ),
         SvgPicture.asset(
           'assets/images/login_image.svg',
-          width: const Dimension(65).width, //520
-          height: const Dimension(36.75).height, //294,
+          width: const Dimension(46.875).width,
+          height: const Dimension(26.25).height,
         ),
         Dimension.xxl.vertical,
         Padding(
@@ -56,48 +53,68 @@ class _LoginPageState extends ViewState<LoginPage, LoginViewModel> {
                 ),
               ),
               Dimension.sm.vertical,
-              CustomTextFormField(
-                obscureText: true,
-                controller: password,
-                labelText: 'Senha',
-                suffixAction: const IconButton(
-                  onPressed: null,
-                  icon: Icon(Icons.visibility),
-                ),
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: Dimension.sm.width,
-                  vertical: Dimension.sm.width,
-                ),
-              ),
-              Row(
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      Nav.pushNamed(BaseAppModuleRouting.recovery);
-                    },
-                    style: ButtonStyle(
-                      padding:
-                          MaterialStateProperty.resolveWith<EdgeInsetsGeometry>(
-                        (Set<MaterialState> states) {
-                          return EdgeInsets.only(left: Dimension.sm.width);
-                        },
+              SizedBox(
+                height: const Dimension(12).height,
+                child: Column(
+                  children: [
+                    CustomTextFormField(
+                      obscureText: true,
+                      controller: password,
+                      labelText: 'Senha',
+                      suffixAction: const IconButton(
+                        onPressed: null,
+                        icon: Icon(Icons.visibility),
                       ),
-                      alignment: Alignment.centerLeft,
-                      foregroundColor: MaterialStateProperty.resolveWith<Color>(
-                        (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.disabled)) {
-                            return Colors.grey;
-                          }
-                          return context.colorScheme.colorPrimaryLight;
-                        },
+                      errorMessage:
+                          state.error != '' ? 'Senha incorreta' : null,
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: Dimension.sm.width,
+                        vertical: Dimension.sm.width,
                       ),
                     ),
-                    child: const Text(
-                      'Esqueci minha senha',
-                      textAlign: TextAlign.left,
+                    Visibility(
+                      visible: state.error == '',
+                      child: Row(
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Nav.pushNamed(BaseAppModuleRouting.recovery);
+                            },
+                            style: ButtonStyle(
+                              visualDensity: VisualDensity.compact,
+                              padding: MaterialStateProperty.resolveWith<
+                                  EdgeInsetsGeometry>(
+                                (Set<MaterialState> states) {
+                                  return EdgeInsets.only(
+                                    left: Dimension.sm.width,
+                                    top: 0,
+                                  );
+                                },
+                              ),
+                              alignment: Alignment.centerLeft,
+                              foregroundColor:
+                                  MaterialStateProperty.resolveWith<Color>(
+                                (Set<MaterialState> states) {
+                                  if (states.contains(MaterialState.disabled)) {
+                                    return Colors.grey;
+                                  }
+                                  return context.colorScheme.colorPrimaryLight;
+                                },
+                              ),
+                            ),
+                            child: Text(
+                              'Esqueci minha senha',
+                              style: context.text.caption.copyWith(
+                                color: context.colorScheme.colorPrimaryLight,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Dimension.xl.vertical,
               ContainedButton.large(
@@ -105,18 +122,15 @@ class _LoginPageState extends ViewState<LoginPage, LoginViewModel> {
                   color: Colors.white,
                   fontSize: 20.fontSize,
                 ),
-                // onPressed: () {
-                //   final loginParams = LoginParams(
-                //     identifier: identifier.text,
-                //     password: password.text,
-                //   );
-                //   viewModel.login(
-                //     loginParams: loginParams,
-                //   );
-                // },
-                onPressed: () => Nav.pushNamed(
-                  BaseAppModuleRouting.hiringSumaryPage,
-                ),
+                onPressed: () {
+                  final loginParams = LoginParams(
+                    identifier: identifier.text,
+                    password: password.text,
+                  );
+                  viewModel.login(
+                    loginParams: loginParams,
+                  );
+                },
                 text: "Entrar",
               ),
               Dimension.sm.vertical,

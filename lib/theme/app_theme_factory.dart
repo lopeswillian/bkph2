@@ -546,7 +546,7 @@ class AppThemeFactory {
       appBarTheme: const AppBarTheme(
         elevation: 0,
         iconTheme: IconThemeData(
-          color: AppThemeBase.colorPrimaryDark,
+          color: AppThemeBase.colorPrimarySuperlight,
         ),
       ),
       dividerColor: AppThemeBase.colorNeutralLightmodeLightest,

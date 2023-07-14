@@ -1,6 +1,8 @@
 import 'package:apph2/data/datasources/auth_remote_datasource.dart';
 import 'package:apph2/data/models/request/auth/auth.dart';
+import 'package:apph2/data/models/request/auth/recovery_params_model.dart';
 import 'package:apph2/domain/entities/entities.dart';
+import 'package:apph2/domain/entities/recovery_params.dart';
 import 'package:apph2/domain/failures/h2_failure.dart';
 import 'package:apph2/domain/repositories/auth_repository.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
@@ -18,6 +20,20 @@ class AuthRepository implements IAuthRepository {
     try {
       var res = await datasource.login(LoginParamsModel.fromEntity(params));
       return Right(res.toEntity());
+    } on IHttpException{
+      return const Left(H2Failure.unexpected());
+    } on Exception {
+      return const Left(H2Failure.unexpected());
+    }
+  }
+
+  @override
+  Future<Either<H2Failure, Unit>> recovery(
+    RecoveryParams params,
+  ) async {
+    try {
+      await datasource.recovery(RecoveryParamsModel.fromEntity(params));
+      return const Right(unit);
     } on IHttpException{
       return const Left(H2Failure.unexpected());
     } on Exception {

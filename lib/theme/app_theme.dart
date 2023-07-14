@@ -115,9 +115,10 @@ class AppTheme {
       appBarTheme: AppBarTheme(
         elevation: 0,
         titleTextStyle: appTextStyle.calloutMedium.copyWith(
-            height: AppLineHeight.xs.value,
-            color: Colors.white,
-            fontSize: 20.fontSize),
+          height: AppLineHeight.xs.value,
+          color: Colors.white,
+          fontSize: 20.fontSize,
+        ),
         systemOverlayStyle: brightness == Brightness.dark
             ? SystemUiOverlayStyle.light
             : SystemUiOverlayStyle.dark,
@@ -166,33 +167,29 @@ class AppTheme {
           borderRadius: BorderRadius.circular(Dimension.xs.value),
         ),
         labelStyle: TextStyle(
-          color: AppThemeBase.colorPrimaryDark,
-          fontWeight: AppFontWeight.regular.value,
-          fontSize: AppFontSize.body2.value,
-          height: AppLineHeight.sm.value,
-          fontFamily: 'Roboto'
-        ),
+            color: AppThemeBase.colorPrimaryDark,
+            fontWeight: AppFontWeight.regular.value,
+            fontSize: AppFontSize.body2.value,
+            height: AppLineHeight.sm.value,
+            fontFamily: 'Roboto'),
         hintStyle: TextStyle(
-          color: foreground.disabled,
-          fontWeight: AppFontWeight.regular.value,
-          fontSize: AppFontSize.body2.value,
-          height: AppLineHeight.sm.value,
-          fontFamily: 'Roboto'
-        ),
+            color: foreground.disabled,
+            fontWeight: AppFontWeight.regular.value,
+            fontSize: AppFontSize.body2.value,
+            height: AppLineHeight.sm.value,
+            fontFamily: 'Roboto'),
         helperStyle: TextStyle(
-          color: foreground.active,
-          fontWeight: AppFontWeight.regular.value,
-          fontSize: AppFontSize.caption.value,
-          height: AppLineHeight.xs.value,
-          fontFamily: 'Roboto'
-        ),
+            color: foreground.active,
+            fontWeight: AppFontWeight.regular.value,
+            fontSize: AppFontSize.caption.value,
+            height: AppLineHeight.xs.value,
+            fontFamily: 'Roboto'),
         errorStyle: TextStyle(
-          color: colorPalette.deepOrange,
-          fontWeight: AppFontWeight.regular.value,
-          fontSize: AppFontSize.caption.value,
-          height: AppLineHeight.xs.value,
-          fontFamily: 'Roboto'
-        ),
+            color: colorPalette.deepOrange,
+            fontWeight: AppFontWeight.regular.value,
+            fontSize: AppFontSize.caption.value,
+            height: AppLineHeight.xs.value,
+            fontFamily: 'Roboto'),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(

@@ -1,9 +1,23 @@
 import 'package:apph2/main.dart';
 import 'package:apph2/theme/theme.dart';
+import 'package:apph2/views/h2pay/h2pay_home_page.dart';
 import 'package:apph2/views/h2pay/hiring/hiring_conditions_page.dart';
 import 'package:apph2/views/h2pay/hiring/hiring_finish_page.dart';
 import 'package:apph2/views/h2pay/hiring/hiring_page.dart';
 import 'package:apph2/views/h2pay/hiring/hiring_sms_page.dart';
+import 'package:apph2/views/h2pay/payment/company/company_account_page.dart';
+import 'package:apph2/views/h2pay/payment/company/company_detail_page.dart';
+import 'package:apph2/views/h2pay/payment/company/company_doc_page.dart';
+import 'package:apph2/views/h2pay/payment/company/company_page.dart';
+import 'package:apph2/views/h2pay/payment/company/company_payment_page.dart';
+import 'package:apph2/views/h2pay/payment/company/company_payment_third_page.dart';
+import 'package:apph2/views/h2pay/payment/company/company_person_doc_page.dart';
+import 'package:apph2/views/h2pay/payment/company/company_resource_page.dart';
+import 'package:apph2/views/h2pay/payment/payment_account_page.dart';
+import 'package:apph2/views/h2pay/payment/payment_finish_page.dart';
+import 'package:apph2/views/h2pay/payment/payment_page.dart';
+import 'package:apph2/views/h2pay/payment/payment_term_page.dart';
+import 'package:apph2/views/h2pay/payment/person/person_payment_page.dart';
 import 'package:apph2/views/h2pay/verify/verify_complement_page.dart';
 import 'package:apph2/views/h2pay/verify/verify_document_page.dart';
 import 'package:apph2/views/h2pay/verify/verify_page.dart';
@@ -29,6 +43,9 @@ import 'infraestructure/infraestructure.dart';
 abstract class BaseAppModuleRouting {
   /// module
   static const BasePath root = BasePath('/home');
+
+  /// Home page h2pay
+  static const BasePath h2pay = BasePath('/h2PayHomePage');
 
   /// register step1
   static const BasePath registerStep1 = BasePath('/register_step1');
@@ -81,7 +98,8 @@ abstract class BaseAppModuleRouting {
   static const BasePath hiringSumaryPage = BasePath('/hiringSumaryPage');
 
   /// HiringConditionsPage
-  static const BasePath hiringConditionsPage = BasePath('/hiringConditionsPage');
+  static const BasePath hiringConditionsPage =
+      BasePath('/hiringConditionsPage');
 
   /// HiringSmsPage
   static const BasePath hiringSmsPage = BasePath('/hiringSmsPage');
@@ -89,6 +107,46 @@ abstract class BaseAppModuleRouting {
   /// HiringFinishPage
   static const BasePath hiringFinishPage = BasePath('/hiringFinishPage');
 
+  /// PaymentPage
+  static const BasePath paymentPage = BasePath('/paymentPage');
+
+  /// Route to select type of account
+  static const BasePath paymentAccountPage = BasePath('/paymentAccountPage');
+
+  /// Route to person payment
+  static const BasePath personPaymentPage = BasePath('/personPaymentPage');
+
+  /// Route to finish payment
+  static const BasePath paymentFinishPage = BasePath('/paymentFinishPage');
+
+  /// Route to list companies of user
+  static const BasePath companyPage = BasePath('/companyPage');
+
+  /// Route select payment company
+  static const BasePath companyPaymentPage = BasePath('/companyPaymentPage');
+
+  /// Route to default term of payment company
+  static const BasePath paymentTermPage = BasePath('/paymentTermPage');
+
+  /// Route to first screen of my company
+  static const BasePath companyDetailPage = BasePath('/companyDetailPage');
+
+  /// Resource of third
+  static const BasePath companyResourcePage = BasePath('/companyResourcePage');
+
+  /// Resource of third account type
+  static const BasePath companyAccountPage = BasePath('/companyAccountPage');
+
+  /// Resource of third document of person
+  static const BasePath companyPersonDocPage =
+      BasePath('/companyPersonDocPage');
+
+  /// Resource of third document of person
+  static const BasePath companyDocPage = BasePath('/companyDocPage');
+
+  /// Resource of third payment page
+  static const BasePath companyPaymentThirdPage =
+      BasePath('/companyPaymentThirdPage');
 
   ///
   /// Module routes definitions
@@ -111,8 +169,12 @@ abstract class BaseAppModuleRouting {
           root.path,
           transition: TransitionType.noTransition,
           child: (_, __) => const MyHomePage(
-            title: 'Aloww',
+            title: 'HomePage',
           ),
+        ),
+        ChildRoute(
+          h2pay.path,
+          child: (_, __) => const H2PayHomePage(),
         ),
         ChildRoute(
           registerStep1.path,
@@ -148,9 +210,7 @@ abstract class BaseAppModuleRouting {
         ),
         ChildRoute(
           listProduct.path,
-          child: (_, __) => const ListProductPage(
-            title: "Produtos",
-          ),
+          child: (_, __) => const ListProductPage(),
         ),
         ChildRoute(
           listSchedule.path,
@@ -199,6 +259,62 @@ abstract class BaseAppModuleRouting {
         ChildRoute(
           hiringFinishPage.path,
           child: (_, __) => const HiringFinishPage(),
+        ),
+        ChildRoute(
+          paymentPage.path,
+          child: (_, __) => const PaymentPage(),
+        ),
+        ChildRoute(
+          paymentAccountPage.path,
+          child: (_, __) => const PaymentAccountPage(),
+        ),
+        ChildRoute(
+          personPaymentPage.path,
+          child: (_, __) => const PersonPaymentPage(),
+        ),
+        ChildRoute(
+          paymentFinishPage.path,
+          child: (_, __) => const PaymentFinishPage(),
+        ),
+        ChildRoute(
+          companyPage.path,
+          child: (_, __) => const CompanyPage(),
+        ),
+        ChildRoute(
+          companyPaymentPage.path,
+          child: (_, __) => const CompanyPaymentPage(),
+        ),
+        ChildRoute(
+          paymentTermPage.path,
+          child: (_, __) => const PaymentTermPage(),
+        ),
+        ChildRoute(
+          companyDetailPage.path,
+          child: (_, __) => const CompanyDetailPage(),
+        ),
+        ChildRoute(
+          companyResourcePage.path,
+          child: (_, args) => CompanyResourcePage(arguments: args.data),
+        ),
+        ChildRoute(
+          companyAccountPage.path,
+          child: (_, args) => CompanyAccountPage(arguments: args.data),
+        ),
+        ChildRoute(
+          companyPersonDocPage.path,
+          child: (_, args) => CompanyPersonDocPage(
+            arguments: args.data,
+          ),
+        ),
+        ChildRoute(
+          companyDocPage.path,
+          child: (_, args) => CompanyDocPage(
+            arguments: args.data,
+          ),
+        ),
+        ChildRoute(
+          companyPaymentThirdPage.path,
+          child: (_, args) => CompanyPaymentThirdPage(arguments: args.data),
         ),
       ];
 }

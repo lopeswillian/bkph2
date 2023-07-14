@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'login_state.dart';
+part of 'recovery_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,29 +15,29 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$LoginState {
+mixin _$RecoveryState {
   bool get loading => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
-  String get token => throw _privateConstructorUsedError;
+  bool get success => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $LoginStateCopyWith<LoginState> get copyWith =>
+  $RecoveryStateCopyWith<RecoveryState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LoginStateCopyWith<$Res> {
-  factory $LoginStateCopyWith(
-          LoginState value, $Res Function(LoginState) then) =
-      _$LoginStateCopyWithImpl<$Res, LoginState>;
+abstract class $RecoveryStateCopyWith<$Res> {
+  factory $RecoveryStateCopyWith(
+          RecoveryState value, $Res Function(RecoveryState) then) =
+      _$RecoveryStateCopyWithImpl<$Res, RecoveryState>;
   @useResult
-  $Res call({bool loading, String error, String token});
+  $Res call({bool loading, String error, bool success});
 }
 
 /// @nodoc
-class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
-    implements $LoginStateCopyWith<$Res> {
-  _$LoginStateCopyWithImpl(this._value, this._then);
+class _$RecoveryStateCopyWithImpl<$Res, $Val extends RecoveryState>
+    implements $RecoveryStateCopyWith<$Res> {
+  _$RecoveryStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -49,7 +49,7 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
   $Res call({
     Object? loading = null,
     Object? error = null,
-    Object? token = null,
+    Object? success = null,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -60,31 +60,31 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
-      token: null == token
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
-              as String,
+      success: null == success
+          ? _value.success
+          : success // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_LoginStateCopyWith<$Res>
-    implements $LoginStateCopyWith<$Res> {
-  factory _$$_LoginStateCopyWith(
-          _$_LoginState value, $Res Function(_$_LoginState) then) =
-      __$$_LoginStateCopyWithImpl<$Res>;
+abstract class _$$_RecoveryStateCopyWith<$Res>
+    implements $RecoveryStateCopyWith<$Res> {
+  factory _$$_RecoveryStateCopyWith(
+          _$_RecoveryState value, $Res Function(_$_RecoveryState) then) =
+      __$$_RecoveryStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, String error, String token});
+  $Res call({bool loading, String error, bool success});
 }
 
 /// @nodoc
-class __$$_LoginStateCopyWithImpl<$Res>
-    extends _$LoginStateCopyWithImpl<$Res, _$_LoginState>
-    implements _$$_LoginStateCopyWith<$Res> {
-  __$$_LoginStateCopyWithImpl(
-      _$_LoginState _value, $Res Function(_$_LoginState) _then)
+class __$$_RecoveryStateCopyWithImpl<$Res>
+    extends _$RecoveryStateCopyWithImpl<$Res, _$_RecoveryState>
+    implements _$$_RecoveryStateCopyWith<$Res> {
+  __$$_RecoveryStateCopyWithImpl(
+      _$_RecoveryState _value, $Res Function(_$_RecoveryState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,9 +92,9 @@ class __$$_LoginStateCopyWithImpl<$Res>
   $Res call({
     Object? loading = null,
     Object? error = null,
-    Object? token = null,
+    Object? success = null,
   }) {
-    return _then(_$_LoginState(
+    return _then(_$_RecoveryState(
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -103,18 +103,19 @@ class __$$_LoginStateCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
-      token: null == token
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
-              as String,
+      success: null == success
+          ? _value.success
+          : success // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_LoginState implements _LoginState {
-  const _$_LoginState({this.loading = false, this.error = '', this.token = ''});
+class _$_RecoveryState implements _RecoveryState {
+  const _$_RecoveryState(
+      {this.loading = false, this.error = '', this.success = false});
 
   @override
   @JsonKey()
@@ -124,47 +125,47 @@ class _$_LoginState implements _LoginState {
   final String error;
   @override
   @JsonKey()
-  final String token;
+  final bool success;
 
   @override
   String toString() {
-    return 'LoginState(loading: $loading, error: $error, token: $token)';
+    return 'RecoveryState(loading: $loading, error: $error, success: $success)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LoginState &&
+            other is _$_RecoveryState &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error) &&
-            (identical(other.token, token) || other.token == token));
+            (identical(other.success, success) || other.success == success));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading, error, token);
+  int get hashCode => Object.hash(runtimeType, loading, error, success);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LoginStateCopyWith<_$_LoginState> get copyWith =>
-      __$$_LoginStateCopyWithImpl<_$_LoginState>(this, _$identity);
+  _$$_RecoveryStateCopyWith<_$_RecoveryState> get copyWith =>
+      __$$_RecoveryStateCopyWithImpl<_$_RecoveryState>(this, _$identity);
 }
 
-abstract class _LoginState implements LoginState {
-  const factory _LoginState(
+abstract class _RecoveryState implements RecoveryState {
+  const factory _RecoveryState(
       {final bool loading,
       final String error,
-      final String token}) = _$_LoginState;
+      final bool success}) = _$_RecoveryState;
 
   @override
   bool get loading;
   @override
   String get error;
   @override
-  String get token;
+  bool get success;
   @override
   @JsonKey(ignore: true)
-  _$$_LoginStateCopyWith<_$_LoginState> get copyWith =>
+  _$$_RecoveryStateCopyWith<_$_RecoveryState> get copyWith =>
       throw _privateConstructorUsedError;
 }

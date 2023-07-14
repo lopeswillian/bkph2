@@ -3,8 +3,10 @@ import 'dart:io' as io;
 import 'package:apph2/data/data.dart';
 import 'package:apph2/infraestructure/http/http_adapter.dart';
 import 'package:apph2/theme/theme.dart';
+import 'package:apph2/usecases/login_recovery_usecase.dart';
 import 'package:apph2/usecases/login_with_credentials_usecase.dart';
 import 'package:apph2/views/login/login_viewmodel.dart';
+import 'package:apph2/views/recovery/recovery_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -25,17 +27,19 @@ class BaseAppModuleBindings {
       ];
 
   static List<Bind> get _datasources => [
-        Bind.lazySingleton<IAuthDatasource>((i) => AuthDatasource(
-              HttpAdapter(
-                client: io.HttpClient(),
-                baseUrl: "https://a89f1fa024.nxcli.io/",
-                apiVersion: 'v1',
-                headers: {
-                  'Authorization':
-                      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJiZGMzMmM3MGEwZTRjMjJlM2IwZjBmN2VhNTFlNzYifQ',
-                },
-              ),
-            ))
+        Bind.lazySingleton<IAuthDatasource>(
+          (i) => AuthDatasource(
+            HttpAdapter(
+              client: io.HttpClient(),
+              baseUrl: "https://a89f1fa024.nxcli.io/",
+              apiVersion: 'v1',
+              headers: {
+                'Authorization':
+                    'Bearer eyJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJiZGMzMmM3MGEwZTRjMjJlM2IwZjBmN2VhNTFlNzYifQ',
+              },
+            ),
+          ),
+        ),
       ];
 
   static List<Bind> get _repositories => [
@@ -55,12 +59,20 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<ILoginWithCredentialsUsecase>(
           (i) => LoginWithCredentialsUsecase(i.get<IAuthRepository>()),
         ),
+        Bind.lazySingleton<ILoginRecoveryUsecase>(
+          (i) => LoginRecoveryUsecase(i.get<IAuthRepository>()),
+        ),
       ];
 
   static List<Bind> get _viewModels => [
         Bind.lazySingleton<LoginViewModel>(
           (i) => LoginViewModel(
             i.get<ILoginWithCredentialsUsecase>(),
+          ),
+        ),
+        Bind.lazySingleton<RecoveryViewModel>(
+          (i) => RecoveryViewModel(
+            i.get<ILoginRecoveryUsecase>(),
           ),
         )
       ];

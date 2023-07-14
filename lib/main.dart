@@ -1,9 +1,20 @@
+import 'dart:async';
+
 import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/theme/theme_factory.dart';
+import 'package:apph2/theme/widgets/custom_bottom_navigation.dart';
+import 'package:apph2/views/h2pay/h2pay_home_page.dart';
+import 'package:apph2/views/home/home_page.dart';
 import 'package:apph2/views/login/login_page.dart';
+import 'package:apph2/views/login/login_state.dart';
+import 'package:apph2/views/login/login_viewmodel.dart';
+import 'package:apph2/views/product/list_product_page.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'base_app_module.dart';
 import 'infraestructure/infraestructure.dart';
@@ -19,11 +30,80 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int currentTab = 0;
+class _MyHomePageState extends ViewState<MyHomePage, LoginViewModel> {
+  bool isAuth = false;
+  int currentTab = 1;
+  bool isKeyboardVisible = false;
+  late StreamSubscription<bool> keyboardSubscription;
+  late LoginViewModel loginViewModel;
+
+  @override
+  void initState() {
+    super.initState();
+
+    loginViewModel = Modular.get<LoginViewModel>();
+
+    var keyboardVisibilityController = KeyboardVisibilityController();
+
+    keyboardSubscription =
+        keyboardVisibilityController.onChange.listen((bool visible) {
+      setState(() {
+        isKeyboardVisible = visible;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    keyboardSubscription.cancel();
+    super.dispose();
+  }
+
+  static final List<BottomNavigationBarItem> _options = [
+    BottomNavigationBarItem(
+      icon: Padding(
+        padding: EdgeInsets.only(
+          bottom: Dimension.xs.height,
+          top: Dimension.xs.height,
+        ),
+        child: const FaIcon(FontAwesomeIcons.coins),
+      ),
+      label: 'Produtos',
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(null),
+      label: 'Início',
+      tooltip: 'Início',
+    ),
+    BottomNavigationBarItem(
+      icon: Padding(
+        padding: EdgeInsets.only(
+          bottom: Dimension.xs.height,
+          top: Dimension.xs.height,
+        ),
+        child: const Icon(Icons.paid_outlined),
+      ),
+      label: 'H2 Pay',
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
+    return ViewModelConsumer<LoginViewModel, LoginState>(
+      viewModel: viewModel,
+      listenWhen: (previous, current) => previous.error != previous.error,
+      listener: (context, state) => {},
+      builder: _buildPage,
+    );
+  }
+
+  Widget _buildPage(BuildContext context, LoginState state) {
+    final pages = [
+      const ListProductPage(),
+      loginViewModel.state.token != '' ? const H2HomePage() : const LoginPage(),
+      loginViewModel.state.token != '' ? const H2PayHomePage() : const LoginPage(),
+    ];
+
     return Scaffold(
       appBar: const H2AppBar(
         automaticallyImplyLeading: false,
@@ -55,20 +135,52 @@ class _MyHomePageState extends State<MyHomePage> {
                   constraints: BoxConstraints(
                     minHeight: constraints.maxHeight,
                   ),
-                  child: const LoginPage(),
+                  child: pages[currentTab],
                 ),
               );
             },
           ),
         ),
       ),
+      bottomNavigationBar: CustomBottomNavigationBar(
+        onTap: _onItemTapped,
+        selectedIndex: currentTab,
+        items: _options,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: !isKeyboardVisible
+          ? GestureDetector(
+              onTap: () => _onItemTapped(1),
+              child: Container(
+                padding: EdgeInsets.only(
+                  top: const Dimension(1.5).height,
+                  left: Dimension.md.width,
+                  right: Dimension.md.width,
+                ),
+                decoration: const BoxDecoration(
+                  color: AppThemeBase.colorPrimaryDarkest,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(9999.0),
+                    topRight: Radius.circular(9999.0),
+                  ),
+                ),
+                child: SvgPicture.string(
+                    '''<svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="H2"><path d="M3.71262 13.5973C4.16794 12.3146 4.88595 11.0318 5.70027 9.83186C11.0415 2.39197 21.8116 0.422339 29.7709 5.47054C37.6427 10.5187 39.7267 20.6979 34.3854 28.2206C30.7691 33.2688 24.7011 35.8343 18.7294 35.4039L15.656 39.6825C23.7117 41.048 32.1263 37.9694 37.0123 31.2164C43.5269 22.0634 40.9963 9.57531 31.312 3.41816C21.6277 -2.74727 8.41468 -0.347305 1.9001 8.80567C1.17334 9.83186 0.542895 10.9408 1.33514e-05 12.058L3.71262 13.5973Z" fill="white"/><path d="M20.9576 31.006C13.4001 31.006 7.30473 25.3522 7.30473 18.3942C7.30473 11.4363 13.4001 5.78245 20.9576 5.78245C23.7763 5.78245 26.4188 6.5649 28.6033 7.95313C26.1457 6.1274 23.054 5 19.6804 5C11.6649 5 5.20835 11.2596 5.20835 19.0841C5.20835 26.9087 11.6737 33 19.6804 33C25.9608 33 31.4219 29.0877 33.3333 23.6106C31.237 27.9603 26.5069 31.006 20.9488 31.006H20.9576Z" fill="#166FED"/></g></svg>'''),
+              ),
+            )
+          : null,
     );
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      currentTab = index;
+    });
   }
 }
 
 void main() {
   runApp(ModularApp(module: BaseAppModule(), child: const MyApp()));
-  // runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -93,6 +205,7 @@ class _MyAppState extends State<MyApp> {
     Modular.setObservers(observers);
 
     Modular.setInitialRoute(Modular.initialRoute);
+    Modular.get<LoginViewModel>().isAuth();
     Future.delayed(const Duration(seconds: 3)).then(
       (value) => Nav.navigate(BaseAppModuleRouting.root),
     );

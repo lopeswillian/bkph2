@@ -54,6 +54,12 @@ dependencies:
   collection: ^1.17.1
   pin_code_fields: ^8.0.1
   dotted_border: ^2.0.0+3
+  font_awesome_flutter: ^10.5.0
+  shared_preferences: ^2.2.0
+
+dependency_overrides:
+  font_awesome_flutter:
+    path: ./font_awesome_flutter
 
 dev_dependencies:
   flutter_test:

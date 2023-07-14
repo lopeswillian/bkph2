@@ -8,6 +8,7 @@ class LoginState extends ViewModelState with _$LoginState{
   const factory LoginState({
     @Default(false) bool loading,
     @Default('') String error,
+    @Default('') String token,
   }) = _LoginState;
 
   factory LoginState.initial() => const LoginState();
