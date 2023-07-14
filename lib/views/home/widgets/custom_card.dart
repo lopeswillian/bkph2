@@ -153,7 +153,7 @@ class CustomCard extends StatelessWidget {
               padding: EdgeInsets.all(
                 const Dimension(4).value,
               ),
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -161,17 +161,17 @@ class CustomCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Maurício',
-                        style: TextStyle(
+                        name,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 12,
                           fontWeight: FontWeight.normal,
                         ),
                       ),
-                      SizedBox(height: 4),
+                      Dimension.sm.vertical,
                       Text(
-                        'Loren Ipsum',
-                        style: TextStyle(
+                        title,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -180,8 +180,8 @@ class CustomCard extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    'Loren Ipsum',
-                    style: TextStyle(
+                    number,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 12,
                       fontWeight: FontWeight.normal,

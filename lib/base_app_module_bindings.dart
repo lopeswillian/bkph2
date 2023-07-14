@@ -1,10 +1,16 @@
 import 'dart:io' as io;
 
 import 'package:apph2/data/data.dart';
+import 'package:apph2/data/datasources/h2pay_remote_datasource.dart';
+import 'package:apph2/data/repositories/h2pay_repository.dart';
+import 'package:apph2/domain/repositories/h2pay_repository.dart';
 import 'package:apph2/infraestructure/http/http_adapter.dart';
 import 'package:apph2/theme/theme.dart';
+import 'package:apph2/usecases/get_anticipation_usecase.dart';
+import 'package:apph2/usecases/get_customer_usecase.dart';
 import 'package:apph2/usecases/login_recovery_usecase.dart';
 import 'package:apph2/usecases/login_with_credentials_usecase.dart';
+import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/login/login_viewmodel.dart';
 import 'package:apph2/views/recovery/recovery_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +46,19 @@ class BaseAppModuleBindings {
             ),
           ),
         ),
+        Bind.lazySingleton<IH2PayDatasource>(
+          (i) => H2PayDatasource(
+            HttpAdapter(
+              client: io.HttpClient(),
+              baseUrl: "http://dc023ad05f.nxcli.io/",
+              apiVersion: 'v1',
+              headers: {
+                'Authorization':
+                    'Bearer eyJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJiZGMzMmM3MGEwZTRjMjJlM2IwZjBmN2VhNTFlNzYifQ',
+              },
+            ),
+          ),
+        ),
       ];
 
   static List<Bind> get _repositories => [
@@ -47,7 +66,12 @@ class BaseAppModuleBindings {
           (i) => AuthRepository(
             i.get<IAuthDatasource>(),
           ),
-        )
+        ),
+        Bind.lazySingleton<IH2PayRepository>(
+          (i) => H2PayRepository(
+            i.get<IH2PayDatasource>(),
+          ),
+        ),
       ];
 
   static List<Bind> get _infra => [
@@ -62,6 +86,12 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<ILoginRecoveryUsecase>(
           (i) => LoginRecoveryUsecase(i.get<IAuthRepository>()),
         ),
+        Bind.lazySingleton<IGetCustomerUseCase>(
+          (i) => GetCustomerUseCase(i.get<IH2PayRepository>()),
+        ),
+        Bind.lazySingleton<IGetAnticipationUseCase>(
+          (i) => GetAnticipationUseCase(i.get<IH2PayRepository>()),
+        ),
       ];
 
   static List<Bind> get _viewModels => [
@@ -73,6 +103,12 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<RecoveryViewModel>(
           (i) => RecoveryViewModel(
             i.get<ILoginRecoveryUsecase>(),
+          ),
+        ),
+        Bind.lazySingleton<H2PayViewModel>(
+          (i) => H2PayViewModel(
+            i.get<IGetCustomerUseCase>(),
+            i.get<IGetAnticipationUseCase>()
           ),
         )
       ];

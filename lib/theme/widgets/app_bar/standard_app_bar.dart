@@ -42,6 +42,7 @@ class _StandardAppBar extends H2AppBar {
     Widget? flexibleSpace,
     this.action,
     double? scrolledUnderElevation,
+    
   }) : super._(
           automaticallyImplyLeading: automaticallyImplyLeading,
           title: title,
@@ -82,9 +83,7 @@ class _StandardAppBar extends H2AppBar {
       ),
       leadingWidth:
           leadingWidth?.responsiveWidth ?? (backButton != null? null: const Dimension(14).width),
-      systemOverlayStyle: context.colorScheme.isDarkTheme
-          ? SystemUiOverlayStyle.light
-          : SystemUiOverlayStyle.dark,
+      systemOverlayStyle:SystemUiOverlayStyle.light,
       backgroundColor: backgroundColor ?? context.theme.colorScheme.background,
       surfaceTintColor: context.theme.colorScheme.background,
       scrolledUnderElevation: scrolledUnderElevation,

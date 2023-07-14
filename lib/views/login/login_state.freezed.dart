@@ -19,6 +19,7 @@ mixin _$LoginState {
   bool get loading => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
   String get token => throw _privateConstructorUsedError;
+  UserInfo? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LoginStateCopyWith<LoginState> get copyWith =>
@@ -31,7 +32,9 @@ abstract class $LoginStateCopyWith<$Res> {
           LoginState value, $Res Function(LoginState) then) =
       _$LoginStateCopyWithImpl<$Res, LoginState>;
   @useResult
-  $Res call({bool loading, String error, String token});
+  $Res call({bool loading, String error, String token, UserInfo? user});
+
+  $UserInfoCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -50,6 +53,7 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
     Object? loading = null,
     Object? error = null,
     Object? token = null,
+    Object? user = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -64,7 +68,23 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserInfo?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserInfoCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserInfoCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
   }
 }
 
@@ -76,7 +96,10 @@ abstract class _$$_LoginStateCopyWith<$Res>
       __$$_LoginStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, String error, String token});
+  $Res call({bool loading, String error, String token, UserInfo? user});
+
+  @override
+  $UserInfoCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -93,6 +116,7 @@ class __$$_LoginStateCopyWithImpl<$Res>
     Object? loading = null,
     Object? error = null,
     Object? token = null,
+    Object? user = freezed,
   }) {
     return _then(_$_LoginState(
       loading: null == loading
@@ -107,6 +131,10 @@ class __$$_LoginStateCopyWithImpl<$Res>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserInfo?,
     ));
   }
 }
@@ -114,7 +142,8 @@ class __$$_LoginStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LoginState implements _LoginState {
-  const _$_LoginState({this.loading = false, this.error = '', this.token = ''});
+  const _$_LoginState(
+      {this.loading = false, this.error = '', this.token = '', this.user});
 
   @override
   @JsonKey()
@@ -125,10 +154,12 @@ class _$_LoginState implements _LoginState {
   @override
   @JsonKey()
   final String token;
+  @override
+  final UserInfo? user;
 
   @override
   String toString() {
-    return 'LoginState(loading: $loading, error: $error, token: $token)';
+    return 'LoginState(loading: $loading, error: $error, token: $token, user: $user)';
   }
 
   @override
@@ -138,11 +169,12 @@ class _$_LoginState implements _LoginState {
             other is _$_LoginState &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error) &&
-            (identical(other.token, token) || other.token == token));
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading, error, token);
+  int get hashCode => Object.hash(runtimeType, loading, error, token, user);
 
   @JsonKey(ignore: true)
   @override
@@ -155,7 +187,8 @@ abstract class _LoginState implements LoginState {
   const factory _LoginState(
       {final bool loading,
       final String error,
-      final String token}) = _$_LoginState;
+      final String token,
+      final UserInfo? user}) = _$_LoginState;
 
   @override
   bool get loading;
@@ -163,6 +196,8 @@ abstract class _LoginState implements LoginState {
   String get error;
   @override
   String get token;
+  @override
+  UserInfo? get user;
   @override
   @JsonKey(ignore: true)
   _$$_LoginStateCopyWith<_$_LoginState> get copyWith =>

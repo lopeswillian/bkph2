@@ -1,6 +1,8 @@
 import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/theme.dart';
+import 'package:apph2/views/h2pay/h2pay_state.dart';
+import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -12,9 +14,18 @@ class H2PayHomePage extends StatefulWidget {
   _H2PayHomePageState createState() => _H2PayHomePageState();
 }
 
-class _H2PayHomePageState extends State<H2PayHomePage> {
+class _H2PayHomePageState extends ViewState<H2PayHomePage, H2PayViewModel> {
   @override
   Widget build(BuildContext context) {
+    return ViewModelConsumer<H2PayViewModel, H2PayState>(
+      viewModel: viewModel,
+      listenWhen: (previous, current) => previous.error != current.error,
+      listener: (context, state) => {},
+      builder: _buildPage,
+    );
+  }
+
+  Widget _buildPage(BuildContext context, H2PayState state) {
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,

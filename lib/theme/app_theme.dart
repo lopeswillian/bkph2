@@ -29,7 +29,7 @@ class AppTheme {
       invertedForeground: DarkForeground(),
       brightness: Brightness.light,
       backgroundColor: Colors.white,
-      foregroundColor: Colors.black,
+      foregroundColor: Colors.white,
     );
     return _lightTheme!;
   }
