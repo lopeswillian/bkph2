@@ -8,6 +8,7 @@ class StepWidget extends StatelessWidget {
   final bool withNextArrow;
   final int stepQuantity;
   final int onStep;
+  final bool enabled;
 
   const StepWidget({
     Key? key,
@@ -16,6 +17,7 @@ class StepWidget extends StatelessWidget {
     required this.stepQuantity,
     required this.onStep,
     this.withNextArrow = true,
+    this.enabled = true
   }) : super(key: key);
 
   @override
@@ -54,6 +56,7 @@ class StepWidget extends StatelessWidget {
               const Dimension(2.5).vertical,
               ContainedButton.large(
                 text: 'Avançar',
+                enabled: enabled,
                 textStyle: TextStyle(
                   color: Colors.white,
                   fontSize: 20.fontSize,

@@ -1,7 +1,7 @@
 import 'package:apph2/theme/app_theme_base.dart';
 import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/dimension.dart';
-import 'package:apph2/theme/responsive/responsive_extension.dart';
+// import 'package:apph2/theme/responsive/responsive_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -735,16 +735,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField>
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  if (_focusNode.hasFocus &&
-                                      widget.suffixIcon != null)
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 8.0.fontSize,
-                                      ),
-                                      child: widget.suffixIcon!,
-                                    ),
-                                  if (widget.suffixAction != null)
-                                    widget.suffixAction!,
+                                  if (widget.suffixIcon != null)
+                                    widget.suffixIcon!,
                                 ],
                               ),
                             ),

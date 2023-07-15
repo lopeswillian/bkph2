@@ -7,12 +7,15 @@ import 'package:apph2/domain/repositories/h2pay_repository.dart';
 import 'package:apph2/infraestructure/http/http_adapter.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/usecases/get_anticipation_usecase.dart';
+import 'package:apph2/usecases/get_cpf_usecase.dart';
 import 'package:apph2/usecases/get_customer_usecase.dart';
+import 'package:apph2/usecases/get_sms_code_usecase.dart';
 import 'package:apph2/usecases/login_recovery_usecase.dart';
 import 'package:apph2/usecases/login_with_credentials_usecase.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/login/login_viewmodel.dart';
 import 'package:apph2/views/recovery/recovery_viewmodel.dart';
+import 'package:apph2/views/register/register_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -83,6 +86,9 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<ILoginWithCredentialsUsecase>(
           (i) => LoginWithCredentialsUsecase(i.get<IAuthRepository>()),
         ),
+        Bind.lazySingleton<IGetCpfUseCase>(
+          (i) => GetCpfUseCase(i.get<IAuthRepository>()),
+        ),
         Bind.lazySingleton<ILoginRecoveryUsecase>(
           (i) => LoginRecoveryUsecase(i.get<IAuthRepository>()),
         ),
@@ -92,12 +98,20 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<IGetAnticipationUseCase>(
           (i) => GetAnticipationUseCase(i.get<IH2PayRepository>()),
         ),
+        Bind.lazySingleton<IGetSmsCodeUseCase>(
+          (i) => GetSmsCodeUseCase(i.get<IH2PayRepository>()),
+        )
       ];
 
   static List<Bind> get _viewModels => [
         Bind.lazySingleton<LoginViewModel>(
           (i) => LoginViewModel(
             i.get<ILoginWithCredentialsUsecase>(),
+          ),
+        ),
+        Bind.lazySingleton<RegisterViewModel>(
+          (i) => RegisterViewModel(
+            i.get<IGetCpfUseCase>(),
           ),
         ),
         Bind.lazySingleton<RecoveryViewModel>(
@@ -108,7 +122,8 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<H2PayViewModel>(
           (i) => H2PayViewModel(
             i.get<IGetCustomerUseCase>(),
-            i.get<IGetAnticipationUseCase>()
+            i.get<IGetAnticipationUseCase>(),
+            i.get<IGetSmsCodeUseCase>()
           ),
         )
       ];

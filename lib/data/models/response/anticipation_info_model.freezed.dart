@@ -22,15 +22,18 @@ mixin _$AnticipationInfoModel {
   double get valueBet => throw _privateConstructorUsedError;
   DateTime get dueDate => throw _privateConstructorUsedError;
   DateTime get dateCreate => throw _privateConstructorUsedError;
-  DateTime get signatureDate => throw _privateConstructorUsedError;
-  DateTime get lastUpdate => throw _privateConstructorUsedError;
+  DateTime? get signatureDate => throw _privateConstructorUsedError;
+  DateTime? get lastUpdate => throw _privateConstructorUsedError;
   double get valuePrincipal => throw _privateConstructorUsedError;
-  DateTime get paymentDate => throw _privateConstructorUsedError;
-  int get paymentId => throw _privateConstructorUsedError;
-  double get valuePayment => throw _privateConstructorUsedError;
-  int get anticipationOriginId => throw _privateConstructorUsedError;
+  DateTime? get paymentDate => throw _privateConstructorUsedError;
+  int? get paymentId => throw _privateConstructorUsedError;
+  double? get valuePayment => throw _privateConstructorUsedError;
+  int? get anticipationOriginId => throw _privateConstructorUsedError;
   int get agentId => throw _privateConstructorUsedError;
   int get status => throw _privateConstructorUsedError;
+  String get paymentDescription => throw _privateConstructorUsedError;
+  String? get useType => throw _privateConstructorUsedError;
+  String get term => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AnticipationInfoModelCopyWith<AnticipationInfoModel> get copyWith =>
@@ -50,15 +53,18 @@ abstract class $AnticipationInfoModelCopyWith<$Res> {
       double valueBet,
       DateTime dueDate,
       DateTime dateCreate,
-      DateTime signatureDate,
-      DateTime lastUpdate,
+      DateTime? signatureDate,
+      DateTime? lastUpdate,
       double valuePrincipal,
-      DateTime paymentDate,
-      int paymentId,
-      double valuePayment,
-      int anticipationOriginId,
+      DateTime? paymentDate,
+      int? paymentId,
+      double? valuePayment,
+      int? anticipationOriginId,
       int agentId,
-      int status});
+      int status,
+      String paymentDescription,
+      String? useType,
+      String term});
 }
 
 /// @nodoc
@@ -81,15 +87,18 @@ class _$AnticipationInfoModelCopyWithImpl<$Res,
     Object? valueBet = null,
     Object? dueDate = null,
     Object? dateCreate = null,
-    Object? signatureDate = null,
-    Object? lastUpdate = null,
+    Object? signatureDate = freezed,
+    Object? lastUpdate = freezed,
     Object? valuePrincipal = null,
-    Object? paymentDate = null,
-    Object? paymentId = null,
-    Object? valuePayment = null,
-    Object? anticipationOriginId = null,
+    Object? paymentDate = freezed,
+    Object? paymentId = freezed,
+    Object? valuePayment = freezed,
+    Object? anticipationOriginId = freezed,
     Object? agentId = null,
     Object? status = null,
+    Object? paymentDescription = null,
+    Object? useType = freezed,
+    Object? term = null,
   }) {
     return _then(_value.copyWith(
       customerId: null == customerId
@@ -116,34 +125,34 @@ class _$AnticipationInfoModelCopyWithImpl<$Res,
           ? _value.dateCreate
           : dateCreate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      signatureDate: null == signatureDate
+      signatureDate: freezed == signatureDate
           ? _value.signatureDate
           : signatureDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      lastUpdate: null == lastUpdate
+              as DateTime?,
+      lastUpdate: freezed == lastUpdate
           ? _value.lastUpdate
           : lastUpdate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       valuePrincipal: null == valuePrincipal
           ? _value.valuePrincipal
           : valuePrincipal // ignore: cast_nullable_to_non_nullable
               as double,
-      paymentDate: null == paymentDate
+      paymentDate: freezed == paymentDate
           ? _value.paymentDate
           : paymentDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      paymentId: null == paymentId
+              as DateTime?,
+      paymentId: freezed == paymentId
           ? _value.paymentId
           : paymentId // ignore: cast_nullable_to_non_nullable
-              as int,
-      valuePayment: null == valuePayment
+              as int?,
+      valuePayment: freezed == valuePayment
           ? _value.valuePayment
           : valuePayment // ignore: cast_nullable_to_non_nullable
-              as double,
-      anticipationOriginId: null == anticipationOriginId
+              as double?,
+      anticipationOriginId: freezed == anticipationOriginId
           ? _value.anticipationOriginId
           : anticipationOriginId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       agentId: null == agentId
           ? _value.agentId
           : agentId // ignore: cast_nullable_to_non_nullable
@@ -152,6 +161,18 @@ class _$AnticipationInfoModelCopyWithImpl<$Res,
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as int,
+      paymentDescription: null == paymentDescription
+          ? _value.paymentDescription
+          : paymentDescription // ignore: cast_nullable_to_non_nullable
+              as String,
+      useType: freezed == useType
+          ? _value.useType
+          : useType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      term: null == term
+          ? _value.term
+          : term // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -171,15 +192,18 @@ abstract class _$$_AnticipationInfoModelCopyWith<$Res>
       double valueBet,
       DateTime dueDate,
       DateTime dateCreate,
-      DateTime signatureDate,
-      DateTime lastUpdate,
+      DateTime? signatureDate,
+      DateTime? lastUpdate,
       double valuePrincipal,
-      DateTime paymentDate,
-      int paymentId,
-      double valuePayment,
-      int anticipationOriginId,
+      DateTime? paymentDate,
+      int? paymentId,
+      double? valuePayment,
+      int? anticipationOriginId,
       int agentId,
-      int status});
+      int status,
+      String paymentDescription,
+      String? useType,
+      String term});
 }
 
 /// @nodoc
@@ -199,15 +223,18 @@ class __$$_AnticipationInfoModelCopyWithImpl<$Res>
     Object? valueBet = null,
     Object? dueDate = null,
     Object? dateCreate = null,
-    Object? signatureDate = null,
-    Object? lastUpdate = null,
+    Object? signatureDate = freezed,
+    Object? lastUpdate = freezed,
     Object? valuePrincipal = null,
-    Object? paymentDate = null,
-    Object? paymentId = null,
-    Object? valuePayment = null,
-    Object? anticipationOriginId = null,
+    Object? paymentDate = freezed,
+    Object? paymentId = freezed,
+    Object? valuePayment = freezed,
+    Object? anticipationOriginId = freezed,
     Object? agentId = null,
     Object? status = null,
+    Object? paymentDescription = null,
+    Object? useType = freezed,
+    Object? term = null,
   }) {
     return _then(_$_AnticipationInfoModel(
       customerId: null == customerId
@@ -234,34 +261,34 @@ class __$$_AnticipationInfoModelCopyWithImpl<$Res>
           ? _value.dateCreate
           : dateCreate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      signatureDate: null == signatureDate
+      signatureDate: freezed == signatureDate
           ? _value.signatureDate
           : signatureDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      lastUpdate: null == lastUpdate
+              as DateTime?,
+      lastUpdate: freezed == lastUpdate
           ? _value.lastUpdate
           : lastUpdate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       valuePrincipal: null == valuePrincipal
           ? _value.valuePrincipal
           : valuePrincipal // ignore: cast_nullable_to_non_nullable
               as double,
-      paymentDate: null == paymentDate
+      paymentDate: freezed == paymentDate
           ? _value.paymentDate
           : paymentDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      paymentId: null == paymentId
+              as DateTime?,
+      paymentId: freezed == paymentId
           ? _value.paymentId
           : paymentId // ignore: cast_nullable_to_non_nullable
-              as int,
-      valuePayment: null == valuePayment
+              as int?,
+      valuePayment: freezed == valuePayment
           ? _value.valuePayment
           : valuePayment // ignore: cast_nullable_to_non_nullable
-              as double,
-      anticipationOriginId: null == anticipationOriginId
+              as double?,
+      anticipationOriginId: freezed == anticipationOriginId
           ? _value.anticipationOriginId
           : anticipationOriginId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       agentId: null == agentId
           ? _value.agentId
           : agentId // ignore: cast_nullable_to_non_nullable
@@ -270,6 +297,18 @@ class __$$_AnticipationInfoModelCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as int,
+      paymentDescription: null == paymentDescription
+          ? _value.paymentDescription
+          : paymentDescription // ignore: cast_nullable_to_non_nullable
+              as String,
+      useType: freezed == useType
+          ? _value.useType
+          : useType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      term: null == term
+          ? _value.term
+          : term // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -284,15 +323,18 @@ class _$_AnticipationInfoModel extends _AnticipationInfoModel {
       required this.valueBet,
       required this.dueDate,
       required this.dateCreate,
-      required this.signatureDate,
-      required this.lastUpdate,
+      this.signatureDate,
+      this.lastUpdate,
       required this.valuePrincipal,
-      required this.paymentDate,
-      required this.paymentId,
-      required this.valuePayment,
-      required this.anticipationOriginId,
+      this.paymentDate,
+      this.paymentId,
+      this.valuePayment,
+      this.anticipationOriginId,
       required this.agentId,
-      required this.status})
+      required this.status,
+      required this.paymentDescription,
+      this.useType,
+      required this.term})
       : super._();
 
   @override
@@ -308,27 +350,33 @@ class _$_AnticipationInfoModel extends _AnticipationInfoModel {
   @override
   final DateTime dateCreate;
   @override
-  final DateTime signatureDate;
+  final DateTime? signatureDate;
   @override
-  final DateTime lastUpdate;
+  final DateTime? lastUpdate;
   @override
   final double valuePrincipal;
   @override
-  final DateTime paymentDate;
+  final DateTime? paymentDate;
   @override
-  final int paymentId;
+  final int? paymentId;
   @override
-  final double valuePayment;
+  final double? valuePayment;
   @override
-  final int anticipationOriginId;
+  final int? anticipationOriginId;
   @override
   final int agentId;
   @override
   final int status;
+  @override
+  final String paymentDescription;
+  @override
+  final String? useType;
+  @override
+  final String term;
 
   @override
   String toString() {
-    return 'AnticipationInfoModel(customerId: $customerId, paymentTermId: $paymentTermId, valuePoker: $valuePoker, valueBet: $valueBet, dueDate: $dueDate, dateCreate: $dateCreate, signatureDate: $signatureDate, lastUpdate: $lastUpdate, valuePrincipal: $valuePrincipal, paymentDate: $paymentDate, paymentId: $paymentId, valuePayment: $valuePayment, anticipationOriginId: $anticipationOriginId, agentId: $agentId, status: $status)';
+    return 'AnticipationInfoModel(customerId: $customerId, paymentTermId: $paymentTermId, valuePoker: $valuePoker, valueBet: $valueBet, dueDate: $dueDate, dateCreate: $dateCreate, signatureDate: $signatureDate, lastUpdate: $lastUpdate, valuePrincipal: $valuePrincipal, paymentDate: $paymentDate, paymentId: $paymentId, valuePayment: $valuePayment, anticipationOriginId: $anticipationOriginId, agentId: $agentId, status: $status, paymentDescription: $paymentDescription, useType: $useType, term: $term)';
   }
 
   @override
@@ -362,7 +410,11 @@ class _$_AnticipationInfoModel extends _AnticipationInfoModel {
             (identical(other.anticipationOriginId, anticipationOriginId) ||
                 other.anticipationOriginId == anticipationOriginId) &&
             (identical(other.agentId, agentId) || other.agentId == agentId) &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.paymentDescription, paymentDescription) ||
+                other.paymentDescription == paymentDescription) &&
+            (identical(other.useType, useType) || other.useType == useType) &&
+            (identical(other.term, term) || other.term == term));
   }
 
   @override
@@ -382,7 +434,10 @@ class _$_AnticipationInfoModel extends _AnticipationInfoModel {
       valuePayment,
       anticipationOriginId,
       agentId,
-      status);
+      status,
+      paymentDescription,
+      useType,
+      term);
 
   @JsonKey(ignore: true)
   @override
@@ -400,15 +455,18 @@ abstract class _AnticipationInfoModel extends AnticipationInfoModel {
       required final double valueBet,
       required final DateTime dueDate,
       required final DateTime dateCreate,
-      required final DateTime signatureDate,
-      required final DateTime lastUpdate,
+      final DateTime? signatureDate,
+      final DateTime? lastUpdate,
       required final double valuePrincipal,
-      required final DateTime paymentDate,
-      required final int paymentId,
-      required final double valuePayment,
-      required final int anticipationOriginId,
+      final DateTime? paymentDate,
+      final int? paymentId,
+      final double? valuePayment,
+      final int? anticipationOriginId,
       required final int agentId,
-      required final int status}) = _$_AnticipationInfoModel;
+      required final int status,
+      required final String paymentDescription,
+      final String? useType,
+      required final String term}) = _$_AnticipationInfoModel;
   _AnticipationInfoModel._() : super._();
 
   @override
@@ -424,23 +482,29 @@ abstract class _AnticipationInfoModel extends AnticipationInfoModel {
   @override
   DateTime get dateCreate;
   @override
-  DateTime get signatureDate;
+  DateTime? get signatureDate;
   @override
-  DateTime get lastUpdate;
+  DateTime? get lastUpdate;
   @override
   double get valuePrincipal;
   @override
-  DateTime get paymentDate;
+  DateTime? get paymentDate;
   @override
-  int get paymentId;
+  int? get paymentId;
   @override
-  double get valuePayment;
+  double? get valuePayment;
   @override
-  int get anticipationOriginId;
+  int? get anticipationOriginId;
   @override
   int get agentId;
   @override
   int get status;
+  @override
+  String get paymentDescription;
+  @override
+  String? get useType;
+  @override
+  String get term;
   @override
   @JsonKey(ignore: true)
   _$$_AnticipationInfoModelCopyWith<_$_AnticipationInfoModel> get copyWith =>

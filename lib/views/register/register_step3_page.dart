@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:apph2/base_app_module_routing.dart';
+import 'package:apph2/theme/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,10 +10,28 @@ import '../../infraestructure/utils.dart';
 import '../../theme/theme.dart';
 import 'widgets/step_widget.dart';
 
-class RegisterStep3 extends StatefulWidget {
-  const RegisterStep3({Key? key, required this.title}) : super(key: key);
+class RegisterStep3Params {
+  final String nickName;
+  final String cep;
+  final String state;
+  final String city;
+  final String address;
+  final String district;
+  final String numberAddress;
+  RegisterStep3Params({
+    required this.nickName,
+    required this.cep,
+    required this.state,
+    required this.city,
+    required this.address,
+    required this.district,
+    required this.numberAddress,
+  });
+}
 
-  final String title;
+class RegisterStep3 extends StatefulWidget {
+  final RegisterStep3Params params;
+  const RegisterStep3({Key? key, required this.params}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -21,6 +40,11 @@ class RegisterStep3 extends StatefulWidget {
 
 class _RegisterStep3State extends State<RegisterStep3> {
   bool isKeyboardVisible = false;
+  bool obscureText1 = true;
+  bool obscureText2 = true;
+  final pass = TextEditingController();
+  final confirmPass = TextEditingController();
+  final email = TextEditingController();
 
   late StreamSubscription<bool> keyboardSubscription;
 
@@ -47,6 +71,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const H2AppBar(
+        centerTitle: true,
         title: Text('Cadastro'),
       ),
       backgroundColor: Colors.transparent,
@@ -96,35 +121,51 @@ class _RegisterStep3State extends State<RegisterStep3> {
                               style: context.text.body1,
                             ),
                             Dimension.md.vertical,
-                            const TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'CPF',
-                                hintText: '(Apenas números)',
-                              ),
+                            CustomTextFormField(
+                              controller: email,
+                              labelText: 'E-mail',
+                              keyboardType: TextInputType.emailAddress,
                             ),
                             Dimension.md.vertical,
-                            const TextField(
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Criar Senha',
-                                hintText: '(de 6 a 8 dígitos)',
-                                suffixIcon: IconButton(
-                                  onPressed: null,
-                                  icon: Icon(Icons.visibility),
+                            CustomTextFormField(
+                              obscureText: obscureText1,
+                              controller: pass,
+                              labelText: 'Criar Senha',
+                              hintText: '(de 6 a 8 dígitos)',
+                              keyboardType: TextInputType.number,
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    obscureText1 = !obscureText1;
+                                  });
+                                },
+                                icon: Icon(
+                                  obscureText1
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
                                 ),
                               ),
                             ),
                             Dimension.md.vertical,
-                            const TextField(
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Confirmar Senha',
-                                suffixIcon: IconButton(
-                                  onPressed: null,
-                                  icon: Icon(Icons.visibility),
+                            CustomTextFormField(
+                              obscureText: obscureText2,
+                              labelText: 'Confirmar Senha',
+                              keyboardType: TextInputType.number,
+                              controller: confirmPass,
+                              errorMessage: pass.text != confirmPass.text &&
+                                      confirmPass.text != ''
+                                  ? 'Senhas não coincidem.'
+                                  : null,
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    obscureText2 = !obscureText2;
+                                  });
+                                },
+                                icon: Icon(
+                                  obscureText2
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
                                 ),
                               ),
                             ),

@@ -1,10 +1,15 @@
 import 'dart:async';
 
 import 'package:apph2/base_app_module_routing.dart';
+import 'package:apph2/domain/entities/cpf_params.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
+import 'package:apph2/theme/widgets/custom_text.dart';
+import 'package:apph2/views/register/register_state.dart';
+import 'package:apph2/views/register/register_viewmodel.dart';
 import 'package:apph2/views/register/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../theme/theme.dart';
 
@@ -18,9 +23,12 @@ class RegisterStep1 extends StatefulWidget {
   _RegisterStep1State createState() => _RegisterStep1State();
 }
 
-class _RegisterStep1State extends State<RegisterStep1> {
+class _RegisterStep1State extends ViewState<RegisterStep1, RegisterViewModel> {
   bool isKeyboardVisible = false;
-
+  var cpfFormater = MaskTextInputFormatter(
+    mask: '###.###.###-##',
+    filter: {'#': RegExp(r'[0-9]')},
+  );
   late StreamSubscription<bool> keyboardSubscription;
 
   @override
@@ -44,6 +52,15 @@ class _RegisterStep1State extends State<RegisterStep1> {
 
   @override
   Widget build(BuildContext context) {
+    return ViewModelConsumer<RegisterViewModel, RegisterState>(
+      viewModel: viewModel,
+      listenWhen: (previous, current) => previous.error != current.error,
+      listener: (context, state) => {},
+      builder: _buildPage,
+    );
+  }
+
+  Widget _buildPage(BuildContext context, RegisterState state) {
     return Scaffold(
       appBar: const H2AppBar(
         title: Text('Cadastro'),
@@ -96,11 +113,19 @@ class _RegisterStep1State extends State<RegisterStep1> {
                               style: context.text.body1,
                             ),
                             Dimension.xxl.vertical,
-                            const TextField(
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'CPF',
-                                  hintText: '(Apenas números)'),
+                            CustomTextFormField(
+                              labelText: 'CPF',
+                              inputFormatters: [cpfFormater],
+                              hintText: '(Apenas números)',
+                              errorMessage:
+                                  state.error != '' ? state.error : null,
+                              onChanged: (value) {
+                                if (value.length == 14) {
+                                  viewModel.getCpf(
+                                    cpfParams: CpfParams(document: value),
+                                  );
+                                }
+                              },
                             ),
                             const Dimension(25).vertical,
                           ],
@@ -118,6 +143,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
                     height: const Dimension(18).height,
                     color: Colors.white,
                     child: StepWidget(
+                      enabled: state.document != null,
                       title: 'Avançar',
                       stepQuantity: 3,
                       onStep: 1,

@@ -6,6 +6,7 @@ class NextWidget extends StatelessWidget {
   final VoidCallback? action;
   final bool withNextArrow;
   final Widget? topWidget;
+  final bool enabled;
 
   const NextWidget({
     Key? key,
@@ -13,6 +14,7 @@ class NextWidget extends StatelessWidget {
     required this.title,
     this.withNextArrow = false,
     this.topWidget,
+    this.enabled = true,
   }) : super(key: key);
 
   @override
@@ -29,6 +31,7 @@ class NextWidget extends StatelessWidget {
             if (topWidget != null) topWidget!,
             if (topWidget != null) const Dimension(3.75).vertical,
             ContainedButton.large(
+              enabled: enabled,
               onPressed: () => {action!()},
               padding: EdgeInsets.only(
                 right: const Dimension(1.375).width,

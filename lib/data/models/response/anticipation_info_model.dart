@@ -17,15 +17,18 @@ class AnticipationInfoModel with _$AnticipationInfoModel {
     required double valueBet,
     required DateTime dueDate,
     required DateTime dateCreate,
-    required DateTime signatureDate,
-    required DateTime lastUpdate,
+    DateTime? signatureDate,
+    DateTime? lastUpdate,
     required double valuePrincipal,
-    required DateTime paymentDate,
-    required int paymentId,
-    required double valuePayment,
-    required int anticipationOriginId,
+    DateTime? paymentDate,
+    int? paymentId,
+    double? valuePayment,
+    int? anticipationOriginId,
     required int agentId,
     required int status,
+    required String paymentDescription,
+    String? useType,
+    required String term,
   }) = _AnticipationInfoModel;
 
   factory AnticipationInfoModel.fromToken(String token) {
@@ -33,19 +36,28 @@ class AnticipationInfoModel with _$AnticipationInfoModel {
     return AnticipationInfoModel(
       customerId: decodedToken['customer_id'],
       paymentTermId: decodedToken['payment_term_id'],
-      valuePoker: decodedToken['value_poker'],
-      valueBet: decodedToken['value_bet'],
-      dueDate: decodedToken['due_date'],
-      dateCreate: decodedToken['date_create'],
-      signatureDate: decodedToken['signature_date'],
-      lastUpdate: decodedToken['last_update'],
-      valuePrincipal: decodedToken['value_principal'],
-      paymentDate: decodedToken['payment_date'],
+      valuePoker: double.parse(decodedToken['value_poker'].toString()),
+      valueBet: double.parse(decodedToken['value_bet'].toString()),
+      dueDate: DateTime.parse(decodedToken['due_date']),
+      dateCreate: DateTime.parse(decodedToken['date_create']),
+      signatureDate: decodedToken['signature_date'] != null
+          ? DateTime.parse(decodedToken['signature_date'])
+          : null,
+      lastUpdate: decodedToken['last_update'] != null
+          ? DateTime.parse(decodedToken['last_update'])
+          : null,
+      valuePrincipal: double.parse(decodedToken['value_principal'].toString()),
+      paymentDate: decodedToken['payment_date'] != null
+          ? DateTime.parse(decodedToken['payment_date'])
+          : null,
       paymentId: decodedToken['payment_id'],
       valuePayment: decodedToken['value_payment'],
       anticipationOriginId: decodedToken['anticipation_origin_id'],
       agentId: decodedToken['agent_id'],
       status: decodedToken['status'],
+      paymentDescription: decodedToken['payment_term_description'],
+      useType: decodedToken['use'],
+      term: decodedToken['debt_settlement'],
     );
   }
 
@@ -65,5 +77,8 @@ class AnticipationInfoModel with _$AnticipationInfoModel {
         anticipationOriginId: anticipationOriginId,
         agentId: agentId,
         status: status,
+        paymentDescription: paymentDescription,
+        useType: useType,
+        term: term,
       );
 }

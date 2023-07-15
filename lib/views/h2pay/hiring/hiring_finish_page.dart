@@ -1,5 +1,8 @@
+import 'package:apph2/base_app_module_routing.dart';
+import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
+import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +17,14 @@ class HiringFinishPage extends StatefulWidget {
 }
 
 class _HiringFinishPageState extends State<HiringFinishPage> {
+  late H2PayViewModel loginViewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    loginViewModel = DM.get<H2PayViewModel>();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +92,7 @@ class _HiringFinishPageState extends State<HiringFinishPage> {
                                 ),
                                 Dimension.sm.vertical,
                                 Text(
-                                  'R\$ 10.000,00 (dez mil reais), a serem pagos em até 30 dias (04/05/2023), utilizando recursos próprios.',
+                                  'R\$ 10.000,00 (dez mil reais), a serem pagos em até ${loginViewModel.state.anticipation!.paymentDescription} (04/05/2023), utilizando recursos próprios.',
                                   textAlign: TextAlign.center,
                                   style: context.text.body1,
                                 ),
@@ -101,7 +112,10 @@ class _HiringFinishPageState extends State<HiringFinishPage> {
                 color: Colors.white,
                 child: NextWidget(
                   title: 'Finalizar',
-                  action: () {},
+                  action: () {
+                    Nav.pushNamedAndRemoveUntil(
+                        BaseAppModuleRouting.root, (p0) => false);
+                  },
                 ),
               ),
             ),

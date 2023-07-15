@@ -2,6 +2,8 @@ import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
+import 'package:apph2/views/h2pay/h2pay_state.dart';
+import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -14,9 +16,28 @@ class HiringSmsPage extends StatefulWidget {
   _HiringSmsPageState createState() => _HiringSmsPageState();
 }
 
-class _HiringSmsPageState extends State<HiringSmsPage> {
+class _HiringSmsPageState extends ViewState<HiringSmsPage, H2PayViewModel> {
   @override
   Widget build(BuildContext context) {
+    return ViewModelConsumer<H2PayViewModel, H2PayState>(
+      viewModel: viewModel,
+      listenWhen: (previous, current) =>
+          previous.customer != current.customer ||
+          previous.loading != current.loading,
+      listener: (context, state) => {},
+      builder: (context, state) {
+        return (state.anticipation != null)
+            ? _buildPage(context, state)
+            : const Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+      },
+    );
+  }
+
+  Widget _buildPage(BuildContext context, H2PayState state) {
     return Scaffold(
       appBar: const H2AppBar(
         title: Text('H2 Pay'),
@@ -78,7 +99,7 @@ class _HiringSmsPageState extends State<HiringSmsPage> {
                                       ),
                                     ),
                                     TextSpan(
-                                      text: '\n(41) 987436504',
+                                      text: '\n ${state.customer!.cellphone}',
                                       style: TextStyle(
                                         color: context
                                             .colorScheme.colorPrimaryDarkest,

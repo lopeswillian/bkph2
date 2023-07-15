@@ -190,8 +190,8 @@ abstract class BaseAppModuleRouting {
         ),
         ChildRoute(
           registerStep3.path,
-          child: (_, __) => const RegisterStep3(
-            title: 'Cadastro',
+          child: (_, args) => RegisterStep3(
+            params: args.data,
           ),
         ),
         ChildRoute(
@@ -250,7 +250,7 @@ abstract class BaseAppModuleRouting {
         ),
         ChildRoute(
           hiringConditionsPage.path,
-          child: (_, __) => const HiringConditionsPage(),
+          child: (_, args) => HiringConditionsPage(term: args.data),
         ),
         ChildRoute(
           hiringSmsPage.path,

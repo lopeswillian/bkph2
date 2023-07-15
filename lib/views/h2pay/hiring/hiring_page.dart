@@ -2,6 +2,8 @@ import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/theme/widgets/custom_text.dart';
+import 'package:apph2/views/h2pay/h2pay_state.dart';
+import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -13,9 +15,34 @@ class HiringPage extends StatefulWidget {
   _HiringPageState createState() => _HiringPageState();
 }
 
-class _HiringPageState extends State<HiringPage> {
+class _HiringPageState extends ViewState<HiringPage, H2PayViewModel> {
+  @override
+  void initState() {
+    super.initState();
+    viewModel.getAnticipation();
+  }
+
   @override
   Widget build(BuildContext context) {
+    return ViewModelConsumer<H2PayViewModel, H2PayState>(
+      viewModel: viewModel,
+      listenWhen: (previous, current) =>
+          previous.customer != current.customer ||
+          previous.loading != current.loading,
+      listener: (context, state) => {},
+      builder: (context, state) {
+        return (state.anticipation != null)
+            ? _buildPage(context, state)
+            : const Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+      },
+    );
+  }
+
+  Widget _buildPage(BuildContext context, H2PayState state) {
     return Scaffold(
       appBar: H2AppBar(
         title: Column(
@@ -76,7 +103,8 @@ class _HiringPageState extends State<HiringPage> {
                             Dimension.md.vertical,
                             CustomTextFormField(
                               labelText: 'Prazo de Pagamento',
-                              initialValue: '30 dias',
+                              initialValue:
+                                  state.anticipation!.paymentDescription,
                               enabled: false,
                               contentPadding: EdgeInsets.symmetric(
                                 horizontal: Dimension.sm.width,
@@ -86,17 +114,7 @@ class _HiringPageState extends State<HiringPage> {
                             Dimension.sm.vertical,
                             CustomTextFormField(
                               labelText: 'Finalidade do Crédito',
-                              initialValue: 'Poker',
-                              enabled: false,
-                              contentPadding: EdgeInsets.symmetric(
-                                horizontal: Dimension.sm.width,
-                                vertical: Dimension.sm.width,
-                              ),
-                            ),
-                            Dimension.sm.vertical,
-                            CustomTextFormField(
-                              labelText: 'Quantidade de Fichas',
-                              initialValue: '10.000',
+                              initialValue: state.anticipation?.useType ?? '',
                               enabled: false,
                               contentPadding: EdgeInsets.symmetric(
                                 horizontal: Dimension.sm.width,
@@ -106,23 +124,14 @@ class _HiringPageState extends State<HiringPage> {
                             Dimension.sm.vertical,
                             CustomTextFormField(
                               labelText: 'Valor',
-                              initialValue: 'R\$ 10.000,00',
+                              initialValue:
+                                  'R\$ ${state.anticipation?.valuePoker}',
                               enabled: false,
                               contentPadding: EdgeInsets.symmetric(
                                 horizontal: Dimension.sm.width,
                                 vertical: Dimension.sm.width,
                               ),
                             ),
-                            Dimension.sm.vertical,
-                            CustomTextFormField(
-                              labelText: 'Forma de Pagamento',
-                              initialValue: 'Recursos próprios',
-                              enabled: false,
-                              contentPadding: EdgeInsets.symmetric(
-                                horizontal: Dimension.sm.width,
-                                vertical: Dimension.sm.width,
-                              ),
-                            )
                           ],
                         ),
                       ),
@@ -138,7 +147,8 @@ class _HiringPageState extends State<HiringPage> {
                     child: NextWidget(
                       title: 'Aceitar',
                       action: () {
-                        Nav.pushNamed(BaseAppModuleRouting.hiringConditionsPage);
+                        Nav.pushNamed(BaseAppModuleRouting.hiringConditionsPage,
+                            arguments: state.anticipation!.term);
                       },
                     ),
                   ),

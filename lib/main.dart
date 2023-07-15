@@ -224,7 +224,7 @@ class _MyAppState extends State<MyApp> {
               routeInformationParser: Modular.routeInformationParser,
               routerDelegate: Modular.routerDelegate,
               theme: ThemeFactory.light(),
-              darkTheme: ThemeFactory.dark(),
+              // darkTheme: ThemeFactory.dark(),
               builder: (context, child) {
                 return BotToastInit()(context, child);
               },

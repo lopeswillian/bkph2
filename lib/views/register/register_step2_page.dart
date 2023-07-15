@@ -1,7 +1,14 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:apph2/theme/widgets/custom_text.dart';
+import 'package:apph2/views/register/register_step3_page.dart';
+import 'package:apph2/views/register/register_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:intl/intl.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:http/http.dart' as http;
 
 import '../../base_app_module_routing.dart';
 import '../../infraestructure/utils.dart';
@@ -20,12 +27,33 @@ class RegisterStep2 extends StatefulWidget {
 
 class _RegisterStep2State extends State<RegisterStep2> {
   bool isKeyboardVisible = false;
+  late RegisterViewModel registerViewModel;
+
+  final nickName = TextEditingController();
+  final cep = TextEditingController();
+  final state = TextEditingController();
+  final city = TextEditingController();
+  final address = TextEditingController();
+  final district = TextEditingController();
+  final numberAddress = TextEditingController();
+
+  var phoneNumberFormatter = MaskTextInputFormatter(
+    mask: '(##) #####-####',
+    filter: {'#': RegExp(r'[0-9]')},
+  );
+
+  var cepFormater = MaskTextInputFormatter(
+    mask: '##.###-###',
+    filter: {'#': RegExp(r'[0-9]')},
+  );
 
   late StreamSubscription<bool> keyboardSubscription;
 
   @override
   void initState() {
     super.initState();
+
+    registerViewModel = DM.get<RegisterViewModel>();
 
     var keyboardVisibilityController = KeyboardVisibilityController();
     keyboardSubscription =
@@ -88,52 +116,104 @@ class _RegisterStep2State extends State<RegisterStep2> {
                               style: context.text.body1,
                             ),
                             Dimension.xl.vertical,
-                            const TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Nome Completo',
-                              ),
+                            CustomTextFormField(
+                              labelText: 'Nome Completo',
+                              enabled: false,
+                              initialValue:
+                                  registerViewModel.state.document!.name,
                             ),
                             Dimension.sm.vertical,
-                            const TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Data de Nascimento',
-                              ),
+                            CustomTextFormField(
+                              labelText: 'Data de Nascimento',
+                              enabled: false,
+                              initialValue: DateFormat('dd/MM/yyy')
+                                  .format(registerViewModel
+                                      .state.document!.birthdate)
+                                  .toString(),
                             ),
                             Dimension.sm.vertical,
-                            const TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Telefone Celular com DDD',
-                              ),
+                            CustomTextFormField(
+                              inputFormatters: [phoneNumberFormatter],
+                              keyboardType: TextInputType.phone,
+                              labelText: 'Telefone Celular',
                             ),
                             Dimension.sm.vertical,
-                            const TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Apelido',
-                              ),
+                            CustomTextFormField(
+                              controller: nickName,
+                              labelText: 'Apelido',
                             ),
                             Dimension.sm.vertical,
-                            const TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'CEP',
-                              ),
+                            CustomTextFormField(
+                              inputFormatters: [cepFormater],
+                              labelText: 'CEP',
+                              keyboardType: TextInputType.number,
+                              controller: cep,
+                              onChanged: (value) async {
+                                if (address.text != '') {
+                                  state.text = '';
+                                  city.text = '';
+                                  address.text = '';
+                                  district.text = '';
+                                  setState(() {});
+                                }
+
+                                if (value.length == 10) {
+                                  String cep =
+                                      value.replaceAll(RegExp(r'[^0-9]'), '');
+                                  String url =
+                                      'https://viacep.com.br/ws/$cep/json/';
+
+                                  http.Response response =
+                                      await http.get(Uri.parse(url));
+
+                                  String responseData = response.body;
+
+                                  dynamic data = jsonDecode(responseData);
+
+                                  if (data['logradouro'] != null) {
+                                    state.text = data['uf'];
+                                    city.text = data['localidade'];
+                                    address.text = data['logradouro'];
+                                    district.text = data['bairro'];
+                                    setState(() {});
+                                  }
+                                }
+                              },
                             ),
-                            Dimension.sm.vertical,
-                            const TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Nacionalidade',
-                              ),
-                            ),
-                            Dimension.sm.vertical,
-                            const TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Estado',
+                            Visibility(
+                              visible: address.text != '',
+                              child: Column(
+                                children: [
+                                  Dimension.sm.vertical,
+                                  CustomTextFormField(
+                                    enabled: false,
+                                    labelText: 'Estado',
+                                    controller: state,
+                                  ),
+                                  Dimension.sm.vertical,
+                                  CustomTextFormField(
+                                    enabled: false,
+                                    labelText: 'Cidade',
+                                    controller: city,
+                                  ),
+                                  Dimension.sm.vertical,
+                                  CustomTextFormField(
+                                    enabled: false,
+                                    labelText: 'Bairro',
+                                    controller: district,
+                                  ),
+                                  Dimension.sm.vertical,
+                                  CustomTextFormField(
+                                    enabled: false,
+                                    labelText: 'Endereço',
+                                    controller: address,
+                                  ),
+                                  Dimension.sm.vertical,
+                                  CustomTextFormField(
+                                    labelText: 'Numero',
+                                    controller: numberAddress,
+                                  ),
+                                ],
                               ),
                             ),
                             const Dimension(25).vertical,
@@ -157,6 +237,15 @@ class _RegisterStep2State extends State<RegisterStep2> {
                       onStep: 2,
                       action: () => Nav.pushNamed(
                         BaseAppModuleRouting.registerStep3,
+                        arguments: RegisterStep3Params(
+                          nickName: nickName.text,
+                          cep: cep.text,
+                          state: state.text,
+                          city: city.text,
+                          address: address.text,
+                          district: district.text,
+                          numberAddress: numberAddress.text,
+                        ),
                       ),
                     ),
                   ),

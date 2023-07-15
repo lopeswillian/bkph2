@@ -16,12 +16,25 @@ class H2PayHomePage extends StatefulWidget {
 
 class _H2PayHomePageState extends ViewState<H2PayHomePage, H2PayViewModel> {
   @override
+  void initState() {
+    super.initState();
+    viewModel.loadCustomer();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ViewModelConsumer<H2PayViewModel, H2PayState>(
       viewModel: viewModel,
-      listenWhen: (previous, current) => previous.error != current.error,
+      listenWhen: (previous, current) {
+        return previous.customer != current.customer ||
+            previous.loading != current.loading;
+      },
       listener: (context, state) => {},
-      builder: _buildPage,
+      builder: (context, state) {
+        return (state.customer != null)
+            ? _buildPage(context, state)
+            : const Center(child: CircularProgressIndicator());
+      },
     );
   }
 
