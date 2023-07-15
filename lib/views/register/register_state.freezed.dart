@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$RegisterState {
   bool get loading => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
+  bool get success => throw _privateConstructorUsedError;
   CpfInfo? get document => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -31,7 +32,7 @@ abstract class $RegisterStateCopyWith<$Res> {
           RegisterState value, $Res Function(RegisterState) then) =
       _$RegisterStateCopyWithImpl<$Res, RegisterState>;
   @useResult
-  $Res call({bool loading, String error, CpfInfo? document});
+  $Res call({bool loading, String error, bool success, CpfInfo? document});
 
   $CpfInfoCopyWith<$Res>? get document;
 }
@@ -51,6 +52,7 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
   $Res call({
     Object? loading = null,
     Object? error = null,
+    Object? success = null,
     Object? document = freezed,
   }) {
     return _then(_value.copyWith(
@@ -62,6 +64,10 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
+      success: null == success
+          ? _value.success
+          : success // ignore: cast_nullable_to_non_nullable
+              as bool,
       document: freezed == document
           ? _value.document
           : document // ignore: cast_nullable_to_non_nullable
@@ -90,7 +96,7 @@ abstract class _$$_RegisterStateCopyWith<$Res>
       __$$_RegisterStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, String error, CpfInfo? document});
+  $Res call({bool loading, String error, bool success, CpfInfo? document});
 
   @override
   $CpfInfoCopyWith<$Res>? get document;
@@ -109,6 +115,7 @@ class __$$_RegisterStateCopyWithImpl<$Res>
   $Res call({
     Object? loading = null,
     Object? error = null,
+    Object? success = null,
     Object? document = freezed,
   }) {
     return _then(_$_RegisterState(
@@ -120,6 +127,10 @@ class __$$_RegisterStateCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
+      success: null == success
+          ? _value.success
+          : success // ignore: cast_nullable_to_non_nullable
+              as bool,
       document: freezed == document
           ? _value.document
           : document // ignore: cast_nullable_to_non_nullable
@@ -132,7 +143,10 @@ class __$$_RegisterStateCopyWithImpl<$Res>
 
 class _$_RegisterState implements _RegisterState {
   const _$_RegisterState(
-      {this.loading = false, this.error = '', this.document});
+      {this.loading = false,
+      this.error = '',
+      this.success = false,
+      this.document});
 
   @override
   @JsonKey()
@@ -141,11 +155,14 @@ class _$_RegisterState implements _RegisterState {
   @JsonKey()
   final String error;
   @override
+  @JsonKey()
+  final bool success;
+  @override
   final CpfInfo? document;
 
   @override
   String toString() {
-    return 'RegisterState(loading: $loading, error: $error, document: $document)';
+    return 'RegisterState(loading: $loading, error: $error, success: $success, document: $document)';
   }
 
   @override
@@ -155,12 +172,14 @@ class _$_RegisterState implements _RegisterState {
             other is _$_RegisterState &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error) &&
+            (identical(other.success, success) || other.success == success) &&
             (identical(other.document, document) ||
                 other.document == document));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading, error, document);
+  int get hashCode =>
+      Object.hash(runtimeType, loading, error, success, document);
 
   @JsonKey(ignore: true)
   @override
@@ -173,12 +192,15 @@ abstract class _RegisterState implements RegisterState {
   const factory _RegisterState(
       {final bool loading,
       final String error,
+      final bool success,
       final CpfInfo? document}) = _$_RegisterState;
 
   @override
   bool get loading;
   @override
   String get error;
+  @override
+  bool get success;
   @override
   CpfInfo? get document;
   @override

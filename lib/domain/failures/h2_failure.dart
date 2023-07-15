@@ -53,4 +53,5 @@ class H2Failure with _$H2Failure {
   ///  Unexpected failure
   ///
   const factory H2Failure.unexpected() = _Unexpected;
+
 }

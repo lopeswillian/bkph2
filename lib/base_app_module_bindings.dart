@@ -12,6 +12,7 @@ import 'package:apph2/usecases/get_customer_usecase.dart';
 import 'package:apph2/usecases/get_sms_code_usecase.dart';
 import 'package:apph2/usecases/login_recovery_usecase.dart';
 import 'package:apph2/usecases/login_with_credentials_usecase.dart';
+import 'package:apph2/usecases/register_usecase.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/login/login_viewmodel.dart';
 import 'package:apph2/views/recovery/recovery_viewmodel.dart';
@@ -89,6 +90,9 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<IGetCpfUseCase>(
           (i) => GetCpfUseCase(i.get<IAuthRepository>()),
         ),
+        Bind.lazySingleton<IRegisterUseCase>(
+          (i) => RegisterUseCase(i.get<IAuthRepository>()),
+        ),
         Bind.lazySingleton<ILoginRecoveryUsecase>(
           (i) => LoginRecoveryUsecase(i.get<IAuthRepository>()),
         ),
@@ -112,6 +116,7 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<RegisterViewModel>(
           (i) => RegisterViewModel(
             i.get<IGetCpfUseCase>(),
+            i.get<IRegisterUseCase>()
           ),
         ),
         Bind.lazySingleton<RecoveryViewModel>(

@@ -5,7 +5,7 @@ part 'register_params.freezed.dart';
 @freezed
 class RegisterParams with _$RegisterParams {
   factory RegisterParams({
-    required String nationality,
+    required int nationality,
     required String name,
     required String nickname,
     required String gender,

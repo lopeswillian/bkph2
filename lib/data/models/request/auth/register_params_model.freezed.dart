@@ -20,7 +20,7 @@ RegisterParamsModel _$RegisterParamsModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$RegisterParamsModel {
-  String get nationality => throw _privateConstructorUsedError;
+  int get nationality => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError;
   String get gender => throw _privateConstructorUsedError;
@@ -52,7 +52,7 @@ abstract class $RegisterParamsModelCopyWith<$Res> {
       _$RegisterParamsModelCopyWithImpl<$Res, RegisterParamsModel>;
   @useResult
   $Res call(
-      {String nationality,
+      {int nationality,
       String name,
       String nickname,
       String gender,
@@ -106,7 +106,7 @@ class _$RegisterParamsModelCopyWithImpl<$Res, $Val extends RegisterParamsModel>
       nationality: null == nationality
           ? _value.nationality
           : nationality // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -184,7 +184,7 @@ abstract class _$$_RegisterParamsModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String nationality,
+      {int nationality,
       String name,
       String nickname,
       String gender,
@@ -236,7 +236,7 @@ class __$$_RegisterParamsModelCopyWithImpl<$Res>
       nationality: null == nationality
           ? _value.nationality
           : nationality // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -333,7 +333,7 @@ class _$_RegisterParamsModel extends _RegisterParamsModel {
       _$$_RegisterParamsModelFromJson(json);
 
   @override
-  final String nationality;
+  final int nationality;
   @override
   final String name;
   @override
@@ -444,7 +444,7 @@ class _$_RegisterParamsModel extends _RegisterParamsModel {
 
 abstract class _RegisterParamsModel extends RegisterParamsModel {
   factory _RegisterParamsModel(
-      {required final String nationality,
+      {required final int nationality,
       required final String name,
       required final String nickname,
       required final String gender,
@@ -468,7 +468,7 @@ abstract class _RegisterParamsModel extends RegisterParamsModel {
       _$_RegisterParamsModel.fromJson;
 
   @override
-  String get nationality;
+  int get nationality;
   @override
   String get name;
   @override

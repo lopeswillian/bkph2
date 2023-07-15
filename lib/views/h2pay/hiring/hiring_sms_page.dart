@@ -2,7 +2,6 @@ import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
-import 'package:apph2/views/h2pay/h2pay_state.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,28 +15,18 @@ class HiringSmsPage extends StatefulWidget {
   _HiringSmsPageState createState() => _HiringSmsPageState();
 }
 
-class _HiringSmsPageState extends ViewState<HiringSmsPage, H2PayViewModel> {
+class _HiringSmsPageState extends State<HiringSmsPage> {
+  late H2PayViewModel h2payViewModel;
+
   @override
-  Widget build(BuildContext context) {
-    return ViewModelConsumer<H2PayViewModel, H2PayState>(
-      viewModel: viewModel,
-      listenWhen: (previous, current) =>
-          previous.customer != current.customer ||
-          previous.loading != current.loading,
-      listener: (context, state) => {},
-      builder: (context, state) {
-        return (state.anticipation != null)
-            ? _buildPage(context, state)
-            : const Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
-      },
-    );
+  void initState() {
+    super.initState();
+    h2payViewModel = DM.get<H2PayViewModel>();
+    h2payViewModel.getSmsCode();
   }
 
-  Widget _buildPage(BuildContext context, H2PayState state) {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: const H2AppBar(
         title: Text('H2 Pay'),
@@ -99,7 +88,8 @@ class _HiringSmsPageState extends ViewState<HiringSmsPage, H2PayViewModel> {
                                       ),
                                     ),
                                     TextSpan(
-                                      text: '\n ${state.customer!.cellphone}',
+                                      text:
+                                          '\n ${h2payViewModel.state.customer!.cellphone}',
                                       style: TextStyle(
                                         color: context
                                             .colorScheme.colorPrimaryDarkest,
@@ -143,7 +133,9 @@ class _HiringSmsPageState extends ViewState<HiringSmsPage, H2PayViewModel> {
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                h2payViewModel.getSmsCode();
+                              },
                             ),
                           ],
                         ),

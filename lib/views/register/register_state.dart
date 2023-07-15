@@ -9,6 +9,7 @@ class RegisterState extends ViewModelState with _$RegisterState {
   const factory RegisterState({
     @Default(false) bool loading,
     @Default('') String error,
+    @Default(false) bool success,
     CpfInfo? document,
   }) = _RegisterState;
 

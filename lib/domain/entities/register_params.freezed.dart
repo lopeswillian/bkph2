@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$RegisterParams {
-  String get nationality => throw _privateConstructorUsedError;
+  int get nationality => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError;
   String get gender => throw _privateConstructorUsedError;
@@ -46,7 +46,7 @@ abstract class $RegisterParamsCopyWith<$Res> {
       _$RegisterParamsCopyWithImpl<$Res, RegisterParams>;
   @useResult
   $Res call(
-      {String nationality,
+      {int nationality,
       String name,
       String nickname,
       String gender,
@@ -100,7 +100,7 @@ class _$RegisterParamsCopyWithImpl<$Res, $Val extends RegisterParams>
       nationality: null == nationality
           ? _value.nationality
           : nationality // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -178,7 +178,7 @@ abstract class _$$_RegisterParamsCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String nationality,
+      {int nationality,
       String name,
       String nickname,
       String gender,
@@ -230,7 +230,7 @@ class __$$_RegisterParamsCopyWithImpl<$Res>
       nationality: null == nationality
           ? _value.nationality
           : nationality // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -322,7 +322,7 @@ class _$_RegisterParams implements _RegisterParams {
       required this.passwordConfirmation});
 
   @override
-  final String nationality;
+  final int nationality;
   @override
   final String name;
   @override
@@ -423,7 +423,7 @@ class _$_RegisterParams implements _RegisterParams {
 
 abstract class _RegisterParams implements RegisterParams {
   factory _RegisterParams(
-      {required final String nationality,
+      {required final int nationality,
       required final String name,
       required final String nickname,
       required final String gender,
@@ -442,7 +442,7 @@ abstract class _RegisterParams implements RegisterParams {
       required final String passwordConfirmation}) = _$_RegisterParams;
 
   @override
-  String get nationality;
+  int get nationality;
   @override
   String get name;
   @override

@@ -9,7 +9,7 @@ part of 'register_params_model.dart';
 _$_RegisterParamsModel _$$_RegisterParamsModelFromJson(
         Map<String, dynamic> json) =>
     _$_RegisterParamsModel(
-      nationality: json['nationality'] as String,
+      nationality: json['nationality'] as int,
       name: json['name'] as String,
       nickname: json['nickname'] as String,
       gender: json['gender'] as String,

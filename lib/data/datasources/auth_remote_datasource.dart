@@ -48,7 +48,8 @@ class AuthDatasource implements IAuthDatasource {
 
   @override
   FutureOr<void> register(RegisterParamsModel params) async {
-    await client.post('$_basePath/register', body: params.toJson());
+    final body = params.toJson();
+    await client.post('$_basePath/register', body: body);
   }
 
   @override

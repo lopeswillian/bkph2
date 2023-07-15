@@ -92,7 +92,7 @@ class _HiringFinishPageState extends State<HiringFinishPage> {
                                 ),
                                 Dimension.sm.vertical,
                                 Text(
-                                  'R\$ 10.000,00 (dez mil reais), a serem pagos em até ${loginViewModel.state.anticipation!.paymentDescription} (04/05/2023), utilizando recursos próprios.',
+                                  'R\$ ${loginViewModel.state.anticipation!.valuePrincipal.toStringAsFixed(2)}, a serem pagos em até ${loginViewModel.state.anticipation!.paymentDescription}, utilizando recursos próprios.',
                                   textAlign: TextAlign.center,
                                   style: context.text.body1,
                                 ),

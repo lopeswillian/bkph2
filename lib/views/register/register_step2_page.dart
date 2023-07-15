@@ -28,17 +28,24 @@ class RegisterStep2 extends StatefulWidget {
 class _RegisterStep2State extends State<RegisterStep2> {
   bool isKeyboardVisible = false;
   late RegisterViewModel registerViewModel;
+  late String _selectedGender = '';
+  static final List<String> _radioValues = [
+    'f',
+    'm',
+  ];
 
   final nickName = TextEditingController();
+  final phone = TextEditingController();
   final cep = TextEditingController();
   final state = TextEditingController();
   final city = TextEditingController();
   final address = TextEditingController();
   final district = TextEditingController();
   final numberAddress = TextEditingController();
+  final complement = TextEditingController();
 
   var phoneNumberFormatter = MaskTextInputFormatter(
-    mask: '(##) #####-####',
+    mask: '(##)#####-####',
     filter: {'#': RegExp(r'[0-9]')},
   );
 
@@ -133,6 +140,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                             ),
                             Dimension.sm.vertical,
                             CustomTextFormField(
+                              controller: phone,
                               inputFormatters: [phoneNumberFormatter],
                               keyboardType: TextInputType.phone,
                               labelText: 'Telefone Celular',
@@ -142,6 +150,32 @@ class _RegisterStep2State extends State<RegisterStep2> {
                               controller: nickName,
                               labelText: 'Apelido',
                             ),
+                            Dimension.sm.vertical,
+                            ..._radioValues
+                                .map(
+                                  (value) => RadioListTile(
+                                    title: Text(
+                                      value == 'f'?"Feminino":"Masculino",
+                                      style: context.text.body2,
+                                    ),
+                                    dense: true,
+                                    contentPadding: EdgeInsets.zero,
+                                    visualDensity: const VisualDensity(
+                                      horizontal: VisualDensity.minimumDensity,
+                                      vertical: VisualDensity.minimumDensity,
+                                    ),
+                                    materialTapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
+                                    value: value,
+                                    groupValue: _selectedGender,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        _selectedGender = newValue!;
+                                      });
+                                    },
+                                  ),
+                                )
+                                .toList(),
                             Dimension.sm.vertical,
                             CustomTextFormField(
                               inputFormatters: [cepFormater],
@@ -213,6 +247,11 @@ class _RegisterStep2State extends State<RegisterStep2> {
                                     labelText: 'Numero',
                                     controller: numberAddress,
                                   ),
+                                  Dimension.sm.vertical,
+                                  CustomTextFormField(
+                                    labelText: 'Complemento',
+                                    controller: complement,
+                                  ),
                                 ],
                               ),
                             ),
@@ -245,6 +284,9 @@ class _RegisterStep2State extends State<RegisterStep2> {
                           address: address.text,
                           district: district.text,
                           numberAddress: numberAddress.text,
+                          phone: phone.text,
+                          gender: _selectedGender,
+                          complement: complement.text
                         ),
                       ),
                     ),

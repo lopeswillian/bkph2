@@ -10,7 +10,7 @@ class RegisterParamsModel with _$RegisterParamsModel {
   const RegisterParamsModel._();
 
   factory RegisterParamsModel({
-    required String nationality,
+    required int nationality,
     required String name,
     required String nickname,
     required String gender,

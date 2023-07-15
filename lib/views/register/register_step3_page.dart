@@ -1,10 +1,13 @@
 import 'dart:async';
 
 import 'package:apph2/base_app_module_routing.dart';
+import 'package:apph2/domain/entities/register_params.dart';
 import 'package:apph2/theme/widgets/custom_text.dart';
+import 'package:apph2/views/register/register_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 
 import '../../infraestructure/utils.dart';
 import '../../theme/theme.dart';
@@ -18,6 +21,9 @@ class RegisterStep3Params {
   final String address;
   final String district;
   final String numberAddress;
+  final String phone;
+  final String gender;
+  final String? complement;
   RegisterStep3Params({
     required this.nickName,
     required this.cep,
@@ -26,12 +32,18 @@ class RegisterStep3Params {
     required this.address,
     required this.district,
     required this.numberAddress,
+    required this.phone,
+    required this.gender,
+    this.complement,
   });
 }
 
 class RegisterStep3 extends StatefulWidget {
   final RegisterStep3Params params;
-  const RegisterStep3({Key? key, required this.params}) : super(key: key);
+  const RegisterStep3({
+    Key? key,
+    required this.params,
+  }) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -39,9 +51,12 @@ class RegisterStep3 extends StatefulWidget {
 }
 
 class _RegisterStep3State extends State<RegisterStep3> {
+  late RegisterViewModel registerViewModel;
+
   bool isKeyboardVisible = false;
   bool obscureText1 = true;
   bool obscureText2 = true;
+  late final RegisterStep3Params params;
   final pass = TextEditingController();
   final confirmPass = TextEditingController();
   final email = TextEditingController();
@@ -51,7 +66,8 @@ class _RegisterStep3State extends State<RegisterStep3> {
   @override
   void initState() {
     super.initState();
-
+    params = widget.params;
+    registerViewModel = DM.get<RegisterViewModel>();
     var keyboardVisibilityController = KeyboardVisibilityController();
     keyboardSubscription =
         keyboardVisibilityController.onChange.listen((bool visible) {
@@ -132,7 +148,6 @@ class _RegisterStep3State extends State<RegisterStep3> {
                               controller: pass,
                               labelText: 'Criar Senha',
                               hintText: '(de 6 a 8 dígitos)',
-                              keyboardType: TextInputType.number,
                               suffixIcon: IconButton(
                                 onPressed: () {
                                   setState(() {
@@ -150,7 +165,6 @@ class _RegisterStep3State extends State<RegisterStep3> {
                             CustomTextFormField(
                               obscureText: obscureText2,
                               labelText: 'Confirmar Senha',
-                              keyboardType: TextInputType.number,
                               controller: confirmPass,
                               errorMessage: pass.text != confirmPass.text &&
                                       confirmPass.text != ''
@@ -188,9 +202,37 @@ class _RegisterStep3State extends State<RegisterStep3> {
                       title: 'Avançar',
                       stepQuantity: 3,
                       onStep: 3,
-                      action: () => Nav.pushNamed(
-                        BaseAppModuleRouting.registerStepFinally,
-                      ),
+                      action: () async {
+                        await registerViewModel.register(
+                          registerParams: RegisterParams(
+                            nationality: 1,
+                            name: registerViewModel.state.document!.name,
+                            nickname: params.nickName,
+                            gender: params.gender,
+                            email: email.text,
+                            cpf: registerViewModel.state.document!.document,
+                            cellphone: '+55${params.phone}',
+                            birthdate: DateFormat('dd/MM/yyy')
+                                  .format(registerViewModel
+                                      .state.document!.birthdate)
+                                  .toString(),
+                            zipcode: params.cep.replaceAll('.', ''),
+                            address: params.address,
+                            number: params.numberAddress,
+                            district: params.district,
+                            state: params.state,
+                            city: params.city,
+                            password: pass.text,
+                            passwordConfirmation: confirmPass.text,
+                            complement: params.complement,
+                          ),
+                        );
+                        if (registerViewModel.state.error != '') {
+                          Nav.pushNamed(
+                            BaseAppModuleRouting.registerStepFinally,
+                          );
+                        }
+                      },
                     ),
                   ),
                 ),
