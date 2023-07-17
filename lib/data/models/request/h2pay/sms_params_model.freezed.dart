@@ -24,6 +24,7 @@ mixin _$SmsParamsModel {
   String get name => throw _privateConstructorUsedError;
   String get cellphone => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  String? get code => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +38,8 @@ abstract class $SmsParamsModelCopyWith<$Res> {
           SmsParamsModel value, $Res Function(SmsParamsModel) then) =
       _$SmsParamsModelCopyWithImpl<$Res, SmsParamsModel>;
   @useResult
-  $Res call({String cpf, String name, String cellphone, String email});
+  $Res call(
+      {String cpf, String name, String cellphone, String email, String? code});
 }
 
 /// @nodoc
@@ -57,6 +59,7 @@ class _$SmsParamsModelCopyWithImpl<$Res, $Val extends SmsParamsModel>
     Object? name = null,
     Object? cellphone = null,
     Object? email = null,
+    Object? code = freezed,
   }) {
     return _then(_value.copyWith(
       cpf: null == cpf
@@ -75,6 +78,10 @@ class _$SmsParamsModelCopyWithImpl<$Res, $Val extends SmsParamsModel>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      code: freezed == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -87,7 +94,8 @@ abstract class _$$_SmsParamsModelCopyWith<$Res>
       __$$_SmsParamsModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String cpf, String name, String cellphone, String email});
+  $Res call(
+      {String cpf, String name, String cellphone, String email, String? code});
 }
 
 /// @nodoc
@@ -105,6 +113,7 @@ class __$$_SmsParamsModelCopyWithImpl<$Res>
     Object? name = null,
     Object? cellphone = null,
     Object? email = null,
+    Object? code = freezed,
   }) {
     return _then(_$_SmsParamsModel(
       cpf: null == cpf
@@ -123,6 +132,10 @@ class __$$_SmsParamsModelCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      code: freezed == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -134,7 +147,8 @@ class _$_SmsParamsModel extends _SmsParamsModel {
       {required this.cpf,
       required this.name,
       required this.cellphone,
-      required this.email})
+      required this.email,
+      this.code})
       : super._();
 
   factory _$_SmsParamsModel.fromJson(Map<String, dynamic> json) =>
@@ -148,10 +162,12 @@ class _$_SmsParamsModel extends _SmsParamsModel {
   final String cellphone;
   @override
   final String email;
+  @override
+  final String? code;
 
   @override
   String toString() {
-    return 'SmsParamsModel(cpf: $cpf, name: $name, cellphone: $cellphone, email: $email)';
+    return 'SmsParamsModel(cpf: $cpf, name: $name, cellphone: $cellphone, email: $email, code: $code)';
   }
 
   @override
@@ -163,12 +179,14 @@ class _$_SmsParamsModel extends _SmsParamsModel {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.cellphone, cellphone) ||
                 other.cellphone == cellphone) &&
-            (identical(other.email, email) || other.email == email));
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.code, code) || other.code == code));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, cpf, name, cellphone, email);
+  int get hashCode =>
+      Object.hash(runtimeType, cpf, name, cellphone, email, code);
 
   @JsonKey(ignore: true)
   @override
@@ -189,7 +207,8 @@ abstract class _SmsParamsModel extends SmsParamsModel {
       {required final String cpf,
       required final String name,
       required final String cellphone,
-      required final String email}) = _$_SmsParamsModel;
+      required final String email,
+      final String? code}) = _$_SmsParamsModel;
   _SmsParamsModel._() : super._();
 
   factory _SmsParamsModel.fromJson(Map<String, dynamic> json) =
@@ -203,6 +222,8 @@ abstract class _SmsParamsModel extends SmsParamsModel {
   String get cellphone;
   @override
   String get email;
+  @override
+  String? get code;
   @override
   @JsonKey(ignore: true)
   _$$_SmsParamsModelCopyWith<_$_SmsParamsModel> get copyWith =>

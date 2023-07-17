@@ -9,5 +9,6 @@ class SmsParams with _$SmsParams {
     required String name,
     required String cellphone,
     required String email,
+    String? code
   }) = _SmsParams;
 }

@@ -13,6 +13,7 @@ class SmsParamsModel with _$SmsParamsModel {
     required String name,
     required String cellphone,
     required String email,
+    String? code
   }) = _SmsParamsModel;
 
   factory SmsParamsModel.fromJson(
@@ -28,6 +29,7 @@ class SmsParamsModel with _$SmsParamsModel {
       cpf: params.cpf,
       email: params.email,
       name: params.name,
+      code: params.code
     );
   }
 }

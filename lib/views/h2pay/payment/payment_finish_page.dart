@@ -48,7 +48,7 @@ class _PaymentFinishPageState extends State<PaymentFinishPage> {
                               ),
                               TextSpan(
                                 text:
-                                    ' Seu pagamento gerou 5.000 pontos Rewards que podem ser utilizados nos produtos do Grupo H2',
+                                    ' Seu pagamento está em processamento',
                                 style: TextStyle(
                                   color:
                                       context.colorScheme.colorPrimaryDarkest,

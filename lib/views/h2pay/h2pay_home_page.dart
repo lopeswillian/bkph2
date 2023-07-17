@@ -23,22 +23,58 @@ class _H2PayHomePageState extends ViewState<H2PayHomePage, H2PayViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelConsumer<H2PayViewModel, H2PayState>(
+    return ViewModelBuilder<H2PayViewModel, H2PayState>(
       viewModel: viewModel,
-      listenWhen: (previous, current) {
-        return previous.customer != current.customer ||
-            previous.loading != current.loading;
+      buildWhen: (previous, current) {
+        return previous.loading != current.loading;
       },
-      listener: (context, state) => {},
       builder: (context, state) {
-        return (state.customer != null)
-            ? _buildPage(context, state)
-            : const Center(child: CircularProgressIndicator());
+        return state.loading
+            ? const Center(child: CircularProgressIndicator())
+            : _buildPage(context, state);
       },
     );
   }
 
   Widget _buildPage(BuildContext context, H2PayState state) {
+    if (state.customer != null && !state.customer!.h2PayUser) {
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: Dimension.sm.width),
+        child: Column(
+          children: [
+            const Dimension(17.125).vertical,
+            SvgPicture.asset(
+              'assets/images/logo.svg',
+              width: const Dimension(28.125).width,
+              height: const Dimension(15.625).height,
+            ),
+            const Dimension(15.125).vertical,
+            Text(
+              'Para acessar o H2 PAY você precisa verificar sua conta',
+              textAlign: TextAlign.center,
+              style: context.text.body1,
+            ),
+            Dimension.md.vertical,
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: const Dimension(4).width,
+              ),
+              child: ContainedButton.large(
+                textStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.fontSize,
+                ),
+                onPressed: () {
+                  Nav.pushNamed(BaseAppModuleRouting.verifyPage);
+                },
+                text: "Verifique agora",
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,

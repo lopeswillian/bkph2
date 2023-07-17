@@ -11,7 +11,7 @@ class CustomerInfoModel with _$CustomerInfoModel {
   const CustomerInfoModel._();
 
   factory CustomerInfoModel({
-    required int id,
+    int? id,
     required bool h2PayUser,
     required int rewardsId,
     required String name,

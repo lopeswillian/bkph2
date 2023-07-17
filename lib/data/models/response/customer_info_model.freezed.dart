@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CustomerInfoModel {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   bool get h2PayUser => throw _privateConstructorUsedError;
   int get rewardsId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
@@ -37,7 +37,7 @@ abstract class $CustomerInfoModelCopyWith<$Res> {
       _$CustomerInfoModelCopyWithImpl<$Res, CustomerInfoModel>;
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       bool h2PayUser,
       int rewardsId,
       String name,
@@ -60,7 +60,7 @@ class _$CustomerInfoModelCopyWithImpl<$Res, $Val extends CustomerInfoModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? h2PayUser = null,
     Object? rewardsId = null,
     Object? name = null,
@@ -70,10 +70,10 @@ class _$CustomerInfoModelCopyWithImpl<$Res, $Val extends CustomerInfoModel>
     Object? cellphone = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       h2PayUser: null == h2PayUser
           ? _value.h2PayUser
           : h2PayUser // ignore: cast_nullable_to_non_nullable
@@ -115,7 +115,7 @@ abstract class _$$_CustomerInfoModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       bool h2PayUser,
       int rewardsId,
       String name,
@@ -136,7 +136,7 @@ class __$$_CustomerInfoModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? h2PayUser = null,
     Object? rewardsId = null,
     Object? name = null,
@@ -146,10 +146,10 @@ class __$$_CustomerInfoModelCopyWithImpl<$Res>
     Object? cellphone = null,
   }) {
     return _then(_$_CustomerInfoModel(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       h2PayUser: null == h2PayUser
           ? _value.h2PayUser
           : h2PayUser // ignore: cast_nullable_to_non_nullable
@@ -186,7 +186,7 @@ class __$$_CustomerInfoModelCopyWithImpl<$Res>
 
 class _$_CustomerInfoModel extends _CustomerInfoModel {
   _$_CustomerInfoModel(
-      {required this.id,
+      {this.id,
       required this.h2PayUser,
       required this.rewardsId,
       required this.name,
@@ -197,7 +197,7 @@ class _$_CustomerInfoModel extends _CustomerInfoModel {
       : super._();
 
   @override
-  final int id;
+  final int? id;
   @override
   final bool h2PayUser;
   @override
@@ -251,7 +251,7 @@ class _$_CustomerInfoModel extends _CustomerInfoModel {
 
 abstract class _CustomerInfoModel extends CustomerInfoModel {
   factory _CustomerInfoModel(
-      {required final int id,
+      {final int? id,
       required final bool h2PayUser,
       required final int rewardsId,
       required final String name,
@@ -262,7 +262,7 @@ abstract class _CustomerInfoModel extends CustomerInfoModel {
   _CustomerInfoModel._() : super._();
 
   @override
-  int get id;
+  int? get id;
   @override
   bool get h2PayUser;
   @override

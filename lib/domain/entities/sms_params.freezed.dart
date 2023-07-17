@@ -20,6 +20,7 @@ mixin _$SmsParams {
   String get name => throw _privateConstructorUsedError;
   String get cellphone => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  String? get code => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SmsParamsCopyWith<SmsParams> get copyWith =>
@@ -31,7 +32,8 @@ abstract class $SmsParamsCopyWith<$Res> {
   factory $SmsParamsCopyWith(SmsParams value, $Res Function(SmsParams) then) =
       _$SmsParamsCopyWithImpl<$Res, SmsParams>;
   @useResult
-  $Res call({String cpf, String name, String cellphone, String email});
+  $Res call(
+      {String cpf, String name, String cellphone, String email, String? code});
 }
 
 /// @nodoc
@@ -51,6 +53,7 @@ class _$SmsParamsCopyWithImpl<$Res, $Val extends SmsParams>
     Object? name = null,
     Object? cellphone = null,
     Object? email = null,
+    Object? code = freezed,
   }) {
     return _then(_value.copyWith(
       cpf: null == cpf
@@ -69,6 +72,10 @@ class _$SmsParamsCopyWithImpl<$Res, $Val extends SmsParams>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      code: freezed == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -80,7 +87,8 @@ abstract class _$$_SmsParamsCopyWith<$Res> implements $SmsParamsCopyWith<$Res> {
       __$$_SmsParamsCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String cpf, String name, String cellphone, String email});
+  $Res call(
+      {String cpf, String name, String cellphone, String email, String? code});
 }
 
 /// @nodoc
@@ -98,6 +106,7 @@ class __$$_SmsParamsCopyWithImpl<$Res>
     Object? name = null,
     Object? cellphone = null,
     Object? email = null,
+    Object? code = freezed,
   }) {
     return _then(_$_SmsParams(
       cpf: null == cpf
@@ -116,6 +125,10 @@ class __$$_SmsParamsCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      code: freezed == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -127,7 +140,8 @@ class _$_SmsParams implements _SmsParams {
       {required this.cpf,
       required this.name,
       required this.cellphone,
-      required this.email});
+      required this.email,
+      this.code});
 
   @override
   final String cpf;
@@ -137,10 +151,12 @@ class _$_SmsParams implements _SmsParams {
   final String cellphone;
   @override
   final String email;
+  @override
+  final String? code;
 
   @override
   String toString() {
-    return 'SmsParams(cpf: $cpf, name: $name, cellphone: $cellphone, email: $email)';
+    return 'SmsParams(cpf: $cpf, name: $name, cellphone: $cellphone, email: $email, code: $code)';
   }
 
   @override
@@ -152,11 +168,13 @@ class _$_SmsParams implements _SmsParams {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.cellphone, cellphone) ||
                 other.cellphone == cellphone) &&
-            (identical(other.email, email) || other.email == email));
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.code, code) || other.code == code));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, cpf, name, cellphone, email);
+  int get hashCode =>
+      Object.hash(runtimeType, cpf, name, cellphone, email, code);
 
   @JsonKey(ignore: true)
   @override
@@ -170,7 +188,8 @@ abstract class _SmsParams implements SmsParams {
       {required final String cpf,
       required final String name,
       required final String cellphone,
-      required final String email}) = _$_SmsParams;
+      required final String email,
+      final String? code}) = _$_SmsParams;
 
   @override
   String get cpf;
@@ -180,6 +199,8 @@ abstract class _SmsParams implements SmsParams {
   String get cellphone;
   @override
   String get email;
+  @override
+  String? get code;
   @override
   @JsonKey(ignore: true)
   _$$_SmsParamsCopyWith<_$_SmsParams> get copyWith =>

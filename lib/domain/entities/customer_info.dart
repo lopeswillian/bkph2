@@ -5,7 +5,7 @@ part 'customer_info.freezed.dart';
 @freezed
 class CustomerInfo with _$CustomerInfo {
   factory CustomerInfo({
-    required int id,
+    int? id,
     required bool h2PayUser,
     required int rewardsId,
     required String name,

@@ -1,12 +1,16 @@
+import 'dart:convert';
+
 import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/theme/widgets/custom_text.dart';
+import 'package:apph2/views/h2pay/payment/payment_state.dart';
 import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
 import 'package:apph2/views/h2pay/payment/widgets/custom_send_document.dart';
 import 'package:apph2/views/h2pay/payment/widgets/custom_switch_payment.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
 import 'package:flutter/material.dart' hide View;
+import 'package:image_picker/image_picker.dart';
 
 class CompanyPaymentPage extends StatefulWidget {
   const CompanyPaymentPage({Key? key}) : super(key: key);
@@ -26,11 +30,24 @@ class _CompanyPaymentPageState extends State<CompanyPaymentPage>
         return _ted();
       case 2:
         viewModel.setPaymentType(position + 1);
-        return _bankCheck();
+        return _bankCheck(viewModel.state);
       case 0:
       default:
         viewModel.setPaymentType(1);
         return _pix();
+    }
+  }
+
+  void captureImage({required bool isFront}) async {
+    final ImagePicker picker = ImagePicker();
+    final image = await picker.pickImage(
+      source: ImageSource.camera,
+      imageQuality: 80,
+    );
+    if (image != null) {
+      final imageBytes = await image.readAsBytes();
+      final base64Image = base64Encode(imageBytes);
+      viewModel.addPaymentImg(isFront: isFront, base64Image: base64Image);
     }
   }
 
@@ -124,9 +141,21 @@ class _CompanyPaymentPageState extends State<CompanyPaymentPage>
                   child: Container(
                     color: Colors.white,
                     child: NextWidget(
-                      title: 'Concluir',
-                      action: () {
-                        Nav.pushNamed(BaseAppModuleRouting.paymentFinishPage);
+                      title: position == 0 ? 'Concluir' : 'Informar pagamento',
+                      action: () async {
+                        await viewModel.sendPayment(2);
+                        if (viewModel.state.error == '') {
+                          Nav.pushNamed(
+                            BaseAppModuleRouting.paymentFinishPage,
+                          );
+                          return;
+                        }
+                        const snackBar = SnackBar(
+                          content: Text('Erro ao informar pagamento.'),
+                          duration: Duration(seconds: 2),
+                        );
+                        // ignore: use_build_context_synchronously
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                     ),
                   ),
@@ -139,15 +168,19 @@ class _CompanyPaymentPageState extends State<CompanyPaymentPage>
     );
   }
 
-  Widget _bankCheck() {
+  Widget _bankCheck(PaymentState state) {
     return Column(
       children: [
-        const CustomSendDocument(
+        CustomSendDocument(
           isFront: true,
+          enabled: state.paymentImgFront != '',
+          action: () => captureImage(isFront: true),
         ),
         Dimension.md.vertical,
-        const CustomSendDocument(
+        CustomSendDocument(
           isFront: false,
+          enabled: state.paymentImgBack != '',
+          action: () => captureImage(isFront: false),
         ),
       ],
     );

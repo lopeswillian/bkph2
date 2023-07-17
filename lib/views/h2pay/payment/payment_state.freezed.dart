@@ -18,12 +18,18 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PaymentState {
   bool get loading => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
-  AnticipationWithDischarge? get anticipationWithDischarge =>
-      throw _privateConstructorUsedError;
   double get valueToPay => throw _privateConstructorUsedError;
   int get typeOfPayment => throw _privateConstructorUsedError;
   String get paymentImgFront => throw _privateConstructorUsedError;
   String get paymentImgBack => throw _privateConstructorUsedError;
+  String get thirdPartCpf => throw _privateConstructorUsedError;
+  String get thirdPartCnpj => throw _privateConstructorUsedError;
+  CompanyInfo? get selectedCustomerCompany =>
+      throw _privateConstructorUsedError;
+  AnticipationWithDischarge? get anticipationWithDischarge =>
+      throw _privateConstructorUsedError;
+  BcoCnpjInfo? get bcoCnpjInfo => throw _privateConstructorUsedError;
+  BcoCpfInfo? get bcoCpfInfo => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PaymentStateCopyWith<PaymentState> get copyWith =>
@@ -39,13 +45,21 @@ abstract class $PaymentStateCopyWith<$Res> {
   $Res call(
       {bool loading,
       String error,
-      AnticipationWithDischarge? anticipationWithDischarge,
       double valueToPay,
       int typeOfPayment,
       String paymentImgFront,
-      String paymentImgBack});
+      String paymentImgBack,
+      String thirdPartCpf,
+      String thirdPartCnpj,
+      CompanyInfo? selectedCustomerCompany,
+      AnticipationWithDischarge? anticipationWithDischarge,
+      BcoCnpjInfo? bcoCnpjInfo,
+      BcoCpfInfo? bcoCpfInfo});
 
+  $CompanyInfoCopyWith<$Res>? get selectedCustomerCompany;
   $AnticipationWithDischargeCopyWith<$Res>? get anticipationWithDischarge;
+  $BcoCnpjInfoCopyWith<$Res>? get bcoCnpjInfo;
+  $BcoCpfInfoCopyWith<$Res>? get bcoCpfInfo;
 }
 
 /// @nodoc
@@ -63,11 +77,16 @@ class _$PaymentStateCopyWithImpl<$Res, $Val extends PaymentState>
   $Res call({
     Object? loading = null,
     Object? error = null,
-    Object? anticipationWithDischarge = freezed,
     Object? valueToPay = null,
     Object? typeOfPayment = null,
     Object? paymentImgFront = null,
     Object? paymentImgBack = null,
+    Object? thirdPartCpf = null,
+    Object? thirdPartCnpj = null,
+    Object? selectedCustomerCompany = freezed,
+    Object? anticipationWithDischarge = freezed,
+    Object? bcoCnpjInfo = freezed,
+    Object? bcoCpfInfo = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -78,10 +97,6 @@ class _$PaymentStateCopyWithImpl<$Res, $Val extends PaymentState>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
-      anticipationWithDischarge: freezed == anticipationWithDischarge
-          ? _value.anticipationWithDischarge
-          : anticipationWithDischarge // ignore: cast_nullable_to_non_nullable
-              as AnticipationWithDischarge?,
       valueToPay: null == valueToPay
           ? _value.valueToPay
           : valueToPay // ignore: cast_nullable_to_non_nullable
@@ -98,7 +113,43 @@ class _$PaymentStateCopyWithImpl<$Res, $Val extends PaymentState>
           ? _value.paymentImgBack
           : paymentImgBack // ignore: cast_nullable_to_non_nullable
               as String,
+      thirdPartCpf: null == thirdPartCpf
+          ? _value.thirdPartCpf
+          : thirdPartCpf // ignore: cast_nullable_to_non_nullable
+              as String,
+      thirdPartCnpj: null == thirdPartCnpj
+          ? _value.thirdPartCnpj
+          : thirdPartCnpj // ignore: cast_nullable_to_non_nullable
+              as String,
+      selectedCustomerCompany: freezed == selectedCustomerCompany
+          ? _value.selectedCustomerCompany
+          : selectedCustomerCompany // ignore: cast_nullable_to_non_nullable
+              as CompanyInfo?,
+      anticipationWithDischarge: freezed == anticipationWithDischarge
+          ? _value.anticipationWithDischarge
+          : anticipationWithDischarge // ignore: cast_nullable_to_non_nullable
+              as AnticipationWithDischarge?,
+      bcoCnpjInfo: freezed == bcoCnpjInfo
+          ? _value.bcoCnpjInfo
+          : bcoCnpjInfo // ignore: cast_nullable_to_non_nullable
+              as BcoCnpjInfo?,
+      bcoCpfInfo: freezed == bcoCpfInfo
+          ? _value.bcoCpfInfo
+          : bcoCpfInfo // ignore: cast_nullable_to_non_nullable
+              as BcoCpfInfo?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CompanyInfoCopyWith<$Res>? get selectedCustomerCompany {
+    if (_value.selectedCustomerCompany == null) {
+      return null;
+    }
+
+    return $CompanyInfoCopyWith<$Res>(_value.selectedCustomerCompany!, (value) {
+      return _then(_value.copyWith(selectedCustomerCompany: value) as $Val);
+    });
   }
 
   @override
@@ -111,6 +162,30 @@ class _$PaymentStateCopyWithImpl<$Res, $Val extends PaymentState>
     return $AnticipationWithDischargeCopyWith<$Res>(
         _value.anticipationWithDischarge!, (value) {
       return _then(_value.copyWith(anticipationWithDischarge: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $BcoCnpjInfoCopyWith<$Res>? get bcoCnpjInfo {
+    if (_value.bcoCnpjInfo == null) {
+      return null;
+    }
+
+    return $BcoCnpjInfoCopyWith<$Res>(_value.bcoCnpjInfo!, (value) {
+      return _then(_value.copyWith(bcoCnpjInfo: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $BcoCpfInfoCopyWith<$Res>? get bcoCpfInfo {
+    if (_value.bcoCpfInfo == null) {
+      return null;
+    }
+
+    return $BcoCpfInfoCopyWith<$Res>(_value.bcoCpfInfo!, (value) {
+      return _then(_value.copyWith(bcoCpfInfo: value) as $Val);
     });
   }
 }
@@ -126,14 +201,25 @@ abstract class _$$_PaymentStateCopyWith<$Res>
   $Res call(
       {bool loading,
       String error,
-      AnticipationWithDischarge? anticipationWithDischarge,
       double valueToPay,
       int typeOfPayment,
       String paymentImgFront,
-      String paymentImgBack});
+      String paymentImgBack,
+      String thirdPartCpf,
+      String thirdPartCnpj,
+      CompanyInfo? selectedCustomerCompany,
+      AnticipationWithDischarge? anticipationWithDischarge,
+      BcoCnpjInfo? bcoCnpjInfo,
+      BcoCpfInfo? bcoCpfInfo});
 
   @override
+  $CompanyInfoCopyWith<$Res>? get selectedCustomerCompany;
+  @override
   $AnticipationWithDischargeCopyWith<$Res>? get anticipationWithDischarge;
+  @override
+  $BcoCnpjInfoCopyWith<$Res>? get bcoCnpjInfo;
+  @override
+  $BcoCpfInfoCopyWith<$Res>? get bcoCpfInfo;
 }
 
 /// @nodoc
@@ -149,11 +235,16 @@ class __$$_PaymentStateCopyWithImpl<$Res>
   $Res call({
     Object? loading = null,
     Object? error = null,
-    Object? anticipationWithDischarge = freezed,
     Object? valueToPay = null,
     Object? typeOfPayment = null,
     Object? paymentImgFront = null,
     Object? paymentImgBack = null,
+    Object? thirdPartCpf = null,
+    Object? thirdPartCnpj = null,
+    Object? selectedCustomerCompany = freezed,
+    Object? anticipationWithDischarge = freezed,
+    Object? bcoCnpjInfo = freezed,
+    Object? bcoCpfInfo = freezed,
   }) {
     return _then(_$_PaymentState(
       loading: null == loading
@@ -164,10 +255,6 @@ class __$$_PaymentStateCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
-      anticipationWithDischarge: freezed == anticipationWithDischarge
-          ? _value.anticipationWithDischarge
-          : anticipationWithDischarge // ignore: cast_nullable_to_non_nullable
-              as AnticipationWithDischarge?,
       valueToPay: null == valueToPay
           ? _value.valueToPay
           : valueToPay // ignore: cast_nullable_to_non_nullable
@@ -184,6 +271,30 @@ class __$$_PaymentStateCopyWithImpl<$Res>
           ? _value.paymentImgBack
           : paymentImgBack // ignore: cast_nullable_to_non_nullable
               as String,
+      thirdPartCpf: null == thirdPartCpf
+          ? _value.thirdPartCpf
+          : thirdPartCpf // ignore: cast_nullable_to_non_nullable
+              as String,
+      thirdPartCnpj: null == thirdPartCnpj
+          ? _value.thirdPartCnpj
+          : thirdPartCnpj // ignore: cast_nullable_to_non_nullable
+              as String,
+      selectedCustomerCompany: freezed == selectedCustomerCompany
+          ? _value.selectedCustomerCompany
+          : selectedCustomerCompany // ignore: cast_nullable_to_non_nullable
+              as CompanyInfo?,
+      anticipationWithDischarge: freezed == anticipationWithDischarge
+          ? _value.anticipationWithDischarge
+          : anticipationWithDischarge // ignore: cast_nullable_to_non_nullable
+              as AnticipationWithDischarge?,
+      bcoCnpjInfo: freezed == bcoCnpjInfo
+          ? _value.bcoCnpjInfo
+          : bcoCnpjInfo // ignore: cast_nullable_to_non_nullable
+              as BcoCnpjInfo?,
+      bcoCpfInfo: freezed == bcoCpfInfo
+          ? _value.bcoCpfInfo
+          : bcoCpfInfo // ignore: cast_nullable_to_non_nullable
+              as BcoCpfInfo?,
     ));
   }
 }
@@ -194,11 +305,16 @@ class _$_PaymentState implements _PaymentState {
   const _$_PaymentState(
       {this.loading = false,
       this.error = '',
-      this.anticipationWithDischarge,
       this.valueToPay = 0,
       this.typeOfPayment = 1,
       this.paymentImgFront = '',
-      this.paymentImgBack = ''});
+      this.paymentImgBack = '',
+      this.thirdPartCpf = '',
+      this.thirdPartCnpj = '',
+      this.selectedCustomerCompany,
+      this.anticipationWithDischarge,
+      this.bcoCnpjInfo,
+      this.bcoCpfInfo});
 
   @override
   @JsonKey()
@@ -206,8 +322,6 @@ class _$_PaymentState implements _PaymentState {
   @override
   @JsonKey()
   final String error;
-  @override
-  final AnticipationWithDischarge? anticipationWithDischarge;
   @override
   @JsonKey()
   final double valueToPay;
@@ -220,10 +334,24 @@ class _$_PaymentState implements _PaymentState {
   @override
   @JsonKey()
   final String paymentImgBack;
+  @override
+  @JsonKey()
+  final String thirdPartCpf;
+  @override
+  @JsonKey()
+  final String thirdPartCnpj;
+  @override
+  final CompanyInfo? selectedCustomerCompany;
+  @override
+  final AnticipationWithDischarge? anticipationWithDischarge;
+  @override
+  final BcoCnpjInfo? bcoCnpjInfo;
+  @override
+  final BcoCpfInfo? bcoCpfInfo;
 
   @override
   String toString() {
-    return 'PaymentState(loading: $loading, error: $error, anticipationWithDischarge: $anticipationWithDischarge, valueToPay: $valueToPay, typeOfPayment: $typeOfPayment, paymentImgFront: $paymentImgFront, paymentImgBack: $paymentImgBack)';
+    return 'PaymentState(loading: $loading, error: $error, valueToPay: $valueToPay, typeOfPayment: $typeOfPayment, paymentImgFront: $paymentImgFront, paymentImgBack: $paymentImgBack, thirdPartCpf: $thirdPartCpf, thirdPartCnpj: $thirdPartCnpj, selectedCustomerCompany: $selectedCustomerCompany, anticipationWithDischarge: $anticipationWithDischarge, bcoCnpjInfo: $bcoCnpjInfo, bcoCpfInfo: $bcoCpfInfo)';
   }
 
   @override
@@ -233,9 +361,6 @@ class _$_PaymentState implements _PaymentState {
             other is _$_PaymentState &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error) &&
-            (identical(other.anticipationWithDischarge,
-                    anticipationWithDischarge) ||
-                other.anticipationWithDischarge == anticipationWithDischarge) &&
             (identical(other.valueToPay, valueToPay) ||
                 other.valueToPay == valueToPay) &&
             (identical(other.typeOfPayment, typeOfPayment) ||
@@ -243,7 +368,21 @@ class _$_PaymentState implements _PaymentState {
             (identical(other.paymentImgFront, paymentImgFront) ||
                 other.paymentImgFront == paymentImgFront) &&
             (identical(other.paymentImgBack, paymentImgBack) ||
-                other.paymentImgBack == paymentImgBack));
+                other.paymentImgBack == paymentImgBack) &&
+            (identical(other.thirdPartCpf, thirdPartCpf) ||
+                other.thirdPartCpf == thirdPartCpf) &&
+            (identical(other.thirdPartCnpj, thirdPartCnpj) ||
+                other.thirdPartCnpj == thirdPartCnpj) &&
+            (identical(
+                    other.selectedCustomerCompany, selectedCustomerCompany) ||
+                other.selectedCustomerCompany == selectedCustomerCompany) &&
+            (identical(other.anticipationWithDischarge,
+                    anticipationWithDischarge) ||
+                other.anticipationWithDischarge == anticipationWithDischarge) &&
+            (identical(other.bcoCnpjInfo, bcoCnpjInfo) ||
+                other.bcoCnpjInfo == bcoCnpjInfo) &&
+            (identical(other.bcoCpfInfo, bcoCpfInfo) ||
+                other.bcoCpfInfo == bcoCpfInfo));
   }
 
   @override
@@ -251,11 +390,16 @@ class _$_PaymentState implements _PaymentState {
       runtimeType,
       loading,
       error,
-      anticipationWithDischarge,
       valueToPay,
       typeOfPayment,
       paymentImgFront,
-      paymentImgBack);
+      paymentImgBack,
+      thirdPartCpf,
+      thirdPartCnpj,
+      selectedCustomerCompany,
+      anticipationWithDischarge,
+      bcoCnpjInfo,
+      bcoCpfInfo);
 
   @JsonKey(ignore: true)
   @override
@@ -268,18 +412,21 @@ abstract class _PaymentState implements PaymentState {
   const factory _PaymentState(
       {final bool loading,
       final String error,
-      final AnticipationWithDischarge? anticipationWithDischarge,
       final double valueToPay,
       final int typeOfPayment,
       final String paymentImgFront,
-      final String paymentImgBack}) = _$_PaymentState;
+      final String paymentImgBack,
+      final String thirdPartCpf,
+      final String thirdPartCnpj,
+      final CompanyInfo? selectedCustomerCompany,
+      final AnticipationWithDischarge? anticipationWithDischarge,
+      final BcoCnpjInfo? bcoCnpjInfo,
+      final BcoCpfInfo? bcoCpfInfo}) = _$_PaymentState;
 
   @override
   bool get loading;
   @override
   String get error;
-  @override
-  AnticipationWithDischarge? get anticipationWithDischarge;
   @override
   double get valueToPay;
   @override
@@ -288,6 +435,18 @@ abstract class _PaymentState implements PaymentState {
   String get paymentImgFront;
   @override
   String get paymentImgBack;
+  @override
+  String get thirdPartCpf;
+  @override
+  String get thirdPartCnpj;
+  @override
+  CompanyInfo? get selectedCustomerCompany;
+  @override
+  AnticipationWithDischarge? get anticipationWithDischarge;
+  @override
+  BcoCnpjInfo? get bcoCnpjInfo;
+  @override
+  BcoCpfInfo? get bcoCpfInfo;
   @override
   @JsonKey(ignore: true)
   _$$_PaymentStateCopyWith<_$_PaymentState> get copyWith =>

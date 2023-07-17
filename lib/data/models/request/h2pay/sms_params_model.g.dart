@@ -12,6 +12,7 @@ _$_SmsParamsModel _$$_SmsParamsModelFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       cellphone: json['cellphone'] as String,
       email: json['email'] as String,
+      code: json['code'] as String?,
     );
 
 Map<String, dynamic> _$$_SmsParamsModelToJson(_$_SmsParamsModel instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$$_SmsParamsModelToJson(_$_SmsParamsModel instance) =>
       'name': instance.name,
       'cellphone': instance.cellphone,
       'email': instance.email,
+      'code': instance.code,
     };

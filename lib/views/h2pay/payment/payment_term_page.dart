@@ -14,6 +14,7 @@ class PaymentTermPage extends StatefulWidget {
 }
 
 class _PaymentTermPageState extends State<PaymentTermPage> {
+  bool accept = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,10 +94,14 @@ class _PaymentTermPageState extends State<PaymentTermPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Switch(
-                            value: true,
+                            value: accept,
                             activeColor: AppThemeBase.colorPrimarySuperlight,
                             activeTrackColor: AppThemeBase.colorPrimaryMedium,
-                            onChanged: (value) => {},
+                            onChanged: (value) {
+                              setState(() {
+                                accept = value;
+                              });
+                            },
                           ),
                           Dimension.sm.horizontal,
                           Text(
@@ -108,6 +113,7 @@ class _PaymentTermPageState extends State<PaymentTermPage> {
                         ],
                       ),
                       title: 'Avançar',
+                      enabled: accept,
                       action: () {
                         Nav.pushNamed(BaseAppModuleRouting.companyPaymentPage);
                       },

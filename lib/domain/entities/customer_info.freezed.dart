@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CustomerInfo {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   bool get h2PayUser => throw _privateConstructorUsedError;
   int get rewardsId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
@@ -37,7 +37,7 @@ abstract class $CustomerInfoCopyWith<$Res> {
       _$CustomerInfoCopyWithImpl<$Res, CustomerInfo>;
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       bool h2PayUser,
       int rewardsId,
       String name,
@@ -60,7 +60,7 @@ class _$CustomerInfoCopyWithImpl<$Res, $Val extends CustomerInfo>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? h2PayUser = null,
     Object? rewardsId = null,
     Object? name = null,
@@ -70,10 +70,10 @@ class _$CustomerInfoCopyWithImpl<$Res, $Val extends CustomerInfo>
     Object? cellphone = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       h2PayUser: null == h2PayUser
           ? _value.h2PayUser
           : h2PayUser // ignore: cast_nullable_to_non_nullable
@@ -115,7 +115,7 @@ abstract class _$$_CustomerInfoCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       bool h2PayUser,
       int rewardsId,
       String name,
@@ -136,7 +136,7 @@ class __$$_CustomerInfoCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? h2PayUser = null,
     Object? rewardsId = null,
     Object? name = null,
@@ -146,10 +146,10 @@ class __$$_CustomerInfoCopyWithImpl<$Res>
     Object? cellphone = null,
   }) {
     return _then(_$_CustomerInfo(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       h2PayUser: null == h2PayUser
           ? _value.h2PayUser
           : h2PayUser // ignore: cast_nullable_to_non_nullable
@@ -186,7 +186,7 @@ class __$$_CustomerInfoCopyWithImpl<$Res>
 
 class _$_CustomerInfo implements _CustomerInfo {
   _$_CustomerInfo(
-      {required this.id,
+      {this.id,
       required this.h2PayUser,
       required this.rewardsId,
       required this.name,
@@ -196,7 +196,7 @@ class _$_CustomerInfo implements _CustomerInfo {
       required this.cellphone});
 
   @override
-  final int id;
+  final int? id;
   @override
   final bool h2PayUser;
   @override
@@ -249,7 +249,7 @@ class _$_CustomerInfo implements _CustomerInfo {
 
 abstract class _CustomerInfo implements CustomerInfo {
   factory _CustomerInfo(
-      {required final int id,
+      {final int? id,
       required final bool h2PayUser,
       required final int rewardsId,
       required final String name,
@@ -259,7 +259,7 @@ abstract class _CustomerInfo implements CustomerInfo {
       required final String cellphone}) = _$_CustomerInfo;
 
   @override
-  int get id;
+  int? get id;
   @override
   bool get h2PayUser;
   @override

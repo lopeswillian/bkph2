@@ -17,6 +17,7 @@ class HiringSmsPage extends StatefulWidget {
 
 class _HiringSmsPageState extends State<HiringSmsPage> {
   late H2PayViewModel h2payViewModel;
+  TextEditingController pinCodeController = TextEditingController();
 
   @override
   void initState() {
@@ -107,6 +108,7 @@ class _HiringSmsPageState extends State<HiringSmsPage> {
                               child: PinCodeTextField(
                                 appContext: context,
                                 length: 4,
+                                controller: pinCodeController,
                                 keyboardType: TextInputType.number,
                                 pinTheme: PinTheme(
                                   selectedColor:
@@ -151,8 +153,20 @@ class _HiringSmsPageState extends State<HiringSmsPage> {
                     color: Colors.white,
                     child: NextWidget(
                       title: 'Avançar',
-                      action: () {
-                        Nav.pushNamed(BaseAppModuleRouting.hiringFinishPage);
+                      // enabled: pinCodeController.text.length == 4,
+                      action: () async {
+                        final isValidCode = await h2payViewModel
+                            .validateSmsCode(pinCodeController.text);
+                        if (isValidCode == true) {
+                          Nav.pushNamed(BaseAppModuleRouting.hiringFinishPage);
+                        }
+
+                        const snackBar = SnackBar(
+                          content: Text('Código expirado ou inválido.'),
+                          duration: Duration(seconds: 2),
+                        );
+                        // ignore: use_build_context_synchronously
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                     ),
                   ),

@@ -68,42 +68,48 @@ class CustomTile extends StatelessWidget {
           children: [
             SvgPicture.string(svgItem),
             Dimension.sm.horizontal,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: context.text.body1Bold.copyWith(
-                    color: colored
-                        ? AppThemeBase.colorPrimarySuperlight
-                        : AppThemeBase.colorPrimaryDarkest,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: context.text.body1Bold.copyWith(
+                      color: colored
+                          ? AppThemeBase.colorPrimarySuperlight
+                          : AppThemeBase.colorPrimaryDarkest,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
-                ),
-                if (subTitle != null)
-                  ...<Widget>[
-                    Dimension.xxs.vertical,
-                    Text(
-                      subTitle!,
-                      style: context.text.caption.copyWith(
-                        color: colored
-                            ? AppThemeBase.colorPrimarySuperlight
-                            : AppThemeBase.colorPrimaryDarkest,
+                  if (subTitle != null)
+                    ...<Widget>[
+                      Dimension.xxs.vertical,
+                      Text(
+                        subTitle!,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: context.text.caption.copyWith(
+                          color: colored
+                              ? AppThemeBase.colorPrimarySuperlight
+                              : AppThemeBase.colorPrimaryDarkest,
+                        ),
                       ),
-                    ),
-                  ].toList(),
-                if (secondSubTitle != null)
-                  ...<Widget>[
-                    Dimension.xxs.vertical,
-                    Text(
-                      secondSubTitle!,
-                      style: context.text.caption.copyWith(
-                        color: colored
-                            ? AppThemeBase.colorPrimarySuperlight
-                            : AppThemeBase.colorPrimaryDarkest,
+                    ].toList(),
+                  if (secondSubTitle != null)
+                    ...<Widget>[
+                      Dimension.xxs.vertical,
+                      Text(
+                        secondSubTitle!,
+                        style: context.text.caption.copyWith(
+                          color: colored
+                              ? AppThemeBase.colorPrimarySuperlight
+                              : AppThemeBase.colorPrimaryDarkest,
+                        ),
                       ),
-                    ),
-                  ].toList(),
-              ],
+                    ].toList(),
+                ],
+              ),
             )
           ],
         ),

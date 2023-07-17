@@ -20,6 +20,8 @@ mixin _$H2PayState {
   String get error => throw _privateConstructorUsedError;
   CustomerInfo? get customer => throw _privateConstructorUsedError;
   AnticipationInfo? get anticipation => throw _privateConstructorUsedError;
+  CustomerCompanies? get customerCompanies =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $H2PayStateCopyWith<H2PayState> get copyWith =>
@@ -36,10 +38,12 @@ abstract class $H2PayStateCopyWith<$Res> {
       {bool loading,
       String error,
       CustomerInfo? customer,
-      AnticipationInfo? anticipation});
+      AnticipationInfo? anticipation,
+      CustomerCompanies? customerCompanies});
 
   $CustomerInfoCopyWith<$Res>? get customer;
   $AnticipationInfoCopyWith<$Res>? get anticipation;
+  $CustomerCompaniesCopyWith<$Res>? get customerCompanies;
 }
 
 /// @nodoc
@@ -59,6 +63,7 @@ class _$H2PayStateCopyWithImpl<$Res, $Val extends H2PayState>
     Object? error = null,
     Object? customer = freezed,
     Object? anticipation = freezed,
+    Object? customerCompanies = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -77,6 +82,10 @@ class _$H2PayStateCopyWithImpl<$Res, $Val extends H2PayState>
           ? _value.anticipation
           : anticipation // ignore: cast_nullable_to_non_nullable
               as AnticipationInfo?,
+      customerCompanies: freezed == customerCompanies
+          ? _value.customerCompanies
+          : customerCompanies // ignore: cast_nullable_to_non_nullable
+              as CustomerCompanies?,
     ) as $Val);
   }
 
@@ -103,6 +112,18 @@ class _$H2PayStateCopyWithImpl<$Res, $Val extends H2PayState>
       return _then(_value.copyWith(anticipation: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CustomerCompaniesCopyWith<$Res>? get customerCompanies {
+    if (_value.customerCompanies == null) {
+      return null;
+    }
+
+    return $CustomerCompaniesCopyWith<$Res>(_value.customerCompanies!, (value) {
+      return _then(_value.copyWith(customerCompanies: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -117,12 +138,15 @@ abstract class _$$_H2PayStateCopyWith<$Res>
       {bool loading,
       String error,
       CustomerInfo? customer,
-      AnticipationInfo? anticipation});
+      AnticipationInfo? anticipation,
+      CustomerCompanies? customerCompanies});
 
   @override
   $CustomerInfoCopyWith<$Res>? get customer;
   @override
   $AnticipationInfoCopyWith<$Res>? get anticipation;
+  @override
+  $CustomerCompaniesCopyWith<$Res>? get customerCompanies;
 }
 
 /// @nodoc
@@ -140,6 +164,7 @@ class __$$_H2PayStateCopyWithImpl<$Res>
     Object? error = null,
     Object? customer = freezed,
     Object? anticipation = freezed,
+    Object? customerCompanies = freezed,
   }) {
     return _then(_$_H2PayState(
       loading: null == loading
@@ -158,6 +183,10 @@ class __$$_H2PayStateCopyWithImpl<$Res>
           ? _value.anticipation
           : anticipation // ignore: cast_nullable_to_non_nullable
               as AnticipationInfo?,
+      customerCompanies: freezed == customerCompanies
+          ? _value.customerCompanies
+          : customerCompanies // ignore: cast_nullable_to_non_nullable
+              as CustomerCompanies?,
     ));
   }
 }
@@ -169,7 +198,8 @@ class _$_H2PayState implements _H2PayState {
       {this.loading = false,
       this.error = '',
       this.customer,
-      this.anticipation});
+      this.anticipation,
+      this.customerCompanies});
 
   @override
   @JsonKey()
@@ -181,10 +211,12 @@ class _$_H2PayState implements _H2PayState {
   final CustomerInfo? customer;
   @override
   final AnticipationInfo? anticipation;
+  @override
+  final CustomerCompanies? customerCompanies;
 
   @override
   String toString() {
-    return 'H2PayState(loading: $loading, error: $error, customer: $customer, anticipation: $anticipation)';
+    return 'H2PayState(loading: $loading, error: $error, customer: $customer, anticipation: $anticipation, customerCompanies: $customerCompanies)';
   }
 
   @override
@@ -197,12 +229,14 @@ class _$_H2PayState implements _H2PayState {
             (identical(other.customer, customer) ||
                 other.customer == customer) &&
             (identical(other.anticipation, anticipation) ||
-                other.anticipation == anticipation));
+                other.anticipation == anticipation) &&
+            (identical(other.customerCompanies, customerCompanies) ||
+                other.customerCompanies == customerCompanies));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, loading, error, customer, anticipation);
+  int get hashCode => Object.hash(
+      runtimeType, loading, error, customer, anticipation, customerCompanies);
 
   @JsonKey(ignore: true)
   @override
@@ -216,7 +250,8 @@ abstract class _H2PayState implements H2PayState {
       {final bool loading,
       final String error,
       final CustomerInfo? customer,
-      final AnticipationInfo? anticipation}) = _$_H2PayState;
+      final AnticipationInfo? anticipation,
+      final CustomerCompanies? customerCompanies}) = _$_H2PayState;
 
   @override
   bool get loading;
@@ -226,6 +261,8 @@ abstract class _H2PayState implements H2PayState {
   CustomerInfo? get customer;
   @override
   AnticipationInfo? get anticipation;
+  @override
+  CustomerCompanies? get customerCompanies;
   @override
   @JsonKey(ignore: true)
   _$$_H2PayStateCopyWith<_$_H2PayState> get copyWith =>

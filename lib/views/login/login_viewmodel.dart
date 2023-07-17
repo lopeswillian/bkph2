@@ -2,7 +2,6 @@ import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/domain/entities/login_params.dart';
 import 'package:apph2/domain/entities/user_info.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
-import 'package:apph2/infraestructure/mvvm/mvvm.dart';
 import 'package:apph2/usecases/login_with_credentials_usecase.dart';
 import 'package:apph2/views/login/login_state.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';

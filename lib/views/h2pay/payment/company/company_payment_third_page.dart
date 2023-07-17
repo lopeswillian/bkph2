@@ -1,31 +1,78 @@
+import 'dart:convert';
+
 import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
-import 'package:apph2/theme/widgets/custom_text.dart';
+import 'package:apph2/views/h2pay/payment/payment_state.dart';
+import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
 import 'package:apph2/views/h2pay/payment/widgets/custom_send_document.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide View;
+import 'package:image_picker/image_picker.dart';
 
-class CompanyPaymentThirdPageArguments{
+class CompanyPaymentThirdPageArguments {
   final bool isClient;
-  CompanyPaymentThirdPageArguments({required this.isClient});
+  final bool isPerson;
+  CompanyPaymentThirdPageArguments({
+    required this.isClient,
+    required this.isPerson,
+  });
 }
 
 class CompanyPaymentThirdPage extends StatefulWidget {
   final CompanyPaymentThirdPageArguments arguments;
-  const CompanyPaymentThirdPage({Key? key, required this.arguments}) : super(key: key);
+  const CompanyPaymentThirdPage({Key? key, required this.arguments})
+      : super(key: key);
+
+  bool get isClient => arguments.isClient;
+  bool get isPerson => arguments.isPerson;
 
   @override
   // ignore: library_private_types_in_public_api
-  _CompanyPaymentThirdPageState createState() => _CompanyPaymentThirdPageState();
+  _CompanyPaymentThirdPageState createState() =>
+      _CompanyPaymentThirdPageState();
 }
 
-class _CompanyPaymentThirdPageState extends State<CompanyPaymentThirdPage> {
+class _CompanyPaymentThirdPageState extends State<CompanyPaymentThirdPage>
+    with View<PaymentViewModel> {
+  bool accept = false;
+  void captureImage({required bool isFront}) async {
+    final ImagePicker picker = ImagePicker();
+    final image = await picker.pickImage(
+      source: ImageSource.camera,
+      imageQuality: 80,
+    );
+    if (image != null) {
+      final imageBytes = await image.readAsBytes();
+      final base64Image = base64Encode(imageBytes);
+      viewModel.addPaymentImg(isFront: isFront, base64Image: base64Image);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    return ViewModelConsumer<PaymentViewModel, PaymentState>(
+      viewModel: viewModel,
+      listenWhen: (previous, current) {
+        return previous.loading != current.loading ||
+            previous.paymentImgFront != current.paymentImgFront ||
+            previous.paymentImgBack != current.paymentImgBack;
+      },
+      listener: (context, state) => {},
+      builder: (context, state) {
+        return state.loading
+            ? const Scaffold(
+                body: Center(child: CircularProgressIndicator()),
+              )
+            : _buildPage(context, state);
+      },
+    );
+  }
+
+  Widget _buildPage(BuildContext context, PaymentState state) {
     return Scaffold(
-      appBar:  H2AppBar(
+      appBar: H2AppBar(
         title: Column(
           children: [
             const Text('Pagamentos'),
@@ -74,7 +121,7 @@ class _CompanyPaymentThirdPageState extends State<CompanyPaymentThirdPage> {
                           children: [
                             Dimension.xl.vertical,
                             Text(
-                              'Tire uma foto do cheque do seu ${widget.arguments.isClient?'cliente':'fornecedor'}',
+                              'Tire uma foto do cheque do seu ${widget.arguments.isClient ? 'cliente' : 'fornecedor'}',
                               style: TextStyle(
                                 fontSize: 19.fontSize,
                                 fontWeight: FontWeight.w600,
@@ -83,7 +130,7 @@ class _CompanyPaymentThirdPageState extends State<CompanyPaymentThirdPage> {
                             Dimension.md.vertical,
                             const Divider(),
                             Dimension.md.vertical,
-                            _bankCheck()
+                            _bankCheck(state)
                           ],
                         ),
                       ),
@@ -101,10 +148,14 @@ class _CompanyPaymentThirdPageState extends State<CompanyPaymentThirdPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Switch(
-                            value: true,
+                            value: accept,
                             activeColor: AppThemeBase.colorPrimarySuperlight,
                             activeTrackColor: AppThemeBase.colorPrimaryMedium,
-                            onChanged: (value) => {},
+                            onChanged: (value) {
+                              setState(() {
+                                accept = value;
+                              });
+                            },
                           ),
                           Dimension.sm.horizontal,
                           Expanded(
@@ -118,8 +169,23 @@ class _CompanyPaymentThirdPageState extends State<CompanyPaymentThirdPage> {
                         ],
                       ),
                       title: 'Informar pagamento',
-                      action: () {
-                        Nav.pushNamed(BaseAppModuleRouting.paymentTermPage);
+                      enabled: state.paymentImgFront.isNotEmpty &&
+                          state.paymentImgBack.isNotEmpty &&
+                          accept,
+                      action: () async {
+                        await viewModel.sendPayment(getTypeOfPayer());
+                        if (viewModel.state.error == '') {
+                          Nav.pushNamed(
+                            BaseAppModuleRouting.paymentFinishPage,
+                          );
+                          return;
+                        }
+                        const snackBar = SnackBar(
+                          content: Text('Erro ao informar pagamento.'),
+                          duration: Duration(seconds: 2),
+                        );
+                        // ignore: use_build_context_synchronously
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                     ),
                   ),
@@ -132,138 +198,34 @@ class _CompanyPaymentThirdPageState extends State<CompanyPaymentThirdPage> {
     );
   }
 
-  Widget _bankCheck() {
-    return  Column(
+  int getTypeOfPayer() {
+    if (widget.isClient) {
+      if (widget.isPerson) {
+        return 3;
+      }
+      return 4;
+    }
+
+    if (widget.isPerson) {
+      return 5;
+    }
+    return 6;
+  }
+
+  Widget _bankCheck(PaymentState state) {
+    return Column(
       children: [
-        const CustomSendDocument(
+        CustomSendDocument(
           isFront: true,
+          enabled: state.paymentImgFront != '',
+          action: () => captureImage(isFront: true),
         ),
         Dimension.md.vertical,
-        const CustomSendDocument(
+        CustomSendDocument(
           isFront: false,
+          enabled: state.paymentImgBack != '',
+          action: () => captureImage(isFront: false),
         ),
-      ],
-    );
-  }
-
-  Widget _ted() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Dados para pagamentos com TED',
-          style: context.text.body2,
-        ),
-        Dimension.sm.vertical,
-        const CustomTextFormField(
-          labelText: 'Banco',
-          initialValue: '(033) Santander',
-        ),
-        const Dimension(2.5).vertical,
-        Row(
-          children: [
-            const Flexible(
-              child: CustomTextFormField(
-                labelText: 'Agência',
-                initialValue: '0120',
-              ),
-            ),
-            const Dimension(2.5).horizontal,
-            const Flexible(
-              child: CustomTextFormField(
-                labelText: 'Conta',
-                initialValue: '13.004.059-1',
-              ),
-            ),
-          ],
-        ),
-        const Dimension(2.5).vertical,
-        const CustomTextFormField(
-          labelText: 'Favorecido',
-          initialValue: 'H2 Fintech',
-        )
-      ],
-    );
-  }
-
-  Widget _pix() {
-    return Column(
-      children: [
-        CustomTextFormField(
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: Dimension.sm.width,
-            vertical: Dimension.sm.width,
-          ),
-          controller: null,
-          onChanged: (String cb) {},
-          initialValue: "00020101021226640014br.gov.bcb.pix...",
-          labelText: 'Chave PIX QRCode',
-          enabled: false,
-        ),
-        const Dimension(2.5).vertical,
-        Container(
-          padding: EdgeInsets.all(const Dimension(1.25).value),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: AppThemeBase.colorPrimaryLight,
-            ),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-          child: Text(
-            "Copiar código Pix",
-            style: context.text.body2Medium.copyWith(
-              color: AppThemeBase.colorPrimaryLight,
-            ),
-          ),
-        ),
-        Dimension.md.vertical,
-        Container(
-          padding: EdgeInsets.all(Dimension.sm.value),
-          decoration: const BoxDecoration(
-            color: AppThemeBase.colorSecondary02,
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              RichText(
-                text: TextSpan(
-                  style: context.text.callout,
-                  children: const <TextSpan>[
-                    TextSpan(
-                      text: 'Usuário,',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: AppThemeBase.colorPrimaryDarkest,
-                      ),
-                    ),
-                    TextSpan(
-                      text:
-                          ' para realizar o pagamento, siga os passos a seguir:',
-                    )
-                  ],
-                ),
-              ),
-              Dimension.md.vertical,
-              Text(
-                "1. Abra o aplicativo do seu banco",
-                style: context.text.callout,
-              ),
-              Text(
-                "2. Acesse a opção de Pix",
-                style: context.text.callout,
-              ),
-              Text(
-                "3. Copie o código pix e informe-o na opção Pix Copia e Cola",
-                style: context.text.callout,
-              ),
-            ],
-          ),
-        )
       ],
     );
   }

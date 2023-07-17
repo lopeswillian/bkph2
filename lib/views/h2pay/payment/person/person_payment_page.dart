@@ -154,7 +154,7 @@ class _PersonPaymentPageState extends State<PersonPaymentPage>
                     child: NextWidget(
                       title: position == 0 ? 'Concluir' : 'Informar pagamento',
                       action: () async {
-                        await viewModel.sendPayment();
+                        await viewModel.sendPayment(1);
                         if (viewModel.state.error == '') {
                           Nav.pushNamed(
                             BaseAppModuleRouting.paymentFinishPage,
@@ -208,6 +208,7 @@ class _PersonPaymentPageState extends State<PersonPaymentPage>
         Dimension.sm.vertical,
         const CustomTextFormField(
           labelText: 'Banco',
+          enabled: false,
           initialValue: '(033) Santander',
         ),
         const Dimension(2.5).vertical,
@@ -215,6 +216,7 @@ class _PersonPaymentPageState extends State<PersonPaymentPage>
           children: [
             const Flexible(
               child: CustomTextFormField(
+                enabled: false,
                 labelText: 'Agência',
                 initialValue: '0120',
               ),
@@ -222,6 +224,7 @@ class _PersonPaymentPageState extends State<PersonPaymentPage>
             const Dimension(2.5).horizontal,
             const Flexible(
               child: CustomTextFormField(
+                enabled: false,
                 labelText: 'Conta',
                 initialValue: '13.004.059-1',
               ),
@@ -230,6 +233,7 @@ class _PersonPaymentPageState extends State<PersonPaymentPage>
         ),
         const Dimension(2.5).vertical,
         const CustomTextFormField(
+          enabled: false,
           labelText: 'Favorecido',
           initialValue: 'H2 Fintech',
         )

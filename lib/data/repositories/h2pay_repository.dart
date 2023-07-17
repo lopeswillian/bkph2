@@ -1,11 +1,20 @@
 import 'package:apph2/data/datasources/h2pay_remote_datasource.dart';
 import 'package:apph2/data/models/request/h2pay/anticipation_params_model.dart';
+import 'package:apph2/data/models/request/h2pay/bco_cnpj_params_model.dart';
+import 'package:apph2/data/models/request/h2pay/bco_cpf_params_model.dart';
+import 'package:apph2/data/models/request/h2pay/customer_companies_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/customer_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/payment_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/sms_params_model.dart';
 import 'package:apph2/domain/entities/anticipation_info.dart';
 import 'package:apph2/domain/entities/anticipation_params.dart';
 import 'package:apph2/domain/entities/anticipation_with_discharge.dart';
+import 'package:apph2/domain/entities/bco_cnpj_info.dart';
+import 'package:apph2/domain/entities/bco_cnpj_params.dart';
+import 'package:apph2/domain/entities/bco_cpf_info.dart';
+import 'package:apph2/domain/entities/bco_cpf_params.dart';
+import 'package:apph2/domain/entities/customer_companies.dart';
+import 'package:apph2/domain/entities/customer_companies_params.dart';
 import 'package:apph2/domain/entities/customer_info.dart';
 import 'package:apph2/domain/entities/customer_params.dart';
 import 'package:apph2/domain/entities/payment_params.dart';
@@ -85,6 +94,22 @@ class H2PayRepository implements IH2PayRepository {
   }
 
   @override
+  Future<Either<H2Failure, Unit>> validateSmsCode(
+    SmsParams params,
+  ) async {
+    try {
+      await datasource.validateSmsCode(
+        SmsParamsModel.fromEntity(params),
+      );
+      return const Right(unit);
+    } on IHttpException {
+      return const Left(H2Failure.unexpected());
+    } on Exception {
+      return const Left(H2Failure.unexpected());
+    }
+  }
+
+  @override
   Future<Either<H2Failure, Unit>> sendPayment(
     PaymentParams params,
   ) async {
@@ -93,6 +118,54 @@ class H2PayRepository implements IH2PayRepository {
       return const Right(unit);
     } on IHttpException catch(e) {
       return Left(H2Failure.invalidParams(message: e.data));
+    } on Exception {
+      return const Left(H2Failure.unexpected());
+    }
+  }
+
+  @override
+  Future<Either<H2Failure, CustomerCompanies>> getCustomerCompanies(
+    CustomerCompaniesParams params,
+  ) async {
+    try {
+      final customerCompanies = await datasource.getCustomerCompanies(
+        CustomerCompaniesParamsModel.fromEntity(params),
+      );
+      return Right(customerCompanies.toEntity());
+    } on IHttpException {
+      return const Left(H2Failure.unexpected());
+    } on Exception {
+      return const Left(H2Failure.unexpected());
+    }
+  }
+
+  @override
+  Future<Either<H2Failure, BcoCpfInfo>> getBcoCpf(
+    BcoCpfParams params,
+  ) async {
+    try {
+      final cpfInfo = await datasource.getBcoCpf(
+        BcoCpfParamsModel.fromEntity(params),
+      );
+      return Right(cpfInfo.toEntity());
+    } on IHttpException {
+      return const Left(H2Failure.unexpected());
+    } on Exception {
+      return const Left(H2Failure.unexpected());
+    }
+  }
+
+  @override
+  Future<Either<H2Failure, BcoCnpjInfo>> getBcoCnpj(
+    BcoCnpjParams params,
+  ) async {
+    try {
+      final customerCompanies = await datasource.getBcoCnpj(
+        BcoCnpjParamsModel.fromEntity(params),
+      );
+      return Right(customerCompanies.toEntity());
+    } on IHttpException {
+      return const Left(H2Failure.unexpected());
     } on Exception {
       return const Left(H2Failure.unexpected());
     }

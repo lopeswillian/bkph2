@@ -8,13 +8,17 @@ import 'package:apph2/infraestructure/http/http_adapter.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/usecases/get_anticipation_usecase.dart';
 import 'package:apph2/usecases/get_anticipation_with_discharge_usecase.dart';
+import 'package:apph2/usecases/get_bco_cnpj_usecase.dart';
+import 'package:apph2/usecases/get_bco_cpf_usecase.dart';
 import 'package:apph2/usecases/get_cpf_usecase.dart';
+import 'package:apph2/usecases/get_customer_companies_usecase.dart';
 import 'package:apph2/usecases/get_customer_usecase.dart';
 import 'package:apph2/usecases/get_sms_code_usecase.dart';
 import 'package:apph2/usecases/login_recovery_usecase.dart';
 import 'package:apph2/usecases/login_with_credentials_usecase.dart';
 import 'package:apph2/usecases/register_usecase.dart';
 import 'package:apph2/usecases/send_payment_customer_usecase.dart';
+import 'package:apph2/usecases/validate_sms_code_usecase.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
 import 'package:apph2/views/login/login_viewmodel.dart';
@@ -113,8 +117,20 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<IGetSmsCodeUseCase>(
           (i) => GetSmsCodeUseCase(i.get<IH2PayRepository>()),
         ),
+        Bind.lazySingleton<IValidateSmsCodeUseCase>(
+          (i) => ValidateSmsCodeUseCase(i.get<IH2PayRepository>()),
+        ),
         Bind.lazySingleton<ISendPaymentCustomerUseCase>(
           (i) => SendPaymentCustomerUseCase(i.get<IH2PayRepository>()),
+        ),
+        Bind.lazySingleton<IGetCustomerCompaniesUseCase>(
+          (i) => GetCustomerCompaniesUseCase(i.get<IH2PayRepository>()),
+        ),
+        Bind.lazySingleton<IGetBcoCpfUseCase>(
+          (i) => GetBcoCpfUseCase(i.get<IH2PayRepository>()),
+        ),
+        Bind.lazySingleton<IGetBcoCnpjUseCase>(
+          (i) => GetBcoCnpjUseCase(i.get<IH2PayRepository>()),
         ),
       ];
 
@@ -135,16 +151,22 @@ class BaseAppModuleBindings {
         ),
         Bind.lazySingleton<H2PayViewModel>(
           (i) => H2PayViewModel(
-              i.get<IGetCustomerUseCase>(),
-              i.get<IGetAnticipationUseCase>(),
-              i.get<IGetSmsCodeUseCase>(),
-              i.get<LoginViewModel>()),
+            i.get<IGetCustomerUseCase>(),
+            i.get<IGetAnticipationUseCase>(),
+            i.get<IGetSmsCodeUseCase>(),
+            i.get<IValidateSmsCodeUseCase>(),
+            i.get<IGetCustomerCompaniesUseCase>(),
+            i.get<LoginViewModel>(),
+          ),
         ),
         Bind.lazySingleton<PaymentViewModel>(
           (i) => PaymentViewModel(
-              i.get<H2PayViewModel>(),
-              i.get<IGetAnticipationWithDischargeUseCase>(),
-              i.get<ISendPaymentCustomerUseCase>()),
+            i.get<H2PayViewModel>(),
+            i.get<IGetAnticipationWithDischargeUseCase>(),
+            i.get<ISendPaymentCustomerUseCase>(),
+            i.get<IGetBcoCnpjUseCase>(),
+            i.get<IGetBcoCpfUseCase>(),
+          ),
         ),
       ];
 }

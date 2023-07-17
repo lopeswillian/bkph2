@@ -8,7 +8,7 @@ part of 'customer_info_model.dart';
 
 CustomerInfoModel _$CustomerInfoModelFromJson(Map<String, dynamic> json) =>
     CustomerInfoModel(
-      id: json['id'] as int,
+      id: json['id'] as int?,
       h2PayUser: json['h2PayUser'] as bool,
       rewardsId: json['rewardsId'] as int,
       name: json['name'] as String,
