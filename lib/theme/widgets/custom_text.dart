@@ -319,7 +319,7 @@ class CustomTextFormField extends StatefulWidget {
     this.labelStyle,
     this.hideInputBorders = false,
     bool? loading,
-    this.disableInitialFadeAnimation = false,
+    this.disableInitialFadeAnimation = true,
     this.hideCursor = false,
   })  : isLoading = loading,
         assert(

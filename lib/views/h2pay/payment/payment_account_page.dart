@@ -1,6 +1,5 @@
 import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
-import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -104,69 +103,6 @@ class _PaymentAccountPageState extends State<PaymentAccountPage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget detailPayments({
-    required BuildContext context,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: context.colorScheme.colorPrimaryLightest,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      padding: EdgeInsets.symmetric(
-        horizontal: const Dimension(1.75).width,
-        vertical: const Dimension(1.25).height,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Em aberto',
-                style: context.text.captionBold.copyWith(
-                  color: context.colorScheme.colorPrimaryLight,
-                ),
-              ),
-              const Dimension(1).vertical,
-              Text(
-                'Torneio CPH',
-                style: context.text.callout,
-              ),
-              const Dimension(1).vertical,
-              Text(
-                '25/05/2023  14:00',
-                style: context.text.captionLight,
-              )
-            ],
-          ),
-          RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-              style: TextStyle(
-                fontSize: 18.fontSize,
-                color: context.colorScheme.colorPrimaryLight,
-              ),
-              children: <TextSpan>[
-                TextSpan(
-                  text: 'R\$',
-                  style: TextStyle(fontSize: 10.fontSize),
-                ),
-                TextSpan(
-                  text: ' 600,00',
-                  style: TextStyle(
-                    fontSize: 20.fontSize,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

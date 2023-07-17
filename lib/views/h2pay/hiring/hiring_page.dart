@@ -1,11 +1,12 @@
 import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
+import 'package:apph2/infraestructure/num_extension.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/theme/widgets/custom_text.dart';
 import 'package:apph2/views/h2pay/h2pay_state.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide View;
 
 class HiringPage extends StatefulWidget {
   const HiringPage({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class HiringPage extends StatefulWidget {
   _HiringPageState createState() => _HiringPageState();
 }
 
-class _HiringPageState extends ViewState<HiringPage, H2PayViewModel> {
+class _HiringPageState extends State<HiringPage> with View<H2PayViewModel> {
   @override
   void initState() {
     super.initState();
@@ -96,7 +97,7 @@ class _HiringPageState extends ViewState<HiringPage, H2PayViewModel> {
                               'Sumário da Antecipação',
                               style: TextStyle(
                                   fontSize: 19.fontSize,
-                                  fontWeight: FontWeight.w600),
+                                  fontWeight: FontWeight.w600,),
                             ),
                             Dimension.md.vertical,
                             const Divider(),
@@ -125,7 +126,7 @@ class _HiringPageState extends ViewState<HiringPage, H2PayViewModel> {
                             CustomTextFormField(
                               labelText: 'Valor',
                               initialValue:
-                                  'R\$ ${state.anticipation?.valuePoker}',
+                                  state.anticipation?.valuePoker.toCurrency(),
                               enabled: false,
                               contentPadding: EdgeInsets.symmetric(
                                 horizontal: Dimension.sm.width,

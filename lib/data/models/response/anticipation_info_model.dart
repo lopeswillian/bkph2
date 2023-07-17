@@ -31,6 +31,35 @@ class AnticipationInfoModel with _$AnticipationInfoModel {
     required String term,
   }) = _AnticipationInfoModel;
 
+  factory AnticipationInfoModel.fromJson(Map<String, dynamic> decodedToken) {
+    return AnticipationInfoModel(
+      customerId: decodedToken['customer_id'],
+      paymentTermId: decodedToken['payment_term_id'],
+      valuePoker: double.parse(decodedToken['value_poker'].toString()),
+      valueBet: double.parse(decodedToken['value_bet'].toString()),
+      dueDate: DateTime.parse(decodedToken['due_date']),
+      dateCreate: DateTime.parse(decodedToken['date_create']),
+      signatureDate: decodedToken['signature_date'] != null
+          ? DateTime.parse(decodedToken['signature_date'])
+          : null,
+      lastUpdate: decodedToken['last_update'] != null
+          ? DateTime.parse(decodedToken['last_update'])
+          : null,
+      valuePrincipal: double.parse(decodedToken['value_principal'].toString()),
+      paymentDate: decodedToken['payment_date'] != null
+          ? DateTime.parse(decodedToken['payment_date'])
+          : null,
+      paymentId: decodedToken['payment_id'],
+      valuePayment: decodedToken['value_payment'],
+      anticipationOriginId: decodedToken['anticipation_origin_id'],
+      agentId: decodedToken['agent_id'],
+      status: decodedToken['status'],
+      paymentDescription: decodedToken['payment_term_description']??'',
+      useType: decodedToken['use'],
+      term: decodedToken['debt_settlement']??'',
+    );
+  }
+
   factory AnticipationInfoModel.fromToken(String token) {
     Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
     return AnticipationInfoModel(

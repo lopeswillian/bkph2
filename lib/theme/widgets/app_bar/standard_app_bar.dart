@@ -1,32 +1,12 @@
 part of 'h2_app_bar.dart';
 
 class _StandardAppBar extends H2AppBar {
-  /// On Tap back button. Default behavior is [Nav.pop()]
   final VoidCallback? onBack;
 
-  /// Shows a [CustomBackButton] even if [Nav.canPop()] is false. Defaults to
-  /// false.
-  ///
-  /// If [forceBackButton] is true and [logoPosition] is
-  /// [H2LogoAppBarPosition.leading] the logo will be replaced by a
-  /// [CustomBackButton].
   final bool forceBackButton;
 
-  /// Where the logo should be placed. Defaults to
-  /// [H2LogoAppBarPosition.leading].
-  ///
-  /// If [logoPosition] is [H2LogoAppBarPosition.leading], it can be
-  /// overridden by [CustomBackButton] if needed.
   final H2LogoAppBarPosition logoPosition;
 
-  /// Widget to add as an extra action to the app bar.
-  /// The action are placed to the opposite direction of logo.
-  ///
-  /// For instance, if [logoPosition] is [H2LogoAppBarPosition.leading],
-  /// the action are placed at the trailing position (to the end of AppBar)
-  ///
-  /// If action are configure to be placed at AppBar start, it can be
-  /// overridden by a [CustomBackButton], if needed.
   final Widget? action;
 
   const _StandardAppBar({
@@ -42,7 +22,6 @@ class _StandardAppBar extends H2AppBar {
     Widget? flexibleSpace,
     this.action,
     double? scrolledUnderElevation,
-    
   }) : super._(
           automaticallyImplyLeading: automaticallyImplyLeading,
           title: title,
@@ -57,21 +36,22 @@ class _StandardAppBar extends H2AppBar {
   @override
   Widget build(BuildContext context) {
     const h2Logo = H2Logo();
-    final backButton = automaticallyImplyLeading && (Nav.canPop() || forceBackButton)
-        ? CustomBackButton(
-            onTap: onBack,
-            color: context.colorScheme.onSurface,
-          )
-        : null;
+    final backButton =
+        automaticallyImplyLeading && (Nav.canPop() || forceBackButton)
+            ? CustomBackButton(
+                onTap: onBack,
+                color: context.colorScheme.onSurface,
+              )
+            : null;
 
     final logoOrBackButton = backButton ?? h2Logo;
     final actionOrBackButton = backButton ?? action;
     final leading = logoPosition == H2LogoAppBarPosition.leading
         ? logoOrBackButton
         : actionOrBackButton;
-    final trailing = logoPosition == H2LogoAppBarPosition.trailing
-        ? [h2Logo]
-        : [action ?? const SizedBox.shrink()];
+    // final trailing = logoPosition == H2LogoAppBarPosition.trailing
+    //     ? [h2Logo]
+    //     : [action ?? const SizedBox.shrink()];
 
     return AppBar(
       elevation: 0,
@@ -81,9 +61,9 @@ class _StandardAppBar extends H2AppBar {
         ),
         child: leading,
       ),
-      leadingWidth:
-          leadingWidth?.responsiveWidth ?? (backButton != null? null: const Dimension(14).width),
-      systemOverlayStyle:SystemUiOverlayStyle.light,
+      leadingWidth: leadingWidth?.responsiveWidth ??
+          (backButton != null ? null : const Dimension(14).width),
+      systemOverlayStyle: SystemUiOverlayStyle.light,
       backgroundColor: backgroundColor ?? context.theme.colorScheme.background,
       surfaceTintColor: context.theme.colorScheme.background,
       scrolledUnderElevation: scrolledUnderElevation,
@@ -108,7 +88,8 @@ class _StandardAppBar extends H2AppBar {
         Container(
           height: double.infinity,
           padding: EdgeInsets.only(right: Dimension.lg.width),
-          child: Row(children: trailing),
+          // child: Row(children: trailing),
+          child: const LoginWidget(),
         ),
       ],
     );

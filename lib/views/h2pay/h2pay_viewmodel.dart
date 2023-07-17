@@ -12,39 +12,37 @@ class H2PayViewModel extends ViewModel<H2PayState> {
   final IGetCustomerUseCase _customerUseCase;
   final IGetAnticipationUseCase _getAnticipationUseCase;
   final IGetSmsCodeUseCase _getSmsCodeUseCase;
-
-  late LoginViewModel _loginViewModel;
+  // final ISendPaymentCustomerUseCase _sendPaymentCustomerUseCase;
+  final LoginViewModel _loginViewModel;
 
   H2PayViewModel(
     this._customerUseCase,
     this._getAnticipationUseCase,
     this._getSmsCodeUseCase,
+    this._loginViewModel,
+    // this._sendPaymentCustomerUseCase,
   ) : super(H2PayState.initial());
-
-  @override
-  void initViewModel() async {
-    super.initViewModel();
-    _loginViewModel = DM.get<LoginViewModel>();
-    loadCustomer();
-  }
 
   Future<void> loadCustomer() async {
     emit(state.copyWith(loading: true));
+
     final result = await _customerUseCase(
       CustomerParams(
         identifier: _loginViewModel.state.user!.cpf,
       ),
     );
 
-    result.fold(
-      (l) => null,
-      (customer) => emit(
-        state.copyWith(
-          customer: customer,
-          loading: false,
-        ),
+    final newState = result.fold(
+      (l) => state.copyWith(
+        loading: false,
+        error: 'Erro ao buscar customer.',
+      ),
+      (customer) => state.copyWith(
+        customer: customer,
+        loading: false,
       ),
     );
+    emit(newState);
   }
 
   void getAnticipation() async {
@@ -59,12 +57,15 @@ class H2PayViewModel extends ViewModel<H2PayState> {
       ),
     );
 
-    result.fold(
-      (l) => emit(state.copyWith(loading: false, error: 'Erro')),
-      (anticipation) => emit(
-        state.copyWith(anticipation: anticipation, loading: false),
+    final newState = result.fold(
+      (l) => state.copyWith(loading: false, error: 'Erro'),
+      (anticipation) => state.copyWith(
+        anticipation: anticipation,
+        loading: false,
       ),
     );
+
+    emit(newState);
   }
 
   Future<void> getSmsCode() async {

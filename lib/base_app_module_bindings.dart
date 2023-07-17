@@ -7,13 +7,16 @@ import 'package:apph2/domain/repositories/h2pay_repository.dart';
 import 'package:apph2/infraestructure/http/http_adapter.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/usecases/get_anticipation_usecase.dart';
+import 'package:apph2/usecases/get_anticipation_with_discharge_usecase.dart';
 import 'package:apph2/usecases/get_cpf_usecase.dart';
 import 'package:apph2/usecases/get_customer_usecase.dart';
 import 'package:apph2/usecases/get_sms_code_usecase.dart';
 import 'package:apph2/usecases/login_recovery_usecase.dart';
 import 'package:apph2/usecases/login_with_credentials_usecase.dart';
 import 'package:apph2/usecases/register_usecase.dart';
+import 'package:apph2/usecases/send_payment_customer_usecase.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
+import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
 import 'package:apph2/views/login/login_viewmodel.dart';
 import 'package:apph2/views/recovery/recovery_viewmodel.dart';
 import 'package:apph2/views/register/register_viewmodel.dart';
@@ -44,6 +47,7 @@ class BaseAppModuleBindings {
               baseUrl: "https://a89f1fa024.nxcli.io/",
               apiVersion: 'v1',
               headers: {
+                'Content-Type': 'application/json; charset=utf-8',
                 'Authorization':
                     'Bearer eyJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJiZGMzMmM3MGEwZTRjMjJlM2IwZjBmN2VhNTFlNzYifQ',
               },
@@ -57,6 +61,7 @@ class BaseAppModuleBindings {
               baseUrl: "http://dc023ad05f.nxcli.io/",
               apiVersion: 'v1',
               headers: {
+                'Content-Type': 'application/json; charset=utf-8',
                 'Authorization':
                     'Bearer eyJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJiZGMzMmM3MGEwZTRjMjJlM2IwZjBmN2VhNTFlNzYifQ',
               },
@@ -102,9 +107,15 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<IGetAnticipationUseCase>(
           (i) => GetAnticipationUseCase(i.get<IH2PayRepository>()),
         ),
+        Bind.lazySingleton<IGetAnticipationWithDischargeUseCase>(
+          (i) => GetAnticipationWithDischargeUseCase(i.get<IH2PayRepository>()),
+        ),
         Bind.lazySingleton<IGetSmsCodeUseCase>(
           (i) => GetSmsCodeUseCase(i.get<IH2PayRepository>()),
-        )
+        ),
+        Bind.lazySingleton<ISendPaymentCustomerUseCase>(
+          (i) => SendPaymentCustomerUseCase(i.get<IH2PayRepository>()),
+        ),
       ];
 
   static List<Bind> get _viewModels => [
@@ -115,9 +126,7 @@ class BaseAppModuleBindings {
         ),
         Bind.lazySingleton<RegisterViewModel>(
           (i) => RegisterViewModel(
-            i.get<IGetCpfUseCase>(),
-            i.get<IRegisterUseCase>()
-          ),
+              i.get<IGetCpfUseCase>(), i.get<IRegisterUseCase>()),
         ),
         Bind.lazySingleton<RecoveryViewModel>(
           (i) => RecoveryViewModel(
@@ -126,10 +135,16 @@ class BaseAppModuleBindings {
         ),
         Bind.lazySingleton<H2PayViewModel>(
           (i) => H2PayViewModel(
-            i.get<IGetCustomerUseCase>(),
-            i.get<IGetAnticipationUseCase>(),
-            i.get<IGetSmsCodeUseCase>()
-          ),
-        )
+              i.get<IGetCustomerUseCase>(),
+              i.get<IGetAnticipationUseCase>(),
+              i.get<IGetSmsCodeUseCase>(),
+              i.get<LoginViewModel>()),
+        ),
+        Bind.lazySingleton<PaymentViewModel>(
+          (i) => PaymentViewModel(
+              i.get<H2PayViewModel>(),
+              i.get<IGetAnticipationWithDischargeUseCase>(),
+              i.get<ISendPaymentCustomerUseCase>()),
+        ),
       ];
 }

@@ -16,17 +16,29 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UserInfo {
+  @HiveField(1)
   int get id => throw _privateConstructorUsedError;
+  @HiveField(2)
   String get avatarUrl => throw _privateConstructorUsedError;
+  @HiveField(3)
   String get name => throw _privateConstructorUsedError;
+  @HiveField(4)
   String get email => throw _privateConstructorUsedError;
+  @HiveField(5)
   String get birthdate => throw _privateConstructorUsedError;
+  @HiveField(6)
   String get cpf => throw _privateConstructorUsedError;
+  @HiveField(7)
   String get nickname => throw _privateConstructorUsedError;
+  @HiveField(8)
   String get cellphone => throw _privateConstructorUsedError;
+  @HiveField(9)
   int get vipLiveId => throw _privateConstructorUsedError;
+  @HiveField(10)
   int get vipOnlineId => throw _privateConstructorUsedError;
+  @HiveField(11)
   String get vipLive => throw _privateConstructorUsedError;
+  @HiveField(12)
   String get vipOnline => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -40,18 +52,18 @@ abstract class $UserInfoCopyWith<$Res> {
       _$UserInfoCopyWithImpl<$Res, UserInfo>;
   @useResult
   $Res call(
-      {int id,
-      String avatarUrl,
-      String name,
-      String email,
-      String birthdate,
-      String cpf,
-      String nickname,
-      String cellphone,
-      int vipLiveId,
-      int vipOnlineId,
-      String vipLive,
-      String vipOnline});
+      {@HiveField(1) int id,
+      @HiveField(2) String avatarUrl,
+      @HiveField(3) String name,
+      @HiveField(4) String email,
+      @HiveField(5) String birthdate,
+      @HiveField(6) String cpf,
+      @HiveField(7) String nickname,
+      @HiveField(8) String cellphone,
+      @HiveField(9) int vipLiveId,
+      @HiveField(10) int vipOnlineId,
+      @HiveField(11) String vipLive,
+      @HiveField(12) String vipOnline});
 }
 
 /// @nodoc
@@ -141,18 +153,18 @@ abstract class _$$_UserInfoCopyWith<$Res> implements $UserInfoCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id,
-      String avatarUrl,
-      String name,
-      String email,
-      String birthdate,
-      String cpf,
-      String nickname,
-      String cellphone,
-      int vipLiveId,
-      int vipOnlineId,
-      String vipLive,
-      String vipOnline});
+      {@HiveField(1) int id,
+      @HiveField(2) String avatarUrl,
+      @HiveField(3) String name,
+      @HiveField(4) String email,
+      @HiveField(5) String birthdate,
+      @HiveField(6) String cpf,
+      @HiveField(7) String nickname,
+      @HiveField(8) String cellphone,
+      @HiveField(9) int vipLiveId,
+      @HiveField(10) int vipOnlineId,
+      @HiveField(11) String vipLive,
+      @HiveField(12) String vipOnline});
 }
 
 /// @nodoc
@@ -236,42 +248,54 @@ class __$$_UserInfoCopyWithImpl<$Res>
 
 class _$_UserInfo implements _UserInfo {
   _$_UserInfo(
-      {required this.id,
-      required this.avatarUrl,
-      required this.name,
-      required this.email,
-      required this.birthdate,
-      required this.cpf,
-      required this.nickname,
-      required this.cellphone,
-      required this.vipLiveId,
-      required this.vipOnlineId,
-      required this.vipLive,
-      required this.vipOnline});
+      {@HiveField(1) required this.id,
+      @HiveField(2) required this.avatarUrl,
+      @HiveField(3) required this.name,
+      @HiveField(4) required this.email,
+      @HiveField(5) required this.birthdate,
+      @HiveField(6) required this.cpf,
+      @HiveField(7) required this.nickname,
+      @HiveField(8) required this.cellphone,
+      @HiveField(9) required this.vipLiveId,
+      @HiveField(10) required this.vipOnlineId,
+      @HiveField(11) required this.vipLive,
+      @HiveField(12) required this.vipOnline});
 
   @override
+  @HiveField(1)
   final int id;
   @override
+  @HiveField(2)
   final String avatarUrl;
   @override
+  @HiveField(3)
   final String name;
   @override
+  @HiveField(4)
   final String email;
   @override
+  @HiveField(5)
   final String birthdate;
   @override
+  @HiveField(6)
   final String cpf;
   @override
+  @HiveField(7)
   final String nickname;
   @override
+  @HiveField(8)
   final String cellphone;
   @override
+  @HiveField(9)
   final int vipLiveId;
   @override
+  @HiveField(10)
   final int vipOnlineId;
   @override
+  @HiveField(11)
   final String vipLive;
   @override
+  @HiveField(12)
   final String vipOnline;
 
   @override
@@ -330,42 +354,54 @@ class _$_UserInfo implements _UserInfo {
 
 abstract class _UserInfo implements UserInfo {
   factory _UserInfo(
-      {required final int id,
-      required final String avatarUrl,
-      required final String name,
-      required final String email,
-      required final String birthdate,
-      required final String cpf,
-      required final String nickname,
-      required final String cellphone,
-      required final int vipLiveId,
-      required final int vipOnlineId,
-      required final String vipLive,
-      required final String vipOnline}) = _$_UserInfo;
+      {@HiveField(1) required final int id,
+      @HiveField(2) required final String avatarUrl,
+      @HiveField(3) required final String name,
+      @HiveField(4) required final String email,
+      @HiveField(5) required final String birthdate,
+      @HiveField(6) required final String cpf,
+      @HiveField(7) required final String nickname,
+      @HiveField(8) required final String cellphone,
+      @HiveField(9) required final int vipLiveId,
+      @HiveField(10) required final int vipOnlineId,
+      @HiveField(11) required final String vipLive,
+      @HiveField(12) required final String vipOnline}) = _$_UserInfo;
 
   @override
+  @HiveField(1)
   int get id;
   @override
+  @HiveField(2)
   String get avatarUrl;
   @override
+  @HiveField(3)
   String get name;
   @override
+  @HiveField(4)
   String get email;
   @override
+  @HiveField(5)
   String get birthdate;
   @override
+  @HiveField(6)
   String get cpf;
   @override
+  @HiveField(7)
   String get nickname;
   @override
+  @HiveField(8)
   String get cellphone;
   @override
+  @HiveField(9)
   int get vipLiveId;
   @override
+  @HiveField(10)
   int get vipOnlineId;
   @override
+  @HiveField(11)
   String get vipLive;
   @override
+  @HiveField(12)
   String get vipOnline;
   @override
   @JsonKey(ignore: true)

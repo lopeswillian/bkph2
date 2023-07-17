@@ -6,7 +6,7 @@ import 'package:apph2/theme/theme.dart';
 import 'package:apph2/theme/widgets/custom_text.dart';
 import 'package:apph2/views/login/login_state.dart';
 import 'package:apph2/views/login/login_viewmodel.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide View;
 import 'package:flutter_svg/svg.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,7 +16,8 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends ViewState<LoginPage, LoginViewModel> {
+class _LoginPageState extends State<LoginPage> with View<LoginViewModel>{
+  
   @override
   Widget build(BuildContext context) {
     return ViewModelConsumer<LoginViewModel, LoginState>(
@@ -54,7 +55,6 @@ class _LoginPageState extends ViewState<LoginPage, LoginViewModel> {
               ),
               Dimension.sm.vertical,
               SizedBox(
-                height: const Dimension(12).height,
                 child: Column(
                   children: [
                     CustomTextFormField(
@@ -73,8 +73,8 @@ class _LoginPageState extends ViewState<LoginPage, LoginViewModel> {
                       ),
                     ),
                     Visibility(
-                      visible: state.error == '',
-                      child: Row(
+                      // visible: state.error == '',
+                      child: state.error != ''? const SizedBox.shrink():Row(
                         children: [
                           TextButton(
                             onPressed: () {

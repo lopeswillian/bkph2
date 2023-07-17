@@ -135,9 +135,13 @@ class _CompanyPaymentThirdPageState extends State<CompanyPaymentThirdPage> {
   Widget _bankCheck() {
     return  Column(
       children: [
-        const CustomSendDocument(),
+        const CustomSendDocument(
+          isFront: true,
+        ),
         Dimension.md.vertical,
-        const CustomSendDocument(),
+        const CustomSendDocument(
+          isFront: false,
+        ),
       ],
     );
   }

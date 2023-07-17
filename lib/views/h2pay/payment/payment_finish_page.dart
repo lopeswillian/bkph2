@@ -1,3 +1,4 @@
+import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
@@ -70,7 +71,11 @@ class _PaymentFinishPageState extends State<PaymentFinishPage> {
                 color: Colors.white,
                 child: NextWidget(
                   title: 'Finalizar',
-                  action: () {},
+                  action: () {
+                    Nav.popUntil(
+                      (p0) => false,
+                    );
+                  },
                 ),
               ),
             ),

@@ -1,8 +1,14 @@
 import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
+import 'package:apph2/infraestructure/num_extension.dart';
 import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/theme/widgets/custom_text.dart';
+import 'package:apph2/theme/widgets/money_format.dart';
+import 'package:apph2/views/h2pay/payment/payment_state.dart';
+import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
+import 'package:apph2/views/h2pay/payment/widgets/custom_switch_antecipation.dart';
+import 'package:apph2/views/register/widgets/next_widget.dart';
 import 'package:flutter/material.dart';
 
 class PaymentPage extends StatefulWidget {
@@ -13,9 +19,42 @@ class PaymentPage extends StatefulWidget {
   _PaymentPageState createState() => _PaymentPageState();
 }
 
-class _PaymentPageState extends State<PaymentPage> {
+class _PaymentPageState extends ViewState<PaymentPage, PaymentViewModel> {
+  int position = 0;
+  final valueToPay = TextEditingController();
+
+  switchPosition(int newPosition) {
+    setState(() {
+      position = newPosition;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    viewModel.loadAnticipationWithDischarge();
+  }
+
   @override
   Widget build(BuildContext context) {
+    return ViewModelBuilder<PaymentViewModel, PaymentState>(
+      viewModel: viewModel,
+      buildWhen: (previous, current) =>
+          previous.loading != current.loading ||
+          previous.valueToPay != current.valueToPay,
+      builder: (context, state) {
+        return (!state.loading)
+            ? _buildPage(context, state)
+            : const Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+      },
+    );
+  }
+
+  Widget _buildPage(BuildContext context, PaymentState state) {
     return Scaffold(
       appBar: H2AppBar(
         title: Column(
@@ -85,7 +124,10 @@ class _PaymentPageState extends State<PaymentPage> {
                                           style: context.text.caption,
                                         ),
                                         Text(
-                                          'R\$23.000,00',
+                                          (state.anticipationWithDischarge
+                                                      ?.discharge ??
+                                                  0)
+                                              .toCurrency(),
                                           style:
                                               context.text.body1Medium.copyWith(
                                             fontSize: 25.fontSize,
@@ -93,18 +135,28 @@ class _PaymentPageState extends State<PaymentPage> {
                                         )
                                       ],
                                     ),
-                                    Text(
-                                      'Atualizado dia 07/06/2023',
-                                      style: context.text.captionLight.copyWith(
-                                        color: const Color(0xFFBDBDBD),
-                                      ),
-                                    ),
+                                    // Text(
+                                    //   'Atualizado dia',
+                                    //   style: context.text.captionLight.copyWith(
+                                    //     color: const Color(0xFFBDBDBD),
+                                    //   ),
+                                    // ),
                                   ]),
                             ),
                             Dimension.md.vertical,
                             const Divider(),
                             Dimension.md.vertical,
                             CustomTextFormField(
+                              controller: valueToPay,
+                              onChanged: (value) => {
+                                viewModel.changeValueToPay(
+                                    MoneyInputFormatter().parseValue(value))
+                              },
+                              inputFormatters: [
+                                MoneyInputFormatter().maskFor(symbol: '')
+                              ],
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(),
                               labelText: 'Valor que deseja pagar',
                               contentPadding: EdgeInsets.symmetric(
                                 horizontal: Dimension.sm.width,
@@ -116,24 +168,61 @@ class _PaymentPageState extends State<PaymentPage> {
                               'Filtrar por',
                               style: context.text.callout,
                             ),
-                            GestureDetector(
-                              onTap: (){
-                                Nav.pushNamed(BaseAppModuleRouting.paymentAccountPage);
-                              },
-                              child: Text('Clica'),
-                            ),
+                            Dimension.xxs.vertical,
+                            CustomSwitchAntecipation(position: switchPosition),
                             Dimension.xxs.vertical,
                             const Dimension(2.5).vertical,
                             const Divider(),
                             const Dimension(2.5).vertical,
-                            detailPayments(context: context),
-                            Dimension.sm.vertical,
-                            detailPayments(context: context),
+                            ...state.anticipationWithDischarge!.listAnticipation
+                                .where((element) {
+                                  if (position == 1) {
+                                    return [0, 1].contains(element.status);
+                                  }
+                                  if (position == 2) {
+                                    return element.status == 4;
+                                  }
+                                  return true;
+                                })
+                                .map(
+                                  (anticipation) => Column(
+                                    children: [
+                                      detailPayments(
+                                        context: context,
+                                        dateCreate:
+                                            anticipation.dateCreate.toString(),
+                                        status: anticipation.status,
+                                        value: anticipation.valuePrincipal,
+                                      ),
+                                      Dimension.sm.vertical
+                                    ],
+                                  ),
+                                )
+                                .toList(),
                           ],
                         ),
                       ),
                     );
                   },
+                ),
+              ),
+              Visibility(
+                visible: valueToPay.text != '',
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: IntrinsicHeight(
+                    child: Container(
+                      color: Colors.white,
+                      child: NextWidget(
+                        title: 'Avançar',
+                        action: () {
+                          Nav.pushNamed(
+                            BaseAppModuleRouting.paymentAccountPage,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -143,12 +232,31 @@ class _PaymentPageState extends State<PaymentPage> {
     );
   }
 
+  String getTitleDetail(int status) {
+    switch (status) {
+      case 0:
+      case 1:
+        return 'Em aberto';
+      case 2:
+        return 'Pago';
+      case 3:
+        return 'Cancelada';
+      case 4:
+        return 'Vencido';
+      default:
+        return '';
+    }
+  }
+
   Widget detailPayments({
     required BuildContext context,
+    required String dateCreate,
+    required double value,
+    required int status,
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: context.colorScheme.colorPrimaryLightest,
+        color: const Color(0xFFF1F7FF),
         borderRadius: BorderRadius.circular(10),
       ),
       padding: EdgeInsets.symmetric(
@@ -162,45 +270,53 @@ class _PaymentPageState extends State<PaymentPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Em aberto',
+                getTitleDetail(status),
                 style: context.text.captionBold.copyWith(
                   color: context.colorScheme.colorPrimaryLight,
                 ),
               ),
               const Dimension(1).vertical,
               Text(
-                'Torneio CPH',
+                'CPH',
                 style: context.text.callout,
               ),
               const Dimension(1).vertical,
               Text(
-                '25/05/2023  14:00',
+                dateCreate,
                 style: context.text.captionLight,
               )
             ],
           ),
-          RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-              style: TextStyle(
-                fontSize: 18.fontSize,
-                color: context.colorScheme.colorPrimaryLight,
-              ),
-              children: <TextSpan>[
-                TextSpan(
-                  text: 'R\$',
-                  style: TextStyle(fontSize: 10.fontSize),
+          Row(
+            children: [
+              Text(
+                'R\$',
+                style: TextStyle(
+                  fontSize: 10.fontSize,
+                  fontWeight: FontWeight.normal,
+                  color: context.colorScheme.colorPrimaryLight,
                 ),
-                TextSpan(
-                  text: ' 600,00',
-                  style: TextStyle(
-                    fontSize: 20.fontSize,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ],
-            ),
+              ),
+              Text(
+                ' ${value.toCurrency(symbol: '')}',
+                style: TextStyle(
+                  fontSize: 20.fontSize,
+                  fontWeight: FontWeight.w600,
+                  color: context.colorScheme.colorPrimaryLight,
+                ),
+              )
+            ],
           ),
+          // RichText(
+          //   textAlign: TextAlign.center,
+          //   text: TextSpan(
+          //     style: TextStyle(
+          //       fontSize: 18.fontSize,
+          //       color: context.colorScheme.colorPrimaryLight,
+          //     ),
+          //     children: <TextSpan>[],
+          //   ),
+          // ),
         ],
       ),
     );

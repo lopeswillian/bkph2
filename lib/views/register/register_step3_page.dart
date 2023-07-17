@@ -227,7 +227,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                             complement: params.complement,
                           ),
                         );
-                        if (registerViewModel.state.error != '') {
+                        if (registerViewModel.state.error == '') {
                           Nav.pushNamed(
                             BaseAppModuleRouting.registerStepFinally,
                           );

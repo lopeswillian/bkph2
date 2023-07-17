@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:apph2/data/models/request/auth/auth.dart';
 import 'package:apph2/data/models/request/auth/cpf_params_model.dart';
 import 'package:apph2/data/models/request/auth/recovery_params_model.dart';
@@ -48,16 +47,17 @@ class AuthDatasource implements IAuthDatasource {
 
   @override
   FutureOr<void> register(RegisterParamsModel params) async {
-    final body = params.toJson();
-    await client.post('$_basePath/register', body: body);
+    await client.post(
+      '$_basePath/register',
+      body: params.toJson(),
+    );
   }
 
   @override
   FutureOr<CpfInfoModel> getCpf(
     CpfParamsModel params,
   ) async {
-    final response =
-        await client.get('$_basePath/checkCpf/${params.document}');
+    final response = await client.get('$_basePath/checkCpf/${params.document}');
 
     return CpfInfoModel.fromToken(response.data['token']);
   }

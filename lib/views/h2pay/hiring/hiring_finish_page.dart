@@ -1,5 +1,6 @@
 import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
+import 'package:apph2/infraestructure/num_extension.dart';
 import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
@@ -92,7 +93,7 @@ class _HiringFinishPageState extends State<HiringFinishPage> {
                                 ),
                                 Dimension.sm.vertical,
                                 Text(
-                                  'R\$ ${loginViewModel.state.anticipation!.valuePrincipal.toStringAsFixed(2)}, a serem pagos em até ${loginViewModel.state.anticipation!.paymentDescription}, utilizando recursos próprios.',
+                                  '${loginViewModel.state.anticipation!.valuePrincipal.toCurrency()}, a serem pagos em até ${loginViewModel.state.anticipation!.paymentDescription}, utilizando recursos próprios.',
                                   textAlign: TextAlign.center,
                                   style: context.text.body1,
                                 ),
@@ -114,7 +115,9 @@ class _HiringFinishPageState extends State<HiringFinishPage> {
                   title: 'Finalizar',
                   action: () {
                     Nav.pushNamedAndRemoveUntil(
-                        BaseAppModuleRouting.root, (p0) => false);
+                      BaseAppModuleRouting.root,
+                      (p0) => false,
+                    );
                   },
                 ),
               ),

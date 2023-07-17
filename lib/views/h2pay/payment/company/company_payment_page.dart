@@ -2,10 +2,11 @@ import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/theme/widgets/custom_text.dart';
+import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
 import 'package:apph2/views/h2pay/payment/widgets/custom_send_document.dart';
 import 'package:apph2/views/h2pay/payment/widgets/custom_switch_payment.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide View;
 
 class CompanyPaymentPage extends StatefulWidget {
   const CompanyPaymentPage({Key? key}) : super(key: key);
@@ -15,11 +16,34 @@ class CompanyPaymentPage extends StatefulWidget {
   _CompanyPaymentPageState createState() => _CompanyPaymentPageState();
 }
 
-class _CompanyPaymentPageState extends State<CompanyPaymentPage> {
+class _CompanyPaymentPageState extends State<CompanyPaymentPage>
+    with View<PaymentViewModel> {
+  int position = 0;
+  _getPage() {
+    switch (position) {
+      case 1:
+        viewModel.setPaymentType(position + 1);
+        return _ted();
+      case 2:
+        viewModel.setPaymentType(position + 1);
+        return _bankCheck();
+      case 0:
+      default:
+        viewModel.setPaymentType(1);
+        return _pix();
+    }
+  }
+
+  switchPosition(int newPosition) {
+    setState(() {
+      position = newPosition;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  H2AppBar(
+      appBar: H2AppBar(
         title: Column(
           children: [
             const Text('Pagamentos'),
@@ -82,13 +106,11 @@ class _CompanyPaymentPageState extends State<CompanyPaymentPage> {
                               style: context.text.body2,
                             ),
                             Dimension.sm.vertical,
-                            CustomSwitchPayment(position: (_) {}),
+                            CustomSwitchPayment(position: switchPosition),
                             const Dimension(3.125).vertical,
                             const Divider(),
                             const Dimension(3.125).vertical,
-                            // _pix()
-                            // _ted()
-                            _bankCheck()
+                            _getPage()
                           ],
                         ),
                       ),
@@ -118,11 +140,15 @@ class _CompanyPaymentPageState extends State<CompanyPaymentPage> {
   }
 
   Widget _bankCheck() {
-    return  Column(
+    return Column(
       children: [
-        const CustomSendDocument(),
+        const CustomSendDocument(
+          isFront: true,
+        ),
         Dimension.md.vertical,
-        const CustomSendDocument(),
+        const CustomSendDocument(
+          isFront: false,
+        ),
       ],
     );
   }

@@ -27,6 +27,7 @@ import 'package:apph2/views/h2pay/verify/verify_validate_document_page.dart';
 import 'package:apph2/views/product/list_product_page.dart';
 import 'package:apph2/views/product/list_schedule_page.dart';
 import 'package:apph2/views/product/schedule_page.dart';
+import 'package:apph2/views/profile/profile_page.dart';
 import 'package:apph2/views/recovery/recovery_finally_page.dart';
 import 'package:apph2/views/recovery/recovery_page.dart';
 import 'package:apph2/views/register/register_finally_page.dart';
@@ -46,6 +47,9 @@ abstract class BaseAppModuleRouting {
 
   /// Home page h2pay
   static const BasePath h2pay = BasePath('/h2PayHomePage');
+
+  /// Profile page
+  static const BasePath profile = BasePath('/profile');
 
   /// register step1
   static const BasePath registerStep1 = BasePath('/register_step1');
@@ -171,6 +175,10 @@ abstract class BaseAppModuleRouting {
           child: (_, __) => const MyHomePage(
             title: 'HomePage',
           ),
+        ),
+        ChildRoute(
+          profile.path,
+          child: (_, __) => const ProfilePage(),
         ),
         ChildRoute(
           h2pay.path,

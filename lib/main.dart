@@ -10,11 +10,13 @@ import 'package:apph2/views/login/login_state.dart';
 import 'package:apph2/views/login/login_viewmodel.dart';
 import 'package:apph2/views/product/list_product_page.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide View;
+import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'base_app_module.dart';
 import 'infraestructure/infraestructure.dart';
@@ -30,18 +32,15 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends ViewState<MyHomePage, LoginViewModel> {
+class _MyHomePageState extends State<MyHomePage> with View<LoginViewModel> {
   bool isAuth = false;
   int currentTab = 1;
   bool isKeyboardVisible = false;
   late StreamSubscription<bool> keyboardSubscription;
-  late LoginViewModel loginViewModel;
 
   @override
   void initState() {
     super.initState();
-
-    loginViewModel = Modular.get<LoginViewModel>();
 
     var keyboardVisibilityController = KeyboardVisibilityController();
 
@@ -89,10 +88,10 @@ class _MyHomePageState extends ViewState<MyHomePage, LoginViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelConsumer<LoginViewModel, LoginState>(
+    return ViewModelBuilder<LoginViewModel, LoginState>(
       viewModel: viewModel,
-      listenWhen: (previous, current) => previous.error != previous.error,
-      listener: (context, state) => {},
+      buildWhen: (previous, current) =>
+          previous.user != current.user || previous.token != current.token,
       builder: _buildPage,
     );
   }
@@ -100,14 +99,12 @@ class _MyHomePageState extends ViewState<MyHomePage, LoginViewModel> {
   Widget _buildPage(BuildContext context, LoginState state) {
     final pages = [
       const ListProductPage(),
-      loginViewModel.state.token != '' ? const H2HomePage() : const LoginPage(),
-      loginViewModel.state.token != '' ? const H2PayHomePage() : const LoginPage(),
+      state.user != null ? const H2HomePage() : const LoginPage(),
+      state.user != null ? const H2PayHomePage() : const LoginPage(),
     ];
 
     return Scaffold(
-      appBar: const H2AppBar(
-        automaticallyImplyLeading: false,
-      ),
+      appBar: const H2AppBar(),
       backgroundColor: Colors.transparent,
       body: Container(
         decoration: const BoxDecoration(
@@ -179,7 +176,10 @@ class _MyHomePageState extends ViewState<MyHomePage, LoginViewModel> {
   }
 }
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(ModularApp(module: BaseAppModule(), child: const MyApp()));
 }
 

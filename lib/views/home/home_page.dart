@@ -1,8 +1,9 @@
+import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/views/home/widgets/custom_card.dart';
+import 'package:apph2/views/login/login_state.dart';
 import 'package:apph2/views/login/login_viewmodel.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter/material.dart' hide View;
 import '../../theme/widgets/h2accordion.dart';
 
 class H2HomePage extends StatefulWidget {
@@ -14,17 +15,24 @@ class H2HomePage extends StatefulWidget {
 }
 
 class _H2HomePageState extends State<H2HomePage> {
-  late LoginViewModel loginViewModel;
+  late final LoginViewModel viewModel;
 
   @override
   void initState() {
     super.initState();
-    loginViewModel = Modular.get<LoginViewModel>();
+    viewModel = DM.get<LoginViewModel>();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (loginViewModel.state.user == null) {
+    return ViewModelBuilder<LoginViewModel, LoginState>(
+      viewModel: viewModel,
+      builder: _buildPage,
+    );
+  }
+
+  Widget _buildPage(BuildContext context, LoginState state) {
+    if (state.user == null) {
       return Container();
     }
     return Padding(
@@ -44,10 +52,10 @@ class _H2HomePageState extends State<H2HomePage> {
               children: [
                 Center(
                   child: CustomCard(
-                    name: loginViewModel.state.user!.name,
-                    number: loginViewModel.state.user!.id.toString(),
-                    title: loginViewModel.state.user!.vipOnline,
-                    type: loginViewModel.state.user!.vipOnlineId,
+                    name: state.user!.name,
+                    number: state.user!.id.toString(),
+                    title: state.user!.vipOnline,
+                    type: state.user!.vipOnlineId,
                   ),
                 )
               ],
@@ -64,10 +72,10 @@ class _H2HomePageState extends State<H2HomePage> {
               children: [
                 Center(
                   child: CustomCard(
-                    name: loginViewModel.state.user!.name,
-                    number: loginViewModel.state.user!.id.toString(),
-                    title: loginViewModel.state.user!.vipLive,
-                    type: loginViewModel.state.user!.vipLiveId,
+                    name: state.user!.name,
+                    number: state.user!.id.toString(),
+                    title: state.user!.vipLive,
+                    type: state.user!.vipLiveId,
                   ),
                 )
               ],
