@@ -3,8 +3,9 @@ import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/theme/widgets/custom_text.dart';
+import 'package:apph2/views/h2pay/verify/verify_viewmodel.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide View;
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -18,7 +19,7 @@ class VerifyPage extends StatefulWidget {
   _VerifyPageState createState() => _VerifyPageState();
 }
 
-class _VerifyPageState extends State<VerifyPage> {
+class _VerifyPageState extends State<VerifyPage> with View<VerifyViewModel>{
   bool isKeyboardVisible = false;
   double inputOffset = 0.0;
   final GlobalKey _blockFormKey = GlobalKey();
@@ -35,7 +36,9 @@ class _VerifyPageState extends State<VerifyPage> {
   @override
   void initState() {
     super.initState();
-
+    viewModel.getJobs();
+    viewModel.getMonthlyIncome();
+    viewModel.getTerm();
     var keyboardVisibilityController = KeyboardVisibilityController();
     keyboardSubscription = keyboardVisibilityController.onChange.listen(
       (bool visible) {
@@ -145,8 +148,10 @@ class _VerifyPageState extends State<VerifyPage> {
                       child: Container(
                         color: Colors.white,
                         child: NextWidget(
+                          enabled: phoneController.text.length == 14,
                           title: 'Avançar',
                           action: () {
+                            viewModel.setPhone(phoneController.text.replaceAll(RegExp(r'[^a-zA-Z0-9]'), ''));
                             Nav.pushNamed(BaseAppModuleRouting.verifySmsPage);
                           },
                         ),

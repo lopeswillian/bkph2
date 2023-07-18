@@ -135,12 +135,6 @@ class _PaymentPageState extends ViewState<PaymentPage, PaymentViewModel> {
                                         )
                                       ],
                                     ),
-                                    // Text(
-                                    //   'Atualizado dia',
-                                    //   style: context.text.captionLight.copyWith(
-                                    //     color: const Color(0xFFBDBDBD),
-                                    //   ),
-                                    // ),
                                   ]),
                             ),
                             Dimension.md.vertical,
@@ -148,6 +142,10 @@ class _PaymentPageState extends ViewState<PaymentPage, PaymentViewModel> {
                             Dimension.md.vertical,
                             CustomTextFormField(
                               controller: valueToPay,
+                              enabled:
+                                  (state.anticipationWithDischarge?.discharge ??
+                                          0) >
+                                      0,
                               onChanged: (value) => {
                                 viewModel.changeValueToPay(
                                     MoneyInputFormatter().parseValue(value))
@@ -174,31 +172,33 @@ class _PaymentPageState extends ViewState<PaymentPage, PaymentViewModel> {
                             const Dimension(2.5).vertical,
                             const Divider(),
                             const Dimension(2.5).vertical,
-                            ...state.anticipationWithDischarge!.listAnticipation
-                                .where((element) {
-                                  if (position == 1) {
-                                    return [0, 1].contains(element.status);
-                                  }
-                                  if (position == 2) {
-                                    return element.status == 4;
-                                  }
-                                  return true;
-                                })
-                                .map(
-                                  (anticipation) => Column(
-                                    children: [
-                                      detailPayments(
-                                        context: context,
-                                        dateCreate:
-                                            anticipation.dateCreate.toString(),
-                                        status: anticipation.status,
-                                        value: anticipation.valuePrincipal,
-                                      ),
-                                      Dimension.sm.vertical
-                                    ],
-                                  ),
-                                )
-                                .toList(),
+                            if (state.anticipationWithDischarge != null)
+                              ...state
+                                  .anticipationWithDischarge!.listAnticipation
+                                  .where((element) {
+                                    if (position == 1) {
+                                      return [0, 1].contains(element.status);
+                                    }
+                                    if (position == 2) {
+                                      return element.status == 4;
+                                    }
+                                    return true;
+                                  })
+                                  .map(
+                                    (anticipation) => Column(
+                                      children: [
+                                        detailPayments(
+                                          context: context,
+                                          dateCreate: anticipation.dateCreate
+                                              .toString(),
+                                          status: anticipation.status,
+                                          value: anticipation.valuePrincipal,
+                                        ),
+                                        Dimension.sm.vertical
+                                      ],
+                                    ),
+                                  )
+                                  .toList(),
                           ],
                         ),
                       ),

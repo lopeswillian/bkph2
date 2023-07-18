@@ -32,18 +32,63 @@ class _HiringPageState extends State<HiringPage> with View<H2PayViewModel> {
           previous.loading != current.loading,
       listener: (context, state) => {},
       builder: (context, state) {
-        return (state.anticipation != null)
-            ? _buildPage(context, state)
-            : const Scaffold(
+        return state.loading
+            ? const Scaffold(
                 body: Center(
                   child: CircularProgressIndicator(),
                 ),
-              );
+              )
+            : _buildPage(context, state);
       },
     );
   }
 
   Widget _buildPage(BuildContext context, H2PayState state) {
+    if ((state.anticipation == null)) {
+      return Scaffold(
+        appBar: H2AppBar(
+          title: Column(
+            children: [
+              const Text('Contratação'),
+              Dimension.xxs.vertical,
+              Text(
+                'H2 Pay',
+                style: TextStyle(fontSize: 12.fontSize),
+              )
+            ],
+          ),
+          centerTitle: true,
+        ),
+        backgroundColor: Colors.transparent,
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF166FED),
+                Color(0xFF00092A),
+              ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+          ),
+          child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(27),
+                  topRight: Radius.circular(27),
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  'Você ainda não possui antecipação disponível para assinatura.',
+                  textAlign: TextAlign.center,
+                  style: context.text.body1,
+                ),
+              )),
+        ),
+      );
+    }
     return Scaffold(
       appBar: H2AppBar(
         title: Column(
@@ -96,8 +141,9 @@ class _HiringPageState extends State<HiringPage> with View<H2PayViewModel> {
                             Text(
                               'Sumário da Antecipação',
                               style: TextStyle(
-                                  fontSize: 19.fontSize,
-                                  fontWeight: FontWeight.w600,),
+                                fontSize: 19.fontSize,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                             Dimension.md.vertical,
                             const Divider(),

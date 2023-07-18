@@ -9,12 +9,16 @@ import 'package:apph2/data/models/request/h2pay/customer_companies_params_model.
 import 'package:apph2/data/models/request/h2pay/customer_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/payment_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/sms_params_model.dart';
+import 'package:apph2/data/models/request/h2pay/verify_user_h2pay_params_model.dart';
 import 'package:apph2/data/models/response/anticipation_info_model.dart';
 import 'package:apph2/data/models/response/anticipation_with_discharge_model.dart';
 import 'package:apph2/data/models/response/bco_cnpj_info_model.dart';
 import 'package:apph2/data/models/response/bco_cpf_info_model.dart';
 import 'package:apph2/data/models/response/customer_companies_model.dart';
 import 'package:apph2/data/models/response/customer_info_model.dart';
+import 'package:apph2/data/models/response/job_model.dart';
+import 'package:apph2/data/models/response/monthly_income_model.dart';
+import 'package:apph2/data/models/response/terms_condition_model.dart';
 import 'package:apph2/infraestructure/http/http_client.dart';
 
 abstract class IH2PayDatasource {
@@ -53,6 +57,16 @@ abstract class IH2PayDatasource {
   FutureOr<BcoCnpjInfoModel> getBcoCnpj(
     BcoCnpjParamsModel params,
   );
+
+  FutureOr<TermsConditionModel> getTerms();
+
+  FutureOr<List<JobModel>> getJobs();
+
+  FutureOr<List<MonthlyIncomeModel>> getMonthlyIncome();
+
+  FutureOr<bool> createH2PayUser(
+    VerifyUserH2PayParamsModel params,
+  );
 }
 
 class H2PayDatasource implements IH2PayDatasource {
@@ -60,6 +74,7 @@ class H2PayDatasource implements IH2PayDatasource {
   static const String _basePath = "frontCustomer";
   static const String _basePathAnticipation = "frontAnticipation";
   static const String _basePathPayment = "frontPayment";
+  static const String _baseFrontContent = "frontContent";
 
   H2PayDatasource(this.client);
 
@@ -106,10 +121,10 @@ class H2PayDatasource implements IH2PayDatasource {
     SmsParamsModel params,
   ) async {
     final response = await client.post(
-      '$_basePath/validade-sms-code',
+      '$_basePath/validate-sms-code',
       body: params.toJson(),
     );
-    return response.status == 201;
+    return response.status == 202;
   }
 
   @override
@@ -123,13 +138,13 @@ class H2PayDatasource implements IH2PayDatasource {
         endpoint = 'customerPersonCompanyCustomer';
         break;
       case 4:
-      endpoint = 'customerCompanyCompanyCustomer';
+        endpoint = 'customerCompanyCompanyCustomer';
         break;
       case 5:
-      endpoint = 'supplierPersonCompanyCustomer';
+        endpoint = 'supplierPersonCompanyCustomer';
         break;
       case 6:
-      endpoint = 'supplierCompanyCompanyCustomer';
+        endpoint = 'supplierCompanyCompanyCustomer';
         break;
       case 1:
       default:
@@ -155,15 +170,51 @@ class H2PayDatasource implements IH2PayDatasource {
 
   @override
   FutureOr<BcoCpfInfoModel> getBcoCpf(BcoCpfParamsModel params) async {
-    final response = await client.get('bcoCpfServices/getCpfData/${params.document}');
+    final response =
+        await client.get('bcoCpfServices/getCpfData/${params.document}');
 
     return BcoCpfInfoModel.fromToken(response.data['token'], params.document);
   }
 
   @override
   FutureOr<BcoCnpjInfoModel> getBcoCnpj(BcoCnpjParamsModel params) async {
-    final response = await client.get('bcoCnpjServices/getCnpjData/${params.document}');
+    final response =
+        await client.get('bcoCnpjServices/getCnpjData/${params.document}');
 
     return BcoCnpjInfoModel.fromToken(response.data['token']);
+  }
+
+  @override
+  FutureOr<TermsConditionModel> getTerms() async {
+    final response = await client.get('$_baseFrontContent/terms_and_conditions');
+    return TermsConditionModel.fromJson(response.data[0]);
+  }
+
+  @override
+  FutureOr<List<JobModel>> getJobs() async {
+    final response = await client.get('$_baseFrontContent/jobs');
+    List<dynamic> dynamicAnticipation = response.data;
+    List<JobModel> listJobs =
+        dynamicAnticipation.map((e) => JobModel.fromJson(e)).toList();
+    return listJobs;
+  }
+
+  @override
+  FutureOr<List<MonthlyIncomeModel>> getMonthlyIncome() async {
+    final response = await client.get('$_baseFrontContent/monthly-income');
+
+    List<dynamic> dynamicAnticipation = response.data;
+    List<MonthlyIncomeModel> listMonthlyIncome =
+        dynamicAnticipation.map((e) => MonthlyIncomeModel.fromJson(e)).toList();
+    return listMonthlyIncome;
+  }
+
+  @override
+  FutureOr<bool> createH2PayUser(VerifyUserH2PayParamsModel params) async {
+    final response = await client.post(
+      '$_basePath/create-h2pay-customer',
+      body: params.toJson(),
+    );
+    return response.status == 201;
   }
 }

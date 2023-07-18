@@ -3,6 +3,7 @@ import 'package:apph2/theme/theme.dart';
 import 'package:apph2/views/h2pay/h2pay_home_page.dart';
 import 'package:apph2/views/h2pay/hiring/hiring_conditions_page.dart';
 import 'package:apph2/views/h2pay/hiring/hiring_finish_page.dart';
+import 'package:apph2/views/h2pay/verify/verify_finish_page.dart';
 import 'package:apph2/views/h2pay/hiring/hiring_page.dart';
 import 'package:apph2/views/h2pay/hiring/hiring_sms_page.dart';
 import 'package:apph2/views/h2pay/payment/company/company_account_page.dart';
@@ -97,6 +98,9 @@ abstract class BaseAppModuleRouting {
   /// VerifyValidateDocumentPage
   static const BasePath verifyValidateDocumentPage =
       BasePath('/VerifyValidateDocumentPage');
+
+  /// VerifyFinishPage
+  static const BasePath verifyFinishPage = BasePath('/verifyFinishPage');
 
   /// VerifyValidateDocumentPage
   static const BasePath hiringSumaryPage = BasePath('/hiringSumaryPage');
@@ -251,6 +255,10 @@ abstract class BaseAppModuleRouting {
         ChildRoute(
           verifyValidateDocumentPage.path,
           child: (_, __) => const VerifyValidateDocumentPage(),
+        ),
+        ChildRoute(
+          verifyFinishPage.path,
+          child: (_, __) => const VerifyFinishPage(),
         ),
         ChildRoute(
           hiringSumaryPage.path,

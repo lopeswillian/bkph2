@@ -114,11 +114,11 @@ class H2PayViewModel extends ViewModel<H2PayState> {
 
     final result = await _getSmsCodeUseCase(
       SmsParams(
-        cellphone:
-            state.customer!.cellphone.replaceAll(RegExp(r'[^a-zA-Z0-9]'), ''),
-        cpf: state.customer!.cpf,
-        email: state.customer!.email,
-        name: state.customer!.name,
+        cellphone: _loginViewModel.loggedUser!.cellphone
+            .replaceAll(RegExp(r'[^a-zA-Z0-9]'), ''),
+        cpf: _loginViewModel.loggedUser!.cpf,
+        email: _loginViewModel.loggedUser!.email,
+        name: _loginViewModel.loggedUser!.name,
       ),
     );
 
@@ -142,10 +142,10 @@ class H2PayViewModel extends ViewModel<H2PayState> {
     final result = await _validateSmsCodeUseCase(
       SmsParams(
         cellphone:
-            '+${state.customer!.cellphone.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '')}',
-        cpf: state.customer!.cpf,
-        email: state.customer!.email,
-        name: state.customer!.name,
+            '${_loginViewModel.state.user!.cellphone.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '')}',
+        cpf: _loginViewModel.state.user!.cpf,
+        email: _loginViewModel.state.user!.email,
+        name: _loginViewModel.state.user!.name,
         code: code,
       ),
     );

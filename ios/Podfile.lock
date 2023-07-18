@@ -1,4 +1,9 @@
 PODS:
+  - document_detector (5.26.4):
+    - DocumentDetector (= 7.12.2)
+    - Flutter
+  - DocumentDetector (7.12.2):
+    - Sentry (= 7.11.0)
   - Flutter (1.0.0)
   - flutter_keyboard_visibility (0.0.1):
     - Flutter
@@ -10,12 +15,16 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - Sentry (7.11.0):
+    - Sentry/Core (= 7.11.0)
+  - Sentry/Core (7.11.0)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
   - Toast (4.0.0)
 
 DEPENDENCIES:
+  - document_detector (from `.symlinks/plugins/document_detector/ios`)
   - Flutter (from `Flutter`)
   - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
@@ -24,10 +33,15 @@ DEPENDENCIES:
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
 
 SPEC REPOS:
+  https://github.com/combateafraude/iOS.git:
+    - DocumentDetector
   trunk:
+    - Sentry
     - Toast
 
 EXTERNAL SOURCES:
+  document_detector:
+    :path: ".symlinks/plugins/document_detector/ios"
   Flutter:
     :path: Flutter
   flutter_keyboard_visibility:
@@ -42,14 +56,17 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
 
 SPEC CHECKSUMS:
+  document_detector: aac7c2f49410279b1fe30304fa6f5aca4e9d6df0
+  DocumentDetector: ab07d68c530fd33076ab405f1b1a705c51376d3e
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_keyboard_visibility: 0339d06371254c3eb25eeb90ba8d17dca8f9c069
   fluttertoast: fafc4fa4d01a6a9e4f772ecd190ffa525e9e2d9c
   image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
   path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
+  Sentry: 0c5cd63d714187b4a39c331c1f0eb04ba7868341
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
 
-PODFILE CHECKSUM: 70d9d25280d0dd177a5f637cdb0f0b0b12c6a189
+PODFILE CHECKSUM: 91d00d1d0e99987a060fb201bb7e66153c26cfc3
 
 COCOAPODS: 1.12.1

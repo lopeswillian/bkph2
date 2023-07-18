@@ -20,13 +20,17 @@ class VerifyItemTile extends StatelessWidget {
   /// Render a subtitle
   final String subTitle;
 
+  final VoidCallback action;
+
   /// Creates new instance of [VerifyItemTile]
   const VerifyItemTile(
       {Key? key,
       this.active = false,
       required this.svgItem,
       required this.title,
-      required this.subTitle})
+      required this.subTitle,
+      required this.action
+      })
       : super(key: key);
 
   @override
@@ -38,36 +42,39 @@ class VerifyItemTile extends StatelessWidget {
   /// Verify item tile
   ///
   Widget _verifyItemTile(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: active
-            ? context.colorScheme.colorPrimaryLightest
-            : AppThemeBase.colorSecondary02,
-      ),
-      padding: EdgeInsets.symmetric(
-        horizontal: Dimension.sm.width,
-        vertical: Dimension.sm.height,
-      ),
-      child: Row(
-        children: [
-          SvgPicture.string(svgItem),
-          Dimension.sm.horizontal,
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: context.text.body1Bold,
-              ),
-              Dimension.xxs.vertical,
-              Text(
-                subTitle,
-                style: context.text.caption,
-              )
-            ],
-          )
-        ],
+    return GestureDetector(
+      onTap: action,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: active
+              ? context.colorScheme.colorPrimaryLightest
+              : AppThemeBase.colorSecondary02,
+        ),
+        padding: EdgeInsets.symmetric(
+          horizontal: Dimension.sm.width,
+          vertical: Dimension.sm.height,
+        ),
+        child: Row(
+          children: [
+            SvgPicture.string(svgItem),
+            Dimension.sm.horizontal,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: context.text.body1Bold,
+                ),
+                Dimension.xxs.vertical,
+                Text(
+                  subTitle,
+                  style: context.text.caption,
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

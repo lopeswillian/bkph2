@@ -26,6 +26,8 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
+    dataBinding.enabled = true
+
     namespace "com.h2.app"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
@@ -41,6 +43,10 @@ android {
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    aaptOptions {
+        noCompress "tflite"
     }
 
     defaultConfig {
@@ -75,4 +81,5 @@ dependencies {
     implementation "androidx.camera:camera-view:1.2.0-alpha02"
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.combateafraude.sdk:document-detector:6.39.6'
 }

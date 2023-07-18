@@ -1,8 +1,9 @@
 import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/theme.dart';
+import 'package:apph2/views/h2pay/verify/verify_viewmodel.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide View;
 
 class VerifyComplementPage extends StatefulWidget {
   const VerifyComplementPage({Key? key}) : super(key: key);
@@ -12,24 +13,9 @@ class VerifyComplementPage extends StatefulWidget {
   _VerifyComplementPageState createState() => _VerifyComplementPageState();
 }
 
-class _VerifyComplementPageState extends State<VerifyComplementPage> {
-  late String _selectedValue = 'Abaixo de 10 mil reais';
-  late String _selectedValue2 = 'Aposentado';
-
-  static final List<String> _radioValues = [
-    'Abaixo de 10 mil reais',
-    'Entre 10 mil reais e 20 mil reais',
-    'Acima 20 mil reais',
-  ];
-
-  static final List<String> _radioValues2 = [
-    'Aposentado',
-    'Autônomo',
-    'Empregado CLT',
-    'Empresário',
-    'Sem ocupação profissional',
-    'Servidor público'
-  ];
+class _VerifyComplementPageState extends State<VerifyComplementPage> with View<VerifyViewModel>{
+  late String selectedValue = viewModel.state.listJobs.first.jobId.toString();
+  late String selectedValue2 = viewModel.state.listMonthlyIncome.first.monthlyIncomeId.toString();
 
   @override
   Widget build(BuildContext context) {
@@ -88,11 +74,11 @@ class _VerifyComplementPageState extends State<VerifyComplementPage> {
                               style: context.text.body1,
                             ),
                             Dimension.md.vertical,
-                            ..._radioValues
+                            ...viewModel.state.listMonthlyIncome
                                 .map(
                                   (value) => RadioListTile(
                                     title: Text(
-                                      value,
+                                      value.description,
                                       style: context.text.body2,
                                     ),
                                     dense: true,
@@ -103,11 +89,12 @@ class _VerifyComplementPageState extends State<VerifyComplementPage> {
                                     ),
                                     materialTapTargetSize:
                                         MaterialTapTargetSize.shrinkWrap,
-                                    value: value,
-                                    groupValue: _selectedValue,
+                                    value: value.monthlyIncomeId.toString(),
+                                    groupValue: selectedValue,
                                     onChanged: (newValue) {
+                                      viewModel.setSelectedMonthlyIncome(value);
                                       setState(() {
-                                        _selectedValue = newValue!;
+                                        selectedValue = newValue!;
                                       });
                                     },
                                   ),
@@ -121,11 +108,11 @@ class _VerifyComplementPageState extends State<VerifyComplementPage> {
                               style: context.text.body1,
                             ),
                             Dimension.md.vertical,
-                            ..._radioValues2
+                            ...viewModel.state.listJobs
                                 .map(
                                   (value) => RadioListTile(
                                     title: Text(
-                                      value,
+                                      value.description,
                                       style: context.text.body2,
                                     ),
                                     dense: true,
@@ -141,11 +128,12 @@ class _VerifyComplementPageState extends State<VerifyComplementPage> {
                                     ),
                                     materialTapTargetSize:
                                         MaterialTapTargetSize.shrinkWrap,
-                                    value: value,
-                                    groupValue: _selectedValue2,
+                                    value: value.jobId.toString(),
+                                    groupValue: selectedValue2,
                                     onChanged: (newValue) {
+                                      viewModel.setSelectedJob(value);
                                       setState(() {
-                                        _selectedValue2 = newValue!;
+                                        selectedValue2 = newValue!;
                                       });
                                     },
                                   ),

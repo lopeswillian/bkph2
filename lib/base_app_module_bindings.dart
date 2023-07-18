@@ -6,6 +6,7 @@ import 'package:apph2/data/repositories/h2pay_repository.dart';
 import 'package:apph2/domain/repositories/h2pay_repository.dart';
 import 'package:apph2/infraestructure/http/http_adapter.dart';
 import 'package:apph2/theme/theme.dart';
+import 'package:apph2/usecases/create_user_h2pay_usecase.dart';
 import 'package:apph2/usecases/get_anticipation_usecase.dart';
 import 'package:apph2/usecases/get_anticipation_with_discharge_usecase.dart';
 import 'package:apph2/usecases/get_bco_cnpj_usecase.dart';
@@ -13,7 +14,10 @@ import 'package:apph2/usecases/get_bco_cpf_usecase.dart';
 import 'package:apph2/usecases/get_cpf_usecase.dart';
 import 'package:apph2/usecases/get_customer_companies_usecase.dart';
 import 'package:apph2/usecases/get_customer_usecase.dart';
+import 'package:apph2/usecases/get_jobs_usecase.dart';
+import 'package:apph2/usecases/get_monthly_income_usecase.dart';
 import 'package:apph2/usecases/get_sms_code_usecase.dart';
+import 'package:apph2/usecases/get_terms_condition.dart';
 import 'package:apph2/usecases/login_recovery_usecase.dart';
 import 'package:apph2/usecases/login_with_credentials_usecase.dart';
 import 'package:apph2/usecases/register_usecase.dart';
@@ -21,6 +25,7 @@ import 'package:apph2/usecases/send_payment_customer_usecase.dart';
 import 'package:apph2/usecases/validate_sms_code_usecase.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
+import 'package:apph2/views/h2pay/verify/verify_viewmodel.dart';
 import 'package:apph2/views/login/login_viewmodel.dart';
 import 'package:apph2/views/recovery/recovery_viewmodel.dart';
 import 'package:apph2/views/register/register_viewmodel.dart';
@@ -132,6 +137,18 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<IGetBcoCnpjUseCase>(
           (i) => GetBcoCnpjUseCase(i.get<IH2PayRepository>()),
         ),
+        Bind.lazySingleton<IGetJobsUseCase>(
+          (i) => GetJobsUseCase(i.get<IH2PayRepository>()),
+        ),
+        Bind.lazySingleton<IGetMonthlyIncomeUseCase>(
+          (i) => GetMonthlyIncomeUseCase(i.get<IH2PayRepository>()),
+        ),
+        Bind.lazySingleton<IGetTermsConditionsUseCase>(
+          (i) => GetTermsConditionsUseCase(i.get<IH2PayRepository>()),
+        ),
+        Bind.lazySingleton<ICreateH2PayUserUseCase>(
+          (i) => CreateH2PayUserUseCase(i.get<IH2PayRepository>()),
+        ),
       ];
 
   static List<Bind> get _viewModels => [
@@ -157,6 +174,18 @@ class BaseAppModuleBindings {
             i.get<IValidateSmsCodeUseCase>(),
             i.get<IGetCustomerCompaniesUseCase>(),
             i.get<LoginViewModel>(),
+          ),
+        ),
+        Bind.lazySingleton<VerifyViewModel>(
+          (i) => VerifyViewModel(
+            i.get<IGetSmsCodeUseCase>(),
+            i.get<IValidateSmsCodeUseCase>(),
+            i.get<IGetMonthlyIncomeUseCase>(),
+            i.get<IGetJobsUseCase>(),
+            i.get<IGetTermsConditionsUseCase>(),
+            i.get<ICreateH2PayUserUseCase>(),
+            i.get<LoginViewModel>(),
+            i.get<H2PayViewModel>()
           ),
         ),
         Bind.lazySingleton<PaymentViewModel>(

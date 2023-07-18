@@ -16,15 +16,21 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> with View<LoginViewModel>{
-  
+class _LoginPageState extends State<LoginPage> with View<LoginViewModel> {
   @override
   Widget build(BuildContext context) {
-    return ViewModelConsumer<LoginViewModel, LoginState>(
+    return ViewModelBuilder<LoginViewModel, LoginState>(
       viewModel: viewModel,
-      listenWhen: (previous, current) => previous.error != current.error,
-      listener: (context, state) => {},
-      builder: _buildPage,
+      buildWhen: (previous, current) =>
+          previous.error != current.error ||
+          previous.loading != current.loading,
+      builder: (context, state) {
+        return state.loading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : _buildPage(context, state);
+      },
     );
   }
 
@@ -74,44 +80,50 @@ class _LoginPageState extends State<LoginPage> with View<LoginViewModel>{
                     ),
                     Visibility(
                       // visible: state.error == '',
-                      child: state.error != ''? const SizedBox.shrink():Row(
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              Nav.pushNamed(BaseAppModuleRouting.recovery);
-                            },
-                            style: ButtonStyle(
-                              visualDensity: VisualDensity.compact,
-                              padding: MaterialStateProperty.resolveWith<
-                                  EdgeInsetsGeometry>(
-                                (Set<MaterialState> states) {
-                                  return EdgeInsets.only(
-                                    left: Dimension.sm.width,
-                                    top: 0,
-                                  );
-                                },
-                              ),
-                              alignment: Alignment.centerLeft,
-                              foregroundColor:
-                                  MaterialStateProperty.resolveWith<Color>(
-                                (Set<MaterialState> states) {
-                                  if (states.contains(MaterialState.disabled)) {
-                                    return Colors.grey;
-                                  }
-                                  return context.colorScheme.colorPrimaryLight;
-                                },
-                              ),
+                      child: state.error != ''
+                          ? const SizedBox.shrink()
+                          : Row(
+                              children: [
+                                TextButton(
+                                  onPressed: () {
+                                    Nav.pushNamed(
+                                        BaseAppModuleRouting.recovery);
+                                  },
+                                  style: ButtonStyle(
+                                    visualDensity: VisualDensity.compact,
+                                    padding: MaterialStateProperty.resolveWith<
+                                        EdgeInsetsGeometry>(
+                                      (Set<MaterialState> states) {
+                                        return EdgeInsets.only(
+                                          left: Dimension.sm.width,
+                                          top: 0,
+                                        );
+                                      },
+                                    ),
+                                    alignment: Alignment.centerLeft,
+                                    foregroundColor: MaterialStateProperty
+                                        .resolveWith<Color>(
+                                      (Set<MaterialState> states) {
+                                        if (states
+                                            .contains(MaterialState.disabled)) {
+                                          return Colors.grey;
+                                        }
+                                        return context
+                                            .colorScheme.colorPrimaryLight;
+                                      },
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Esqueci minha senha',
+                                    style: context.text.caption.copyWith(
+                                      color:
+                                          context.colorScheme.colorPrimaryLight,
+                                    ),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ),
+                              ],
                             ),
-                            child: Text(
-                              'Esqueci minha senha',
-                              style: context.text.caption.copyWith(
-                                color: context.colorScheme.colorPrimaryLight,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
                   ],
                 ),

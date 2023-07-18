@@ -153,7 +153,6 @@ class _HiringSmsPageState extends State<HiringSmsPage> {
                     color: Colors.white,
                     child: NextWidget(
                       title: 'Avançar',
-                      // enabled: pinCodeController.text.length == 4,
                       action: () async {
                         final isValidCode = await h2payViewModel
                             .validateSmsCode(pinCodeController.text);

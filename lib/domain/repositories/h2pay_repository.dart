@@ -9,8 +9,12 @@ import 'package:apph2/domain/entities/customer_companies.dart';
 import 'package:apph2/domain/entities/customer_companies_params.dart';
 import 'package:apph2/domain/entities/customer_info.dart';
 import 'package:apph2/domain/entities/customer_params.dart';
+import 'package:apph2/domain/entities/job.dart';
+import 'package:apph2/domain/entities/monthly_income.dart';
 import 'package:apph2/domain/entities/payment_params.dart';
 import 'package:apph2/domain/entities/sms_params.dart';
+import 'package:apph2/domain/entities/terms_conditions.dart';
+import 'package:apph2/domain/entities/verify_user_h2pay_params.dart';
 import 'package:apph2/domain/failures/h2_failure.dart';
 import 'package:dartz/dartz.dart';
 
@@ -38,4 +42,12 @@ abstract class IH2PayRepository {
   Future<Either<H2Failure, BcoCpfInfo>> getBcoCpf(BcoCpfParams params);
 
   Future<Either<H2Failure, BcoCnpjInfo>> getBcoCnpj(BcoCnpjParams params);
+
+  Future<Either<H2Failure, TermsConditions>> getTerms();
+
+  Future<Either<H2Failure, List<Job>>> getJobs();
+
+  Future<Either<H2Failure, List<MonthlyIncome>>> getMonthlyIncome();
+
+  Future<Either<H2Failure, Unit>> createH2PayUser(VerifyUserH2PayParams params);
 }
