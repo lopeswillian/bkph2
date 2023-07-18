@@ -1,4 +1,4 @@
-# apph2
+# H2 Club
 
 A new Flutter project.
 

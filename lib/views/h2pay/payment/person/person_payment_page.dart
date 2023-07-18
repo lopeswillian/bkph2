@@ -10,6 +10,7 @@ import 'package:apph2/views/h2pay/payment/widgets/custom_send_document.dart';
 import 'package:apph2/views/h2pay/payment/widgets/custom_switch_payment.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
 import 'package:flutter/material.dart' hide View;
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PersonPaymentPage extends StatefulWidget {
@@ -41,14 +42,14 @@ class _PersonPaymentPageState extends State<PersonPaymentPage>
     switch (position) {
       case 1:
         viewModel.setPaymentType(position + 1);
-        return _ted();
+        return _ted(viewModel.state);
       case 2:
         viewModel.setPaymentType(position + 1);
         return _bankCheck(viewModel.state);
       case 0:
       default:
         viewModel.setPaymentType(1);
-        return _pix();
+        return _pix(viewModel.state);
     }
   }
 
@@ -197,7 +198,7 @@ class _PersonPaymentPageState extends State<PersonPaymentPage>
     );
   }
 
-  Widget _ted() {
+  Widget _ted(PaymentState state) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -206,42 +207,42 @@ class _PersonPaymentPageState extends State<PersonPaymentPage>
           style: context.text.body2,
         ),
         Dimension.sm.vertical,
-        const CustomTextFormField(
+        CustomTextFormField(
           labelText: 'Banco',
           enabled: false,
-          initialValue: '(033) Santander',
+          initialValue: state.tedDataInfo?.bank ?? '',
         ),
         const Dimension(2.5).vertical,
         Row(
           children: [
-            const Flexible(
+            Flexible(
               child: CustomTextFormField(
-                enabled: false,
                 labelText: 'Agência',
-                initialValue: '0120',
+                enabled: false,
+                initialValue: state.tedDataInfo?.agency ?? '',
               ),
             ),
             const Dimension(2.5).horizontal,
-            const Flexible(
+            Flexible(
               child: CustomTextFormField(
-                enabled: false,
                 labelText: 'Conta',
-                initialValue: '13.004.059-1',
+                enabled: false,
+                initialValue: state.tedDataInfo?.account ?? '',
               ),
             ),
           ],
         ),
         const Dimension(2.5).vertical,
-        const CustomTextFormField(
-          enabled: false,
+        CustomTextFormField(
           labelText: 'Favorecido',
-          initialValue: 'H2 Fintech',
+          enabled: false,
+          initialValue: state.tedDataInfo?.favoured ?? '',
         )
       ],
     );
   }
 
-  Widget _pix() {
+  Widget _pix(PaymentState state) {
     return Column(
       children: [
         CustomTextFormField(
@@ -251,7 +252,7 @@ class _PersonPaymentPageState extends State<PersonPaymentPage>
           ),
           controller: null,
           onChanged: (String cb) {},
-          initialValue: "00020101021226640014br.gov.bcb.pix...",
+          initialValue: state.pixCodeInfo?.pixCode ?? '',
           labelText: 'Chave PIX QRCode',
           enabled: false,
         ),
@@ -266,10 +267,23 @@ class _PersonPaymentPageState extends State<PersonPaymentPage>
               Radius.circular(10),
             ),
           ),
-          child: Text(
-            "Copiar código Pix",
-            style: context.text.body2Medium.copyWith(
-              color: AppThemeBase.colorPrimaryLight,
+          child: GestureDetector(
+            onTap: () {
+              Clipboard.setData(
+                ClipboardData(
+                  text: state.pixCodeInfo?.pixCode ?? '',
+                ),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text('Código copiado.'),
+                duration: Duration(seconds: 2),
+              ));
+            },
+            child: Text(
+              "Copiar código Pix",
+              style: context.text.body2Medium.copyWith(
+                color: AppThemeBase.colorPrimaryLight,
+              ),
             ),
           ),
         ),

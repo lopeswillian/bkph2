@@ -220,7 +220,7 @@ class _MyAppState extends State<MyApp> {
             SizeConfig.init().config(constraints, orientation);
             return MaterialApp.router(
               debugShowCheckedModeBanner: false,
-              title: 'H2 APP',
+              title: 'H2 Club',
               routeInformationParser: Modular.routeInformationParser,
               routerDelegate: Modular.routerDelegate,
               theme: ThemeFactory.light(),

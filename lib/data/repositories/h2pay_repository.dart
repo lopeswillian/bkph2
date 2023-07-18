@@ -5,7 +5,9 @@ import 'package:apph2/data/models/request/h2pay/bco_cpf_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/customer_companies_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/customer_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/payment_params_model.dart';
+import 'package:apph2/data/models/request/h2pay/pix_code_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/sms_params_model.dart';
+import 'package:apph2/data/models/request/h2pay/ted_data_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/verify_user_h2pay_params_model.dart';
 import 'package:apph2/domain/entities/anticipation_info.dart';
 import 'package:apph2/domain/entities/anticipation_params.dart';
@@ -21,7 +23,11 @@ import 'package:apph2/domain/entities/customer_params.dart';
 import 'package:apph2/domain/entities/job.dart';
 import 'package:apph2/domain/entities/monthly_income.dart';
 import 'package:apph2/domain/entities/payment_params.dart';
+import 'package:apph2/domain/entities/pix_code_info.dart';
+import 'package:apph2/domain/entities/pix_code_params.dart';
 import 'package:apph2/domain/entities/sms_params.dart';
+import 'package:apph2/domain/entities/ted_data_info.dart';
+import 'package:apph2/domain/entities/ted_data_params.dart';
 import 'package:apph2/domain/entities/terms_conditions.dart';
 import 'package:apph2/domain/entities/verify_user_h2pay_params.dart';
 import 'package:apph2/domain/failures/h2_failure.dart';
@@ -177,8 +183,7 @@ class H2PayRepository implements IH2PayRepository {
   }
 
   @override
-  Future<Either<H2Failure, TermsConditions>> getTerms(
-  ) async {
+  Future<Either<H2Failure, TermsConditions>> getTerms() async {
     try {
       final termsCondition = await datasource.getTerms();
       return Right(termsCondition.toEntity());
@@ -190,8 +195,7 @@ class H2PayRepository implements IH2PayRepository {
   }
 
   @override
-  Future<Either<H2Failure, List<Job>>> getJobs(
-  ) async {
+  Future<Either<H2Failure, List<Job>>> getJobs() async {
     try {
       final listJobs = await datasource.getJobs();
       return Right(listJobs.map((job) => job.toEntity()).toList());
@@ -203,11 +207,12 @@ class H2PayRepository implements IH2PayRepository {
   }
 
   @override
-  Future<Either<H2Failure, List<MonthlyIncome>>> getMonthlyIncome(
-  ) async {
+  Future<Either<H2Failure, List<MonthlyIncome>>> getMonthlyIncome() async {
     try {
       final listMonthlyIncome = await datasource.getMonthlyIncome();
-      return Right(listMonthlyIncome.map((monthlyIncome) => monthlyIncome.toEntity()).toList());
+      return Right(listMonthlyIncome
+          .map((monthlyIncome) => monthlyIncome.toEntity())
+          .toList());
     } on IHttpException {
       return const Left(H2Failure.unexpected());
     } on Exception {
@@ -220,7 +225,8 @@ class H2PayRepository implements IH2PayRepository {
     VerifyUserH2PayParams params,
   ) async {
     try {
-      await datasource.createH2PayUser(VerifyUserH2PayParamsModel.fromEntity(params));
+      await datasource
+          .createH2PayUser(VerifyUserH2PayParamsModel.fromEntity(params));
       return const Right(unit);
     } on IHttpException catch (e) {
       return Left(H2Failure.invalidParams(message: e.data));
@@ -229,4 +235,36 @@ class H2PayRepository implements IH2PayRepository {
     }
   }
 
+  @override
+  Future<Either<H2Failure, PixCodeInfo>> getPixCode(
+    PixCodeParams params,
+  ) async {
+    try {
+      final pixCode =
+          await datasource.getPixCode(PixCodeParamsModel.fromEntity(params));
+      return Right(pixCode.toEntity());
+    } on IHttpException catch (e) {
+      return Left(H2Failure.invalidParams(message: e.data));
+    } on Exception {
+      return const Left(H2Failure.unexpected());
+    }
+  }
+
+  @override
+  Future<Either<H2Failure, TedDataInfo>> getTedData(
+    TedDataParams params,
+  ) async {
+    try {
+      final tedData = await datasource.getTedData(
+        TedDataParamsModel.fromEntity(params),
+      );
+      return Right(
+        tedData.toEntity(),
+      );
+    } on IHttpException catch (e) {
+      return Left(H2Failure.invalidParams(message: e.data));
+    } on Exception {
+      return const Left(H2Failure.unexpected());
+    }
+  }
 }

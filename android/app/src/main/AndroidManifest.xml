@@ -35,7 +35,7 @@
     <uses-sdk
         tools:overrideLibrary="io.flutter.plugins.camera"/>
     <application
-        android:label="h2"
+        android:label="H2 Club"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -8,7 +8,9 @@ import 'package:apph2/data/models/request/h2pay/bco_cpf_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/customer_companies_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/customer_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/payment_params_model.dart';
+import 'package:apph2/data/models/request/h2pay/pix_code_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/sms_params_model.dart';
+import 'package:apph2/data/models/request/h2pay/ted_data_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/verify_user_h2pay_params_model.dart';
 import 'package:apph2/data/models/response/anticipation_info_model.dart';
 import 'package:apph2/data/models/response/anticipation_with_discharge_model.dart';
@@ -18,6 +20,8 @@ import 'package:apph2/data/models/response/customer_companies_model.dart';
 import 'package:apph2/data/models/response/customer_info_model.dart';
 import 'package:apph2/data/models/response/job_model.dart';
 import 'package:apph2/data/models/response/monthly_income_model.dart';
+import 'package:apph2/data/models/response/pix_code_info_model.dart';
+import 'package:apph2/data/models/response/ted_data_info_model.dart';
 import 'package:apph2/data/models/response/terms_condition_model.dart';
 import 'package:apph2/infraestructure/http/http_client.dart';
 
@@ -66,6 +70,14 @@ abstract class IH2PayDatasource {
 
   FutureOr<bool> createH2PayUser(
     VerifyUserH2PayParamsModel params,
+  );
+
+  FutureOr<PixCodeInfoModel> getPixCode(
+    PixCodeParamsModel params,
+  );
+
+  FutureOr<TedDataInfoModel> getTedData(
+    TedDataParamsModel params,
   );
 }
 
@@ -186,7 +198,8 @@ class H2PayDatasource implements IH2PayDatasource {
 
   @override
   FutureOr<TermsConditionModel> getTerms() async {
-    final response = await client.get('$_baseFrontContent/terms_and_conditions');
+    final response =
+        await client.get('$_baseFrontContent/terms_and_conditions');
     return TermsConditionModel.fromJson(response.data[0]);
   }
 
@@ -216,5 +229,25 @@ class H2PayDatasource implements IH2PayDatasource {
       body: params.toJson(),
     );
     return response.status == 201;
+  }
+
+  @override
+  FutureOr<PixCodeInfoModel> getPixCode(PixCodeParamsModel params) async {
+    final response = await client.post(
+      '$_basePathPayment/paymentPixCode',
+      body: params.toJson(),
+    );
+
+    return PixCodeInfoModel.fromToken(response.data['token']);
+  }
+
+  @override
+  FutureOr<TedDataInfoModel> getTedData(TedDataParamsModel params) async {
+    final response = await client.post(
+      '$_basePathPayment/paymentTedData',
+      body: params.toJson(),
+    );
+
+    return TedDataInfoModel.fromToken(response.data['token']);
   }
 }

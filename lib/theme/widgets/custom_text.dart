@@ -710,7 +710,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField>
                       counterStyle: widget.counterStyle,
                       floatingLabelStyle: _focusNode.hasFocus
                           ? context.theme.inputDecorationTheme.labelStyle!
-                              .copyWith(color: AppThemeBase.colorPrimaryMedium)
+                              .copyWith(
+                              color: AppThemeBase.colorPrimaryMedium,
+                            )
                           : context.theme.inputDecorationTheme.labelStyle,
                       hintStyle: widget.hintStyle ??
                           _delayedColorOpacity(

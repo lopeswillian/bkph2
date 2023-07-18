@@ -24,6 +24,8 @@ mixin _$PaymentState {
   String get paymentImgBack => throw _privateConstructorUsedError;
   String get thirdPartCpf => throw _privateConstructorUsedError;
   String get thirdPartCnpj => throw _privateConstructorUsedError;
+  PixCodeInfo? get pixCodeInfo => throw _privateConstructorUsedError;
+  TedDataInfo? get tedDataInfo => throw _privateConstructorUsedError;
   CompanyInfo? get selectedCustomerCompany =>
       throw _privateConstructorUsedError;
   AnticipationWithDischarge? get anticipationWithDischarge =>
@@ -51,11 +53,15 @@ abstract class $PaymentStateCopyWith<$Res> {
       String paymentImgBack,
       String thirdPartCpf,
       String thirdPartCnpj,
+      PixCodeInfo? pixCodeInfo,
+      TedDataInfo? tedDataInfo,
       CompanyInfo? selectedCustomerCompany,
       AnticipationWithDischarge? anticipationWithDischarge,
       BcoCnpjInfo? bcoCnpjInfo,
       BcoCpfInfo? bcoCpfInfo});
 
+  $PixCodeInfoCopyWith<$Res>? get pixCodeInfo;
+  $TedDataInfoCopyWith<$Res>? get tedDataInfo;
   $CompanyInfoCopyWith<$Res>? get selectedCustomerCompany;
   $AnticipationWithDischargeCopyWith<$Res>? get anticipationWithDischarge;
   $BcoCnpjInfoCopyWith<$Res>? get bcoCnpjInfo;
@@ -83,6 +89,8 @@ class _$PaymentStateCopyWithImpl<$Res, $Val extends PaymentState>
     Object? paymentImgBack = null,
     Object? thirdPartCpf = null,
     Object? thirdPartCnpj = null,
+    Object? pixCodeInfo = freezed,
+    Object? tedDataInfo = freezed,
     Object? selectedCustomerCompany = freezed,
     Object? anticipationWithDischarge = freezed,
     Object? bcoCnpjInfo = freezed,
@@ -121,6 +129,14 @@ class _$PaymentStateCopyWithImpl<$Res, $Val extends PaymentState>
           ? _value.thirdPartCnpj
           : thirdPartCnpj // ignore: cast_nullable_to_non_nullable
               as String,
+      pixCodeInfo: freezed == pixCodeInfo
+          ? _value.pixCodeInfo
+          : pixCodeInfo // ignore: cast_nullable_to_non_nullable
+              as PixCodeInfo?,
+      tedDataInfo: freezed == tedDataInfo
+          ? _value.tedDataInfo
+          : tedDataInfo // ignore: cast_nullable_to_non_nullable
+              as TedDataInfo?,
       selectedCustomerCompany: freezed == selectedCustomerCompany
           ? _value.selectedCustomerCompany
           : selectedCustomerCompany // ignore: cast_nullable_to_non_nullable
@@ -138,6 +154,30 @@ class _$PaymentStateCopyWithImpl<$Res, $Val extends PaymentState>
           : bcoCpfInfo // ignore: cast_nullable_to_non_nullable
               as BcoCpfInfo?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PixCodeInfoCopyWith<$Res>? get pixCodeInfo {
+    if (_value.pixCodeInfo == null) {
+      return null;
+    }
+
+    return $PixCodeInfoCopyWith<$Res>(_value.pixCodeInfo!, (value) {
+      return _then(_value.copyWith(pixCodeInfo: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $TedDataInfoCopyWith<$Res>? get tedDataInfo {
+    if (_value.tedDataInfo == null) {
+      return null;
+    }
+
+    return $TedDataInfoCopyWith<$Res>(_value.tedDataInfo!, (value) {
+      return _then(_value.copyWith(tedDataInfo: value) as $Val);
+    });
   }
 
   @override
@@ -207,11 +247,17 @@ abstract class _$$_PaymentStateCopyWith<$Res>
       String paymentImgBack,
       String thirdPartCpf,
       String thirdPartCnpj,
+      PixCodeInfo? pixCodeInfo,
+      TedDataInfo? tedDataInfo,
       CompanyInfo? selectedCustomerCompany,
       AnticipationWithDischarge? anticipationWithDischarge,
       BcoCnpjInfo? bcoCnpjInfo,
       BcoCpfInfo? bcoCpfInfo});
 
+  @override
+  $PixCodeInfoCopyWith<$Res>? get pixCodeInfo;
+  @override
+  $TedDataInfoCopyWith<$Res>? get tedDataInfo;
   @override
   $CompanyInfoCopyWith<$Res>? get selectedCustomerCompany;
   @override
@@ -241,6 +287,8 @@ class __$$_PaymentStateCopyWithImpl<$Res>
     Object? paymentImgBack = null,
     Object? thirdPartCpf = null,
     Object? thirdPartCnpj = null,
+    Object? pixCodeInfo = freezed,
+    Object? tedDataInfo = freezed,
     Object? selectedCustomerCompany = freezed,
     Object? anticipationWithDischarge = freezed,
     Object? bcoCnpjInfo = freezed,
@@ -279,6 +327,14 @@ class __$$_PaymentStateCopyWithImpl<$Res>
           ? _value.thirdPartCnpj
           : thirdPartCnpj // ignore: cast_nullable_to_non_nullable
               as String,
+      pixCodeInfo: freezed == pixCodeInfo
+          ? _value.pixCodeInfo
+          : pixCodeInfo // ignore: cast_nullable_to_non_nullable
+              as PixCodeInfo?,
+      tedDataInfo: freezed == tedDataInfo
+          ? _value.tedDataInfo
+          : tedDataInfo // ignore: cast_nullable_to_non_nullable
+              as TedDataInfo?,
       selectedCustomerCompany: freezed == selectedCustomerCompany
           ? _value.selectedCustomerCompany
           : selectedCustomerCompany // ignore: cast_nullable_to_non_nullable
@@ -311,6 +367,8 @@ class _$_PaymentState implements _PaymentState {
       this.paymentImgBack = '',
       this.thirdPartCpf = '',
       this.thirdPartCnpj = '',
+      this.pixCodeInfo,
+      this.tedDataInfo,
       this.selectedCustomerCompany,
       this.anticipationWithDischarge,
       this.bcoCnpjInfo,
@@ -341,6 +399,10 @@ class _$_PaymentState implements _PaymentState {
   @JsonKey()
   final String thirdPartCnpj;
   @override
+  final PixCodeInfo? pixCodeInfo;
+  @override
+  final TedDataInfo? tedDataInfo;
+  @override
   final CompanyInfo? selectedCustomerCompany;
   @override
   final AnticipationWithDischarge? anticipationWithDischarge;
@@ -351,7 +413,7 @@ class _$_PaymentState implements _PaymentState {
 
   @override
   String toString() {
-    return 'PaymentState(loading: $loading, error: $error, valueToPay: $valueToPay, typeOfPayment: $typeOfPayment, paymentImgFront: $paymentImgFront, paymentImgBack: $paymentImgBack, thirdPartCpf: $thirdPartCpf, thirdPartCnpj: $thirdPartCnpj, selectedCustomerCompany: $selectedCustomerCompany, anticipationWithDischarge: $anticipationWithDischarge, bcoCnpjInfo: $bcoCnpjInfo, bcoCpfInfo: $bcoCpfInfo)';
+    return 'PaymentState(loading: $loading, error: $error, valueToPay: $valueToPay, typeOfPayment: $typeOfPayment, paymentImgFront: $paymentImgFront, paymentImgBack: $paymentImgBack, thirdPartCpf: $thirdPartCpf, thirdPartCnpj: $thirdPartCnpj, pixCodeInfo: $pixCodeInfo, tedDataInfo: $tedDataInfo, selectedCustomerCompany: $selectedCustomerCompany, anticipationWithDischarge: $anticipationWithDischarge, bcoCnpjInfo: $bcoCnpjInfo, bcoCpfInfo: $bcoCpfInfo)';
   }
 
   @override
@@ -373,6 +435,10 @@ class _$_PaymentState implements _PaymentState {
                 other.thirdPartCpf == thirdPartCpf) &&
             (identical(other.thirdPartCnpj, thirdPartCnpj) ||
                 other.thirdPartCnpj == thirdPartCnpj) &&
+            (identical(other.pixCodeInfo, pixCodeInfo) ||
+                other.pixCodeInfo == pixCodeInfo) &&
+            (identical(other.tedDataInfo, tedDataInfo) ||
+                other.tedDataInfo == tedDataInfo) &&
             (identical(
                     other.selectedCustomerCompany, selectedCustomerCompany) ||
                 other.selectedCustomerCompany == selectedCustomerCompany) &&
@@ -396,6 +462,8 @@ class _$_PaymentState implements _PaymentState {
       paymentImgBack,
       thirdPartCpf,
       thirdPartCnpj,
+      pixCodeInfo,
+      tedDataInfo,
       selectedCustomerCompany,
       anticipationWithDischarge,
       bcoCnpjInfo,
@@ -418,6 +486,8 @@ abstract class _PaymentState implements PaymentState {
       final String paymentImgBack,
       final String thirdPartCpf,
       final String thirdPartCnpj,
+      final PixCodeInfo? pixCodeInfo,
+      final TedDataInfo? tedDataInfo,
       final CompanyInfo? selectedCustomerCompany,
       final AnticipationWithDischarge? anticipationWithDischarge,
       final BcoCnpjInfo? bcoCnpjInfo,
@@ -439,6 +509,10 @@ abstract class _PaymentState implements PaymentState {
   String get thirdPartCpf;
   @override
   String get thirdPartCnpj;
+  @override
+  PixCodeInfo? get pixCodeInfo;
+  @override
+  TedDataInfo? get tedDataInfo;
   @override
   CompanyInfo? get selectedCustomerCompany;
   @override

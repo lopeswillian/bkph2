@@ -16,7 +16,9 @@ import 'package:apph2/usecases/get_customer_companies_usecase.dart';
 import 'package:apph2/usecases/get_customer_usecase.dart';
 import 'package:apph2/usecases/get_jobs_usecase.dart';
 import 'package:apph2/usecases/get_monthly_income_usecase.dart';
+import 'package:apph2/usecases/get_pix_code_usecase.dart';
 import 'package:apph2/usecases/get_sms_code_usecase.dart';
+import 'package:apph2/usecases/get_ted_data_usecase.dart';
 import 'package:apph2/usecases/get_terms_condition.dart';
 import 'package:apph2/usecases/login_recovery_usecase.dart';
 import 'package:apph2/usecases/login_with_credentials_usecase.dart';
@@ -149,6 +151,12 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<ICreateH2PayUserUseCase>(
           (i) => CreateH2PayUserUseCase(i.get<IH2PayRepository>()),
         ),
+        Bind.lazySingleton<IGetPixCodeUseCase>(
+          (i) => GetPixCodeUseCase(i.get<IH2PayRepository>()),
+        ),
+        Bind.lazySingleton<IGetTedDataUseCase>(
+          (i) => GetTedDataUseCase(i.get<IH2PayRepository>()),
+        ),
       ];
 
   static List<Bind> get _viewModels => [
@@ -178,15 +186,14 @@ class BaseAppModuleBindings {
         ),
         Bind.lazySingleton<VerifyViewModel>(
           (i) => VerifyViewModel(
-            i.get<IGetSmsCodeUseCase>(),
-            i.get<IValidateSmsCodeUseCase>(),
-            i.get<IGetMonthlyIncomeUseCase>(),
-            i.get<IGetJobsUseCase>(),
-            i.get<IGetTermsConditionsUseCase>(),
-            i.get<ICreateH2PayUserUseCase>(),
-            i.get<LoginViewModel>(),
-            i.get<H2PayViewModel>()
-          ),
+              i.get<IGetSmsCodeUseCase>(),
+              i.get<IValidateSmsCodeUseCase>(),
+              i.get<IGetMonthlyIncomeUseCase>(),
+              i.get<IGetJobsUseCase>(),
+              i.get<IGetTermsConditionsUseCase>(),
+              i.get<ICreateH2PayUserUseCase>(),
+              i.get<LoginViewModel>(),
+              i.get<H2PayViewModel>()),
         ),
         Bind.lazySingleton<PaymentViewModel>(
           (i) => PaymentViewModel(
@@ -195,6 +202,8 @@ class BaseAppModuleBindings {
             i.get<ISendPaymentCustomerUseCase>(),
             i.get<IGetBcoCnpjUseCase>(),
             i.get<IGetBcoCpfUseCase>(),
+            i.get<IGetTedDataUseCase>(),
+            i.get<IGetPixCodeUseCase>(),
           ),
         ),
       ];

@@ -573,7 +573,7 @@ class AppThemeFactory {
           AppThemeBase.colorNeutralLightmodeLight,
         ),
       ),
-      disabledColor: AppThemeBase.colorNeutralLightmodeLightest,
+      disabledColor: AppThemeBase.colorNeutralLightmodeLight,
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
           borderSide: const BorderSide(

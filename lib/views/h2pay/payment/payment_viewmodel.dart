@@ -3,10 +3,14 @@ import 'package:apph2/domain/entities/bco_cnpj_params.dart';
 import 'package:apph2/domain/entities/bco_cpf_params.dart';
 import 'package:apph2/domain/entities/company_info.dart';
 import 'package:apph2/domain/entities/payment_params.dart';
+import 'package:apph2/domain/entities/pix_code_params.dart';
+import 'package:apph2/domain/entities/ted_data_params.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/usecases/get_anticipation_with_discharge_usecase.dart';
 import 'package:apph2/usecases/get_bco_cnpj_usecase.dart';
 import 'package:apph2/usecases/get_bco_cpf_usecase.dart';
+import 'package:apph2/usecases/get_pix_code_usecase.dart';
+import 'package:apph2/usecases/get_ted_data_usecase.dart';
 import 'package:apph2/usecases/send_payment_customer_usecase.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/h2pay/payment/payment_state.dart';
@@ -17,6 +21,8 @@ class PaymentViewModel extends ViewModel<PaymentState> {
   final ISendPaymentCustomerUseCase _sendPaymentCustomerUseCase;
   final IGetBcoCpfUseCase _getBcoCpfUseCase;
   final IGetBcoCnpjUseCase _getBcoCnpjUseCase;
+  final IGetTedDataUseCase _getTedDataUseCase;
+  final IGetPixCodeUseCase _getPixCodeUseCase;
   final H2PayViewModel _h2payViewModel;
 
   PaymentViewModel(
@@ -25,6 +31,8 @@ class PaymentViewModel extends ViewModel<PaymentState> {
     this._sendPaymentCustomerUseCase,
     this._getBcoCnpjUseCase,
     this._getBcoCpfUseCase,
+    this._getTedDataUseCase,
+    this._getPixCodeUseCase,
   ) : super(PaymentState.initial());
 
   Future<void> loadAnticipationWithDischarge() async {
@@ -227,12 +235,65 @@ class PaymentViewModel extends ViewModel<PaymentState> {
     emit(newState);
   }
 
-  void clearCpfCnpj(){
+  void clearCpfCnpj() {
     emit(state.copyWith(
       thirdPartCnpj: '',
       thirdPartCpf: '',
       bcoCnpjInfo: null,
       bcoCpfInfo: null,
     ));
+  }
+
+  Future<void> getTedInfo() async {
+    final result = await _getTedDataUseCase(
+      TedDataParams(
+        customerId: _h2payViewModel.state.customer!.id!,
+        paymentValue: state.valueToPay,
+      ),
+    );
+
+    final newState = result.fold(
+      (l) => state.copyWith(
+        loading: false,
+      ),
+      (tedData) => state.copyWith(
+        tedDataInfo: tedData,
+      ),
+    );
+    emit(newState);
+  }
+
+  Future<void> getPixInfo() async {
+    final result = await _getPixCodeUseCase(
+      PixCodeParams(
+        customerId: _h2payViewModel.state.customer!.id!,
+        paymentValue: state.valueToPay,
+      ),
+    );
+
+    final newState = result.fold(
+      (l) => state.copyWith(
+        loading: false,
+      ),
+      (pixCode) => state.copyWith(
+        pixCodeInfo: pixCode,
+      ),
+    );
+    emit(newState);
+  }
+
+  void getPayments() async {
+    emit(
+      state.copyWith(
+        loading: true,
+      ),
+    );
+    await getPixInfo();
+    await getTedInfo();
+    emit(
+      state.copyWith(
+        loading: false,
+      ),
+    );
   }
 }

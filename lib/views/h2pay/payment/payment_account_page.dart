@@ -3,6 +3,7 @@ import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/views/h2pay/h2pay_state.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
+import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
 import 'package:flutter/material.dart' hide View;
 
 class PaymentAccountPage extends StatefulWidget {
@@ -15,6 +16,14 @@ class PaymentAccountPage extends StatefulWidget {
 
 class _PaymentAccountPageState extends State<PaymentAccountPage>
     with View<H2PayViewModel> {
+  late PaymentViewModel paymentViewModel;
+  @override
+  void initState() {
+    super.initState();
+    paymentViewModel = DM.get<PaymentViewModel>();
+    paymentViewModel.getPayments();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<H2PayViewModel, H2PayState>(
