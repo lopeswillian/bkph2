@@ -52,11 +52,12 @@ class _H2HomePageState extends State<H2HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
-                    child: QrImageView(
-                  data: state.user!.id.toString(),
-                  version: QrVersions.min,
-                  size: const Dimension(33.875).width,
-                ))
+                  child: QrImageView(
+                    data: state.user!.id.toString(),
+                    version: QrVersions.min,
+                    size: const Dimension(33.875).width,
+                  ),
+                )
               ],
             ),
           ),

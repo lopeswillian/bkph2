@@ -150,8 +150,11 @@ class CustomCard extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(
-                const Dimension(4).value,
+              padding: EdgeInsets.only(
+                left: const Dimension(4).value,
+                top: const Dimension(4).value,
+                bottom: const Dimension(4).value,
+                right: const Dimension(10).value,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,6 +165,7 @@ class CustomCard extends StatelessWidget {
                     children: [
                       Text(
                         name,
+                        maxLines: 2,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 12,

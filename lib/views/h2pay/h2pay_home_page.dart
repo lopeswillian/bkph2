@@ -22,6 +22,12 @@ class _H2PayHomePageState extends ViewState<H2PayHomePage, H2PayViewModel> {
   }
 
   @override
+  void dispose(){
+    viewModel.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<H2PayViewModel, H2PayState>(
       viewModel: viewModel,
