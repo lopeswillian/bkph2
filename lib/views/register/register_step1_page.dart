@@ -23,13 +23,14 @@ class RegisterStep1 extends StatefulWidget {
   _RegisterStep1State createState() => _RegisterStep1State();
 }
 
+late StreamSubscription<bool> keyboardSubscription;
+
 class _RegisterStep1State extends ViewState<RegisterStep1, RegisterViewModel> {
   bool isKeyboardVisible = false;
   var cpfFormater = MaskTextInputFormatter(
     mask: '###.###.###-##',
     filter: {'#': RegExp(r'[0-9]')},
   );
-  late StreamSubscription<bool> keyboardSubscription;
 
   @override
   void initState() {
@@ -117,6 +118,7 @@ class _RegisterStep1State extends ViewState<RegisterStep1, RegisterViewModel> {
                               labelText: 'CPF',
                               inputFormatters: [cpfFormater],
                               hintText: '(Apenas números)',
+                              keyboardType: TextInputType.number,
                               errorMessage:
                                   state.error != '' ? state.error : null,
                               onChanged: (value) {
@@ -139,16 +141,28 @@ class _RegisterStep1State extends ViewState<RegisterStep1, RegisterViewModel> {
                 visible: !isKeyboardVisible,
                 child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: Container(
-                    height: const Dimension(18).height,
-                    color: Colors.white,
-                    child: StepWidget(
-                      enabled: state.document != null,
-                      title: 'Avançar',
-                      stepQuantity: 3,
-                      onStep: 1,
-                      action: () => Nav.pushNamed(
-                        BaseAppModuleRouting.registerStep2,
+                  child: IntrinsicHeight(
+                    child: Container(
+                      color: Colors.white,
+                      child: StepWidget(
+                        enabled: state.document != null,
+                        title: 'Avançar',
+                        stepQuantity: 3,
+                        onStep: 1,
+                        action: () {
+                          if (state.document!.isRewardsCustomer) {
+                            const snackBar = SnackBar(
+                              content: Text('Cpf já registrado'),
+                              duration: Duration(seconds: 2),
+                            );
+                            // ignore: use_build_context_synchronously
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            return;
+                          }
+                          Nav.pushNamed(
+                            BaseAppModuleRouting.registerStep2,
+                          );
+                        },
                       ),
                     ),
                   ),

@@ -24,6 +24,7 @@ import 'package:apph2/usecases/login_recovery_usecase.dart';
 import 'package:apph2/usecases/login_with_credentials_usecase.dart';
 import 'package:apph2/usecases/register_usecase.dart';
 import 'package:apph2/usecases/send_payment_customer_usecase.dart';
+import 'package:apph2/usecases/sign_anticipation_usecase.dart';
 import 'package:apph2/usecases/validate_sms_code_usecase.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
@@ -157,6 +158,9 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<IGetTedDataUseCase>(
           (i) => GetTedDataUseCase(i.get<IH2PayRepository>()),
         ),
+        Bind.lazySingleton<ISignAnticipationUseCase>(
+          (i) => SignAnticipationUseCase(i.get<IH2PayRepository>()),
+        ),
       ];
 
   static List<Bind> get _viewModels => [
@@ -186,14 +190,15 @@ class BaseAppModuleBindings {
         ),
         Bind.lazySingleton<VerifyViewModel>(
           (i) => VerifyViewModel(
-              i.get<IGetSmsCodeUseCase>(),
-              i.get<IValidateSmsCodeUseCase>(),
-              i.get<IGetMonthlyIncomeUseCase>(),
-              i.get<IGetJobsUseCase>(),
-              i.get<IGetTermsConditionsUseCase>(),
-              i.get<ICreateH2PayUserUseCase>(),
-              i.get<LoginViewModel>(),
-              i.get<H2PayViewModel>()),
+            i.get<IGetSmsCodeUseCase>(),
+            i.get<IValidateSmsCodeUseCase>(),
+            i.get<IGetMonthlyIncomeUseCase>(),
+            i.get<IGetJobsUseCase>(),
+            i.get<IGetTermsConditionsUseCase>(),
+            i.get<ICreateH2PayUserUseCase>(),
+            i.get<LoginViewModel>(),
+            i.get<H2PayViewModel>(),
+          ),
         ),
         Bind.lazySingleton<PaymentViewModel>(
           (i) => PaymentViewModel(
@@ -204,6 +209,7 @@ class BaseAppModuleBindings {
             i.get<IGetBcoCpfUseCase>(),
             i.get<IGetTedDataUseCase>(),
             i.get<IGetPixCodeUseCase>(),
+            i.get<ISignAnticipationUseCase>(),
           ),
         ),
       ];

@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$H2PayState {
   bool get loading => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
+  bool get validSmsCode => throw _privateConstructorUsedError;
   CustomerInfo? get customer => throw _privateConstructorUsedError;
   AnticipationInfo? get anticipation => throw _privateConstructorUsedError;
   CustomerCompanies? get customerCompanies =>
@@ -37,6 +38,7 @@ abstract class $H2PayStateCopyWith<$Res> {
   $Res call(
       {bool loading,
       String error,
+      bool validSmsCode,
       CustomerInfo? customer,
       AnticipationInfo? anticipation,
       CustomerCompanies? customerCompanies});
@@ -61,6 +63,7 @@ class _$H2PayStateCopyWithImpl<$Res, $Val extends H2PayState>
   $Res call({
     Object? loading = null,
     Object? error = null,
+    Object? validSmsCode = null,
     Object? customer = freezed,
     Object? anticipation = freezed,
     Object? customerCompanies = freezed,
@@ -74,6 +77,10 @@ class _$H2PayStateCopyWithImpl<$Res, $Val extends H2PayState>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
+      validSmsCode: null == validSmsCode
+          ? _value.validSmsCode
+          : validSmsCode // ignore: cast_nullable_to_non_nullable
+              as bool,
       customer: freezed == customer
           ? _value.customer
           : customer // ignore: cast_nullable_to_non_nullable
@@ -137,6 +144,7 @@ abstract class _$$_H2PayStateCopyWith<$Res>
   $Res call(
       {bool loading,
       String error,
+      bool validSmsCode,
       CustomerInfo? customer,
       AnticipationInfo? anticipation,
       CustomerCompanies? customerCompanies});
@@ -162,6 +170,7 @@ class __$$_H2PayStateCopyWithImpl<$Res>
   $Res call({
     Object? loading = null,
     Object? error = null,
+    Object? validSmsCode = null,
     Object? customer = freezed,
     Object? anticipation = freezed,
     Object? customerCompanies = freezed,
@@ -175,6 +184,10 @@ class __$$_H2PayStateCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
+      validSmsCode: null == validSmsCode
+          ? _value.validSmsCode
+          : validSmsCode // ignore: cast_nullable_to_non_nullable
+              as bool,
       customer: freezed == customer
           ? _value.customer
           : customer // ignore: cast_nullable_to_non_nullable
@@ -197,6 +210,7 @@ class _$_H2PayState implements _H2PayState {
   const _$_H2PayState(
       {this.loading = false,
       this.error = '',
+      this.validSmsCode = false,
       this.customer,
       this.anticipation,
       this.customerCompanies});
@@ -208,6 +222,9 @@ class _$_H2PayState implements _H2PayState {
   @JsonKey()
   final String error;
   @override
+  @JsonKey()
+  final bool validSmsCode;
+  @override
   final CustomerInfo? customer;
   @override
   final AnticipationInfo? anticipation;
@@ -216,7 +233,7 @@ class _$_H2PayState implements _H2PayState {
 
   @override
   String toString() {
-    return 'H2PayState(loading: $loading, error: $error, customer: $customer, anticipation: $anticipation, customerCompanies: $customerCompanies)';
+    return 'H2PayState(loading: $loading, error: $error, validSmsCode: $validSmsCode, customer: $customer, anticipation: $anticipation, customerCompanies: $customerCompanies)';
   }
 
   @override
@@ -226,6 +243,8 @@ class _$_H2PayState implements _H2PayState {
             other is _$_H2PayState &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error) &&
+            (identical(other.validSmsCode, validSmsCode) ||
+                other.validSmsCode == validSmsCode) &&
             (identical(other.customer, customer) ||
                 other.customer == customer) &&
             (identical(other.anticipation, anticipation) ||
@@ -235,8 +254,8 @@ class _$_H2PayState implements _H2PayState {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, loading, error, customer, anticipation, customerCompanies);
+  int get hashCode => Object.hash(runtimeType, loading, error, validSmsCode,
+      customer, anticipation, customerCompanies);
 
   @JsonKey(ignore: true)
   @override
@@ -249,6 +268,7 @@ abstract class _H2PayState implements H2PayState {
   const factory _H2PayState(
       {final bool loading,
       final String error,
+      final bool validSmsCode,
       final CustomerInfo? customer,
       final AnticipationInfo? anticipation,
       final CustomerCompanies? customerCompanies}) = _$_H2PayState;
@@ -257,6 +277,8 @@ abstract class _H2PayState implements H2PayState {
   bool get loading;
   @override
   String get error;
+  @override
+  bool get validSmsCode;
   @override
   CustomerInfo? get customer;
   @override

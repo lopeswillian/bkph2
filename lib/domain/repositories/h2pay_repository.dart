@@ -14,6 +14,7 @@ import 'package:apph2/domain/entities/monthly_income.dart';
 import 'package:apph2/domain/entities/payment_params.dart';
 import 'package:apph2/domain/entities/pix_code_info.dart';
 import 'package:apph2/domain/entities/pix_code_params.dart';
+import 'package:apph2/domain/entities/sign_anticipation_params.dart';
 import 'package:apph2/domain/entities/sms_params.dart';
 import 'package:apph2/domain/entities/ted_data_info.dart';
 import 'package:apph2/domain/entities/ted_data_params.dart';
@@ -32,6 +33,8 @@ abstract class IH2PayRepository {
   Future<Either<H2Failure, AnticipationWithDischarge>> getAllAnticipation(
     AnticipationParams params,
   );
+
+  Future<Either<H2Failure, Unit>> signAnticipation(SignAnticipationParams params);
 
   Future<Either<H2Failure, Unit>> getSmsCode(SmsParams params);
 

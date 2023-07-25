@@ -17,6 +17,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> with View<LoginViewModel> {
+  final identifier = TextEditingController();
+  final password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<LoginViewModel, LoginState>(
@@ -35,8 +38,11 @@ class _LoginPageState extends State<LoginPage> with View<LoginViewModel> {
   }
 
   Widget _buildPage(BuildContext context, LoginState state) {
-    final identifier = TextEditingController();
-    final password = TextEditingController();
+    Future.delayed(const Duration(seconds: 2)).then((value) {
+      if (state.error != '') {
+        viewModel.clearError();
+      }
+    });
     return Column(
       children: [
         SvgPicture.asset(
@@ -54,6 +60,7 @@ class _LoginPageState extends State<LoginPage> with View<LoginViewModel> {
               CustomTextFormField(
                 controller: identifier,
                 labelText: 'E-mail ou CPF',
+                autoFocus: true,
                 contentPadding: EdgeInsets.symmetric(
                   horizontal: Dimension.sm.width,
                   vertical: Dimension.sm.width,
@@ -79,7 +86,6 @@ class _LoginPageState extends State<LoginPage> with View<LoginViewModel> {
                       ),
                     ),
                     Visibility(
-                      // visible: state.error == '',
                       child: state.error != ''
                           ? const SizedBox.shrink()
                           : Row(
@@ -87,7 +93,8 @@ class _LoginPageState extends State<LoginPage> with View<LoginViewModel> {
                                 TextButton(
                                   onPressed: () {
                                     Nav.pushNamed(
-                                        BaseAppModuleRouting.recovery);
+                                      BaseAppModuleRouting.recovery,
+                                    );
                                   },
                                   style: ButtonStyle(
                                     visualDensity: VisualDensity.compact,

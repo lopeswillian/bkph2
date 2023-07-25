@@ -267,26 +267,27 @@ class _RegisterStep2State extends State<RegisterStep2> {
                 visible: !isKeyboardVisible,
                 child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: Container(
-                    height: const Dimension(18).height,
-                    color: Colors.white,
-                    child: StepWidget(
-                      title: 'Avançar',
-                      stepQuantity: 3,
-                      onStep: 2,
-                      action: () => Nav.pushNamed(
-                        BaseAppModuleRouting.registerStep3,
-                        arguments: RegisterStep3Params(
-                          nickName: nickName.text,
-                          cep: cep.text,
-                          state: state.text,
-                          city: city.text,
-                          address: address.text,
-                          district: district.text,
-                          numberAddress: numberAddress.text,
-                          phone: phone.text,
-                          gender: _selectedGender,
-                          complement: complement.text
+                  child: IntrinsicHeight(
+                    child: Container(
+                      color: Colors.white,
+                      child: StepWidget(
+                        title: 'Avançar',
+                        stepQuantity: 3,
+                        onStep: 2,
+                        action: () => Nav.pushNamed(
+                          BaseAppModuleRouting.registerStep3,
+                          arguments: RegisterStep3Params(
+                            nickName: nickName.text,
+                            cep: cep.text,
+                            state: state.text,
+                            city: city.text,
+                            address: address.text,
+                            district: district.text,
+                            numberAddress: numberAddress.text,
+                            phone: phone.text,
+                            gender: _selectedGender,
+                            complement: complement.text
+                          ),
                         ),
                       ),
                     ),

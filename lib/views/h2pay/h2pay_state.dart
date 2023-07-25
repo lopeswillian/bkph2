@@ -11,6 +11,7 @@ class H2PayState extends ViewModelState with _$H2PayState {
   const factory H2PayState({
     @Default(false) bool loading,
     @Default('') String error,
+    @Default(false) bool validSmsCode,
     CustomerInfo? customer,
     AnticipationInfo? anticipation,
     CustomerCompanies? customerCompanies,

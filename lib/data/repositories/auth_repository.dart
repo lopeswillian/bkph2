@@ -54,7 +54,7 @@ class AuthRepository implements IAuthRepository {
       await datasource.register(RegisterParamsModel.fromEntity(params));
       return const Right(unit);
     } on IHttpException catch(e) {
-      return Left(H2Failure.invalidParams(message: e.data));
+      return Left(H2Failure.unprocessableEntity(message: e.data));
     } on Exception {
       return const Left(H2Failure.unexpected());
     }

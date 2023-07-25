@@ -110,7 +110,13 @@ class H2PayViewModel extends ViewModel<H2PayState> {
   }
 
   Future<void> getSmsCode() async {
-    emit(state.copyWith(loading: true, error: ''));
+    emit(
+      state.copyWith(
+        loading: true,
+        error: '',
+        validSmsCode: false,
+      ),
+    );
 
     final result = await _getSmsCodeUseCase(
       SmsParams(
@@ -135,14 +141,19 @@ class H2PayViewModel extends ViewModel<H2PayState> {
 
   Future<bool> validateSmsCode(String code) async {
     emit(
-      state.copyWith(loading: true, error: ''),
+      state.copyWith(
+        loading: true,
+        error: '',
+      ),
     );
     bool validCode = false;
 
     final result = await _validateSmsCodeUseCase(
       SmsParams(
-        cellphone:
-            '${_loginViewModel.state.user!.cellphone.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '')}',
+        cellphone: _loginViewModel.state.user!.cellphone.replaceAll(
+          RegExp(r'[^a-zA-Z0-9]'),
+          '',
+        ),
         cpf: _loginViewModel.state.user!.cpf,
         email: _loginViewModel.state.user!.email,
         name: _loginViewModel.state.user!.name,
@@ -155,12 +166,16 @@ class H2PayViewModel extends ViewModel<H2PayState> {
         validCode = false;
         return state.copyWith(
           loading: false,
+          validSmsCode: false,
           error: 'Código inválido ou expirado.',
         );
       },
       (smsSended) {
         validCode = true;
-        return state.copyWith(loading: false);
+        return state.copyWith(
+          loading: false,
+          validSmsCode: true,
+        );
       },
     );
 

@@ -4,6 +4,7 @@ import 'package:apph2/domain/entities/bco_cpf_params.dart';
 import 'package:apph2/domain/entities/company_info.dart';
 import 'package:apph2/domain/entities/payment_params.dart';
 import 'package:apph2/domain/entities/pix_code_params.dart';
+import 'package:apph2/domain/entities/sign_anticipation_params.dart';
 import 'package:apph2/domain/entities/ted_data_params.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/usecases/get_anticipation_with_discharge_usecase.dart';
@@ -12,6 +13,7 @@ import 'package:apph2/usecases/get_bco_cpf_usecase.dart';
 import 'package:apph2/usecases/get_pix_code_usecase.dart';
 import 'package:apph2/usecases/get_ted_data_usecase.dart';
 import 'package:apph2/usecases/send_payment_customer_usecase.dart';
+import 'package:apph2/usecases/sign_anticipation_usecase.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/h2pay/payment/payment_state.dart';
 
@@ -24,6 +26,7 @@ class PaymentViewModel extends ViewModel<PaymentState> {
   final IGetTedDataUseCase _getTedDataUseCase;
   final IGetPixCodeUseCase _getPixCodeUseCase;
   final H2PayViewModel _h2payViewModel;
+  final ISignAnticipationUseCase _signAnticipationUseCase;
 
   PaymentViewModel(
     this._h2payViewModel,
@@ -33,6 +36,7 @@ class PaymentViewModel extends ViewModel<PaymentState> {
     this._getBcoCpfUseCase,
     this._getTedDataUseCase,
     this._getPixCodeUseCase,
+    this._signAnticipationUseCase,
   ) : super(PaymentState.initial());
 
   Future<void> loadAnticipationWithDischarge() async {
@@ -57,6 +61,43 @@ class PaymentViewModel extends ViewModel<PaymentState> {
       ),
     );
     emit(newState);
+  }
+
+  Future<PaymentState> signAnticipation() async {
+    emit(
+      state.copyWith(
+        loading: true,
+        error: '',
+      ),
+    );
+
+    final result = await _signAnticipationUseCase(
+      SignAnticipationParams(
+        customerId: _h2payViewModel.state.customer!.id!.toString(),
+        anticipationId: _h2payViewModel.state.anticipation?.anticipationOriginId
+                .toString() ??
+            '',
+        signed: true,
+      ),
+    );
+
+    final newState = result.fold(
+      (error) => state.copyWith(
+        loading: false,
+        error: error.maybeMap(
+          server: (error) => error.message,
+          invalidParams: (error) => error.message,
+          unauthorized: (error) => error.message,
+          invalidData: (error) => error.message,
+          unprocessableEntity: (error) => error.message,
+          orElse: () => '',
+        ),
+      ),
+      (anticipation) => state.copyWith(loading: false, error: ''),
+    );
+    _h2payViewModel.getAnticipation();
+    emit(newState);
+    return newState;
   }
 
   void changeValueToPay(double value) {

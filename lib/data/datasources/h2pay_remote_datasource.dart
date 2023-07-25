@@ -9,6 +9,7 @@ import 'package:apph2/data/models/request/h2pay/customer_companies_params_model.
 import 'package:apph2/data/models/request/h2pay/customer_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/payment_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/pix_code_params_model.dart';
+import 'package:apph2/data/models/request/h2pay/sign_anticipation_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/sms_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/ted_data_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/verify_user_h2pay_params_model.dart';
@@ -79,6 +80,11 @@ abstract class IH2PayDatasource {
   FutureOr<TedDataInfoModel> getTedData(
     TedDataParamsModel params,
   );
+
+  FutureOr<bool> signAnticipation(
+    SignAnticipationParamsModel params,
+  );
+
 }
 
 class H2PayDatasource implements IH2PayDatasource {
@@ -115,6 +121,20 @@ class H2PayDatasource implements IH2PayDatasource {
         .get('$_basePathAnticipation/allAnticipations/${params.customerId}');
 
     return AnticipationWithDischargeModel.fromToken(response.data['token']);
+  }
+
+  @override
+  FutureOr<bool> signAnticipation(
+    SignAnticipationParamsModel params,
+  ) async {
+    final response = await client.post(
+      '$_basePathAnticipation/signAnticipation',
+      body: params.toJson(),
+    );
+
+    List<int> succesCodes = [ 200,201];
+    // ignore: iterable_contains_unrelated_type
+    return succesCodes.contains(response.status);
   }
 
   @override

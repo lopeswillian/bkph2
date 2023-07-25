@@ -6,6 +6,7 @@ import 'package:apph2/data/models/request/h2pay/customer_companies_params_model.
 import 'package:apph2/data/models/request/h2pay/customer_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/payment_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/pix_code_params_model.dart';
+import 'package:apph2/data/models/request/h2pay/sign_anticipation_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/sms_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/ted_data_params_model.dart';
 import 'package:apph2/data/models/request/h2pay/verify_user_h2pay_params_model.dart';
@@ -25,6 +26,7 @@ import 'package:apph2/domain/entities/monthly_income.dart';
 import 'package:apph2/domain/entities/payment_params.dart';
 import 'package:apph2/domain/entities/pix_code_info.dart';
 import 'package:apph2/domain/entities/pix_code_params.dart';
+import 'package:apph2/domain/entities/sign_anticipation_params.dart';
 import 'package:apph2/domain/entities/sms_params.dart';
 import 'package:apph2/domain/entities/ted_data_info.dart';
 import 'package:apph2/domain/entities/ted_data_params.dart';
@@ -83,6 +85,21 @@ class H2PayRepository implements IH2PayRepository {
       return Right(anticipationWithDischarge.toEntity());
     } on IHttpException {
       return const Left(H2Failure.unexpected());
+    } on Exception {
+      return const Left(H2Failure.unexpected());
+    }
+  }
+
+  @override
+  Future<Either<H2Failure, Unit>> signAnticipation(
+    SignAnticipationParams params,
+  ) async {
+    try {
+      await datasource
+          .signAnticipation(SignAnticipationParamsModel.fromEntity(params));
+      return const Right(unit);
+    } on IHttpException catch (e) {
+      return Left(H2Failure.invalidParams(message: e.data));
     } on Exception {
       return const Left(H2Failure.unexpected());
     }

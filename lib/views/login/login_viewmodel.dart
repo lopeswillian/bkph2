@@ -17,6 +17,10 @@ class LoginViewModel extends ViewModel<LoginState> {
     this._loginWithCredentials,
   ) : super(LoginState.initial());
 
+  void clearError() {
+    emit(state.copyWith(error: ''));
+  }
+
   void login({
     required LoginParams loginParams,
   }) async {

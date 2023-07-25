@@ -51,7 +51,14 @@ class RegisterViewModel extends ViewModel<RegisterState> {
     final newState = result.fold(
       (error) => state.copyWith(
         loading: false,
-        error: 'Erro ao cadastrar usuário.'
+        error: error.maybeMap(
+          server: (error) => error.message,
+          invalidParams: (error) => error.message,
+          unauthorized: (error) => error.message,
+          invalidData: (error) => error.message,
+          unprocessableEntity: (error) => error.message,
+          orElse: () => '',
+        ),
       ),
       (document) => state.copyWith(
         loading: false,

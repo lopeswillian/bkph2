@@ -3,8 +3,10 @@ import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
+import 'package:apph2/views/h2pay/payment/payment_state.dart';
+import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide View;
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class HiringSmsPage extends StatefulWidget {
@@ -15,7 +17,8 @@ class HiringSmsPage extends StatefulWidget {
   _HiringSmsPageState createState() => _HiringSmsPageState();
 }
 
-class _HiringSmsPageState extends State<HiringSmsPage> {
+class _HiringSmsPageState extends State<HiringSmsPage>
+    with View<PaymentViewModel> {
   late H2PayViewModel h2payViewModel;
   TextEditingController pinCodeController = TextEditingController();
 
@@ -28,6 +31,29 @@ class _HiringSmsPageState extends State<HiringSmsPage> {
 
   @override
   Widget build(BuildContext context) {
+    return ViewModelBuilder<PaymentViewModel, PaymentState>(
+      viewModel: viewModel,
+      buildWhen: (previous, current) {
+        return previous.loading != current.loading ||
+            previous.error != current.error;
+      },
+      builder: (context, state) {
+        return state.loading
+            ? const Scaffold(
+                body: Center(child: CircularProgressIndicator()),
+              )
+            : _buildPage(context, state);
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    pinCodeController.dispose();
+    super.dispose();
+  }
+
+  Widget _buildPage(BuildContext context, PaymentState state) {
     return Scaffold(
       appBar: const H2AppBar(
         title: Text('H2 Pay'),
@@ -58,7 +84,7 @@ class _HiringSmsPageState extends State<HiringSmsPage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: Dimension.sm.width),
                 child: LayoutBuilder(
-                  builder: (context, constraints) {
+                  builder: (contextLayout, constraints) {
                     return SingleChildScrollView(
                       child: ConstrainedBox(
                         constraints: BoxConstraints(
@@ -107,6 +133,7 @@ class _HiringSmsPageState extends State<HiringSmsPage> {
                               ),
                               child: PinCodeTextField(
                                 appContext: context,
+                                autoDisposeControllers: false,
                                 length: 4,
                                 controller: pinCodeController,
                                 keyboardType: TextInputType.number,
@@ -154,15 +181,37 @@ class _HiringSmsPageState extends State<HiringSmsPage> {
                     child: NextWidget(
                       title: 'Avançar',
                       action: () async {
-                        final isValidCode = await h2payViewModel
-                            .validateSmsCode(pinCodeController.text);
-                        if (isValidCode == true) {
-                          Nav.pushNamed(BaseAppModuleRouting.hiringFinishPage);
+                        bool signed = false;
+                        bool codeIsvalid = h2payViewModel.state.validSmsCode;
+
+                        if (!codeIsvalid) {
+                          final isValidCode =
+                              await h2payViewModel.validateSmsCode(
+                            pinCodeController.text,
+                          );
+                          codeIsvalid = isValidCode;
                         }
 
-                        const snackBar = SnackBar(
-                          content: Text('Código expirado ou inválido.'),
-                          duration: Duration(seconds: 2),
+                        if (codeIsvalid) {
+                          final signResponse =
+                              await viewModel.signAnticipation();
+                          if (signResponse.error == '') {
+                            signed = true;
+                          }
+                        }
+
+                        if (signed && codeIsvalid) {
+                          Nav.pushNamed(
+                            BaseAppModuleRouting.hiringFinishPage,
+                          );
+                          return;
+                        }
+
+                        final snackBar = SnackBar(
+                          content: codeIsvalid
+                              ? Text(state.error)
+                              : const Text('Código expirado ou inválido.'),
+                          duration: const Duration(seconds: 2),
                         );
                         // ignore: use_build_context_synchronously
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
