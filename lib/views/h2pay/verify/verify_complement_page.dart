@@ -13,9 +13,18 @@ class VerifyComplementPage extends StatefulWidget {
   _VerifyComplementPageState createState() => _VerifyComplementPageState();
 }
 
-class _VerifyComplementPageState extends State<VerifyComplementPage> with View<VerifyViewModel>{
+class _VerifyComplementPageState extends State<VerifyComplementPage>
+    with View<VerifyViewModel> {
   late String selectedValue = viewModel.state.listJobs.first.jobId.toString();
-  late String selectedValue2 = viewModel.state.listMonthlyIncome.first.monthlyIncomeId.toString();
+  late String selectedValue2 =
+      viewModel.state.listMonthlyIncome.first.monthlyIncomeId.toString();
+
+  @override
+  void initState() {
+    super.initState();
+    viewModel.setSelectedJob(viewModel.state.listJobs.first);
+    viewModel.setSelectedMonthlyIncome(viewModel.state.listMonthlyIncome.first);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +71,8 @@ class _VerifyComplementPageState extends State<VerifyComplementPage> with View<V
                             Text(
                               '1. Informações complementares',
                               style: TextStyle(
-                                fontSize: 19.fontSize,
-                                fontWeight: FontWeight.w600
-                              ),
+                                  fontSize: 19.fontSize,
+                                  fontWeight: FontWeight.w600),
                             ),
                             Dimension.md.vertical,
                             const Divider(),

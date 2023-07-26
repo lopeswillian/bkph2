@@ -69,6 +69,10 @@ dependencies:
     git:
       url: https://github.com/combateafraude/Flutter.git
       ref: document-detector-v5.26.4
+  passive_face_liveness: 
+    git: 
+      url: https://github.com/combateafraude/Flutter.git
+      ref: passive-face-liveness-v4.30.0
   qr_flutter: ^4.1.0
 
 dependency_overrides:

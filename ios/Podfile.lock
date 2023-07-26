@@ -12,6 +12,11 @@ PODS:
     - Toast
   - image_picker_ios (0.0.1):
     - Flutter
+  - passive_face_liveness (4.30.0):
+    - Flutter
+    - PassiveFaceLiveness (= 5.25.0)
+  - PassiveFaceLiveness (5.25.0):
+    - Sentry (= 7.11.0)
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -29,12 +34,14 @@ DEPENDENCIES:
   - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
+  - passive_face_liveness (from `.symlinks/plugins/passive_face_liveness/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
 
 SPEC REPOS:
   https://github.com/combateafraude/iOS.git:
     - DocumentDetector
+    - PassiveFaceLiveness
   trunk:
     - Sentry
     - Toast
@@ -50,6 +57,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/fluttertoast/ios"
   image_picker_ios:
     :path: ".symlinks/plugins/image_picker_ios/ios"
+  passive_face_liveness:
+    :path: ".symlinks/plugins/passive_face_liveness/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   shared_preferences_foundation:
@@ -62,6 +71,8 @@ SPEC CHECKSUMS:
   flutter_keyboard_visibility: 0339d06371254c3eb25eeb90ba8d17dca8f9c069
   fluttertoast: fafc4fa4d01a6a9e4f772ecd190ffa525e9e2d9c
   image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
+  passive_face_liveness: ea495cd027c8831fbc5a4fbcc8de0f0395ed58ca
+  PassiveFaceLiveness: 0a7a696e7a232b897da3db4b767d641259c77f83
   path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
   Sentry: 0c5cd63d714187b4a39c331c1f0eb04ba7868341
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126

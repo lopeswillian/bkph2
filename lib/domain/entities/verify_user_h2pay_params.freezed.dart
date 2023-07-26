@@ -22,6 +22,7 @@ mixin _$VerifyUserH2PayParams {
   String get termsAndConditionsId => throw _privateConstructorUsedError;
   bool get termsAndConditions => throw _privateConstructorUsedError;
   String get docValidationId => throw _privateConstructorUsedError;
+  String get faceValidationId => throw _privateConstructorUsedError;
   String get cellphone => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -42,6 +43,7 @@ abstract class $VerifyUserH2PayParamsCopyWith<$Res> {
       String termsAndConditionsId,
       bool termsAndConditions,
       String docValidationId,
+      String faceValidationId,
       String cellphone});
 }
 
@@ -65,6 +67,7 @@ class _$VerifyUserH2PayParamsCopyWithImpl<$Res,
     Object? termsAndConditionsId = null,
     Object? termsAndConditions = null,
     Object? docValidationId = null,
+    Object? faceValidationId = null,
     Object? cellphone = null,
   }) {
     return _then(_value.copyWith(
@@ -92,6 +95,10 @@ class _$VerifyUserH2PayParamsCopyWithImpl<$Res,
           ? _value.docValidationId
           : docValidationId // ignore: cast_nullable_to_non_nullable
               as String,
+      faceValidationId: null == faceValidationId
+          ? _value.faceValidationId
+          : faceValidationId // ignore: cast_nullable_to_non_nullable
+              as String,
       cellphone: null == cellphone
           ? _value.cellphone
           : cellphone // ignore: cast_nullable_to_non_nullable
@@ -115,6 +122,7 @@ abstract class _$$_VerifyUserH2PayParamsCopyWith<$Res>
       String termsAndConditionsId,
       bool termsAndConditions,
       String docValidationId,
+      String faceValidationId,
       String cellphone});
 }
 
@@ -135,6 +143,7 @@ class __$$_VerifyUserH2PayParamsCopyWithImpl<$Res>
     Object? termsAndConditionsId = null,
     Object? termsAndConditions = null,
     Object? docValidationId = null,
+    Object? faceValidationId = null,
     Object? cellphone = null,
   }) {
     return _then(_$_VerifyUserH2PayParams(
@@ -162,6 +171,10 @@ class __$$_VerifyUserH2PayParamsCopyWithImpl<$Res>
           ? _value.docValidationId
           : docValidationId // ignore: cast_nullable_to_non_nullable
               as String,
+      faceValidationId: null == faceValidationId
+          ? _value.faceValidationId
+          : faceValidationId // ignore: cast_nullable_to_non_nullable
+              as String,
       cellphone: null == cellphone
           ? _value.cellphone
           : cellphone // ignore: cast_nullable_to_non_nullable
@@ -180,6 +193,7 @@ class _$_VerifyUserH2PayParams implements _VerifyUserH2PayParams {
       required this.termsAndConditionsId,
       required this.termsAndConditions,
       required this.docValidationId,
+      required this.faceValidationId,
       required this.cellphone});
 
   @override
@@ -195,11 +209,13 @@ class _$_VerifyUserH2PayParams implements _VerifyUserH2PayParams {
   @override
   final String docValidationId;
   @override
+  final String faceValidationId;
+  @override
   final String cellphone;
 
   @override
   String toString() {
-    return 'VerifyUserH2PayParams(rewardsClientId: $rewardsClientId, monthlyIncomeId: $monthlyIncomeId, jobId: $jobId, termsAndConditionsId: $termsAndConditionsId, termsAndConditions: $termsAndConditions, docValidationId: $docValidationId, cellphone: $cellphone)';
+    return 'VerifyUserH2PayParams(rewardsClientId: $rewardsClientId, monthlyIncomeId: $monthlyIncomeId, jobId: $jobId, termsAndConditionsId: $termsAndConditionsId, termsAndConditions: $termsAndConditions, docValidationId: $docValidationId, faceValidationId: $faceValidationId, cellphone: $cellphone)';
   }
 
   @override
@@ -218,6 +234,8 @@ class _$_VerifyUserH2PayParams implements _VerifyUserH2PayParams {
                 other.termsAndConditions == termsAndConditions) &&
             (identical(other.docValidationId, docValidationId) ||
                 other.docValidationId == docValidationId) &&
+            (identical(other.faceValidationId, faceValidationId) ||
+                other.faceValidationId == faceValidationId) &&
             (identical(other.cellphone, cellphone) ||
                 other.cellphone == cellphone));
   }
@@ -231,6 +249,7 @@ class _$_VerifyUserH2PayParams implements _VerifyUserH2PayParams {
       termsAndConditionsId,
       termsAndConditions,
       docValidationId,
+      faceValidationId,
       cellphone);
 
   @JsonKey(ignore: true)
@@ -249,6 +268,7 @@ abstract class _VerifyUserH2PayParams implements VerifyUserH2PayParams {
       required final String termsAndConditionsId,
       required final bool termsAndConditions,
       required final String docValidationId,
+      required final String faceValidationId,
       required final String cellphone}) = _$_VerifyUserH2PayParams;
 
   @override
@@ -263,6 +283,8 @@ abstract class _VerifyUserH2PayParams implements VerifyUserH2PayParams {
   bool get termsAndConditions;
   @override
   String get docValidationId;
+  @override
+  String get faceValidationId;
   @override
   String get cellphone;
   @override

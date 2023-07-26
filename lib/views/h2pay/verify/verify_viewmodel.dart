@@ -148,6 +148,10 @@ class VerifyViewModel extends ViewModel<VerifyState> {
     emit(state.copyWith(cafId: cafId));
   }
 
+  Future<void> setCafFaceId(String cafFaceId) async {
+    emit(state.copyWith(cafFaceId: cafFaceId));
+  }
+
   Future<bool> createUserH2Pay() async {
     emit(
       state.copyWith(
@@ -160,6 +164,7 @@ class VerifyViewModel extends ViewModel<VerifyState> {
       VerifyUserH2PayParams(
         cellphone: '55${state.phone}',
         docValidationId: state.cafId,
+        faceValidationId: state.cafFaceId,
         jobId: state.selectedJob!.jobId.toString(),
         monthlyIncomeId:
             state.selectedMonthlyIncome!.monthlyIncomeId.toString(),

@@ -40,6 +40,7 @@ class _VerifyFinishPageState extends State<VerifyFinishPage> {
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Dimension(10.5).vertical,
                         SvgPicture.string(
@@ -53,12 +54,12 @@ class _VerifyFinishPageState extends State<VerifyFinishPage> {
                               const TextSpan(
                                 text: 'Tudo certo!',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    color: AppThemeBase.colorPrimaryDarkest),
+                                  fontWeight: FontWeight.w700,
+                                  color: AppThemeBase.colorPrimaryDarkest,
+                                ),
                               ),
                               TextSpan(
-                                text:
-                                    ' Sua verificação está em análise.',
+                                text: ' Sua verificação está em análise.',
                                 style: TextStyle(
                                   color:
                                       context.colorScheme.colorPrimaryDarkest,

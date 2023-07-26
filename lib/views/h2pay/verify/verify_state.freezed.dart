@@ -28,6 +28,7 @@ mixin _$VerifyState {
   MonthlyIncome? get selectedMonthlyIncome =>
       throw _privateConstructorUsedError;
   String get cafId => throw _privateConstructorUsedError;
+  String get cafFaceId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $VerifyStateCopyWith<VerifyState> get copyWith =>
@@ -50,7 +51,8 @@ abstract class $VerifyStateCopyWith<$Res> {
       TermsConditions? termsCondition,
       Job? selectedJob,
       MonthlyIncome? selectedMonthlyIncome,
-      String cafId});
+      String cafId,
+      String cafFaceId});
 
   $TermsConditionsCopyWith<$Res>? get termsCondition;
   $JobCopyWith<$Res>? get selectedJob;
@@ -80,6 +82,7 @@ class _$VerifyStateCopyWithImpl<$Res, $Val extends VerifyState>
     Object? selectedJob = freezed,
     Object? selectedMonthlyIncome = freezed,
     Object? cafId = null,
+    Object? cafFaceId = null,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -121,6 +124,10 @@ class _$VerifyStateCopyWithImpl<$Res, $Val extends VerifyState>
       cafId: null == cafId
           ? _value.cafId
           : cafId // ignore: cast_nullable_to_non_nullable
+              as String,
+      cafFaceId: null == cafFaceId
+          ? _value.cafFaceId
+          : cafFaceId // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -180,7 +187,8 @@ abstract class _$$_VerifyStateCopyWith<$Res>
       TermsConditions? termsCondition,
       Job? selectedJob,
       MonthlyIncome? selectedMonthlyIncome,
-      String cafId});
+      String cafId,
+      String cafFaceId});
 
   @override
   $TermsConditionsCopyWith<$Res>? get termsCondition;
@@ -211,6 +219,7 @@ class __$$_VerifyStateCopyWithImpl<$Res>
     Object? selectedJob = freezed,
     Object? selectedMonthlyIncome = freezed,
     Object? cafId = null,
+    Object? cafFaceId = null,
   }) {
     return _then(_$_VerifyState(
       loading: null == loading
@@ -253,6 +262,10 @@ class __$$_VerifyStateCopyWithImpl<$Res>
           ? _value.cafId
           : cafId // ignore: cast_nullable_to_non_nullable
               as String,
+      cafFaceId: null == cafFaceId
+          ? _value.cafFaceId
+          : cafFaceId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -270,7 +283,8 @@ class _$_VerifyState implements _VerifyState {
       this.termsCondition,
       this.selectedJob,
       this.selectedMonthlyIncome,
-      this.cafId = ''})
+      this.cafId = '',
+      this.cafFaceId = ''})
       : _listJobs = listJobs,
         _listMonthlyIncome = listMonthlyIncome;
 
@@ -313,10 +327,13 @@ class _$_VerifyState implements _VerifyState {
   @override
   @JsonKey()
   final String cafId;
+  @override
+  @JsonKey()
+  final String cafFaceId;
 
   @override
   String toString() {
-    return 'VerifyState(loading: $loading, error: $error, phone: $phone, typeDocument: $typeDocument, listJobs: $listJobs, listMonthlyIncome: $listMonthlyIncome, termsCondition: $termsCondition, selectedJob: $selectedJob, selectedMonthlyIncome: $selectedMonthlyIncome, cafId: $cafId)';
+    return 'VerifyState(loading: $loading, error: $error, phone: $phone, typeDocument: $typeDocument, listJobs: $listJobs, listMonthlyIncome: $listMonthlyIncome, termsCondition: $termsCondition, selectedJob: $selectedJob, selectedMonthlyIncome: $selectedMonthlyIncome, cafId: $cafId, cafFaceId: $cafFaceId)';
   }
 
   @override
@@ -338,7 +355,9 @@ class _$_VerifyState implements _VerifyState {
                 other.selectedJob == selectedJob) &&
             (identical(other.selectedMonthlyIncome, selectedMonthlyIncome) ||
                 other.selectedMonthlyIncome == selectedMonthlyIncome) &&
-            (identical(other.cafId, cafId) || other.cafId == cafId));
+            (identical(other.cafId, cafId) || other.cafId == cafId) &&
+            (identical(other.cafFaceId, cafFaceId) ||
+                other.cafFaceId == cafFaceId));
   }
 
   @override
@@ -353,7 +372,8 @@ class _$_VerifyState implements _VerifyState {
       termsCondition,
       selectedJob,
       selectedMonthlyIncome,
-      cafId);
+      cafId,
+      cafFaceId);
 
   @JsonKey(ignore: true)
   @override
@@ -373,7 +393,8 @@ abstract class _VerifyState implements VerifyState {
       final TermsConditions? termsCondition,
       final Job? selectedJob,
       final MonthlyIncome? selectedMonthlyIncome,
-      final String cafId}) = _$_VerifyState;
+      final String cafId,
+      final String cafFaceId}) = _$_VerifyState;
 
   @override
   bool get loading;
@@ -395,6 +416,8 @@ abstract class _VerifyState implements VerifyState {
   MonthlyIncome? get selectedMonthlyIncome;
   @override
   String get cafId;
+  @override
+  String get cafFaceId;
   @override
   @JsonKey(ignore: true)
   _$$_VerifyStateCopyWith<_$_VerifyState> get copyWith =>

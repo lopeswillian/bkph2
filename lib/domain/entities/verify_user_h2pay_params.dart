@@ -11,6 +11,7 @@ class VerifyUserH2PayParams with _$VerifyUserH2PayParams {
     required String termsAndConditionsId,
     required bool termsAndConditions,
     required String docValidationId,
+    required String faceValidationId,
     required String cellphone,
   }) = _VerifyUserH2PayParams;
 }

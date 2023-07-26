@@ -19,7 +19,8 @@ class VerifyState extends ViewModelState with _$VerifyState {
     TermsConditions? termsCondition,
     Job? selectedJob,
     MonthlyIncome? selectedMonthlyIncome,
-    @Default('') String cafId
+    @Default('') String cafId,
+    @Default('') String cafFaceId
   }) = _VerifyState;
 
   factory VerifyState.initial() => const VerifyState();
