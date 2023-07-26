@@ -27,6 +27,8 @@ PODS:
     - Flutter
     - FlutterMacOS
   - Toast (4.0.0)
+  - url_launcher_ios (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - document_detector (from `.symlinks/plugins/document_detector/ios`)
@@ -37,6 +39,7 @@ DEPENDENCIES:
   - passive_face_liveness (from `.symlinks/plugins/passive_face_liveness/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
 SPEC REPOS:
   https://github.com/combateafraude/iOS.git:
@@ -63,6 +66,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
   document_detector: aac7c2f49410279b1fe30304fa6f5aca4e9d6df0
@@ -77,6 +82,7 @@ SPEC CHECKSUMS:
   Sentry: 0c5cd63d714187b4a39c331c1f0eb04ba7868341
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+  url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
 
 PODFILE CHECKSUM: 91d00d1d0e99987a060fb201bb7e66153c26cfc3
 

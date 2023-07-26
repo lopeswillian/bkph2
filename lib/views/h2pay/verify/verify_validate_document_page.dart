@@ -167,13 +167,16 @@ class _VerifyValidateDocumentPageState extends State<VerifyValidateDocumentPage>
 
     PassiveFaceLiveness passiveFaceLiveness = PassiveFaceLiveness(
       mobileToken: token,
+      
     );
+
+    passiveFaceLiveness.setPeopleId(loginViewModel.state.user!.cpf);
 
     PassiveFaceLivenessResult passiveFaceLivenessResult =
         await passiveFaceLiveness.start();
 
     if (passiveFaceLivenessResult is PassiveFaceLivenessSuccess) {
-      await viewModel.setCafFaceId(passiveFaceLivenessResult.trackingId!);
+      await viewModel.setCafFaceId(passiveFaceLivenessResult.signedResponse!);
       getDocument(token);
     } else if (passiveFaceLivenessResult is PassiveFaceLivenessFailure) {
       const snackBar = SnackBar(

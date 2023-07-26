@@ -2,8 +2,11 @@ import 'dart:io' as io;
 
 import 'package:apph2/data/data.dart';
 import 'package:apph2/data/datasources/h2pay_remote_datasource.dart';
+import 'package:apph2/data/datasources/product_remote_datasource.dart';
 import 'package:apph2/data/repositories/h2pay_repository.dart';
+import 'package:apph2/data/repositories/product_repository.dart';
 import 'package:apph2/domain/repositories/h2pay_repository.dart';
+import 'package:apph2/domain/repositories/product_repository.dart';
 import 'package:apph2/infraestructure/http/http_adapter.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/usecases/create_user_h2pay_usecase.dart';
@@ -17,6 +20,7 @@ import 'package:apph2/usecases/get_customer_usecase.dart';
 import 'package:apph2/usecases/get_jobs_usecase.dart';
 import 'package:apph2/usecases/get_monthly_income_usecase.dart';
 import 'package:apph2/usecases/get_pix_code_usecase.dart';
+import 'package:apph2/usecases/get_products_usecase.dart';
 import 'package:apph2/usecases/get_sms_code_usecase.dart';
 import 'package:apph2/usecases/get_ted_data_usecase.dart';
 import 'package:apph2/usecases/get_terms_condition.dart';
@@ -30,6 +34,7 @@ import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
 import 'package:apph2/views/h2pay/verify/verify_viewmodel.dart';
 import 'package:apph2/views/login/login_viewmodel.dart';
+import 'package:apph2/views/product/product_viewmodel.dart';
 import 'package:apph2/views/recovery/recovery_viewmodel.dart';
 import 'package:apph2/views/register/register_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -80,6 +85,20 @@ class BaseAppModuleBindings {
             ),
           ),
         ),
+        Bind.lazySingleton<IProductDatasource>(
+          (i) => ProductDatasource(
+            HttpAdapter(
+              client: io.HttpClient(),
+              baseUrl: "https://a89f1fa024.nxcli.io/",
+              apiVersion: 'v1',
+              headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+                'Authorization':
+                    'Bearer eyJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJiZGMzMmM3MGEwZTRjMjJlM2IwZjBmN2VhNTFlNzYifQ',
+              },
+            ),
+          ),
+        ),
       ];
 
   static List<Bind> get _repositories => [
@@ -91,6 +110,11 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<IH2PayRepository>(
           (i) => H2PayRepository(
             i.get<IH2PayDatasource>(),
+          ),
+        ),
+        Bind.lazySingleton<IProductRepository>(
+          (i) => ProductRepository(
+            i.get<IProductDatasource>(),
           ),
         ),
       ];
@@ -161,6 +185,9 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<ISignAnticipationUseCase>(
           (i) => SignAnticipationUseCase(i.get<IH2PayRepository>()),
         ),
+        Bind.lazySingleton<IGetProductsUseCase>(
+          (i) => GetProductUseCase(i.get<IProductRepository>()),
+        ),
       ];
 
   static List<Bind> get _viewModels => [
@@ -210,6 +237,11 @@ class BaseAppModuleBindings {
             i.get<IGetTedDataUseCase>(),
             i.get<IGetPixCodeUseCase>(),
             i.get<ISignAnticipationUseCase>(),
+          ),
+        ),
+        Bind.lazySingleton<ProductViewModel>(
+          (i) => ProductViewModel(
+            i.get<IGetProductsUseCase>(),
           ),
         ),
       ];

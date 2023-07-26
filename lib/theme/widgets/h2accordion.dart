@@ -50,7 +50,10 @@ class _H2AccordionState extends State<H2Accordion> {
                           padding: EdgeInsets.only(
                             right: const Dimension(1.25).width,
                           ),
-                          child: SvgPicture.string(widget.icon!),
+                          child: SvgPicture.string(
+                            widget.icon!,
+                            width: const Dimension(2.375).width,
+                          ),
                         ),
                       Column(
                         children: [
