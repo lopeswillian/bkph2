@@ -33,8 +33,6 @@ mixin _$VerifyUserH2PayParamsModel {
   bool get termsAndConditions => throw _privateConstructorUsedError;
   @JsonKey(name: 'doc_validation_id')
   String get docValidationId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'face_validation_id')
-  String get faceValidationId => throw _privateConstructorUsedError;
   String get cellphone => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -57,7 +55,6 @@ abstract class $VerifyUserH2PayParamsModelCopyWith<$Res> {
       @JsonKey(name: 'terms_and_conditions_id') String termsAndConditionsId,
       @JsonKey(name: 'terms_and_conditions') bool termsAndConditions,
       @JsonKey(name: 'doc_validation_id') String docValidationId,
-      @JsonKey(name: 'face_validation_id') String faceValidationId,
       String cellphone});
 }
 
@@ -81,7 +78,6 @@ class _$VerifyUserH2PayParamsModelCopyWithImpl<$Res,
     Object? termsAndConditionsId = null,
     Object? termsAndConditions = null,
     Object? docValidationId = null,
-    Object? faceValidationId = null,
     Object? cellphone = null,
   }) {
     return _then(_value.copyWith(
@@ -109,10 +105,6 @@ class _$VerifyUserH2PayParamsModelCopyWithImpl<$Res,
           ? _value.docValidationId
           : docValidationId // ignore: cast_nullable_to_non_nullable
               as String,
-      faceValidationId: null == faceValidationId
-          ? _value.faceValidationId
-          : faceValidationId // ignore: cast_nullable_to_non_nullable
-              as String,
       cellphone: null == cellphone
           ? _value.cellphone
           : cellphone // ignore: cast_nullable_to_non_nullable
@@ -137,7 +129,6 @@ abstract class _$$_VerifyUserH2PayParamsModelCopyWith<$Res>
       @JsonKey(name: 'terms_and_conditions_id') String termsAndConditionsId,
       @JsonKey(name: 'terms_and_conditions') bool termsAndConditions,
       @JsonKey(name: 'doc_validation_id') String docValidationId,
-      @JsonKey(name: 'face_validation_id') String faceValidationId,
       String cellphone});
 }
 
@@ -160,7 +151,6 @@ class __$$_VerifyUserH2PayParamsModelCopyWithImpl<$Res>
     Object? termsAndConditionsId = null,
     Object? termsAndConditions = null,
     Object? docValidationId = null,
-    Object? faceValidationId = null,
     Object? cellphone = null,
   }) {
     return _then(_$_VerifyUserH2PayParamsModel(
@@ -188,10 +178,6 @@ class __$$_VerifyUserH2PayParamsModelCopyWithImpl<$Res>
           ? _value.docValidationId
           : docValidationId // ignore: cast_nullable_to_non_nullable
               as String,
-      faceValidationId: null == faceValidationId
-          ? _value.faceValidationId
-          : faceValidationId // ignore: cast_nullable_to_non_nullable
-              as String,
       cellphone: null == cellphone
           ? _value.cellphone
           : cellphone // ignore: cast_nullable_to_non_nullable
@@ -216,8 +202,6 @@ class _$_VerifyUserH2PayParamsModel extends _VerifyUserH2PayParamsModel {
           required this.termsAndConditions,
       @JsonKey(name: 'doc_validation_id')
           required this.docValidationId,
-      @JsonKey(name: 'face_validation_id')
-          required this.faceValidationId,
       required this.cellphone})
       : super._();
 
@@ -243,14 +227,11 @@ class _$_VerifyUserH2PayParamsModel extends _VerifyUserH2PayParamsModel {
   @JsonKey(name: 'doc_validation_id')
   final String docValidationId;
   @override
-  @JsonKey(name: 'face_validation_id')
-  final String faceValidationId;
-  @override
   final String cellphone;
 
   @override
   String toString() {
-    return 'VerifyUserH2PayParamsModel(rewardsClientId: $rewardsClientId, monthlyIncomeId: $monthlyIncomeId, jobId: $jobId, termsAndConditionsId: $termsAndConditionsId, termsAndConditions: $termsAndConditions, docValidationId: $docValidationId, faceValidationId: $faceValidationId, cellphone: $cellphone)';
+    return 'VerifyUserH2PayParamsModel(rewardsClientId: $rewardsClientId, monthlyIncomeId: $monthlyIncomeId, jobId: $jobId, termsAndConditionsId: $termsAndConditionsId, termsAndConditions: $termsAndConditions, docValidationId: $docValidationId, cellphone: $cellphone)';
   }
 
   @override
@@ -269,8 +250,6 @@ class _$_VerifyUserH2PayParamsModel extends _VerifyUserH2PayParamsModel {
                 other.termsAndConditions == termsAndConditions) &&
             (identical(other.docValidationId, docValidationId) ||
                 other.docValidationId == docValidationId) &&
-            (identical(other.faceValidationId, faceValidationId) ||
-                other.faceValidationId == faceValidationId) &&
             (identical(other.cellphone, cellphone) ||
                 other.cellphone == cellphone));
   }
@@ -285,7 +264,6 @@ class _$_VerifyUserH2PayParamsModel extends _VerifyUserH2PayParamsModel {
       termsAndConditionsId,
       termsAndConditions,
       docValidationId,
-      faceValidationId,
       cellphone);
 
   @JsonKey(ignore: true)
@@ -317,8 +295,6 @@ abstract class _VerifyUserH2PayParamsModel extends VerifyUserH2PayParamsModel {
           required final bool termsAndConditions,
       @JsonKey(name: 'doc_validation_id')
           required final String docValidationId,
-      @JsonKey(name: 'face_validation_id')
-          required final String faceValidationId,
       required final String cellphone}) = _$_VerifyUserH2PayParamsModel;
   _VerifyUserH2PayParamsModel._() : super._();
 
@@ -343,9 +319,6 @@ abstract class _VerifyUserH2PayParamsModel extends VerifyUserH2PayParamsModel {
   @override
   @JsonKey(name: 'doc_validation_id')
   String get docValidationId;
-  @override
-  @JsonKey(name: 'face_validation_id')
-  String get faceValidationId;
   @override
   String get cellphone;
   @override

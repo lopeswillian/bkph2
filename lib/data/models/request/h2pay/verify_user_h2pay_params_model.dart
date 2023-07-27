@@ -17,7 +17,6 @@ class VerifyUserH2PayParamsModel with _$VerifyUserH2PayParamsModel {
     required String termsAndConditionsId,
     @JsonKey(name: 'terms_and_conditions') required bool termsAndConditions,
     @JsonKey(name: 'doc_validation_id') required String docValidationId,
-    @JsonKey(name: 'face_validation_id') required String faceValidationId,
     required String cellphone,
   }) = _VerifyUserH2PayParamsModel;
 
@@ -36,7 +35,6 @@ class VerifyUserH2PayParamsModel with _$VerifyUserH2PayParamsModel {
       termsAndConditionsId: params.termsAndConditionsId,
       termsAndConditions: params.termsAndConditions,
       docValidationId: params.docValidationId,
-      faceValidationId: params.faceValidationId,
       cellphone: params.cellphone,
     );
   }

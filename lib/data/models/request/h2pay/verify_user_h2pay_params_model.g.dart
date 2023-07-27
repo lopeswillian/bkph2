@@ -15,7 +15,6 @@ _$_VerifyUserH2PayParamsModel _$$_VerifyUserH2PayParamsModelFromJson(
       termsAndConditionsId: json['terms_and_conditions_id'] as String,
       termsAndConditions: json['terms_and_conditions'] as bool,
       docValidationId: json['doc_validation_id'] as String,
-      faceValidationId: json['face_validation_id'] as String,
       cellphone: json['cellphone'] as String,
     );
 
@@ -28,6 +27,5 @@ Map<String, dynamic> _$$_VerifyUserH2PayParamsModelToJson(
       'terms_and_conditions_id': instance.termsAndConditionsId,
       'terms_and_conditions': instance.termsAndConditions,
       'doc_validation_id': instance.docValidationId,
-      'face_validation_id': instance.faceValidationId,
       'cellphone': instance.cellphone,
     };

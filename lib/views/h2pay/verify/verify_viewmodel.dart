@@ -1,3 +1,5 @@
+import 'package:apph2/domain/entities/caf_file_param.dart';
+import 'package:apph2/domain/entities/caf_request_params.dart';
 import 'package:apph2/domain/entities/document_side_type.dart';
 import 'package:apph2/domain/entities/job.dart';
 import 'package:apph2/domain/entities/monthly_income.dart';
@@ -9,6 +11,7 @@ import 'package:apph2/usecases/get_jobs_usecase.dart';
 import 'package:apph2/usecases/get_monthly_income_usecase.dart';
 import 'package:apph2/usecases/get_sms_code_usecase.dart';
 import 'package:apph2/usecases/get_terms_condition.dart';
+import 'package:apph2/usecases/send_caf_validation_usecase.dart';
 import 'package:apph2/usecases/validate_sms_code_usecase.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/h2pay/verify/verify_state.dart';
@@ -23,6 +26,7 @@ class VerifyViewModel extends ViewModel<VerifyState> {
   final ICreateH2PayUserUseCase _createH2PayUserUseCase;
   final LoginViewModel _loginViewModel;
   final H2PayViewModel _h2payViewModel;
+  final ISendCafValidationUseCase _sendCafValidationUseCase;
 
   VerifyViewModel(
     this._getSmsCodeUseCase,
@@ -33,6 +37,7 @@ class VerifyViewModel extends ViewModel<VerifyState> {
     this._createH2PayUserUseCase,
     this._loginViewModel,
     this._h2payViewModel,
+    this._sendCafValidationUseCase,
   ) : super(VerifyState.initial());
 
   Future<void> getJobs() async {
@@ -148,23 +153,76 @@ class VerifyViewModel extends ViewModel<VerifyState> {
     emit(state.copyWith(cafId: cafId));
   }
 
-  Future<void> setCafFaceId(String cafFaceId) async {
-    emit(state.copyWith(cafFaceId: cafFaceId));
+  void setImageCaf(CafFileParam fileParam) {
+    List<CafFileParam> listFiles = [...state.cafFiles];
+    listFiles.add(fileParam);
+    emit(
+      state.copyWith(
+        cafFiles: listFiles,
+      ),
+    );
   }
 
-  Future<bool> createUserH2Pay() async {
+  void clearCafState() {
+    emit(state.copyWith(
+      cafFiles: [],
+      cafId: '',
+    ));
+  }
+
+  Future<void> sendCafvalidation() async {
     emit(
       state.copyWith(
         loading: true,
         error: '',
+        successVerification: false,
       ),
     );
-    var userCreated = false;
+
+    final response = await _sendCafValidationUseCase(
+      CafRequestParams(
+        files: state.cafFiles,
+        templateId: '64c2836492d4a60008f06caa',
+        callbackUrl: 'https://a89f1fa024.nxcli.io/webhooks/caf/document-verification',
+        attributes: CafPropsAttributes(
+          cpf: _loginViewModel.state.user!.cpf,
+          birthDate: _loginViewModel.state.user!.birthdate,
+        ),
+      ),
+    );
+
+    final newState = response.fold(
+      (l) => state.copyWith(
+        loading: false,
+        error: 'Não foi possível validar os documentos. Tente novamente!',
+      ),
+      (r) => state.copyWith(
+        cafId: r.id,
+        loading: false,
+        error: '',
+      ),
+    );
+
+    if (newState.error != '') {
+      emit(state);
+      return;
+    }
+
+    final registerState = await createUserH2Pay(newState.cafId);
+
+    emit(
+      newState.copyWith(
+        error: registerState.error,
+        successVerification: registerState.error == '',
+      ),
+    );
+  }
+
+  Future<VerifyState> createUserH2Pay(String cafId) async {
     final result = await _createH2PayUserUseCase(
       VerifyUserH2PayParams(
         cellphone: '55${state.phone}',
-        docValidationId: state.cafId,
-        faceValidationId: state.cafFaceId,
+        docValidationId: cafId,
         jobId: state.selectedJob!.jobId.toString(),
         monthlyIncomeId:
             state.selectedMonthlyIncome!.monthlyIncomeId.toString(),
@@ -176,19 +234,19 @@ class VerifyViewModel extends ViewModel<VerifyState> {
 
     final newState = result.fold(
       (l) {
-        userCreated = false;
         return state.copyWith(
-          error: 'Erro ao cadastrar usuário.',
+          error: 'Erro ao verificar conta. Tente novamente mais tarde!',
           loading: false,
         );
       },
       (r) {
-        userCreated = true;
-        return state.copyWith(loading: false);
+        return state.copyWith(
+          loading: false,
+          error: '',
+        );
       },
     );
 
-    emit(newState);
-    return userCreated;
+    return newState;
   }
 }

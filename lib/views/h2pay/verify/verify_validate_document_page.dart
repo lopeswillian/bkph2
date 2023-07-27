@@ -1,4 +1,5 @@
 import 'package:apph2/base_app_module_routing.dart';
+import 'package:apph2/domain/entities/caf_file_param.dart';
 import 'package:apph2/domain/entities/document_side_type.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/theme.dart';
@@ -39,10 +40,27 @@ class _VerifyValidateDocumentPageState extends State<VerifyValidateDocumentPage>
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<VerifyViewModel, VerifyState>(
+    return ViewModelConsumer<VerifyViewModel, VerifyState>(
       viewModel: viewModel,
       buildWhen: (previous, current) =>
-          previous.typeDocument != current.typeDocument,
+          previous.typeDocument != current.typeDocument ||
+          previous.loading != current.loading,
+      listenWhen: (previous, current) =>
+          previous.error != current.error ||
+          previous.successVerification != current.successVerification,
+      listener: (context, state) {
+        if (state.error != '') {
+          final snackBar = SnackBar(
+            content: Text(state.error),
+            duration: const Duration(seconds: 3),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
+
+        if (state.successVerification && state.error == '') {
+          Nav.pushNamed(BaseAppModuleRouting.verifyFinishPage);
+        }
+      },
       builder: (context, state) {
         return state.loading
             ? const Scaffold(
@@ -151,6 +169,7 @@ class _VerifyValidateDocumentPageState extends State<VerifyValidateDocumentPage>
   }
 
   getSelfie() async {
+    viewModel.clearCafState();
     final mobileToken = JWT(
       {
         'iss': '64b5cf813a81970008d3b533',
@@ -158,7 +177,7 @@ class _VerifyValidateDocumentPageState extends State<VerifyValidateDocumentPage>
       },
       audience: null,
     );
-    
+
     final token = mobileToken.sign(
       SecretKey(
         'XGAPou0QsOO6VXKuXKRucCHPAwM0TXLjetUThaV9OsVIIIzL9pn18nH0SnfttO3hphY7ganvdagbEikNXLg',
@@ -167,7 +186,6 @@ class _VerifyValidateDocumentPageState extends State<VerifyValidateDocumentPage>
 
     PassiveFaceLiveness passiveFaceLiveness = PassiveFaceLiveness(
       mobileToken: token,
-      
     );
 
     passiveFaceLiveness.setPeopleId(loginViewModel.state.user!.cpf);
@@ -176,7 +194,12 @@ class _VerifyValidateDocumentPageState extends State<VerifyValidateDocumentPage>
         await passiveFaceLiveness.start();
 
     if (passiveFaceLivenessResult is PassiveFaceLivenessSuccess) {
-      await viewModel.setCafFaceId(passiveFaceLivenessResult.signedResponse!);
+      viewModel.setImageCaf(
+        CafFileParam(
+          type: "SELFIE",
+          data: passiveFaceLivenessResult.imageUrl!,
+        ),
+      );
       getDocument(token);
     } else if (passiveFaceLivenessResult is PassiveFaceLivenessFailure) {
       const snackBar = SnackBar(
@@ -185,14 +208,7 @@ class _VerifyValidateDocumentPageState extends State<VerifyValidateDocumentPage>
       );
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    } else {
-      const snackBar = SnackBar(
-        content: Text('Verificação interrompida, tente novamente.'),
-        duration: Duration(seconds: 2),
-      );
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
+    } else {}
   }
 
   getDocument(String token) async {
@@ -219,18 +235,16 @@ class _VerifyValidateDocumentPageState extends State<VerifyValidateDocumentPage>
 
     if (documentDetectorResult is DocumentDetectorSuccess) {
       if (documentDetectorResult.trackingId != null) {
-        viewModel.setCafId(documentDetectorResult.trackingId!);
-        final userCreate = await viewModel.createUserH2Pay();
-        if (userCreate) {
-          Nav.pushNamed(BaseAppModuleRouting.verifyFinishPage);
-        } else {
-          const snackBar = SnackBar(
-            content: Text('Falha ao criar conta. Tente novamente mais tarde!'),
-            duration: Duration(seconds: 2),
+        for (var capture in documentDetectorResult.captures) {
+          viewModel.setImageCaf(
+            CafFileParam(
+              type: capture.label!.toUpperCase(),
+              data: capture.imageUrl!,
+            ),
           );
-          // ignore: use_build_context_synchronously
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
+
+        await viewModel.sendCafvalidation();
       }
     } else if (documentDetectorResult is DocumentDetectorFailure) {
       const snackBar = SnackBar(
@@ -239,13 +253,6 @@ class _VerifyValidateDocumentPageState extends State<VerifyValidateDocumentPage>
       );
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    } else {
-      const snackBar = SnackBar(
-        content: Text('Verificação interrompida, tente novamente.'),
-        duration: Duration(seconds: 2),
-      );
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
+    } else {}
   }
 }

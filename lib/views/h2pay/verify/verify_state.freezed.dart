@@ -28,7 +28,8 @@ mixin _$VerifyState {
   MonthlyIncome? get selectedMonthlyIncome =>
       throw _privateConstructorUsedError;
   String get cafId => throw _privateConstructorUsedError;
-  String get cafFaceId => throw _privateConstructorUsedError;
+  List<CafFileParam> get cafFiles => throw _privateConstructorUsedError;
+  bool get successVerification => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $VerifyStateCopyWith<VerifyState> get copyWith =>
@@ -52,7 +53,8 @@ abstract class $VerifyStateCopyWith<$Res> {
       Job? selectedJob,
       MonthlyIncome? selectedMonthlyIncome,
       String cafId,
-      String cafFaceId});
+      List<CafFileParam> cafFiles,
+      bool successVerification});
 
   $TermsConditionsCopyWith<$Res>? get termsCondition;
   $JobCopyWith<$Res>? get selectedJob;
@@ -82,7 +84,8 @@ class _$VerifyStateCopyWithImpl<$Res, $Val extends VerifyState>
     Object? selectedJob = freezed,
     Object? selectedMonthlyIncome = freezed,
     Object? cafId = null,
-    Object? cafFaceId = null,
+    Object? cafFiles = null,
+    Object? successVerification = null,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -125,10 +128,14 @@ class _$VerifyStateCopyWithImpl<$Res, $Val extends VerifyState>
           ? _value.cafId
           : cafId // ignore: cast_nullable_to_non_nullable
               as String,
-      cafFaceId: null == cafFaceId
-          ? _value.cafFaceId
-          : cafFaceId // ignore: cast_nullable_to_non_nullable
-              as String,
+      cafFiles: null == cafFiles
+          ? _value.cafFiles
+          : cafFiles // ignore: cast_nullable_to_non_nullable
+              as List<CafFileParam>,
+      successVerification: null == successVerification
+          ? _value.successVerification
+          : successVerification // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -188,7 +195,8 @@ abstract class _$$_VerifyStateCopyWith<$Res>
       Job? selectedJob,
       MonthlyIncome? selectedMonthlyIncome,
       String cafId,
-      String cafFaceId});
+      List<CafFileParam> cafFiles,
+      bool successVerification});
 
   @override
   $TermsConditionsCopyWith<$Res>? get termsCondition;
@@ -219,7 +227,8 @@ class __$$_VerifyStateCopyWithImpl<$Res>
     Object? selectedJob = freezed,
     Object? selectedMonthlyIncome = freezed,
     Object? cafId = null,
-    Object? cafFaceId = null,
+    Object? cafFiles = null,
+    Object? successVerification = null,
   }) {
     return _then(_$_VerifyState(
       loading: null == loading
@@ -262,10 +271,14 @@ class __$$_VerifyStateCopyWithImpl<$Res>
           ? _value.cafId
           : cafId // ignore: cast_nullable_to_non_nullable
               as String,
-      cafFaceId: null == cafFaceId
-          ? _value.cafFaceId
-          : cafFaceId // ignore: cast_nullable_to_non_nullable
-              as String,
+      cafFiles: null == cafFiles
+          ? _value._cafFiles
+          : cafFiles // ignore: cast_nullable_to_non_nullable
+              as List<CafFileParam>,
+      successVerification: null == successVerification
+          ? _value.successVerification
+          : successVerification // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -284,9 +297,11 @@ class _$_VerifyState implements _VerifyState {
       this.selectedJob,
       this.selectedMonthlyIncome,
       this.cafId = '',
-      this.cafFaceId = ''})
+      final List<CafFileParam> cafFiles = const [],
+      this.successVerification = false})
       : _listJobs = listJobs,
-        _listMonthlyIncome = listMonthlyIncome;
+        _listMonthlyIncome = listMonthlyIncome,
+        _cafFiles = cafFiles;
 
   @override
   @JsonKey()
@@ -327,13 +342,22 @@ class _$_VerifyState implements _VerifyState {
   @override
   @JsonKey()
   final String cafId;
+  final List<CafFileParam> _cafFiles;
   @override
   @JsonKey()
-  final String cafFaceId;
+  List<CafFileParam> get cafFiles {
+    if (_cafFiles is EqualUnmodifiableListView) return _cafFiles;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_cafFiles);
+  }
+
+  @override
+  @JsonKey()
+  final bool successVerification;
 
   @override
   String toString() {
-    return 'VerifyState(loading: $loading, error: $error, phone: $phone, typeDocument: $typeDocument, listJobs: $listJobs, listMonthlyIncome: $listMonthlyIncome, termsCondition: $termsCondition, selectedJob: $selectedJob, selectedMonthlyIncome: $selectedMonthlyIncome, cafId: $cafId, cafFaceId: $cafFaceId)';
+    return 'VerifyState(loading: $loading, error: $error, phone: $phone, typeDocument: $typeDocument, listJobs: $listJobs, listMonthlyIncome: $listMonthlyIncome, termsCondition: $termsCondition, selectedJob: $selectedJob, selectedMonthlyIncome: $selectedMonthlyIncome, cafId: $cafId, cafFiles: $cafFiles, successVerification: $successVerification)';
   }
 
   @override
@@ -356,8 +380,9 @@ class _$_VerifyState implements _VerifyState {
             (identical(other.selectedMonthlyIncome, selectedMonthlyIncome) ||
                 other.selectedMonthlyIncome == selectedMonthlyIncome) &&
             (identical(other.cafId, cafId) || other.cafId == cafId) &&
-            (identical(other.cafFaceId, cafFaceId) ||
-                other.cafFaceId == cafFaceId));
+            const DeepCollectionEquality().equals(other._cafFiles, _cafFiles) &&
+            (identical(other.successVerification, successVerification) ||
+                other.successVerification == successVerification));
   }
 
   @override
@@ -373,7 +398,8 @@ class _$_VerifyState implements _VerifyState {
       selectedJob,
       selectedMonthlyIncome,
       cafId,
-      cafFaceId);
+      const DeepCollectionEquality().hash(_cafFiles),
+      successVerification);
 
   @JsonKey(ignore: true)
   @override
@@ -394,7 +420,8 @@ abstract class _VerifyState implements VerifyState {
       final Job? selectedJob,
       final MonthlyIncome? selectedMonthlyIncome,
       final String cafId,
-      final String cafFaceId}) = _$_VerifyState;
+      final List<CafFileParam> cafFiles,
+      final bool successVerification}) = _$_VerifyState;
 
   @override
   bool get loading;
@@ -417,7 +444,9 @@ abstract class _VerifyState implements VerifyState {
   @override
   String get cafId;
   @override
-  String get cafFaceId;
+  List<CafFileParam> get cafFiles;
+  @override
+  bool get successVerification;
   @override
   @JsonKey(ignore: true)
   _$$_VerifyStateCopyWith<_$_VerifyState> get copyWith =>

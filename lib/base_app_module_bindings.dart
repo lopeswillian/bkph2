@@ -1,10 +1,13 @@
 import 'dart:io' as io;
 
 import 'package:apph2/data/data.dart';
+import 'package:apph2/data/datasources/caf_remote_datasource.dart';
 import 'package:apph2/data/datasources/h2pay_remote_datasource.dart';
 import 'package:apph2/data/datasources/product_remote_datasource.dart';
+import 'package:apph2/data/repositories/caf_repository.dart';
 import 'package:apph2/data/repositories/h2pay_repository.dart';
 import 'package:apph2/data/repositories/product_repository.dart';
+import 'package:apph2/domain/repositories/caf_repository.dart';
 import 'package:apph2/domain/repositories/h2pay_repository.dart';
 import 'package:apph2/domain/repositories/product_repository.dart';
 import 'package:apph2/infraestructure/http/http_adapter.dart';
@@ -27,6 +30,7 @@ import 'package:apph2/usecases/get_terms_condition.dart';
 import 'package:apph2/usecases/login_recovery_usecase.dart';
 import 'package:apph2/usecases/login_with_credentials_usecase.dart';
 import 'package:apph2/usecases/register_usecase.dart';
+import 'package:apph2/usecases/send_caf_validation_usecase.dart';
 import 'package:apph2/usecases/send_payment_customer_usecase.dart';
 import 'package:apph2/usecases/sign_anticipation_usecase.dart';
 import 'package:apph2/usecases/validate_sms_code_usecase.dart';
@@ -99,6 +103,20 @@ class BaseAppModuleBindings {
             ),
           ),
         ),
+        Bind.lazySingleton<ICafDatasource>(
+          (i) => CafDatasource(
+            HttpAdapter(
+              client: io.HttpClient(),
+              baseUrl: "https://api.combateafraude.com/",
+              apiVersion: 'v1',
+              headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+                'Authorization':
+                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmVkNTE5NmEzYWI1NzAwMDk1MjFlNWIiLCJpYXQiOjE2NTk3MjAwODZ9.vbI7ter3gyaA3G7l_rBAfI7gQ-EbD_3iAtDcRTq1ZMU',
+              },
+            ),
+          ),
+        ),
       ];
 
   static List<Bind> get _repositories => [
@@ -115,6 +133,11 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<IProductRepository>(
           (i) => ProductRepository(
             i.get<IProductDatasource>(),
+          ),
+        ),
+        Bind.lazySingleton<ICafRepository>(
+          (i) => CafRepository(
+            i.get<ICafDatasource>(),
           ),
         ),
       ];
@@ -188,6 +211,9 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<IGetProductsUseCase>(
           (i) => GetProductUseCase(i.get<IProductRepository>()),
         ),
+        Bind.lazySingleton<ISendCafValidationUseCase>(
+          (i) => SendCafValidationUseCase(i.get<ICafRepository>()),
+        ),
       ];
 
   static List<Bind> get _viewModels => [
@@ -225,6 +251,7 @@ class BaseAppModuleBindings {
             i.get<ICreateH2PayUserUseCase>(),
             i.get<LoginViewModel>(),
             i.get<H2PayViewModel>(),
+            i.get<ISendCafValidationUseCase>(),
           ),
         ),
         Bind.lazySingleton<PaymentViewModel>(

@@ -1,3 +1,4 @@
+import 'package:apph2/domain/entities/caf_file_param.dart';
 import 'package:apph2/domain/entities/document_side_type.dart';
 import 'package:apph2/domain/entities/job.dart';
 import 'package:apph2/domain/entities/monthly_income.dart';
@@ -20,7 +21,8 @@ class VerifyState extends ViewModelState with _$VerifyState {
     Job? selectedJob,
     MonthlyIncome? selectedMonthlyIncome,
     @Default('') String cafId,
-    @Default('') String cafFaceId
+    @Default([]) List<CafFileParam> cafFiles,
+    @Default(false) bool successVerification,
   }) = _VerifyState;
 
   factory VerifyState.initial() => const VerifyState();
