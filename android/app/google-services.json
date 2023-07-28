@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "475305999387",
+    "project_id": "h2-app-5222c",
+    "storage_bucket": "h2-app-5222c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:475305999387:android:3234a0151e8080b3d28cbe",
+        "android_client_info": {
+          "package_name": "com.h2.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "475305999387-rh8l2c3uc7qkqo2h59acarvcneccosg3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjj7f1vmUXSMFBKM4fRr6KRP-67pM8lnc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "475305999387-rh8l2c3uc7qkqo2h59acarvcneccosg3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "475305999387-56pp7t48mvqogpif1jq5rpt9ib7l626k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.h2.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

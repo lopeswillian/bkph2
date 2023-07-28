@@ -91,40 +91,43 @@ class _RecoveryPageState extends ViewState<RecoveryPage, RecoveryViewModel> {
           ),
           child: Stack(
             children: [
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: Dimension.sm.width),
-                      child: Column(
-                        children: [
-                          const Dimension(8).vertical,
-                          SvgPicture.asset(
-                            'assets/images/bg_recovery.svg',
-                            width: const Dimension(39.25).width,
-                            height: const Dimension(31.37).height,
-                          ),
-                          const Dimension(6.25).vertical,
-                          const Divider(),
-                          Dimension.md.vertical,
-                          Text(
-                            'Insira seu endereço de e-mail associado à sua conta.',
-                            style: context.text.body1,
-                          ),
-                          Dimension.md.vertical,
-                          CustomTextFormField(
-                            controller: identifier,
-                            keyboardType: TextInputType.emailAddress,
-                            labelText: 'E-mail',
-                            errorMessage:
-                                state.error != '' ? 'E-mail inexistente' : null,
-                          ),
-                          const Dimension(8.5).vertical,
-                        ],
+              Padding(
+                padding:  EdgeInsets.only(bottom: isKeyboardVisible?120:0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: Dimension.sm.width),
+                        child: Column(
+                          children: [
+                            const Dimension(8).vertical,
+                            SvgPicture.asset(
+                              'assets/images/bg_recovery.svg',
+                              width: const Dimension(39.25).width,
+                              height: const Dimension(31.37).height,
+                            ),
+                            const Dimension(6.25).vertical,
+                            const Divider(),
+                            Dimension.md.vertical,
+                            Text(
+                              'Insira seu endereço de e-mail associado à sua conta.',
+                              style: context.text.body1,
+                            ),
+                            Dimension.md.vertical,
+                            CustomTextFormField(
+                              controller: identifier,
+                              keyboardType: TextInputType.emailAddress,
+                              labelText: 'E-mail',
+                              errorMessage:
+                                  state.error != '' ? 'E-mail inexistente' : null,
+                            ),
+                            const Dimension(8.5).vertical,
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               Align(

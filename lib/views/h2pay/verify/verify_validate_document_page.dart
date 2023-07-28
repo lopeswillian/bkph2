@@ -13,8 +13,10 @@ import 'package:document_detector/document_type.dart';
 import 'package:document_detector/result/document_detector_failure.dart';
 import 'package:document_detector/result/document_detector_result.dart';
 import 'package:document_detector/result/document_detector_success.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide View;
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
+import 'package:passive_face_liveness/android/settings.dart';
 import 'package:passive_face_liveness/passive_face_liveness.dart';
 import 'package:passive_face_liveness/result/passive_face_liveness_failure.dart';
 import 'package:passive_face_liveness/result/passive_face_liveness_result.dart';
@@ -174,8 +176,11 @@ class _VerifyValidateDocumentPageState extends State<VerifyValidateDocumentPage>
       {
         'iss': '64b5cf813a81970008d3b533',
         'peopleId': loginViewModel.state.user!.cpf,
+        if (kDebugMode)
+          'exp': DateTime.now()
+              .add(const Duration(hours: 3))
+              .millisecondsSinceEpoch,
       },
-      audience: null,
     );
 
     final token = mobileToken.sign(
@@ -190,6 +195,16 @@ class _VerifyValidateDocumentPageState extends State<VerifyValidateDocumentPage>
 
     passiveFaceLiveness.setPeopleId(loginViewModel.state.user!.cpf);
 
+    passiveFaceLiveness.setAndroidSettings(
+      PassiveFaceLivenessAndroidSettings(
+        emulatorSettings: true,
+        rootSettings: true,
+        useDeveloperMode: true,
+        useAdb: true,
+        useDebug: true,
+      ),
+    );
+
     PassiveFaceLivenessResult passiveFaceLivenessResult =
         await passiveFaceLiveness.start();
 
@@ -200,10 +215,11 @@ class _VerifyValidateDocumentPageState extends State<VerifyValidateDocumentPage>
           data: passiveFaceLivenessResult.imageUrl!,
         ),
       );
-      getDocument(token);
+      await getDocument(token);
     } else if (passiveFaceLivenessResult is PassiveFaceLivenessFailure) {
       const snackBar = SnackBar(
-        content: Text('Falha capturar selfie. Tente novamente!'),
+        content: Text(
+            'Falha ao capturar selfie. Tente novamente!'),
         duration: Duration(seconds: 2),
       );
       // ignore: use_build_context_synchronously
@@ -215,7 +231,6 @@ class _VerifyValidateDocumentPageState extends State<VerifyValidateDocumentPage>
     DocumentDetector documentDetector = DocumentDetector(
       mobileToken: token,
     );
-
     documentDetector.autoDetection = true;
     documentDetector.setPeopleId(loginViewModel.state.user!.cpf);
     documentDetector.setDocumentFlow(

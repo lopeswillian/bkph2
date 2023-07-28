@@ -68,107 +68,113 @@ class _RegisterStep1State extends ViewState<RegisterStep1, RegisterViewModel> {
         centerTitle: true,
       ),
       backgroundColor: Colors.transparent,
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFF166FED),
-              Color(0xFF00092A),
-            ],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-        ),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
         child: Container(
           decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(27),
-              topRight: Radius.circular(27),
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF166FED),
+                Color(0xFF00092A),
+              ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
             ),
           ),
-          child: Stack(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: Dimension.sm.width),
-                child: LayoutBuilder(
-                  builder: (context, constraints) {
-                    return SingleChildScrollView(
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          minHeight: constraints.maxHeight,
-                        ),
-                        child: Column(
-                          children: [
-                            const Dimension(8).vertical,
-                            Image.asset(
-                              'assets/images/register_image1.png',
-                              width: const Dimension(39.25).width,
-                              height: const Dimension(31.37).height,
-                            ),
-                            const Dimension(6.25).vertical,
-                            const Divider(),
-                            const Dimension(2.5).vertical,
-                            Text(
-                              'Bem-vindo ao nosso aplicativo! Para começar, por favor, insira seu CPF.',
-                              style: context.text.body1,
-                            ),
-                            Dimension.xxl.vertical,
-                            CustomTextFormField(
-                              labelText: 'CPF',
-                              inputFormatters: [cpfFormater],
-                              hintText: '(Apenas números)',
-                              keyboardType: TextInputType.number,
-                              errorMessage:
-                                  state.error != '' ? state.error : null,
-                              onChanged: (value) {
-                                if (value.length == 14) {
-                                  viewModel.getCpf(
-                                    cpfParams: CpfParams(document: value),
-                                  );
-                                }
-                              },
-                            ),
-                            const Dimension(25).vertical,
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(27),
+                topRight: Radius.circular(27),
               ),
-              Visibility(
-                visible: !isKeyboardVisible,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: IntrinsicHeight(
-                    child: Container(
-                      color: Colors.white,
-                      child: StepWidget(
-                        enabled: state.document != null,
-                        title: 'Avançar',
-                        stepQuantity: 3,
-                        onStep: 1,
-                        action: () {
-                          if (state.document!.isRewardsCustomer) {
-                            const snackBar = SnackBar(
-                              content: Text('Cpf já registrado'),
-                              duration: Duration(seconds: 2),
+            ),
+            child: Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: Dimension.sm.width),
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return SingleChildScrollView(
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minHeight: constraints.maxHeight,
+                          ),
+                          child: Column(
+                            children: [
+                              const Dimension(8).vertical,
+                              Image.asset(
+                                'assets/images/register_image1.png',
+                                width: const Dimension(39.25).width,
+                                height: const Dimension(31.37).height,
+                              ),
+                              const Dimension(6.25).vertical,
+                              const Divider(),
+                              const Dimension(2.5).vertical,
+                              Text(
+                                'Bem-vindo ao nosso aplicativo! Para começar, por favor, insira seu CPF.',
+                                style: context.text.body1,
+                              ),
+                              Dimension.xxl.vertical,
+                              CustomTextFormField(
+                                labelText: 'CPF',
+                                inputFormatters: [cpfFormater],
+                                hintText: '(Apenas números)',
+                                keyboardType: TextInputType.number,
+                                errorMessage:
+                                    state.error != '' ? state.error : null,
+                                onChanged: (value) {
+                                  if (value.length == 14) {
+                                    viewModel.getCpf(
+                                      cpfParams: CpfParams(document: value),
+                                    );
+                                  }
+                                },
+                              ),
+                              const Dimension(25).vertical,
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Visibility(
+                  visible: !isKeyboardVisible,
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: IntrinsicHeight(
+                      child: Container(
+                        color: Colors.white,
+                        child: StepWidget(
+                          enabled: state.document != null,
+                          title: 'Avançar',
+                          stepQuantity: 3,
+                          onStep: 1,
+                          action: () {
+                            if (state.document!.isRewardsCustomer) {
+                              const snackBar = SnackBar(
+                                content: Text('Cpf já registrado'),
+                                duration: Duration(seconds: 2),
+                              );
+                              // ignore: use_build_context_synchronously
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                              return;
+                            }
+                            Nav.pushNamed(
+                              BaseAppModuleRouting.registerStep2,
                             );
-                            // ignore: use_build_context_synchronously
-                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                            return;
-                          }
-                          Nav.pushNamed(
-                            BaseAppModuleRouting.registerStep2,
-                          );
-                        },
+                          },
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

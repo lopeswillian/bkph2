@@ -147,6 +147,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                               obscureText: obscureText1,
                               controller: pass,
                               labelText: 'Criar Senha',
+                              maxLength: 8,
                               hintText: '(de 6 a 8 dígitos)',
                               suffixIcon: IconButton(
                                 onPressed: () {
@@ -166,6 +167,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                               obscureText: obscureText2,
                               labelText: 'Confirmar Senha',
                               controller: confirmPass,
+                              maxLength: 8,
                               errorMessage: pass.text != confirmPass.text &&
                                       confirmPass.text != ''
                                   ? 'Senhas não coincidem.'

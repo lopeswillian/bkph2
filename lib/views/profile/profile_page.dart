@@ -53,7 +53,9 @@ class _ProfilePageState extends State<ProfilePage> with View<LoginViewModel> {
                     width: const Dimension(12.5).width,
                     height: const Dimension(12.5).height,
                     decoration: const BoxDecoration(
-                        color: Colors.white, shape: BoxShape.circle),
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
                     child: const Icon(
                       Icons.photo,
                     ),
