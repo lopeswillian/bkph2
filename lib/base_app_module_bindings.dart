@@ -24,6 +24,7 @@ import 'package:apph2/usecases/get_jobs_usecase.dart';
 import 'package:apph2/usecases/get_monthly_income_usecase.dart';
 import 'package:apph2/usecases/get_pix_code_usecase.dart';
 import 'package:apph2/usecases/get_products_usecase.dart';
+import 'package:apph2/usecases/get_profile_usecase.dart';
 import 'package:apph2/usecases/get_sms_code_usecase.dart';
 import 'package:apph2/usecases/get_ted_data_usecase.dart';
 import 'package:apph2/usecases/get_terms_condition.dart';
@@ -33,12 +34,14 @@ import 'package:apph2/usecases/register_usecase.dart';
 import 'package:apph2/usecases/send_caf_validation_usecase.dart';
 import 'package:apph2/usecases/send_payment_customer_usecase.dart';
 import 'package:apph2/usecases/sign_anticipation_usecase.dart';
+import 'package:apph2/usecases/update_profile_usecase.dart';
 import 'package:apph2/usecases/validate_sms_code_usecase.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
 import 'package:apph2/views/h2pay/verify/verify_viewmodel.dart';
 import 'package:apph2/views/login/login_viewmodel.dart';
 import 'package:apph2/views/product/product_viewmodel.dart';
+import 'package:apph2/views/profile/profile_viewmodel.dart';
 import 'package:apph2/views/recovery/recovery_viewmodel.dart';
 import 'package:apph2/views/register/register_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -214,6 +217,12 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<ISendCafValidationUseCase>(
           (i) => SendCafValidationUseCase(i.get<ICafRepository>()),
         ),
+        Bind.lazySingleton<IGetProfileUseCase>(
+          (i) => GetProfileUseCase(i.get<IAuthRepository>()),
+        ),
+        Bind.lazySingleton<IUpdateProfileUseCase>(
+          (i) => UpdateProfileUseCase(i.get<IAuthRepository>()),
+        ),
       ];
 
   static List<Bind> get _viewModels => [
@@ -269,6 +278,12 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<ProductViewModel>(
           (i) => ProductViewModel(
             i.get<IGetProductsUseCase>(),
+          ),
+        ),
+        Bind.lazySingleton<ProfileViewModel>(
+          (i) => ProfileViewModel(
+            i.get<IGetProfileUseCase>(),
+            i.get<IUpdateProfileUseCase>()
           ),
         ),
       ];

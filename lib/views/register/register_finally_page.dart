@@ -2,7 +2,9 @@ import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
-import 'package:flutter/material.dart';
+import 'package:apph2/views/login/login_viewmodel.dart';
+import 'package:apph2/views/register/register_viewmodel.dart';
+import 'package:flutter/material.dart' hide View;
 import 'package:flutter_svg/svg.dart';
 
 class FinallyRegister extends StatefulWidget {
@@ -12,12 +14,23 @@ class FinallyRegister extends StatefulWidget {
   State<FinallyRegister> createState() => _FinallyRegisterState();
 }
 
-class _FinallyRegisterState extends State<FinallyRegister> {
+class _FinallyRegisterState extends State<FinallyRegister> with View<LoginViewModel>{
+  late LoginViewModel _loginViewModel;
+  late RegisterViewModel _registerViewModel;
+
   @override
   void initState() {
     super.initState();
+    _loginViewModel = DM.get<LoginViewModel>();
+    _registerViewModel = DM.get<RegisterViewModel>();
+    _loginViewModel.loginByRegister(_registerViewModel.state.tokenRegister);
     Future.delayed(const Duration(seconds: 3)).then((value) =>
         Nav.pushNamedAndRemoveUntil(BaseAppModuleRouting.root, (p0) => false));
+  }
+
+  @override
+  void dispose(){
+    super.dispose();
   }
 
   @override

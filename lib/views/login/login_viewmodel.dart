@@ -72,6 +72,35 @@ class LoginViewModel extends ViewModel<LoginState> {
     emit(newState);
   }
 
+  void loginByRegister(String token) {
+    emit(
+      state.copyWith(loading: true),
+    );
+    
+    Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+    final UserInfo user = UserInfo(
+      id: decodedToken['customer_id'],
+      avatarUrl: decodedToken['customer_avatar_url'],
+      name: decodedToken['customer_name'],
+      email: decodedToken['customer_email'],
+      birthdate: decodedToken['customer_birthdate'],
+      cpf: decodedToken['customer_cpf'],
+      nickname: decodedToken['customer_nickname'],
+      cellphone: decodedToken['customer_cellphone'],
+      vipLiveId: decodedToken['customer_vip_live_id'],
+      vipOnlineId: decodedToken['customer_vip_online_id'],
+      vipLive: decodedToken['customer_vip_live'],
+      vipOnline: decodedToken['customer_vip_online'],
+    );
+    emit(
+      state.copyWith(
+        loading: false,
+        token: token,
+        user: user,
+      ),
+    );
+  }
+
   Future<void> isAuth() async {
     final SharedPreferences prefs = await _prefs;
     final String? token = prefs.getString('token');

@@ -19,6 +19,7 @@ mixin _$RegisterState {
   bool get loading => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
   bool get success => throw _privateConstructorUsedError;
+  String get tokenRegister => throw _privateConstructorUsedError;
   CpfInfo? get document => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -32,7 +33,12 @@ abstract class $RegisterStateCopyWith<$Res> {
           RegisterState value, $Res Function(RegisterState) then) =
       _$RegisterStateCopyWithImpl<$Res, RegisterState>;
   @useResult
-  $Res call({bool loading, String error, bool success, CpfInfo? document});
+  $Res call(
+      {bool loading,
+      String error,
+      bool success,
+      String tokenRegister,
+      CpfInfo? document});
 
   $CpfInfoCopyWith<$Res>? get document;
 }
@@ -53,6 +59,7 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
     Object? loading = null,
     Object? error = null,
     Object? success = null,
+    Object? tokenRegister = null,
     Object? document = freezed,
   }) {
     return _then(_value.copyWith(
@@ -68,6 +75,10 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
           ? _value.success
           : success // ignore: cast_nullable_to_non_nullable
               as bool,
+      tokenRegister: null == tokenRegister
+          ? _value.tokenRegister
+          : tokenRegister // ignore: cast_nullable_to_non_nullable
+              as String,
       document: freezed == document
           ? _value.document
           : document // ignore: cast_nullable_to_non_nullable
@@ -96,7 +107,12 @@ abstract class _$$_RegisterStateCopyWith<$Res>
       __$$_RegisterStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, String error, bool success, CpfInfo? document});
+  $Res call(
+      {bool loading,
+      String error,
+      bool success,
+      String tokenRegister,
+      CpfInfo? document});
 
   @override
   $CpfInfoCopyWith<$Res>? get document;
@@ -116,6 +132,7 @@ class __$$_RegisterStateCopyWithImpl<$Res>
     Object? loading = null,
     Object? error = null,
     Object? success = null,
+    Object? tokenRegister = null,
     Object? document = freezed,
   }) {
     return _then(_$_RegisterState(
@@ -131,6 +148,10 @@ class __$$_RegisterStateCopyWithImpl<$Res>
           ? _value.success
           : success // ignore: cast_nullable_to_non_nullable
               as bool,
+      tokenRegister: null == tokenRegister
+          ? _value.tokenRegister
+          : tokenRegister // ignore: cast_nullable_to_non_nullable
+              as String,
       document: freezed == document
           ? _value.document
           : document // ignore: cast_nullable_to_non_nullable
@@ -146,6 +167,7 @@ class _$_RegisterState implements _RegisterState {
       {this.loading = false,
       this.error = '',
       this.success = false,
+      this.tokenRegister = '',
       this.document});
 
   @override
@@ -158,11 +180,14 @@ class _$_RegisterState implements _RegisterState {
   @JsonKey()
   final bool success;
   @override
+  @JsonKey()
+  final String tokenRegister;
+  @override
   final CpfInfo? document;
 
   @override
   String toString() {
-    return 'RegisterState(loading: $loading, error: $error, success: $success, document: $document)';
+    return 'RegisterState(loading: $loading, error: $error, success: $success, tokenRegister: $tokenRegister, document: $document)';
   }
 
   @override
@@ -173,13 +198,15 @@ class _$_RegisterState implements _RegisterState {
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error) &&
             (identical(other.success, success) || other.success == success) &&
+            (identical(other.tokenRegister, tokenRegister) ||
+                other.tokenRegister == tokenRegister) &&
             (identical(other.document, document) ||
                 other.document == document));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, loading, error, success, document);
+  int get hashCode => Object.hash(
+      runtimeType, loading, error, success, tokenRegister, document);
 
   @JsonKey(ignore: true)
   @override
@@ -193,6 +220,7 @@ abstract class _RegisterState implements RegisterState {
       {final bool loading,
       final String error,
       final bool success,
+      final String tokenRegister,
       final CpfInfo? document}) = _$_RegisterState;
 
   @override
@@ -201,6 +229,8 @@ abstract class _RegisterState implements RegisterState {
   String get error;
   @override
   bool get success;
+  @override
+  String get tokenRegister;
   @override
   CpfInfo? get document;
   @override

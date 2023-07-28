@@ -10,6 +10,7 @@ class RegisterState extends ViewModelState with _$RegisterState {
     @Default(false) bool loading,
     @Default('') String error,
     @Default(false) bool success,
+    @Default('') String tokenRegister,
     CpfInfo? document,
   }) = _RegisterState;
 

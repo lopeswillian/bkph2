@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 import '../domain/repositories/repositories.dart';
 
 abstract class IRegisterUseCase {
-  Future<Either<H2Failure, Unit>> call(RegisterParams params);
+  Future<Either<H2Failure, String>> call(RegisterParams params);
 }
 
 class RegisterUseCase implements IRegisterUseCase {
@@ -14,7 +14,7 @@ class RegisterUseCase implements IRegisterUseCase {
   RegisterUseCase(this._repository);
 
   @override
-  Future<Either<H2Failure, Unit>> call(RegisterParams params) {
+  Future<Either<H2Failure, String>> call(RegisterParams params) {
     return _repository.register(params);
   }
 }

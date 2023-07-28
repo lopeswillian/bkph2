@@ -183,7 +183,7 @@ class VerifyViewModel extends ViewModel<VerifyState> {
       CafRequestParams(
         files: state.cafFiles,
         templateId: '64c2836492d4a60008f06caa',
-        callbackUrl: 'https://a89f1fa024.nxcli.io/webhooks/caf/document-verification',
+        callbackUrl: 'https://dc023ad05f.nxcli.io/webhooks/caf/document-verification',
         attributes: CafPropsAttributes(
           cpf: _loginViewModel.state.user!.cpf,
           birthDate: _loginViewModel.state.user!.birthdate,

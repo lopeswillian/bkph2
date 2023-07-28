@@ -60,10 +60,11 @@ class RegisterViewModel extends ViewModel<RegisterState> {
           orElse: () => '',
         ),
       ),
-      (document) => state.copyWith(
+      (tokenRegister) => state.copyWith(
         loading: false,
         error: '',
         success: true,
+        tokenRegister: tokenRegister,
       ),
     );
 
