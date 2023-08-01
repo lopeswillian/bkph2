@@ -4,12 +4,15 @@ import 'package:apph2/data/data.dart';
 import 'package:apph2/data/datasources/caf_remote_datasource.dart';
 import 'package:apph2/data/datasources/h2pay_remote_datasource.dart';
 import 'package:apph2/data/datasources/product_remote_datasource.dart';
+import 'package:apph2/data/datasources/rewards_remote_datasource.dart';
 import 'package:apph2/data/repositories/caf_repository.dart';
 import 'package:apph2/data/repositories/h2pay_repository.dart';
 import 'package:apph2/data/repositories/product_repository.dart';
+import 'package:apph2/data/repositories/rewards_repository.dart';
 import 'package:apph2/domain/repositories/caf_repository.dart';
 import 'package:apph2/domain/repositories/h2pay_repository.dart';
 import 'package:apph2/domain/repositories/product_repository.dart';
+import 'package:apph2/domain/repositories/rewards_repository.dart';
 import 'package:apph2/infraestructure/http/http_adapter.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/usecases/create_user_h2pay_usecase.dart';
@@ -17,6 +20,8 @@ import 'package:apph2/usecases/get_anticipation_usecase.dart';
 import 'package:apph2/usecases/get_anticipation_with_discharge_usecase.dart';
 import 'package:apph2/usecases/get_bco_cnpj_usecase.dart';
 import 'package:apph2/usecases/get_bco_cpf_usecase.dart';
+import 'package:apph2/usecases/get_calendar_details_usecase.dart';
+import 'package:apph2/usecases/get_calendar_events_usecase.dart';
 import 'package:apph2/usecases/get_cpf_usecase.dart';
 import 'package:apph2/usecases/get_customer_companies_usecase.dart';
 import 'package:apph2/usecases/get_customer_usecase.dart';
@@ -25,6 +30,8 @@ import 'package:apph2/usecases/get_monthly_income_usecase.dart';
 import 'package:apph2/usecases/get_pix_code_usecase.dart';
 import 'package:apph2/usecases/get_products_usecase.dart';
 import 'package:apph2/usecases/get_profile_usecase.dart';
+import 'package:apph2/usecases/get_rewards_categories_usecase.dart';
+import 'package:apph2/usecases/get_rewards_category_detail_usecase.dart';
 import 'package:apph2/usecases/get_sms_code_usecase.dart';
 import 'package:apph2/usecases/get_ted_data_usecase.dart';
 import 'package:apph2/usecases/get_terms_condition.dart';
@@ -44,6 +51,7 @@ import 'package:apph2/views/product/product_viewmodel.dart';
 import 'package:apph2/views/profile/profile_viewmodel.dart';
 import 'package:apph2/views/recovery/recovery_viewmodel.dart';
 import 'package:apph2/views/register/register_viewmodel.dart';
+import 'package:apph2/views/rewards/rewards_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -110,12 +118,26 @@ class BaseAppModuleBindings {
           (i) => CafDatasource(
             HttpAdapter(
               client: io.HttpClient(),
-              baseUrl: "https://api.combateafraude.com/",
+              baseUrl: "https://a89f1fa024.nxcli.io/",
               apiVersion: 'v1',
               headers: {
                 'Content-Type': 'application/json; charset=utf-8',
                 'Authorization':
-                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmVkNTE5NmEzYWI1NzAwMDk1MjFlNWIiLCJpYXQiOjE2NTk3MjAwODZ9.vbI7ter3gyaA3G7l_rBAfI7gQ-EbD_3iAtDcRTq1ZMU',
+                    'Bearer eyJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJiZGMzMmM3MGEwZTRjMjJlM2IwZjBmN2VhNTFlNzYifQ',
+              },
+            ),
+          ),
+        ),
+        Bind.lazySingleton<IRewardsDataSource>(
+          (i) => RewardsDataSource(
+            HttpAdapter(
+              client: io.HttpClient(),
+              baseUrl: "https://a89f1fa024.nxcli.io/",
+              apiVersion: 'v1',
+              headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+                'Authorization':
+                    'Bearer eyJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJiZGMzMmM3MGEwZTRjMjJlM2IwZjBmN2VhNTFlNzYifQ',
               },
             ),
           ),
@@ -141,6 +163,11 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<ICafRepository>(
           (i) => CafRepository(
             i.get<ICafDatasource>(),
+          ),
+        ),
+        Bind.lazySingleton<IRewardsRepository>(
+          (i) => RewardsRepository(
+            i.get<IRewardsDataSource>(),
           ),
         ),
       ];
@@ -214,6 +241,12 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<IGetProductsUseCase>(
           (i) => GetProductUseCase(i.get<IProductRepository>()),
         ),
+        Bind.lazySingleton<IGetCalendarEventsUseCase>(
+          (i) => GetCalendarEventsUseCase(i.get<IProductRepository>()),
+        ),
+        Bind.lazySingleton<IGetCalendarDetailsUseCase>(
+          (i) => GetCalendarDetailsUseCase(i.get<IProductRepository>()),
+        ),
         Bind.lazySingleton<ISendCafValidationUseCase>(
           (i) => SendCafValidationUseCase(i.get<ICafRepository>()),
         ),
@@ -222,6 +255,12 @@ class BaseAppModuleBindings {
         ),
         Bind.lazySingleton<IUpdateProfileUseCase>(
           (i) => UpdateProfileUseCase(i.get<IAuthRepository>()),
+        ),
+        Bind.lazySingleton<IGetRewardsCategoriesUseCase>(
+          (i) => GetRewardsCategories(i.get<IRewardsRepository>()),
+        ),
+        Bind.lazySingleton<IGetRewardsCategoryDetailUseCase>(
+          (i) => GetRewardsCategoryDetailUseCase(i.get<IRewardsRepository>()),
         ),
       ];
 
@@ -278,12 +317,20 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<ProductViewModel>(
           (i) => ProductViewModel(
             i.get<IGetProductsUseCase>(),
+            i.get<IGetCalendarEventsUseCase>(),
+            i.get<IGetCalendarDetailsUseCase>(),
           ),
         ),
         Bind.lazySingleton<ProfileViewModel>(
           (i) => ProfileViewModel(
             i.get<IGetProfileUseCase>(),
-            i.get<IUpdateProfileUseCase>()
+            i.get<IUpdateProfileUseCase>(),
+          ),
+        ),
+        Bind.lazySingleton<RewardsViewModel>(
+          (i) => RewardsViewModel(
+            i.get<IGetRewardsCategoriesUseCase>(),
+            i.get<IGetRewardsCategoryDetailUseCase>(),
           ),
         ),
       ];

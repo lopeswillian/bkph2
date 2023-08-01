@@ -17,6 +17,5 @@ class CafRequestParams with _$CafRequestParams {
 class CafPropsAttributes with _$CafPropsAttributes {
   factory CafPropsAttributes({
     required String cpf,
-    required String birthDate,
   }) = _CafPropsAttributes;
 }

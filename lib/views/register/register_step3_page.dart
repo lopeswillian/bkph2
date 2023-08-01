@@ -113,7 +113,12 @@ class _RegisterStep3State extends State<RegisterStep3> {
           child: Stack(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: Dimension.sm.width),
+                padding: EdgeInsets.only(
+                  left: Dimension.sm.width,
+                  right: Dimension.sm.width,
+                  bottom:
+                      isKeyboardVisible ? const Dimension(130 / 8).height : 0,
+                ),
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     return SingleChildScrollView(
@@ -193,56 +198,53 @@ class _RegisterStep3State extends State<RegisterStep3> {
                   },
                 ),
               ),
-              Visibility(
-                visible: !isKeyboardVisible,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: IntrinsicHeight(
-                    child: Container(
-                      color: Colors.white,
-                      child: StepWidget(
-                        title: 'Avançar',
-                        stepQuantity: 3,
-                        onStep: 3,
-                        action: () async {
-                          await registerViewModel.register(
-                            registerParams: RegisterParams(
-                              nationality: 1,
-                              name: registerViewModel.state.document!.name,
-                              nickname: params.nickName,
-                              gender: params.gender,
-                              email: email.text,
-                              cpf: registerViewModel.state.document!.document,
-                              cellphone: '+55${params.phone}',
-                              birthdate: DateFormat('dd/MM/yyy')
-                                    .format(registerViewModel
-                                        .state.document!.birthdate)
-                                    .toString(),
-                              zipcode: params.cep.replaceAll('.', ''),
-                              address: params.address,
-                              number: params.numberAddress,
-                              district: params.district,
-                              state: params.state,
-                              city: params.city,
-                              password: pass.text,
-                              passwordConfirmation: confirmPass.text,
-                              complement: params.complement,
-                            ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: IntrinsicHeight(
+                  child: Container(
+                    color: Colors.white,
+                    child: StepWidget(
+                      title: 'Avançar',
+                      stepQuantity: 3,
+                      onStep: 3,
+                      action: () async {
+                        await registerViewModel.register(
+                          registerParams: RegisterParams(
+                            nationality: 1,
+                            name: registerViewModel.state.document!.name,
+                            nickname: params.nickName,
+                            gender: params.gender,
+                            email: email.text,
+                            cpf: registerViewModel.state.document!.document,
+                            cellphone: '+55${params.phone}',
+                            birthdate: DateFormat('dd/MM/yyy')
+                                .format(
+                                    registerViewModel.state.document!.birthdate)
+                                .toString(),
+                            zipcode: params.cep.replaceAll('.', ''),
+                            address: params.address,
+                            number: params.numberAddress,
+                            district: params.district,
+                            state: params.state,
+                            city: params.city,
+                            password: pass.text,
+                            passwordConfirmation: confirmPass.text,
+                            complement: params.complement,
+                          ),
+                        );
+                        if (registerViewModel.state.error == '') {
+                          Nav.pushNamed(
+                            BaseAppModuleRouting.registerStepFinally,
                           );
-                          if (registerViewModel.state.error == '') {
-                            Nav.pushNamed(
-                              BaseAppModuleRouting.registerStepFinally,
-                            );
-                            return;
-                          }
-                          var snackBar = SnackBar(
-                            content: Text(registerViewModel.state.error),
-                            duration: const Duration(seconds: 2),
-                          );
-                          // ignore: use_build_context_synchronously
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        },
-                      ),
+                          return;
+                        }
+                        var snackBar = SnackBar(
+                          content: Text(registerViewModel.state.error),
+                          duration: const Duration(seconds: 2),
+                        );
+                        // ignore: use_build_context_synchronously
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      },
                     ),
                   ),
                 ),

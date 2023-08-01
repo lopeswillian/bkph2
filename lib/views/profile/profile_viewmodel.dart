@@ -14,6 +14,9 @@ class ProfileViewModel extends ViewModel<ProfileState> {
     this._updateProfileUseCase,
   ) : super(ProfileState.initial());
 
+  @override
+  void dispose(){}
+
   void getProfile({
     required RewardsIdParam rewardsIdParam,
   }) async {

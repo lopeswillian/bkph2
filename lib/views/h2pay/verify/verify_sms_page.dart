@@ -149,6 +149,7 @@ class _VerifySmsPageState extends State<VerifySmsPage>
                                   child: PinCodeTextField(
                                     controller: pinCodeController,
                                     appContext: context,
+                                    autoFocus: true,
                                     length: 4,
                                     keyboardType: TextInputType.number,
                                     pinTheme: PinTheme(

@@ -226,7 +226,6 @@ abstract class _CafRequestParams implements CafRequestParams {
 /// @nodoc
 mixin _$CafPropsAttributes {
   String get cpf => throw _privateConstructorUsedError;
-  String get birthDate => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CafPropsAttributesCopyWith<CafPropsAttributes> get copyWith =>
@@ -239,7 +238,7 @@ abstract class $CafPropsAttributesCopyWith<$Res> {
           CafPropsAttributes value, $Res Function(CafPropsAttributes) then) =
       _$CafPropsAttributesCopyWithImpl<$Res, CafPropsAttributes>;
   @useResult
-  $Res call({String cpf, String birthDate});
+  $Res call({String cpf});
 }
 
 /// @nodoc
@@ -256,16 +255,11 @@ class _$CafPropsAttributesCopyWithImpl<$Res, $Val extends CafPropsAttributes>
   @override
   $Res call({
     Object? cpf = null,
-    Object? birthDate = null,
   }) {
     return _then(_value.copyWith(
       cpf: null == cpf
           ? _value.cpf
           : cpf // ignore: cast_nullable_to_non_nullable
-              as String,
-      birthDate: null == birthDate
-          ? _value.birthDate
-          : birthDate // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -279,7 +273,7 @@ abstract class _$$_CafPropsAttributesCopyWith<$Res>
       __$$_CafPropsAttributesCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String cpf, String birthDate});
+  $Res call({String cpf});
 }
 
 /// @nodoc
@@ -294,16 +288,11 @@ class __$$_CafPropsAttributesCopyWithImpl<$Res>
   @override
   $Res call({
     Object? cpf = null,
-    Object? birthDate = null,
   }) {
     return _then(_$_CafPropsAttributes(
       cpf: null == cpf
           ? _value.cpf
           : cpf // ignore: cast_nullable_to_non_nullable
-              as String,
-      birthDate: null == birthDate
-          ? _value.birthDate
-          : birthDate // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -312,16 +301,14 @@ class __$$_CafPropsAttributesCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_CafPropsAttributes implements _CafPropsAttributes {
-  _$_CafPropsAttributes({required this.cpf, required this.birthDate});
+  _$_CafPropsAttributes({required this.cpf});
 
   @override
   final String cpf;
-  @override
-  final String birthDate;
 
   @override
   String toString() {
-    return 'CafPropsAttributes(cpf: $cpf, birthDate: $birthDate)';
+    return 'CafPropsAttributes(cpf: $cpf)';
   }
 
   @override
@@ -329,13 +316,11 @@ class _$_CafPropsAttributes implements _CafPropsAttributes {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CafPropsAttributes &&
-            (identical(other.cpf, cpf) || other.cpf == cpf) &&
-            (identical(other.birthDate, birthDate) ||
-                other.birthDate == birthDate));
+            (identical(other.cpf, cpf) || other.cpf == cpf));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, cpf, birthDate);
+  int get hashCode => Object.hash(runtimeType, cpf);
 
   @JsonKey(ignore: true)
   @override
@@ -346,14 +331,11 @@ class _$_CafPropsAttributes implements _CafPropsAttributes {
 }
 
 abstract class _CafPropsAttributes implements CafPropsAttributes {
-  factory _CafPropsAttributes(
-      {required final String cpf,
-      required final String birthDate}) = _$_CafPropsAttributes;
+  factory _CafPropsAttributes({required final String cpf}) =
+      _$_CafPropsAttributes;
 
   @override
   String get cpf;
-  @override
-  String get birthDate;
   @override
   @JsonKey(ignore: true)
   _$$_CafPropsAttributesCopyWith<_$_CafPropsAttributes> get copyWith =>

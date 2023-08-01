@@ -277,11 +277,6 @@ class _PaymentPageState extends ViewState<PaymentPage, PaymentViewModel> {
               ),
               const Dimension(1).vertical,
               Text(
-                'CPH',
-                style: context.text.callout,
-              ),
-              const Dimension(1).vertical,
-              Text(
                 dateCreate,
                 style: context.text.captionLight,
               )

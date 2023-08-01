@@ -1,25 +1,56 @@
-import 'package:flutter/material.dart';
+import 'package:apph2/infraestructure/infraestructure.dart';
+import 'package:apph2/infraestructure/num_extension.dart';
+import 'package:apph2/views/product/product_state.dart';
+import 'package:apph2/views/product/product_viewmodel.dart';
 import 'package:flutter_html/flutter_html.dart' hide Dimension;
+import 'package:flutter/material.dart' hide View;
 import 'package:flutter_svg/svg.dart';
 
 import '../../theme/theme.dart';
 import '../../theme/widgets/h2accordion.dart';
 
 class SchedulePage extends StatefulWidget {
-  const SchedulePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  final int eventId;
+  const SchedulePage({
+    Key? key,
+    required this.eventId,
+  }) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
   _SchedulePageState createState() => _SchedulePageState();
 }
 
-class _SchedulePageState extends State<SchedulePage> {
+class _SchedulePageState extends State<SchedulePage>
+    with View<ProductViewModel> {
   bool isKeyboardVisible = false;
 
   @override
+  void initState() {
+    super.initState();
+    viewModel.getEventDetails(widget.eventId);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    return ViewModelBuilder<ProductViewModel, ProductState>(
+      viewModel: viewModel,
+      buildWhen: (previous, current) =>
+          previous.error != current.error ||
+          previous.loading != current.loading,
+      builder: (context, state) {
+        return state.loading
+            ? const Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            : _buildPage(context, state);
+      },
+    );
+  }
+
+  Widget _buildPage(BuildContext context, ProductState state) {
     return Scaffold(
       appBar: H2AppBar(
         title: Column(
@@ -74,10 +105,13 @@ class _SchedulePageState extends State<SchedulePage> {
                       children: [
                         Row(
                           children: [
-                            Text("Vai que Bate",
-                            style: context.text.body1Bold,),
+                            Text(
+                              "Vai que Bate",
+                              style: context.text.body1Bold,
+                            ),
                             Dimension.xs.horizontal,
-                            SvgPicture.string('''<svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14453 0.866211C7.78418 0.523438 7.21582 0.523438 6.85547 0.866211L4.92187 2.7002L1.17187 6.25098C-0.331058 7.6748 -0.395511 10.0479 1.02832 11.5537C2.45215 13.0596 4.82519 13.1211 6.33105 11.6973L6.56543 11.4746V13.625H5.625C5.10644 13.625 4.6875 14.0439 4.6875 14.5625C4.6875 15.0811 5.10644 15.5 5.625 15.5H9.375C9.89355 15.5 10.3125 15.0811 10.3125 14.5625C10.3125 14.0439 9.89355 13.625 9.375 13.625H8.4375V11.4746L8.67187 11.6973C10.1748 13.1211 12.5478 13.0566 13.9746 11.5537C15.4014 10.0508 15.334 7.67773 13.8311 6.25098L10.0781 2.7002L8.14453 0.866211Z" fill="#166FED"/></svg>'''),
+                            SvgPicture.string(
+                                '''<svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14453 0.866211C7.78418 0.523438 7.21582 0.523438 6.85547 0.866211L4.92187 2.7002L1.17187 6.25098C-0.331058 7.6748 -0.395511 10.0479 1.02832 11.5537C2.45215 13.0596 4.82519 13.1211 6.33105 11.6973L6.56543 11.4746V13.625H5.625C5.10644 13.625 4.6875 14.0439 4.6875 14.5625C4.6875 15.0811 5.10644 15.5 5.625 15.5H9.375C9.89355 15.5 10.3125 15.0811 10.3125 14.5625C10.3125 14.0439 9.89355 13.625 9.375 13.625H8.4375V11.4746L8.67187 11.6973C10.1748 13.1211 12.5478 13.0566 13.9746 11.5537C15.4014 10.0508 15.334 7.67773 13.8311 6.25098L10.0781 2.7002L8.14453 0.866211Z" fill="#166FED"/></svg>'''),
                           ],
                         ),
                         Dimension.md.vertical,
@@ -87,17 +121,17 @@ class _SchedulePageState extends State<SchedulePage> {
                           items: <ItemTile>[
                             ItemTile(
                               title: "Data",
-                              value: "31/05/2023",
+                              value: state.detailsEvent!.dateFormatted,
                               withDivider: true,
                             ),
                             ItemTile(
                               title: "Início",
-                              value: "17:00",
+                              value: state.detailsEvent!.start,
                               withDivider: true,
                             ),
                             ItemTile(
                               title: "Último Registro",
-                              value: "00:00",
+                              value: state.detailsEvent!.end,
                               withDivider: false,
                             )
                           ],
@@ -111,17 +145,17 @@ class _SchedulePageState extends State<SchedulePage> {
                           items: <ItemTile>[
                             ItemTile(
                               title: "Buy-In",
-                              value: "R\$ 00,00",
+                              value: state.detailsEvent!.buyin.toCurrency(),
                               withDivider: true,
                             ),
                             ItemTile(
                               title: "Recompra",
-                              value: "R\$ 00,00",
+                              value: state.detailsEvent!.rebuy.toCurrency(),
                               withDivider: true,
                             ),
                             ItemTile(
                               title: "Add-On",
-                              value: "R\$ 00,00",
+                              value: state.detailsEvent!.addon.toCurrency(),
                               withDivider: false,
                             )
                           ],
@@ -134,8 +168,8 @@ class _SchedulePageState extends State<SchedulePage> {
                           title: "Fichas",
                           items: <ItemTile>[
                             ItemTile(
-                              title: "Data",
-                              value: "31/05/2023",
+                              title: "Fichas iniciais",
+                              value: state.detailsEvent!.chipCount.toString(),
                               withDivider: false,
                             ),
                           ],
@@ -159,7 +193,7 @@ class _SchedulePageState extends State<SchedulePage> {
                           vertical: Dimension.md.height,
                         ),
                         color: AppThemeBase.colorSecondary02,
-                        child: Html(data: "HTML AQUI")),
+                        child: Html(data: "PENDENTE DE ENVIO NA API")),
                   ),
                 ],
               ),

@@ -28,6 +28,9 @@ class H2PayViewModel extends ViewModel<H2PayState> {
     this._loginViewModel,
   ) : super(H2PayState.initial());
 
+  @override
+  void dispose() {}
+
   Future<void> loadCustomer() async {
     emit(
       state.copyWith(

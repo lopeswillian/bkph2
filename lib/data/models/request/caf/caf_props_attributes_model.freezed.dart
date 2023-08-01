@@ -22,7 +22,6 @@ CafPropsAttributesModel _$CafPropsAttributesModelFromJson(
 /// @nodoc
 mixin _$CafPropsAttributesModel {
   String get cpf => throw _privateConstructorUsedError;
-  String get birthDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +35,7 @@ abstract class $CafPropsAttributesModelCopyWith<$Res> {
           $Res Function(CafPropsAttributesModel) then) =
       _$CafPropsAttributesModelCopyWithImpl<$Res, CafPropsAttributesModel>;
   @useResult
-  $Res call({String cpf, String birthDate});
+  $Res call({String cpf});
 }
 
 /// @nodoc
@@ -54,16 +53,11 @@ class _$CafPropsAttributesModelCopyWithImpl<$Res,
   @override
   $Res call({
     Object? cpf = null,
-    Object? birthDate = null,
   }) {
     return _then(_value.copyWith(
       cpf: null == cpf
           ? _value.cpf
           : cpf // ignore: cast_nullable_to_non_nullable
-              as String,
-      birthDate: null == birthDate
-          ? _value.birthDate
-          : birthDate // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -77,7 +71,7 @@ abstract class _$$_CafPropsAttributesModelCopyWith<$Res>
       __$$_CafPropsAttributesModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String cpf, String birthDate});
+  $Res call({String cpf});
 }
 
 /// @nodoc
@@ -93,16 +87,11 @@ class __$$_CafPropsAttributesModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? cpf = null,
-    Object? birthDate = null,
   }) {
     return _then(_$_CafPropsAttributesModel(
       cpf: null == cpf
           ? _value.cpf
           : cpf // ignore: cast_nullable_to_non_nullable
-              as String,
-      birthDate: null == birthDate
-          ? _value.birthDate
-          : birthDate // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -111,20 +100,17 @@ class __$$_CafPropsAttributesModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_CafPropsAttributesModel extends _CafPropsAttributesModel {
-  _$_CafPropsAttributesModel({required this.cpf, required this.birthDate})
-      : super._();
+  _$_CafPropsAttributesModel({required this.cpf}) : super._();
 
   factory _$_CafPropsAttributesModel.fromJson(Map<String, dynamic> json) =>
       _$$_CafPropsAttributesModelFromJson(json);
 
   @override
   final String cpf;
-  @override
-  final String birthDate;
 
   @override
   String toString() {
-    return 'CafPropsAttributesModel(cpf: $cpf, birthDate: $birthDate)';
+    return 'CafPropsAttributesModel(cpf: $cpf)';
   }
 
   @override
@@ -132,14 +118,12 @@ class _$_CafPropsAttributesModel extends _CafPropsAttributesModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CafPropsAttributesModel &&
-            (identical(other.cpf, cpf) || other.cpf == cpf) &&
-            (identical(other.birthDate, birthDate) ||
-                other.birthDate == birthDate));
+            (identical(other.cpf, cpf) || other.cpf == cpf));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, cpf, birthDate);
+  int get hashCode => Object.hash(runtimeType, cpf);
 
   @JsonKey(ignore: true)
   @override
@@ -158,9 +142,8 @@ class _$_CafPropsAttributesModel extends _CafPropsAttributesModel {
 }
 
 abstract class _CafPropsAttributesModel extends CafPropsAttributesModel {
-  factory _CafPropsAttributesModel(
-      {required final String cpf,
-      required final String birthDate}) = _$_CafPropsAttributesModel;
+  factory _CafPropsAttributesModel({required final String cpf}) =
+      _$_CafPropsAttributesModel;
   _CafPropsAttributesModel._() : super._();
 
   factory _CafPropsAttributesModel.fromJson(Map<String, dynamic> json) =
@@ -168,8 +151,6 @@ abstract class _CafPropsAttributesModel extends CafPropsAttributesModel {
 
   @override
   String get cpf;
-  @override
-  String get birthDate;
   @override
   @JsonKey(ignore: true)
   _$$_CafPropsAttributesModelCopyWith<_$_CafPropsAttributesModel>

@@ -32,7 +32,6 @@ class CafRequestParamsModel with _$CafRequestParamsModel {
           .map((file) => CafFileParamModel(data: file.data, type: file.type))
           .toList(),
       attributes: CafPropsAttributesModel(
-        birthDate: params.attributes.birthDate,
         cpf: params.attributes.cpf,
       ),
       callbackUrl: params.callbackUrl,

@@ -55,7 +55,7 @@ class _H2HomePageState extends State<H2HomePage> {
                   child: QrImageView(
                     data: state.user!.id.toString(),
                     version: QrVersions.min,
-                    size: const Dimension(33.875).width,
+                    size: const Dimension(271/8).value,
                   ),
                 )
               ],

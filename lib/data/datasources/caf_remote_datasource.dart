@@ -15,10 +15,9 @@ class CafDatasource implements ICafDatasource {
   @override
   FutureOr<CafInfoModel> sendCafValidation(CafRequestParamsModel params) async {
     final response = await client.post(
-      'transactions?origin=TRUST',
+      'customer/request-caf',
       body: params.toJson(),
     );
-
     return CafInfoModel.fromJson(response.data);
   }
 }

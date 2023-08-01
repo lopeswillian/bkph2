@@ -72,9 +72,11 @@ class _HiringConditionsPageState extends State<HiringConditionsPage> {
                                 color: AppThemeBase.colorSecondary02,
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: const Dimension(1.87).width,
-                                vertical: const Dimension(1.25).height,
+                              padding: EdgeInsets.only(
+                                left: const Dimension(1.87).width,
+                                right: const Dimension(1.87).width,
+                                top: const Dimension(1.25).height,
+                                bottom: const Dimension(169/8).height
                               ),
                               child: Text(
                                 widget.term,

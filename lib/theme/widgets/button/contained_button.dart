@@ -84,22 +84,25 @@ class ContainedButton extends StatelessWidget {
     VoidCallback? onPressed,
     bool enabled = true,
     ButtonStyle? style,
+    bool loading = false,
     Widget? child,
     TextStyle? textStyle,
+    bool expand = false,
+    double? minimumHeight,
+    Widget? trailing,
+    EdgeInsets? padding,
   }) {
     return ContainedButton._(
       text: text,
       onPressed: onPressed,
       enabled: enabled,
-      minimumHeight: 28.0,
+      style: style,
+      loading: loading,
       textStyle: textStyle,
-      style: style ??
-          ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(
-              vertical: 8.0,
-              horizontal: 16.0,
-            ),
-          ),
+      expand: expand,
+      minimumHeight: minimumHeight,
+      trailing: trailing,
+      padding: padding,
       child: child,
     );
   }
@@ -205,7 +208,7 @@ class ContainedButton extends StatelessWidget {
               backgroundColor: MaterialStateProperty.resolveWith<Color?>(
                 (Set<MaterialState> states) {
                   if (states.contains(MaterialState.disabled)) {
-                    return Colors.transparent;
+                    return const Color(0xFFC6C6C6);
                   }
                   return Colors.transparent;
                 },

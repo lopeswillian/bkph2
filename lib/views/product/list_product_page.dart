@@ -4,7 +4,7 @@ import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/widgets/card_image.dart';
 import 'package:apph2/views/product/product_state.dart';
 import 'package:apph2/views/product/product_viewmodel.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide View;
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../theme/theme.dart';
@@ -18,14 +18,19 @@ class ListProductPage extends StatefulWidget {
   _ListProductPageState createState() => _ListProductPageState();
 }
 
-class _ListProductPageState
-    extends ViewState<ListProductPage, ProductViewModel> {
+class _ListProductPageState extends State<ListProductPage>
+    with View<ProductViewModel> {
   bool isKeyboardVisible = false;
 
   @override
   void initState() {
     super.initState();
-    viewModel.getProducts();
+  }
+
+  @override
+  void dispose() {
+    viewModel.dispose();
+    super.dispose();
   }
 
   @override
@@ -101,7 +106,12 @@ class _ListProductPageState
   }) {
     // ignore: unrelated_type_equality_checks
     if (accordionItem.itemId != '') {
-      return () => Nav.pushNamed(BaseAppModuleRouting.listSchedule);
+      return () => Nav.pushNamed(
+            BaseAppModuleRouting.listSchedule,
+            arguments: int.parse(
+              accordionItem.itemId,
+            ),
+          );
     }
 
     if (accordionItem.urlExternal != '') {

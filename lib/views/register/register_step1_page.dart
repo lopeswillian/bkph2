@@ -98,6 +98,7 @@ class _RegisterStep1State extends ViewState<RegisterStep1, RegisterViewModel> {
                   child: LayoutBuilder(
                     builder: (context, constraints) {
                       return SingleChildScrollView(
+                        reverse: true,
                         child: ConstrainedBox(
                           constraints: BoxConstraints(
                             minHeight: constraints.maxHeight,
@@ -141,34 +142,31 @@ class _RegisterStep1State extends ViewState<RegisterStep1, RegisterViewModel> {
                     },
                   ),
                 ),
-                Visibility(
-                  visible: !isKeyboardVisible,
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: IntrinsicHeight(
-                      child: Container(
-                        color: Colors.white,
-                        child: StepWidget(
-                          enabled: state.document != null,
-                          title: 'Avançar',
-                          stepQuantity: 3,
-                          onStep: 1,
-                          action: () {
-                            if (state.document!.isRewardsCustomer) {
-                              const snackBar = SnackBar(
-                                content: Text('Cpf já registrado'),
-                                duration: Duration(seconds: 2),
-                              );
-                              // ignore: use_build_context_synchronously
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                              return;
-                            }
-                            Nav.pushNamed(
-                              BaseAppModuleRouting.registerStep2,
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: IntrinsicHeight(
+                    child: Container(
+                      color: Colors.white,
+                      child: StepWidget(
+                        enabled: state.document != null,
+                        title: 'Avançar',
+                        stepQuantity: 3,
+                        onStep: 1,
+                        action: () {
+                          if (state.document!.isRewardsCustomer) {
+                            const snackBar = SnackBar(
+                              content: Text('Cpf já registrado'),
+                              duration: Duration(seconds: 2),
                             );
-                          },
-                        ),
+                            // ignore: use_build_context_synchronously
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                            return;
+                          }
+                          Nav.pushNamed(
+                            BaseAppModuleRouting.registerStep2,
+                          );
+                        },
                       ),
                     ),
                   ),

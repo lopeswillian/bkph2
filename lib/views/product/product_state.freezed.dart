@@ -20,6 +20,8 @@ mixin _$ProductState {
   String get error => throw _privateConstructorUsedError;
   List<ProductAccordionInfo> get accordionProducts =>
       throw _privateConstructorUsedError;
+  List<CalendarEvent> get listEvents => throw _privateConstructorUsedError;
+  CalendarEvent? get detailsEvent => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductStateCopyWith<ProductState> get copyWith =>
@@ -35,7 +37,11 @@ abstract class $ProductStateCopyWith<$Res> {
   $Res call(
       {bool loading,
       String error,
-      List<ProductAccordionInfo> accordionProducts});
+      List<ProductAccordionInfo> accordionProducts,
+      List<CalendarEvent> listEvents,
+      CalendarEvent? detailsEvent});
+
+  $CalendarEventCopyWith<$Res>? get detailsEvent;
 }
 
 /// @nodoc
@@ -54,6 +60,8 @@ class _$ProductStateCopyWithImpl<$Res, $Val extends ProductState>
     Object? loading = null,
     Object? error = null,
     Object? accordionProducts = null,
+    Object? listEvents = null,
+    Object? detailsEvent = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -68,7 +76,27 @@ class _$ProductStateCopyWithImpl<$Res, $Val extends ProductState>
           ? _value.accordionProducts
           : accordionProducts // ignore: cast_nullable_to_non_nullable
               as List<ProductAccordionInfo>,
+      listEvents: null == listEvents
+          ? _value.listEvents
+          : listEvents // ignore: cast_nullable_to_non_nullable
+              as List<CalendarEvent>,
+      detailsEvent: freezed == detailsEvent
+          ? _value.detailsEvent
+          : detailsEvent // ignore: cast_nullable_to_non_nullable
+              as CalendarEvent?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CalendarEventCopyWith<$Res>? get detailsEvent {
+    if (_value.detailsEvent == null) {
+      return null;
+    }
+
+    return $CalendarEventCopyWith<$Res>(_value.detailsEvent!, (value) {
+      return _then(_value.copyWith(detailsEvent: value) as $Val);
+    });
   }
 }
 
@@ -83,7 +111,12 @@ abstract class _$$_ProductStateCopyWith<$Res>
   $Res call(
       {bool loading,
       String error,
-      List<ProductAccordionInfo> accordionProducts});
+      List<ProductAccordionInfo> accordionProducts,
+      List<CalendarEvent> listEvents,
+      CalendarEvent? detailsEvent});
+
+  @override
+  $CalendarEventCopyWith<$Res>? get detailsEvent;
 }
 
 /// @nodoc
@@ -100,6 +133,8 @@ class __$$_ProductStateCopyWithImpl<$Res>
     Object? loading = null,
     Object? error = null,
     Object? accordionProducts = null,
+    Object? listEvents = null,
+    Object? detailsEvent = freezed,
   }) {
     return _then(_$_ProductState(
       loading: null == loading
@@ -114,6 +149,14 @@ class __$$_ProductStateCopyWithImpl<$Res>
           ? _value._accordionProducts
           : accordionProducts // ignore: cast_nullable_to_non_nullable
               as List<ProductAccordionInfo>,
+      listEvents: null == listEvents
+          ? _value._listEvents
+          : listEvents // ignore: cast_nullable_to_non_nullable
+              as List<CalendarEvent>,
+      detailsEvent: freezed == detailsEvent
+          ? _value.detailsEvent
+          : detailsEvent // ignore: cast_nullable_to_non_nullable
+              as CalendarEvent?,
     ));
   }
 }
@@ -124,8 +167,11 @@ class _$_ProductState implements _ProductState {
   const _$_ProductState(
       {this.loading = false,
       this.error = '',
-      final List<ProductAccordionInfo> accordionProducts = const []})
-      : _accordionProducts = accordionProducts;
+      final List<ProductAccordionInfo> accordionProducts = const [],
+      final List<CalendarEvent> listEvents = const [],
+      this.detailsEvent})
+      : _accordionProducts = accordionProducts,
+        _listEvents = listEvents;
 
   @override
   @JsonKey()
@@ -143,9 +189,21 @@ class _$_ProductState implements _ProductState {
     return EqualUnmodifiableListView(_accordionProducts);
   }
 
+  final List<CalendarEvent> _listEvents;
+  @override
+  @JsonKey()
+  List<CalendarEvent> get listEvents {
+    if (_listEvents is EqualUnmodifiableListView) return _listEvents;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_listEvents);
+  }
+
+  @override
+  final CalendarEvent? detailsEvent;
+
   @override
   String toString() {
-    return 'ProductState(loading: $loading, error: $error, accordionProducts: $accordionProducts)';
+    return 'ProductState(loading: $loading, error: $error, accordionProducts: $accordionProducts, listEvents: $listEvents, detailsEvent: $detailsEvent)';
   }
 
   @override
@@ -156,12 +214,21 @@ class _$_ProductState implements _ProductState {
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error) &&
             const DeepCollectionEquality()
-                .equals(other._accordionProducts, _accordionProducts));
+                .equals(other._accordionProducts, _accordionProducts) &&
+            const DeepCollectionEquality()
+                .equals(other._listEvents, _listEvents) &&
+            (identical(other.detailsEvent, detailsEvent) ||
+                other.detailsEvent == detailsEvent));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading, error,
-      const DeepCollectionEquality().hash(_accordionProducts));
+  int get hashCode => Object.hash(
+      runtimeType,
+      loading,
+      error,
+      const DeepCollectionEquality().hash(_accordionProducts),
+      const DeepCollectionEquality().hash(_listEvents),
+      detailsEvent);
 
   @JsonKey(ignore: true)
   @override
@@ -174,7 +241,9 @@ abstract class _ProductState implements ProductState {
   const factory _ProductState(
       {final bool loading,
       final String error,
-      final List<ProductAccordionInfo> accordionProducts}) = _$_ProductState;
+      final List<ProductAccordionInfo> accordionProducts,
+      final List<CalendarEvent> listEvents,
+      final CalendarEvent? detailsEvent}) = _$_ProductState;
 
   @override
   bool get loading;
@@ -182,6 +251,10 @@ abstract class _ProductState implements ProductState {
   String get error;
   @override
   List<ProductAccordionInfo> get accordionProducts;
+  @override
+  List<CalendarEvent> get listEvents;
+  @override
+  CalendarEvent? get detailsEvent;
   @override
   @JsonKey(ignore: true)
   _$$_ProductStateCopyWith<_$_ProductState> get copyWith =>

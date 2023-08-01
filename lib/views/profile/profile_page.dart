@@ -71,6 +71,12 @@ class _ProfilePageState extends ViewState<ProfilePage, ProfileViewModel> {
     _loginViewModel.logout();
   }
 
+  @override
+  void dispose(){
+    viewModel.dispose();
+    super.dispose();
+  }
+
   updateProfile() async {
     final user = viewModel.state.profile;
     if (user == null) return;
@@ -107,7 +113,8 @@ class _ProfilePageState extends ViewState<ProfilePage, ProfileViewModel> {
       },
       listenWhen: (previous, current) =>
           previous.profile != current.profile ||
-          previous.error != current.error,
+          previous.error != current.error ||
+          previous.updated != current.updated,
       listener: (context, state) {
         if (state.profile != null) {
           _selectedGender = state.profile?.gender ?? '';
@@ -132,6 +139,20 @@ class _ProfilePageState extends ViewState<ProfilePage, ProfileViewModel> {
           final snackBar = SnackBar(
             content: Text(state.error),
             duration: const Duration(seconds: 3),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
+
+        if (state.updated) {
+          const snackBar = SnackBar(
+            content: Text(
+              'Perfil atualizado!',
+              style: TextStyle(
+                color: Color(0xFF0F594C),
+              ),
+            ),
+            duration: Duration(seconds: 3),
+            backgroundColor: Color(0xFFD1E7DD),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
@@ -379,7 +400,7 @@ class _ProfilePageState extends ViewState<ProfilePage, ProfileViewModel> {
                       ),
                       Dimension.sm.vertical,
                       CustomTextFormField(
-                        labelText: 'Numero',
+                        labelText: 'Número',
                         controller: numberAddress,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -400,7 +421,7 @@ class _ProfilePageState extends ViewState<ProfilePage, ProfileViewModel> {
                 Text(
                   'Notificações',
                   textAlign: TextAlign.left,
-                  style: context.text.body2,
+                  style: context.text.calloutMedium,
                 ),
                 Dimension.md.vertical,
                 Row(
@@ -419,7 +440,7 @@ class _ProfilePageState extends ViewState<ProfilePage, ProfileViewModel> {
                     Dimension.sm.horizontal,
                     Text(
                       'Pontos',
-                      style: context.text.body1,
+                      style: context.text.caption,
                     )
                   ],
                 ),
@@ -439,7 +460,7 @@ class _ProfilePageState extends ViewState<ProfilePage, ProfileViewModel> {
                     Dimension.sm.horizontal,
                     Text(
                       'Categoria',
-                      style: context.text.body1,
+                      style: context.text.caption,
                     )
                   ],
                 ),
@@ -459,7 +480,7 @@ class _ProfilePageState extends ViewState<ProfilePage, ProfileViewModel> {
                     Dimension.sm.horizontal,
                     Text(
                       'Promoções',
-                      style: context.text.body1,
+                      style: context.text.caption,
                     )
                   ],
                 ),
@@ -479,7 +500,7 @@ class _ProfilePageState extends ViewState<ProfilePage, ProfileViewModel> {
                     Dimension.sm.horizontal,
                     Text(
                       'Resgate',
-                      style: context.text.body1,
+                      style: context.text.caption,
                     )
                   ],
                 ),
@@ -516,7 +537,7 @@ class _ProfilePageState extends ViewState<ProfilePage, ProfileViewModel> {
                           ),
                           onPressed: () {},
                           icon: const FaIcon(
-                            FontAwesomeIcons.upload,
+                            FontAwesomeIcons.pen,
                             color: Color(0xFF127FF9),
                             size: 15,
                           ),

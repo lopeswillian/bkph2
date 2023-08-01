@@ -22,7 +22,7 @@ class _H2PayHomePageState extends ViewState<H2PayHomePage, H2PayViewModel> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     viewModel.dispose();
     super.dispose();
   }
@@ -93,7 +93,9 @@ class _H2PayHomePageState extends ViewState<H2PayHomePage, H2PayViewModel> {
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: const Dimension(4.5).width),
+        padding: EdgeInsets.symmetric(
+          horizontal: const Dimension(4.5).width,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -102,8 +104,9 @@ class _H2PayHomePageState extends ViewState<H2PayHomePage, H2PayViewModel> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  onTap: () =>
-                      {Nav.pushNamed(BaseAppModuleRouting.hiringSumaryPage)},
+                  onTap: () => {
+                    Nav.pushNamed(BaseAppModuleRouting.hiringSumaryPage),
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                       color: AppThemeBase.colorPrimarySuperlight,

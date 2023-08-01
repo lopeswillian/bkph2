@@ -10,7 +10,6 @@ class CafPropsAttributesModel with _$CafPropsAttributesModel {
 
   factory CafPropsAttributesModel({
     required String cpf,
-    required String birthDate,
   }) = _CafPropsAttributesModel;
 
   factory CafPropsAttributesModel.fromJson(
@@ -22,7 +21,6 @@ class CafPropsAttributesModel with _$CafPropsAttributesModel {
     CafPropsAttributes params,
   ) {
     return CafPropsAttributesModel(
-      birthDate: params.birthDate,
       cpf: params.cpf
     );
   }

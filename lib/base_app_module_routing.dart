@@ -35,6 +35,9 @@ import 'package:apph2/views/register/register_finally_page.dart';
 import 'package:apph2/views/register/register_step1_page.dart';
 import 'package:apph2/views/register/register_step2_page.dart';
 import 'package:apph2/views/register/register_step3_page.dart';
+import 'package:apph2/views/rewards/points/rewards_points_page.dart';
+import 'package:apph2/views/rewards/redemption/redemption_page.dart';
+import 'package:apph2/views/rewards/redemption_rescue/redemption_rescue_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/svg.dart';
@@ -156,6 +159,16 @@ abstract class BaseAppModuleRouting {
   static const BasePath companyPaymentThirdPage =
       BasePath('/companyPaymentThirdPage');
 
+  /// Details of user points
+  static const BasePath rewardsPoints = BasePath('/rewardsPoints');
+
+  /// List of redenption
+  static const BasePath rewardsRedemption = BasePath('/rewardsRedemption');
+
+  /// Detail of prize
+  static const BasePath redemptionRescuePage =
+      BasePath('/redemptionRescuePage');
+
   ///
   /// Module routes definitions
   ///
@@ -226,11 +239,11 @@ abstract class BaseAppModuleRouting {
         ),
         ChildRoute(
           listSchedule.path,
-          child: (_, __) => const ListSchedulePage(),
+          child: (_, args) => ListSchedulePage(houseId: args.data),
         ),
         ChildRoute(
           scheduleDetail.path,
-          child: (_, __) => const SchedulePage(title: "Agenda"),
+          child: (_, args) =>  SchedulePage(eventId: args.data),
         ),
         ChildRoute(
           verifyPage.path,
@@ -331,6 +344,18 @@ abstract class BaseAppModuleRouting {
         ChildRoute(
           companyPaymentThirdPage.path,
           child: (_, args) => CompanyPaymentThirdPage(arguments: args.data),
+        ),
+        ChildRoute(
+          rewardsPoints.path,
+          child: (_, __) => const RewardsPointsPage(),
+        ),
+        ChildRoute(
+          rewardsRedemption.path,
+          child: (_, __) => const RewardsRedemptionPage(),
+        ),
+        ChildRoute(
+          redemptionRescuePage.path,
+          child: (_, args) => RedemptionRescuePage(rewardsId: args.data),
         ),
       ];
 }

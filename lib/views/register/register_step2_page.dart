@@ -86,238 +86,249 @@ class _RegisterStep2State extends State<RegisterStep2> {
         centerTitle: true,
       ),
       backgroundColor: Colors.transparent,
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFF166FED),
-              Color(0xFF00092A),
-            ],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-        ),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
         child: Container(
           decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(27),
-              topRight: Radius.circular(27),
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF166FED),
+                Color(0xFF00092A),
+              ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
             ),
           ),
-          child: Stack(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: Dimension.sm.width),
-                child: LayoutBuilder(
-                  builder: (context, constraints) {
-                    return SingleChildScrollView(
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          minHeight: constraints.maxHeight,
-                        ),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              Dimension.md.vertical,
-                              Text(
-                                'Ótimo! Agora precisamos de algumas informações pessoais para criar sua conta.',
-                                style: context.text.body1,
-                              ),
-                              Dimension.xl.vertical,
-                              CustomTextFormField(
-                                labelText: 'Nome Completo',
-                                enabled: false,
-                                initialValue:
-                                    registerViewModel.state.document!.name,
-                              ),
-                              Dimension.sm.vertical,
-                              CustomTextFormField(
-                                labelText: 'Data de Nascimento',
-                                enabled: false,
-                                initialValue: DateFormat('dd/MM/yyy')
-                                    .format(registerViewModel
-                                        .state.document!.birthdate)
-                                    .toString(),
-                              ),
-                              Dimension.sm.vertical,
-                              CustomTextFormField(
-                                controller: phone,
-                                inputFormatters: [phoneNumberFormatter],
-                                keyboardType: TextInputType.phone,
-                                labelText: 'Telefone Celular',
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Digite seu celular.';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              Dimension.sm.vertical,
-                              CustomTextFormField(
-                                controller: nickName,
-                                labelText: 'Apelido',
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Digite seu apelido.';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              Dimension.sm.vertical,
-                              ..._radioValues
-                                  .map(
-                                    (value) => RadioListTile(
-                                      title: Text(
-                                        value == 'f' ? "Feminino" : "Masculino",
-                                        style: context.text.body2,
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(27),
+                topRight: Radius.circular(27),
+              ),
+            ),
+            child: Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: Dimension.sm.width,
+                    right: Dimension.sm.width,
+                    bottom:
+                      isKeyboardVisible ? const Dimension(130 / 8).height : 0,
+                  ),
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return SingleChildScrollView(
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minHeight: constraints.maxHeight,
+                          ),
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                Dimension.md.vertical,
+                                Text(
+                                  'Ótimo! Agora precisamos de algumas informações pessoais para criar sua conta.',
+                                  style: context.text.body1,
+                                ),
+                                Dimension.xl.vertical,
+                                CustomTextFormField(
+                                  labelText: 'Nome Completo',
+                                  enabled: false,
+                                  initialValue:
+                                      registerViewModel.state.document!.name,
+                                ),
+                                Dimension.sm.vertical,
+                                CustomTextFormField(
+                                  labelText: 'Data de Nascimento',
+                                  enabled: false,
+                                  initialValue: DateFormat('dd/MM/yyy')
+                                      .format(registerViewModel
+                                          .state.document!.birthdate)
+                                      .toString(),
+                                ),
+                                Dimension.sm.vertical,
+                                CustomTextFormField(
+                                  controller: phone,
+                                  inputFormatters: [phoneNumberFormatter],
+                                  keyboardType: TextInputType.phone,
+                                  labelText: 'Telefone Celular',
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Digite seu celular.';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                Dimension.sm.vertical,
+                                CustomTextFormField(
+                                  controller: nickName,
+                                  labelText: 'Apelido',
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Digite seu apelido.';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                Dimension.sm.vertical,
+                                ..._radioValues
+                                    .map(
+                                      (value) => RadioListTile(
+                                        title: Text(
+                                          value == 'f'
+                                              ? "Feminino"
+                                              : "Masculino",
+                                          style: context.text.body2,
+                                        ),
+                                        dense: true,
+                                        contentPadding: EdgeInsets.zero,
+                                        visualDensity: const VisualDensity(
+                                          horizontal:
+                                              VisualDensity.minimumDensity,
+                                          vertical:
+                                              VisualDensity.minimumDensity,
+                                        ),
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                        value: value,
+                                        groupValue: _selectedGender,
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            _selectedGender = newValue!;
+                                          });
+                                        },
                                       ),
-                                      dense: true,
-                                      contentPadding: EdgeInsets.zero,
-                                      visualDensity: const VisualDensity(
-                                        horizontal: VisualDensity.minimumDensity,
-                                        vertical: VisualDensity.minimumDensity,
-                                      ),
-                                      materialTapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
-                                      value: value,
-                                      groupValue: _selectedGender,
-                                      onChanged: (newValue) {
-                                        setState(() {
-                                          _selectedGender = newValue!;
-                                        });
-                                      },
-                                    ),
-                                  )
-                                  .toList(),
-                              Dimension.sm.vertical,
-                              CustomTextFormField(
-                                inputFormatters: [cepFormater],
-                                labelText: 'CEP',
-                                keyboardType: TextInputType.number,
-                                controller: cep,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Digite seu cep.';
-                                  }
-                                  return null;
-                                },
-                                onChanged: (value) async {
-                                  if (address.text != '') {
-                                    state.text = '';
-                                    city.text = '';
-                                    address.text = '';
-                                    district.text = '';
-                                    setState(() {});
-                                  }
-                        
-                                  if (value.length == 10) {
-                                    String cep =
-                                        value.replaceAll(RegExp(r'[^0-9]'), '');
-                                    String url =
-                                        'https://viacep.com.br/ws/$cep/json/';
-                        
-                                    http.Response response =
-                                        await http.get(Uri.parse(url));
-                        
-                                    String responseData = response.body;
-                        
-                                    dynamic data = jsonDecode(responseData);
-                        
-                                    if (data['logradouro'] != null) {
-                                      state.text = data['uf'];
-                                      city.text = data['localidade'];
-                                      address.text = data['logradouro'];
-                                      district.text = data['bairro'];
+                                    )
+                                    .toList(),
+                                Dimension.sm.vertical,
+                                CustomTextFormField(
+                                  inputFormatters: [cepFormater],
+                                  labelText: 'CEP',
+                                  keyboardType: TextInputType.number,
+                                  controller: cep,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Digite seu cep.';
+                                    }
+                                    return null;
+                                  },
+                                  onChanged: (value) async {
+                                    if (address.text != '') {
+                                      state.text = '';
+                                      city.text = '';
+                                      address.text = '';
+                                      district.text = '';
                                       setState(() {});
                                     }
-                                  }
-                                },
-                              ),
-                              Visibility(
-                                visible: address.text != '',
-                                child: Column(
-                                  children: [
-                                    Dimension.sm.vertical,
-                                    CustomTextFormField(
-                                      enabled: false,
-                                      labelText: 'Estado',
-                                      controller: state,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Insira seu cep novamente.';
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    Dimension.sm.vertical,
-                                    CustomTextFormField(
-                                      enabled: false,
-                                      labelText: 'Cidade',
-                                      controller: city,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Insira seu cep novamente.';
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    Dimension.sm.vertical,
-                                    CustomTextFormField(
-                                      enabled: false,
-                                      labelText: 'Bairro',
-                                      controller: district,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Insira seu cep novamente.';
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    Dimension.sm.vertical,
-                                    CustomTextFormField(
-                                      enabled: false,
-                                      labelText: 'Endereço',
-                                      controller: address,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Insira seu cep novamente.';
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    Dimension.sm.vertical,
-                                    CustomTextFormField(
-                                      labelText: 'Numero',
-                                      controller: numberAddress,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Digite o numero do seu endereço.';
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    Dimension.sm.vertical,
-                                    CustomTextFormField(
-                                      labelText: 'Complemento',
-                                      controller: complement,
-                                    ),
-                                  ],
+      
+                                    if (value.length == 10) {
+                                      String cep = value.replaceAll(
+                                          RegExp(r'[^0-9]'), '');
+                                      String url =
+                                          'https://viacep.com.br/ws/$cep/json/';
+      
+                                      http.Response response =
+                                          await http.get(Uri.parse(url));
+      
+                                      String responseData = response.body;
+      
+                                      dynamic data = jsonDecode(responseData);
+      
+                                      if (data['logradouro'] != null) {
+                                        state.text = data['uf'];
+                                        city.text = data['localidade'];
+                                        address.text = data['logradouro'];
+                                        district.text = data['bairro'];
+                                        setState(() {});
+                                      }
+                                    }
+                                  },
                                 ),
-                              ),
-                              const Dimension(25).vertical,
-                            ],
+                                Visibility(
+                                  visible: address.text != '',
+                                  child: Column(
+                                    children: [
+                                      Dimension.sm.vertical,
+                                      CustomTextFormField(
+                                        enabled: false,
+                                        labelText: 'Estado',
+                                        controller: state,
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Insira seu cep novamente.';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      Dimension.sm.vertical,
+                                      CustomTextFormField(
+                                        enabled: false,
+                                        labelText: 'Cidade',
+                                        controller: city,
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Insira seu cep novamente.';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      Dimension.sm.vertical,
+                                      CustomTextFormField(
+                                        enabled: false,
+                                        labelText: 'Bairro',
+                                        controller: district,
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Insira seu cep novamente.';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      Dimension.sm.vertical,
+                                      CustomTextFormField(
+                                        enabled: false,
+                                        labelText: 'Endereço',
+                                        controller: address,
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Insira seu cep novamente.';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      Dimension.sm.vertical,
+                                      CustomTextFormField(
+                                        labelText: 'Numero',
+                                        controller: numberAddress,
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Digite o numero do seu endereço.';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      Dimension.sm.vertical,
+                                      CustomTextFormField(
+                                        labelText: 'Complemento',
+                                        controller: complement,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const Dimension(25).vertical,
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
-              ),
-              Visibility(
-                visible: !isKeyboardVisible,
-                child: Align(
+                Align(
                   alignment: Alignment.bottomCenter,
                   child: IntrinsicHeight(
                     child: Container(
@@ -345,7 +356,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                             );
                             return;
                           }
-
+      
                           const snackBar = SnackBar(
                             content:
                                 Text('Preencha todos os campos necessários'),
@@ -357,8 +368,8 @@ class _RegisterStep2State extends State<RegisterStep2> {
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

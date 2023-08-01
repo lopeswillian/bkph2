@@ -182,11 +182,10 @@ class VerifyViewModel extends ViewModel<VerifyState> {
     final response = await _sendCafValidationUseCase(
       CafRequestParams(
         files: state.cafFiles,
-        templateId: '64c2836492d4a60008f06caa',
+        templateId: '64c195bf4249320008d2265f',
         callbackUrl: 'https://dc023ad05f.nxcli.io/webhooks/caf/document-verification',
         attributes: CafPropsAttributes(
           cpf: _loginViewModel.state.user!.cpf,
-          birthDate: _loginViewModel.state.user!.birthdate,
         ),
       ),
     );

@@ -133,6 +133,7 @@ class _HiringSmsPageState extends State<HiringSmsPage>
                               ),
                               child: PinCodeTextField(
                                 appContext: context,
+                                autoFocus: true,
                                 autoDisposeControllers: false,
                                 length: 4,
                                 controller: pinCodeController,
