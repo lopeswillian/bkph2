@@ -3,11 +3,13 @@ import 'package:apph2/usecases/get_calendar_details_usecase.dart';
 import 'package:apph2/usecases/get_calendar_events_usecase.dart';
 import 'package:apph2/usecases/get_products_usecase.dart';
 import 'package:apph2/views/product/product_state.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductViewModel extends ViewModel<ProductState> {
   final IGetProductsUseCase _getProductsUseCase;
   final IGetCalendarEventsUseCase _getCalendarEventsUseCase;
   final IGetCalendarDetailsUseCase _getCalendarDetailsUseCase;
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   ProductViewModel(
     this._getProductsUseCase,
@@ -19,7 +21,19 @@ class ProductViewModel extends ViewModel<ProductState> {
   void dispose() {}
 
   Future<void> getProducts() async {
+    final SharedPreferences prefs = await _prefs;
+    final lastUpdate = state.accordionProducts.isEmpty
+        ? null
+        : prefs.getString('productsDateLoading');
+
+    if (lastUpdate != null &&
+        DateTime.now().difference(DateTime.parse(lastUpdate)).inMinutes < 30) {
+      return;
+    }
+
     emit(state.copyWith(loading: true));
+    prefs.setString('productsDateLoading', DateTime.now().toString());
+
     final response = await _getProductsUseCase();
 
     final newState = response.fold(
@@ -54,6 +68,7 @@ class ProductViewModel extends ViewModel<ProductState> {
         loading: false,
       ),
     );
+
     emit(newState);
   }
 

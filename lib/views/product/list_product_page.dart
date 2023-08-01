@@ -26,6 +26,7 @@ class _ListProductPageState extends State<ListProductPage>
   @override
   void initState() {
     super.initState();
+    viewModel.getProducts();
   }
 
   @override
