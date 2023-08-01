@@ -3,6 +3,7 @@ import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/infraestructure/num_extension.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/theme/widgets/custom_text.dart';
+import 'package:apph2/theme/widgets/h2loading.dart';
 import 'package:apph2/views/h2pay/h2pay_state.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
@@ -35,7 +36,7 @@ class _HiringPageState extends State<HiringPage> with View<H2PayViewModel> {
         return state.loading
             ? const Scaffold(
                 body: Center(
-                  child: CircularProgressIndicator(),
+                  child: H2Loading(),
                 ),
               )
             : _buildPage(context, state);

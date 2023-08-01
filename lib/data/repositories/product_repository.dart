@@ -1,5 +1,6 @@
 import 'package:apph2/data/datasources/product_remote_datasource.dart';
 import 'package:apph2/domain/entities/calendar_event.dart';
+import 'package:apph2/domain/entities/calendar_list_info.dart';
 import 'package:apph2/domain/entities/product_accordion_info.dart';
 import 'package:apph2/domain/failures/h2_failure.dart';
 import 'package:apph2/domain/repositories/product_repository.dart';
@@ -24,10 +25,10 @@ class ProductRepository implements IProductRepository {
   }
 
   @override
-  Future<Either<H2Failure, List<CalendarEvent>>> getEvents(int houseId) async {
+  Future<Either<H2Failure, CalendarListInfo>> getEvents(int houseId) async {
     try {
       var res = await datasource.getEvents(houseId);
-      return Right(res.map((e) => e.toEntity()).toList());
+      return Right(res.toEntity());
     } on IHttpException {
       return const Left(H2Failure.unexpected());
     } on Exception {

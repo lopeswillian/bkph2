@@ -1,6 +1,7 @@
 import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/theme.dart';
+import 'package:apph2/theme/widgets/h2loading.dart';
 import 'package:apph2/views/h2pay/h2pay_state.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
@@ -35,7 +36,7 @@ class _PaymentAccountPageState extends State<PaymentAccountPage>
         return state.loading
             ? const Scaffold(
                 body: Center(
-                  child: CircularProgressIndicator(),
+                  child: H2Loading(),
                 ),
               )
             : _buildPage(context, state);

@@ -2,6 +2,7 @@ import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
+import 'package:apph2/theme/widgets/h2loading.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/h2pay/payment/payment_state.dart';
 import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
@@ -40,7 +41,7 @@ class _HiringSmsPageState extends State<HiringSmsPage>
       builder: (context, state) {
         return state.loading
             ? const Scaffold(
-                body: Center(child: CircularProgressIndicator()),
+                body: Center(child: H2Loading()),
               )
             : _buildPage(context, state);
       },

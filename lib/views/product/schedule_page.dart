@@ -1,5 +1,6 @@
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/infraestructure/num_extension.dart';
+import 'package:apph2/theme/widgets/h2loading.dart';
 import 'package:apph2/views/product/product_state.dart';
 import 'package:apph2/views/product/product_viewmodel.dart';
 import 'package:flutter_html/flutter_html.dart' hide Dimension;
@@ -9,11 +10,20 @@ import 'package:flutter_svg/svg.dart';
 import '../../theme/theme.dart';
 import '../../theme/widgets/h2accordion.dart';
 
-class SchedulePage extends StatefulWidget {
+class SchedulePageArguments {
   final int eventId;
+  final String title;
+  SchedulePageArguments({
+    required this.eventId,
+    required this.title,
+  });
+}
+
+class SchedulePage extends StatefulWidget {
+  final SchedulePageArguments arguments; 
   const SchedulePage({
     Key? key,
-    required this.eventId,
+    required this.arguments
   }) : super(key: key);
 
   @override
@@ -28,7 +38,7 @@ class _SchedulePageState extends State<SchedulePage>
   @override
   void initState() {
     super.initState();
-    viewModel.getEventDetails(widget.eventId);
+    viewModel.getEventDetails(widget.arguments.eventId);
   }
 
   @override
@@ -42,7 +52,7 @@ class _SchedulePageState extends State<SchedulePage>
         return state.loading
             ? const Scaffold(
                 body: Center(
-                  child: CircularProgressIndicator(),
+                  child: H2Loading(),
                 ),
               )
             : _buildPage(context, state);
@@ -58,7 +68,7 @@ class _SchedulePageState extends State<SchedulePage>
             const Text('Agenda'),
             Dimension.xxs.vertical,
             Text(
-              'Curitiba',
+              widget.arguments.title,
               style: TextStyle(fontSize: 12.fontSize),
             )
           ],
@@ -129,11 +139,12 @@ class _SchedulePageState extends State<SchedulePage>
                               value: state.detailsEvent!.start,
                               withDivider: true,
                             ),
-                            ItemTile(
-                              title: "Último Registro",
-                              value: state.detailsEvent!.end,
-                              withDivider: false,
-                            )
+                            if (state.detailsEvent!.end != '')
+                              ItemTile(
+                                title: "Último Registro",
+                                value: state.detailsEvent!.end!,
+                                withDivider: false,
+                              )
                           ],
                           svgIcon:
                               '''<svg width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.75 0C2.96607 0 3.14286 0.16875 3.14286 0.375V1.5H7.85714V0.375C7.85714 0.16875 8.03393 0 8.25 0C8.46607 0 8.64286 0.16875 8.64286 0.375V1.5H9.42857C10.2953 1.5 11 2.17266 11 3V3.75V4.5V10.5C11 11.3273 10.2953 12 9.42857 12H1.57143C0.704687 12 0 11.3273 0 10.5V4.5V3.75V3C0 2.17266 0.704687 1.5 1.57143 1.5H2.35714V0.375C2.35714 0.16875 2.53393 0 2.75 0ZM10.2143 4.5H0.785714V10.5C0.785714 10.9148 1.13683 11.25 1.57143 11.25H9.42857C9.86317 11.25 10.2143 10.9148 10.2143 10.5V4.5ZM9.42857 2.25H1.57143C1.13683 2.25 0.785714 2.58516 0.785714 3V3.75H10.2143V3C10.2143 2.58516 9.86317 2.25 9.42857 2.25Z" fill="#166FED"/></svg>''',
@@ -188,12 +199,15 @@ class _SchedulePageState extends State<SchedulePage>
                     icon:
                         '''<svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.6667 1.5625C13.2505 1.5625 13.7222 2.0373 13.7222 2.625V6.875H14.7778V2.625C14.7778 1.45293 13.8311 0.5 12.6667 0.5H10.5556H8.44444H6.33333C5.16892 0.5 4.22222 1.45293 4.22222 2.625V6.875H5.27778V2.625C5.27778 2.0373 5.74948 1.5625 6.33333 1.5625H7.38889V3.42188C7.38889 4.15566 7.97934 4.75 8.70833 4.75H10.2917C11.0207 4.75 11.6111 4.15566 11.6111 3.42188V1.5625H12.6667ZM8.44444 1.5625H10.5556V3.42188C10.5556 3.56797 10.4368 3.6875 10.2917 3.6875H8.70833C8.56319 3.6875 8.44444 3.56797 8.44444 3.42188V1.5625ZM10.8063 17.5H16.8889C18.0533 17.5 19 16.5471 19 15.375V10.0625C19 8.89043 18.0533 7.9375 16.8889 7.9375H14.7778H12.6667H10.8063C11.08 8.24297 11.2944 8.60488 11.433 9H11.6111V10.0592V10.0625V10.8594C11.6111 11.5932 12.2016 12.1875 12.9306 12.1875H14.5139C15.2429 12.1875 15.8333 11.5932 15.8333 10.8594V9H16.8889C17.4727 9 17.9444 9.4748 17.9444 10.0625V15.375C17.9444 15.9627 17.4727 16.4375 16.8889 16.4375H11.4297C11.2911 16.8326 11.0767 17.1945 10.803 17.5H10.8063ZM12.6667 9H14.7778V10.8594C14.7778 11.0055 14.659 11.125 14.5139 11.125H12.9306C12.7854 11.125 12.6667 11.0055 12.6667 10.8594V9ZM8.44444 9C9.0283 9 9.5 9.4748 9.5 10.0625V15.375C9.5 15.9627 9.0283 16.4375 8.44444 16.4375H2.11111C1.52726 16.4375 1.05556 15.9627 1.05556 15.375V10.0625C1.05556 9.4748 1.52726 9 2.11111 9H3.16667V10.8594C3.16667 11.5932 3.75712 12.1875 4.48611 12.1875H6.06944C6.79844 12.1875 7.38889 11.5932 7.38889 10.8594V9H8.44444ZM4.22222 10.8594V9H6.33333V10.8594C6.33333 11.0055 6.21458 11.125 6.06944 11.125H4.48611C4.34097 11.125 4.22222 11.0055 4.22222 10.8594ZM8.44444 7.9375H7.38889H6.33333H4.22222H3.16667H2.11111C0.946701 7.9375 0 8.89043 0 10.0625V15.375C0 16.5471 0.946701 17.5 2.11111 17.5H8.44444C9.60885 17.5 10.5556 16.5471 10.5556 15.375V10.0625C10.5556 8.89043 9.60885 7.9375 8.44444 7.9375Z" fill="#CECECE"/></svg>''',
                     content: Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: Dimension.sm.width,
-                          vertical: Dimension.md.height,
-                        ),
-                        color: AppThemeBase.colorSecondary02,
-                        child: Html(data: "PENDENTE DE ENVIO NA API")),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: Dimension.sm.width,
+                        vertical: Dimension.md.height,
+                      ),
+                      color: AppThemeBase.colorSecondary02,
+                      child: Html(
+                        data: state.detailsEvent!.description,
+                      ),
+                    ),
                   ),
                 ],
               ),

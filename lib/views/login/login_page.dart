@@ -4,6 +4,7 @@ import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/theme/widgets/custom_text.dart';
+import 'package:apph2/theme/widgets/h2loading.dart';
 import 'package:apph2/views/login/login_state.dart';
 import 'package:apph2/views/login/login_viewmodel.dart';
 import 'package:flutter/material.dart' hide View;
@@ -30,7 +31,7 @@ class _LoginPageState extends State<LoginPage> with View<LoginViewModel> {
       builder: (context, state) {
         return state.loading
             ? const Center(
-                child: CircularProgressIndicator(),
+                child: H2Loading(),
               )
             : _buildPage(context, state);
       },

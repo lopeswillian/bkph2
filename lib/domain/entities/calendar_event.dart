@@ -12,11 +12,12 @@ class CalendarEvent with _$CalendarEvent {
     required String dateFormatted,
     required String dateShort,
     required String start,
-    required String end,
+    String? end,
     required double buyin,
     required double prize,
     required double rebuy,
     required double addon,
     required int chipCount,
+    required String description,
   }) = _CalendarEvent;
 }

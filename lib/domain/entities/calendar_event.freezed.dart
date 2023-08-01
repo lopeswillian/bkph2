@@ -23,12 +23,13 @@ mixin _$CalendarEvent {
   String get dateFormatted => throw _privateConstructorUsedError;
   String get dateShort => throw _privateConstructorUsedError;
   String get start => throw _privateConstructorUsedError;
-  String get end => throw _privateConstructorUsedError;
+  String? get end => throw _privateConstructorUsedError;
   double get buyin => throw _privateConstructorUsedError;
   double get prize => throw _privateConstructorUsedError;
   double get rebuy => throw _privateConstructorUsedError;
   double get addon => throw _privateConstructorUsedError;
   int get chipCount => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CalendarEventCopyWith<CalendarEvent> get copyWith =>
@@ -49,12 +50,13 @@ abstract class $CalendarEventCopyWith<$Res> {
       String dateFormatted,
       String dateShort,
       String start,
-      String end,
+      String? end,
       double buyin,
       double prize,
       double rebuy,
       double addon,
-      int chipCount});
+      int chipCount,
+      String description});
 }
 
 /// @nodoc
@@ -77,12 +79,13 @@ class _$CalendarEventCopyWithImpl<$Res, $Val extends CalendarEvent>
     Object? dateFormatted = null,
     Object? dateShort = null,
     Object? start = null,
-    Object? end = null,
+    Object? end = freezed,
     Object? buyin = null,
     Object? prize = null,
     Object? rebuy = null,
     Object? addon = null,
     Object? chipCount = null,
+    Object? description = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -113,10 +116,10 @@ class _$CalendarEventCopyWithImpl<$Res, $Val extends CalendarEvent>
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
               as String,
-      end: null == end
+      end: freezed == end
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       buyin: null == buyin
           ? _value.buyin
           : buyin // ignore: cast_nullable_to_non_nullable
@@ -137,6 +140,10 @@ class _$CalendarEventCopyWithImpl<$Res, $Val extends CalendarEvent>
           ? _value.chipCount
           : chipCount // ignore: cast_nullable_to_non_nullable
               as int,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -157,12 +164,13 @@ abstract class _$$_CalendarEventCopyWith<$Res>
       String dateFormatted,
       String dateShort,
       String start,
-      String end,
+      String? end,
       double buyin,
       double prize,
       double rebuy,
       double addon,
-      int chipCount});
+      int chipCount,
+      String description});
 }
 
 /// @nodoc
@@ -183,12 +191,13 @@ class __$$_CalendarEventCopyWithImpl<$Res>
     Object? dateFormatted = null,
     Object? dateShort = null,
     Object? start = null,
-    Object? end = null,
+    Object? end = freezed,
     Object? buyin = null,
     Object? prize = null,
     Object? rebuy = null,
     Object? addon = null,
     Object? chipCount = null,
+    Object? description = null,
   }) {
     return _then(_$_CalendarEvent(
       id: null == id
@@ -219,10 +228,10 @@ class __$$_CalendarEventCopyWithImpl<$Res>
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
               as String,
-      end: null == end
+      end: freezed == end
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       buyin: null == buyin
           ? _value.buyin
           : buyin // ignore: cast_nullable_to_non_nullable
@@ -243,6 +252,10 @@ class __$$_CalendarEventCopyWithImpl<$Res>
           ? _value.chipCount
           : chipCount // ignore: cast_nullable_to_non_nullable
               as int,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -258,12 +271,13 @@ class _$_CalendarEvent implements _CalendarEvent {
       required this.dateFormatted,
       required this.dateShort,
       required this.start,
-      required this.end,
+      this.end,
       required this.buyin,
       required this.prize,
       required this.rebuy,
       required this.addon,
-      required this.chipCount});
+      required this.chipCount,
+      required this.description});
 
   @override
   final int id;
@@ -280,7 +294,7 @@ class _$_CalendarEvent implements _CalendarEvent {
   @override
   final String start;
   @override
-  final String end;
+  final String? end;
   @override
   final double buyin;
   @override
@@ -291,10 +305,12 @@ class _$_CalendarEvent implements _CalendarEvent {
   final double addon;
   @override
   final int chipCount;
+  @override
+  final String description;
 
   @override
   String toString() {
-    return 'CalendarEvent(id: $id, title: $title, banner: $banner, fullDate: $fullDate, dateFormatted: $dateFormatted, dateShort: $dateShort, start: $start, end: $end, buyin: $buyin, prize: $prize, rebuy: $rebuy, addon: $addon, chipCount: $chipCount)';
+    return 'CalendarEvent(id: $id, title: $title, banner: $banner, fullDate: $fullDate, dateFormatted: $dateFormatted, dateShort: $dateShort, start: $start, end: $end, buyin: $buyin, prize: $prize, rebuy: $rebuy, addon: $addon, chipCount: $chipCount, description: $description)';
   }
 
   @override
@@ -318,7 +334,9 @@ class _$_CalendarEvent implements _CalendarEvent {
             (identical(other.rebuy, rebuy) || other.rebuy == rebuy) &&
             (identical(other.addon, addon) || other.addon == addon) &&
             (identical(other.chipCount, chipCount) ||
-                other.chipCount == chipCount));
+                other.chipCount == chipCount) &&
+            (identical(other.description, description) ||
+                other.description == description));
   }
 
   @override
@@ -336,7 +354,8 @@ class _$_CalendarEvent implements _CalendarEvent {
       prize,
       rebuy,
       addon,
-      chipCount);
+      chipCount,
+      description);
 
   @JsonKey(ignore: true)
   @override
@@ -354,12 +373,13 @@ abstract class _CalendarEvent implements CalendarEvent {
       required final String dateFormatted,
       required final String dateShort,
       required final String start,
-      required final String end,
+      final String? end,
       required final double buyin,
       required final double prize,
       required final double rebuy,
       required final double addon,
-      required final int chipCount}) = _$_CalendarEvent;
+      required final int chipCount,
+      required final String description}) = _$_CalendarEvent;
 
   @override
   int get id;
@@ -376,7 +396,7 @@ abstract class _CalendarEvent implements CalendarEvent {
   @override
   String get start;
   @override
-  String get end;
+  String? get end;
   @override
   double get buyin;
   @override
@@ -387,6 +407,8 @@ abstract class _CalendarEvent implements CalendarEvent {
   double get addon;
   @override
   int get chipCount;
+  @override
+  String get description;
   @override
   @JsonKey(ignore: true)
   _$$_CalendarEventCopyWith<_$_CalendarEvent> get copyWith =>

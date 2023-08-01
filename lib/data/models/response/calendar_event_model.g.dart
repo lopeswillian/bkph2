@@ -16,12 +16,13 @@ _$_CalendarEventModel _$$_CalendarEventModelFromJson(
       dateFormatted: json['date_formatted'] as String,
       dateShort: json['date_short'] as String,
       start: json['start'] as String,
-      end: json['end'] as String,
+      end: json['end'] as String?,
       buyin: (json['buyin'] as num).toDouble(),
       prize: (json['prize'] as num).toDouble(),
       rebuy: (json['rebuy'] as num).toDouble(),
       addon: (json['addon'] as num).toDouble(),
       chipCount: json['chip_count'] as int,
+      description: json['description'] as String?,
     );
 
 Map<String, dynamic> _$$_CalendarEventModelToJson(
@@ -40,4 +41,5 @@ Map<String, dynamic> _$$_CalendarEventModelToJson(
       'rebuy': instance.rebuy,
       'addon': instance.addon,
       'chip_count': instance.chipCount,
+      'description': instance.description,
     };

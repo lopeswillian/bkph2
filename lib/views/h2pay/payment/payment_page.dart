@@ -4,6 +4,7 @@ import 'package:apph2/infraestructure/num_extension.dart';
 import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/theme/widgets/custom_text.dart';
+import 'package:apph2/theme/widgets/h2loading.dart';
 import 'package:apph2/theme/widgets/money_format.dart';
 import 'package:apph2/views/h2pay/payment/payment_state.dart';
 import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
@@ -47,7 +48,7 @@ class _PaymentPageState extends ViewState<PaymentPage, PaymentViewModel> {
             ? _buildPage(context, state)
             : const Scaffold(
                 body: Center(
-                  child: CircularProgressIndicator(),
+                  child: H2Loading(),
                 ),
               );
       },

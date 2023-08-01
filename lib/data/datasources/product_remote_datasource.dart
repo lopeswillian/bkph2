@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'package:apph2/data/models/response/calendar_event_model.dart';
+import 'package:apph2/data/models/response/calendar_list_info_model.dart';
 import 'package:apph2/data/models/response/product_accordion_info_model.dart';
 import 'package:apph2/infraestructure/http/http_client.dart';
 
 abstract class IProductDatasource {
   FutureOr<List<ProductAccordionInfoModel>> getProducts();
 
-  FutureOr<List<CalendarEventModel>> getEvents(int houseId);
+  FutureOr<CalendarListInfoModel> getEvents(int houseId);
 
   FutureOr<CalendarEventModel> getEventDetails(int eventId);
 }
@@ -32,7 +33,7 @@ class ProductDatasource implements IProductDatasource {
   }
 
   @override
-  FutureOr<List<CalendarEventModel>> getEvents(int houseId) async {
+  FutureOr<CalendarListInfoModel> getEvents(int houseId) async {
     final response = await client.get(
       '$_basePathCalendar/calendar-list/$houseId',
     );
@@ -40,7 +41,8 @@ class ProductDatasource implements IProductDatasource {
     List<dynamic> dynamicEvents = response.data['data'];
     List<CalendarEventModel> listEvents =
         dynamicEvents.map((e) => CalendarEventModel.fromJson(e)).toList();
-    return listEvents;
+
+    return CalendarListInfoModel(name: response.data['name'], events: listEvents);
   }
 
   @override

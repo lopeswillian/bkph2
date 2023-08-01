@@ -3,6 +3,7 @@ import 'package:apph2/domain/entities/rewards_category.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/theme/widgets/h2accordion.dart';
+import 'package:apph2/theme/widgets/h2loading.dart';
 import 'package:apph2/views/rewards/rewards_state.dart';
 import 'package:apph2/views/rewards/rewards_viewmodel.dart';
 import 'package:flutter/material.dart' hide View;
@@ -33,7 +34,7 @@ class _RewardsRedemptionPageState extends State<RewardsRedemptionPage>
             ? _buildPage(context, state)
             : const Scaffold(
                 body: Center(
-                  child: CircularProgressIndicator(),
+                  child: H2Loading(),
                 ),
               );
       },

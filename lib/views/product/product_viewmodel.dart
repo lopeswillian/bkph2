@@ -39,7 +39,7 @@ class ProductViewModel extends ViewModel<ProductState> {
     emit(
       state.copyWith(
         loading: true,
-        listEvents: [],
+        listEvents: null,
       ),
     );
     final response = await _getCalendarEventsUseCase(houseId);

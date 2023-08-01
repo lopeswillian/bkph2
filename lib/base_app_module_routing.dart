@@ -239,11 +239,15 @@ abstract class BaseAppModuleRouting {
         ),
         ChildRoute(
           listSchedule.path,
-          child: (_, args) => ListSchedulePage(houseId: args.data),
+          child: (_, args) => ListSchedulePage(
+            houseId: args.data,
+          ),
         ),
         ChildRoute(
           scheduleDetail.path,
-          child: (_, args) =>  SchedulePage(eventId: args.data),
+          child: (_, args) => SchedulePage(
+            arguments: args.data,
+          ),
         ),
         ChildRoute(
           verifyPage.path,

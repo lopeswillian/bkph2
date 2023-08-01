@@ -4,6 +4,7 @@ import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
+import 'package:apph2/theme/widgets/h2loading.dart';
 import 'package:apph2/views/h2pay/payment/payment_state.dart';
 import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
 import 'package:apph2/views/h2pay/payment/widgets/custom_send_document.dart';
@@ -63,7 +64,7 @@ class _CompanyPaymentThirdPageState extends State<CompanyPaymentThirdPage>
       builder: (context, state) {
         return state.loading
             ? const Scaffold(
-                body: Center(child: CircularProgressIndicator()),
+                body: Center(child: H2Loading()),
               )
             : _buildPage(context, state);
       },

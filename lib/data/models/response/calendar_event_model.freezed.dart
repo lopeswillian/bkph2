@@ -30,13 +30,14 @@ mixin _$CalendarEventModel {
   @JsonKey(name: 'date_short')
   String get dateShort => throw _privateConstructorUsedError;
   String get start => throw _privateConstructorUsedError;
-  String get end => throw _privateConstructorUsedError;
+  String? get end => throw _privateConstructorUsedError;
   double get buyin => throw _privateConstructorUsedError;
   double get prize => throw _privateConstructorUsedError;
   double get rebuy => throw _privateConstructorUsedError;
   double get addon => throw _privateConstructorUsedError;
   @JsonKey(name: 'chip_count')
   int get chipCount => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -58,12 +59,13 @@ abstract class $CalendarEventModelCopyWith<$Res> {
       @JsonKey(name: 'date_formatted') String dateFormatted,
       @JsonKey(name: 'date_short') String dateShort,
       String start,
-      String end,
+      String? end,
       double buyin,
       double prize,
       double rebuy,
       double addon,
-      @JsonKey(name: 'chip_count') int chipCount});
+      @JsonKey(name: 'chip_count') int chipCount,
+      String? description});
 }
 
 /// @nodoc
@@ -86,12 +88,13 @@ class _$CalendarEventModelCopyWithImpl<$Res, $Val extends CalendarEventModel>
     Object? dateFormatted = null,
     Object? dateShort = null,
     Object? start = null,
-    Object? end = null,
+    Object? end = freezed,
     Object? buyin = null,
     Object? prize = null,
     Object? rebuy = null,
     Object? addon = null,
     Object? chipCount = null,
+    Object? description = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -122,10 +125,10 @@ class _$CalendarEventModelCopyWithImpl<$Res, $Val extends CalendarEventModel>
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
               as String,
-      end: null == end
+      end: freezed == end
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       buyin: null == buyin
           ? _value.buyin
           : buyin // ignore: cast_nullable_to_non_nullable
@@ -146,6 +149,10 @@ class _$CalendarEventModelCopyWithImpl<$Res, $Val extends CalendarEventModel>
           ? _value.chipCount
           : chipCount // ignore: cast_nullable_to_non_nullable
               as int,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -166,12 +173,13 @@ abstract class _$$_CalendarEventModelCopyWith<$Res>
       @JsonKey(name: 'date_formatted') String dateFormatted,
       @JsonKey(name: 'date_short') String dateShort,
       String start,
-      String end,
+      String? end,
       double buyin,
       double prize,
       double rebuy,
       double addon,
-      @JsonKey(name: 'chip_count') int chipCount});
+      @JsonKey(name: 'chip_count') int chipCount,
+      String? description});
 }
 
 /// @nodoc
@@ -192,12 +200,13 @@ class __$$_CalendarEventModelCopyWithImpl<$Res>
     Object? dateFormatted = null,
     Object? dateShort = null,
     Object? start = null,
-    Object? end = null,
+    Object? end = freezed,
     Object? buyin = null,
     Object? prize = null,
     Object? rebuy = null,
     Object? addon = null,
     Object? chipCount = null,
+    Object? description = freezed,
   }) {
     return _then(_$_CalendarEventModel(
       id: null == id
@@ -228,10 +237,10 @@ class __$$_CalendarEventModelCopyWithImpl<$Res>
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
               as String,
-      end: null == end
+      end: freezed == end
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       buyin: null == buyin
           ? _value.buyin
           : buyin // ignore: cast_nullable_to_non_nullable
@@ -252,6 +261,10 @@ class __$$_CalendarEventModelCopyWithImpl<$Res>
           ? _value.chipCount
           : chipCount // ignore: cast_nullable_to_non_nullable
               as int,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -267,12 +280,13 @@ class _$_CalendarEventModel extends _CalendarEventModel {
       @JsonKey(name: 'date_formatted') required this.dateFormatted,
       @JsonKey(name: 'date_short') required this.dateShort,
       required this.start,
-      required this.end,
+      this.end,
       required this.buyin,
       required this.prize,
       required this.rebuy,
       required this.addon,
-      @JsonKey(name: 'chip_count') required this.chipCount})
+      @JsonKey(name: 'chip_count') required this.chipCount,
+      this.description})
       : super._();
 
   factory _$_CalendarEventModel.fromJson(Map<String, dynamic> json) =>
@@ -296,7 +310,7 @@ class _$_CalendarEventModel extends _CalendarEventModel {
   @override
   final String start;
   @override
-  final String end;
+  final String? end;
   @override
   final double buyin;
   @override
@@ -308,10 +322,12 @@ class _$_CalendarEventModel extends _CalendarEventModel {
   @override
   @JsonKey(name: 'chip_count')
   final int chipCount;
+  @override
+  final String? description;
 
   @override
   String toString() {
-    return 'CalendarEventModel(id: $id, title: $title, banner: $banner, fullDate: $fullDate, dateFormatted: $dateFormatted, dateShort: $dateShort, start: $start, end: $end, buyin: $buyin, prize: $prize, rebuy: $rebuy, addon: $addon, chipCount: $chipCount)';
+    return 'CalendarEventModel(id: $id, title: $title, banner: $banner, fullDate: $fullDate, dateFormatted: $dateFormatted, dateShort: $dateShort, start: $start, end: $end, buyin: $buyin, prize: $prize, rebuy: $rebuy, addon: $addon, chipCount: $chipCount, description: $description)';
   }
 
   @override
@@ -335,7 +351,9 @@ class _$_CalendarEventModel extends _CalendarEventModel {
             (identical(other.rebuy, rebuy) || other.rebuy == rebuy) &&
             (identical(other.addon, addon) || other.addon == addon) &&
             (identical(other.chipCount, chipCount) ||
-                other.chipCount == chipCount));
+                other.chipCount == chipCount) &&
+            (identical(other.description, description) ||
+                other.description == description));
   }
 
   @JsonKey(ignore: true)
@@ -354,7 +372,8 @@ class _$_CalendarEventModel extends _CalendarEventModel {
       prize,
       rebuy,
       addon,
-      chipCount);
+      chipCount,
+      description);
 
   @JsonKey(ignore: true)
   @override
@@ -373,20 +392,20 @@ class _$_CalendarEventModel extends _CalendarEventModel {
 
 abstract class _CalendarEventModel extends CalendarEventModel {
   factory _CalendarEventModel(
-          {required final int id,
-          required final String title,
-          required final String banner,
-          @JsonKey(name: 'full_date') required final String fullDate,
-          @JsonKey(name: 'date_formatted') required final String dateFormatted,
-          @JsonKey(name: 'date_short') required final String dateShort,
-          required final String start,
-          required final String end,
-          required final double buyin,
-          required final double prize,
-          required final double rebuy,
-          required final double addon,
-          @JsonKey(name: 'chip_count') required final int chipCount}) =
-      _$_CalendarEventModel;
+      {required final int id,
+      required final String title,
+      required final String banner,
+      @JsonKey(name: 'full_date') required final String fullDate,
+      @JsonKey(name: 'date_formatted') required final String dateFormatted,
+      @JsonKey(name: 'date_short') required final String dateShort,
+      required final String start,
+      final String? end,
+      required final double buyin,
+      required final double prize,
+      required final double rebuy,
+      required final double addon,
+      @JsonKey(name: 'chip_count') required final int chipCount,
+      final String? description}) = _$_CalendarEventModel;
   _CalendarEventModel._() : super._();
 
   factory _CalendarEventModel.fromJson(Map<String, dynamic> json) =
@@ -410,7 +429,7 @@ abstract class _CalendarEventModel extends CalendarEventModel {
   @override
   String get start;
   @override
-  String get end;
+  String? get end;
   @override
   double get buyin;
   @override
@@ -422,6 +441,8 @@ abstract class _CalendarEventModel extends CalendarEventModel {
   @override
   @JsonKey(name: 'chip_count')
   int get chipCount;
+  @override
+  String? get description;
   @override
   @JsonKey(ignore: true)
   _$$_CalendarEventModelCopyWith<_$_CalendarEventModel> get copyWith =>

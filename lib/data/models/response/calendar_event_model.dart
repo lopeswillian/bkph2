@@ -17,12 +17,13 @@ class CalendarEventModel with _$CalendarEventModel {
     @JsonKey(name: 'date_formatted') required String dateFormatted,
     @JsonKey(name: 'date_short') required String dateShort,
     required String start,
-    required String end,
+    String? end,
     required double buyin,
     required double prize,
     required double rebuy,
     required double addon,
     @JsonKey(name: 'chip_count') required int chipCount,
+    String? description,
   }) = _CalendarEventModel;
 
   factory CalendarEventModel.fromJson(
@@ -38,11 +39,12 @@ class CalendarEventModel with _$CalendarEventModel {
         dateFormatted: dateFormatted,
         dateShort: dateShort,
         start: start,
-        end: end,
+        end: end ?? '',
         buyin: buyin,
         prize: prize,
         rebuy: rebuy,
         addon: addon,
         chipCount: chipCount,
+        description: description ?? '',
       );
 }

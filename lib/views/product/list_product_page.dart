@@ -2,6 +2,7 @@ import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/domain/entities/product_accordion_item_info.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/widgets/card_image.dart';
+import 'package:apph2/theme/widgets/h2loading.dart';
 import 'package:apph2/views/product/product_state.dart';
 import 'package:apph2/views/product/product_viewmodel.dart';
 import 'package:flutter/material.dart' hide View;
@@ -43,7 +44,7 @@ class _ListProductPageState extends State<ListProductPage>
       builder: (context, state) {
         return state.loading
             ? const Center(
-                child: CircularProgressIndicator(),
+                child: H2Loading(),
               )
             : _buildPage(context, state);
       },

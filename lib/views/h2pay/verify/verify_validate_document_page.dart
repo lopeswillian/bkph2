@@ -3,6 +3,7 @@ import 'package:apph2/domain/entities/caf_file_param.dart';
 import 'package:apph2/domain/entities/document_side_type.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/theme.dart';
+import 'package:apph2/theme/widgets/h2loading.dart';
 import 'package:apph2/views/h2pay/verify/verify_state.dart';
 import 'package:apph2/views/h2pay/verify/verify_viewmodel.dart';
 import 'package:apph2/views/h2pay/verify/widgets/widgets.dart';
@@ -67,7 +68,7 @@ class _VerifyValidateDocumentPageState extends State<VerifyValidateDocumentPage>
         return state.loading
             ? const Scaffold(
                 body: Center(
-                  child: CircularProgressIndicator(),
+                  child: H2Loading(),
                 ),
               )
             : _buildPage(context, state);

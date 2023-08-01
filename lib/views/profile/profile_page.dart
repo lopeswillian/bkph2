@@ -5,6 +5,7 @@ import 'package:apph2/domain/entities/rewards_id_param.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/theme/widgets/custom_text.dart';
+import 'package:apph2/theme/widgets/h2loading.dart';
 import 'package:apph2/views/login/login_viewmodel.dart';
 import 'package:apph2/views/profile/profile_state.dart';
 import 'package:apph2/views/profile/profile_viewmodel.dart';
@@ -161,7 +162,7 @@ class _ProfilePageState extends ViewState<ProfilePage, ProfileViewModel> {
         return state.loading
             ? const Scaffold(
                 body: Center(
-                  child: CircularProgressIndicator(),
+                  child: H2Loading(),
                 ),
               )
             : _buildPage(context, state);

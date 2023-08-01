@@ -1,5 +1,6 @@
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/theme.dart';
+import 'package:apph2/theme/widgets/h2loading.dart';
 import 'package:apph2/views/rewards/points/widgets/custom_switch_point.dart';
 import 'package:apph2/views/rewards/rewards_state.dart';
 import 'package:apph2/views/rewards/rewards_viewmodel.dart';
@@ -35,7 +36,7 @@ class _RewardsPointsPageState extends State<RewardsPointsPage>
             ? _buildPage(context, state)
             : const Scaffold(
                 body: Center(
-                  child: CircularProgressIndicator(),
+                  child: H2Loading(),
                 ),
               );
       },
