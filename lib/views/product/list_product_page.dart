@@ -60,6 +60,9 @@ class _ListProductPageState extends State<ListProductPage>
       ),
       child: Column(
         children: [
+          Container(
+            height: 1,
+          ),
           ...state.accordionProducts
               .map(
                 (accordion) => Column(

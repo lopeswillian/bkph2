@@ -134,6 +134,8 @@ class _ProfilePageState extends ViewState<ProfilePage, ProfileViewModel> {
           notifyRedemption = state.profile!.notifyRedemption;
           notifyPromotion = state.profile!.notifyPromotion;
           notifyCategory = state.profile!.notifyCategory;
+        }else{
+          logout();
         }
 
         if (state.error != '') {

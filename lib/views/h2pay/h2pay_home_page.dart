@@ -1,9 +1,12 @@
 import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
+import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/theme/widgets/h2loading.dart';
 import 'package:apph2/views/h2pay/h2pay_state.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
+import 'package:apph2/views/login/login_state.dart';
+import 'package:apph2/views/login/login_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -16,10 +19,13 @@ class H2PayHomePage extends StatefulWidget {
 }
 
 class _H2PayHomePageState extends ViewState<H2PayHomePage, H2PayViewModel> {
+  late LoginState userState;
+
   @override
   void initState() {
     super.initState();
     viewModel.loadCustomer();
+    userState = DM.get<LoginViewModel>().state;
   }
 
   @override
@@ -44,6 +50,47 @@ class _H2PayHomePageState extends ViewState<H2PayHomePage, H2PayViewModel> {
   }
 
   Widget _buildPage(BuildContext context, H2PayState state) {
+    if (!userState.user!.ish2Pay) {
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: Dimension.sm.width),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(),
+            SvgPicture.asset(
+              'assets/images/call_manager.svg',
+              width: const Dimension(275.47 / 8).width,
+            ),
+            const Dimension(89 / 8).vertical,
+            SizedBox(
+              width: const Dimension(312 / 8).width,
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  style: TextStyle(fontSize: 18.fontSize),
+                  children: <TextSpan>[
+                    const TextSpan(
+                      text: 'Você não possui essa opção habilitada!',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: AppThemeBase.colorPrimaryLight),
+                    ),
+                    TextSpan(
+                      text: ' Por favor entre em contato com seu gerente.',
+                      style: TextStyle(
+                        color: context.colorScheme.colorPrimaryDarkest,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     if (state.customer != null && !state.customer!.h2PayUser) {
       return Padding(
         padding: EdgeInsets.symmetric(horizontal: Dimension.sm.width),

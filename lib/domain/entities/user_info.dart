@@ -20,6 +20,7 @@ class UserInfo with _$UserInfo {
     @HiveField(10)required int vipOnlineId,
     @HiveField(11)required String vipLive,
     @HiveField(12)required String vipOnline,
+    @HiveField(13) required bool ish2Pay,
   }) = _UserInfo;
 
 }

@@ -6,6 +6,7 @@ import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/firebase_options.dart';
 import 'package:apph2/theme/theme_factory.dart';
 import 'package:apph2/theme/widgets/custom_bottom_navigation.dart';
+import 'package:apph2/views/feedback/error_network_page.dart';
 import 'package:apph2/views/h2pay/h2pay_home_page.dart';
 import 'package:apph2/views/home/home_page.dart';
 import 'package:apph2/views/login/login_page.dart';
@@ -22,10 +23,12 @@ import 'package:flutter/material.dart' hide View;
 import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 import 'base_app_module.dart';
 import 'infraestructure/infraestructure.dart';
@@ -217,7 +220,10 @@ late AndroidNotificationChannel channel;
 late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  FlutterNativeSplash.remove();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -280,6 +286,13 @@ void main() async {
   runApp(ModularApp(module: BaseAppModule(), child: const MyApp()));
 }
 
+Stream<bool> checkInternetConnectivity() async* {
+  var connectivity = Connectivity();
+  await for (var result in connectivity.onConnectivityChanged) {
+    yield result != ConnectivityResult.none;
+  }
+}
+
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -324,7 +337,16 @@ class _MyAppState extends State<MyApp> {
               theme: ThemeFactory.light(),
               // darkTheme: ThemeFactory.dark(),
               builder: (context, child) {
-                return BotToastInit()(context, child);
+                return StreamBuilder(
+                  stream: checkInternetConnectivity(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData && snapshot.data == false) {
+                      return const ErrorNetworkPage();
+                    } else {
+                      return BotToastInit()(context, child);
+                    }
+                  },
+                );
               },
             );
           },

@@ -1,5 +1,5 @@
 import 'package:apph2/main.dart';
-import 'package:apph2/theme/theme.dart';
+import 'package:apph2/theme/dimension.dart';
 import 'package:apph2/views/h2pay/h2pay_home_page.dart';
 import 'package:apph2/views/h2pay/hiring/hiring_conditions_page.dart';
 import 'package:apph2/views/h2pay/hiring/hiring_finish_page.dart';

@@ -32,6 +32,7 @@ class H2PayViewModel extends ViewModel<H2PayState> {
   void dispose() {}
 
   Future<void> loadCustomer() async {
+    if(!_loginViewModel.state.user!.ish2Pay) return;
     emit(
       state.copyWith(
         loading: true,

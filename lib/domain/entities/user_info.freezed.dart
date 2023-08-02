@@ -40,6 +40,8 @@ mixin _$UserInfo {
   String get vipLive => throw _privateConstructorUsedError;
   @HiveField(12)
   String get vipOnline => throw _privateConstructorUsedError;
+  @HiveField(13)
+  bool get ish2Pay => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserInfoCopyWith<UserInfo> get copyWith =>
@@ -63,7 +65,8 @@ abstract class $UserInfoCopyWith<$Res> {
       @HiveField(9) int vipLiveId,
       @HiveField(10) int vipOnlineId,
       @HiveField(11) String vipLive,
-      @HiveField(12) String vipOnline});
+      @HiveField(12) String vipOnline,
+      @HiveField(13) bool ish2Pay});
 }
 
 /// @nodoc
@@ -91,6 +94,7 @@ class _$UserInfoCopyWithImpl<$Res, $Val extends UserInfo>
     Object? vipOnlineId = null,
     Object? vipLive = null,
     Object? vipOnline = null,
+    Object? ish2Pay = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -141,6 +145,10 @@ class _$UserInfoCopyWithImpl<$Res, $Val extends UserInfo>
           ? _value.vipOnline
           : vipOnline // ignore: cast_nullable_to_non_nullable
               as String,
+      ish2Pay: null == ish2Pay
+          ? _value.ish2Pay
+          : ish2Pay // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -164,7 +172,8 @@ abstract class _$$_UserInfoCopyWith<$Res> implements $UserInfoCopyWith<$Res> {
       @HiveField(9) int vipLiveId,
       @HiveField(10) int vipOnlineId,
       @HiveField(11) String vipLive,
-      @HiveField(12) String vipOnline});
+      @HiveField(12) String vipOnline,
+      @HiveField(13) bool ish2Pay});
 }
 
 /// @nodoc
@@ -190,6 +199,7 @@ class __$$_UserInfoCopyWithImpl<$Res>
     Object? vipOnlineId = null,
     Object? vipLive = null,
     Object? vipOnline = null,
+    Object? ish2Pay = null,
   }) {
     return _then(_$_UserInfo(
       id: null == id
@@ -240,6 +250,10 @@ class __$$_UserInfoCopyWithImpl<$Res>
           ? _value.vipOnline
           : vipOnline // ignore: cast_nullable_to_non_nullable
               as String,
+      ish2Pay: null == ish2Pay
+          ? _value.ish2Pay
+          : ish2Pay // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -259,7 +273,8 @@ class _$_UserInfo implements _UserInfo {
       @HiveField(9) required this.vipLiveId,
       @HiveField(10) required this.vipOnlineId,
       @HiveField(11) required this.vipLive,
-      @HiveField(12) required this.vipOnline});
+      @HiveField(12) required this.vipOnline,
+      @HiveField(13) required this.ish2Pay});
 
   @override
   @HiveField(1)
@@ -297,10 +312,13 @@ class _$_UserInfo implements _UserInfo {
   @override
   @HiveField(12)
   final String vipOnline;
+  @override
+  @HiveField(13)
+  final bool ish2Pay;
 
   @override
   String toString() {
-    return 'UserInfo(id: $id, avatarUrl: $avatarUrl, name: $name, email: $email, birthdate: $birthdate, cpf: $cpf, nickname: $nickname, cellphone: $cellphone, vipLiveId: $vipLiveId, vipOnlineId: $vipOnlineId, vipLive: $vipLive, vipOnline: $vipOnline)';
+    return 'UserInfo(id: $id, avatarUrl: $avatarUrl, name: $name, email: $email, birthdate: $birthdate, cpf: $cpf, nickname: $nickname, cellphone: $cellphone, vipLiveId: $vipLiveId, vipOnlineId: $vipOnlineId, vipLive: $vipLive, vipOnline: $vipOnline, ish2Pay: $ish2Pay)';
   }
 
   @override
@@ -326,7 +344,8 @@ class _$_UserInfo implements _UserInfo {
                 other.vipOnlineId == vipOnlineId) &&
             (identical(other.vipLive, vipLive) || other.vipLive == vipLive) &&
             (identical(other.vipOnline, vipOnline) ||
-                other.vipOnline == vipOnline));
+                other.vipOnline == vipOnline) &&
+            (identical(other.ish2Pay, ish2Pay) || other.ish2Pay == ish2Pay));
   }
 
   @override
@@ -343,7 +362,8 @@ class _$_UserInfo implements _UserInfo {
       vipLiveId,
       vipOnlineId,
       vipLive,
-      vipOnline);
+      vipOnline,
+      ish2Pay);
 
   @JsonKey(ignore: true)
   @override
@@ -365,7 +385,8 @@ abstract class _UserInfo implements UserInfo {
       @HiveField(9) required final int vipLiveId,
       @HiveField(10) required final int vipOnlineId,
       @HiveField(11) required final String vipLive,
-      @HiveField(12) required final String vipOnline}) = _$_UserInfo;
+      @HiveField(12) required final String vipOnline,
+      @HiveField(13) required final bool ish2Pay}) = _$_UserInfo;
 
   @override
   @HiveField(1)
@@ -403,6 +424,9 @@ abstract class _UserInfo implements UserInfo {
   @override
   @HiveField(12)
   String get vipOnline;
+  @override
+  @HiveField(13)
+  bool get ish2Pay;
   @override
   @JsonKey(ignore: true)
   _$$_UserInfoCopyWith<_$_UserInfo> get copyWith =>

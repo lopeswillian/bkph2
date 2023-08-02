@@ -60,6 +60,7 @@ class LoginViewModel extends ViewModel<LoginState> {
           vipOnlineId: decodedToken['customer_vip_online_id'],
           vipLive: decodedToken['customer_vip_live'],
           vipOnline: decodedToken['customer_vip_online'],
+          ish2Pay: decodedToken['customer_h2_pay']
         );
         return state.copyWith(
           loading: false,
@@ -91,6 +92,7 @@ class LoginViewModel extends ViewModel<LoginState> {
       vipOnlineId: decodedToken['customer_vip_online_id'],
       vipLive: decodedToken['customer_vip_live'],
       vipOnline: decodedToken['customer_vip_online'],
+      ish2Pay: decodedToken['customer_h2_pay'],
     );
     emit(
       state.copyWith(
@@ -119,6 +121,7 @@ class LoginViewModel extends ViewModel<LoginState> {
         vipOnlineId: decodedToken['customer_vip_online_id'],
         vipLive: decodedToken['customer_vip_live'],
         vipOnline: decodedToken['customer_vip_online'],
+        ish2Pay: decodedToken['customer_h2_pay']??false
       );
       emit(
         state.copyWith(

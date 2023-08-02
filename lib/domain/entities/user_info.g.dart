@@ -29,13 +29,14 @@ class UserInfoAdapter extends TypeAdapter<UserInfo> {
       vipOnlineId: fields[10] as int,
       vipLive: fields[11] as String,
       vipOnline: fields[12] as String,
+      ish2Pay: fields[13] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserInfo obj) {
     writer
-      ..writeByte(12)
+      ..writeByte(13)
       ..writeByte(1)
       ..write(obj.id)
       ..writeByte(2)
@@ -59,7 +60,9 @@ class UserInfoAdapter extends TypeAdapter<UserInfo> {
       ..writeByte(11)
       ..write(obj.vipLive)
       ..writeByte(12)
-      ..write(obj.vipOnline);
+      ..write(obj.vipOnline)
+      ..writeByte(13)
+      ..write(obj.ish2Pay);
   }
 
   @override
