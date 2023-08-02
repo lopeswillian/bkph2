@@ -35,23 +35,34 @@ class _H2LoadingState extends State<H2Loading> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SizedBox(
-          width: const Dimension(230 / 8).width,
-          height: const Dimension(127 / 8).height,
-          child: SvgPicture.asset('assets/images/logo.svg'),
+        SvgPicture.asset(
+          'assets/images/logo.svg',
+          width: const Dimension(28.75).width,
         ),
         Positioned(
-          top: 10.5,
-          left: 10.5,
-          child: RotationTransition(
-            turns: Tween(begin: 0.0, end: 1.0).animate(_animationController),
-            child: GradientCircularProgressIndicator(
-              radius: const Dimension(29 / 8).value,
-              gradientColors: const [
-                Color(0x00146DED),
-                Color(0xFF146DED),
+          top: const Dimension(8 / 8).height,
+          left: const Dimension(8 / 8).width,
+          child: SizedBox(
+            width: const Dimension(61 / 8).width,
+            height: const Dimension(61 / 8).height,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RotationTransition(
+                  turns: Tween(
+                    begin: 0.0,
+                    end: 1.0,
+                  ).animate(_animationController),
+                  child: GradientCircularProgressIndicator(
+                    radius: const Dimension(28 / 8).width,
+                    gradientColors: const [
+                      Color(0x00146DED),
+                      Color(0xFF146DED),
+                    ],
+                    strokeWidth: const Dimension(4 / 8).value,
+                  ),
+                ),
               ],
-              strokeWidth: 4,
             ),
           ),
         ),
