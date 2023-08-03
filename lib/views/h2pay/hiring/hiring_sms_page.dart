@@ -183,7 +183,6 @@ class _HiringSmsPageState extends State<HiringSmsPage>
                     child: NextWidget(
                       title: 'Avançar',
                       action: () async {
-                        bool signed = false;
                         bool codeIsvalid = h2payViewModel.state.validSmsCode;
 
                         if (!codeIsvalid) {
@@ -194,15 +193,19 @@ class _HiringSmsPageState extends State<HiringSmsPage>
                           codeIsvalid = isValidCode;
                         }
 
-                        if (codeIsvalid) {
-                          final signResponse =
-                              await viewModel.signAnticipation();
-                          if (signResponse.error == '') {
-                            signed = true;
-                          }
+                        if (!codeIsvalid) {
+                          const snackBar = SnackBar(
+                            content: Text('Código expirado ou inválido.'),
+                            duration: Duration(seconds: 2),
+                          );
+                          // ignore: use_build_context_synchronously
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          return;
                         }
 
-                        if (signed && codeIsvalid) {
+                        final signResponse = await viewModel.signAnticipation();
+
+                        if (codeIsvalid && signResponse.error == '') {
                           Nav.pushNamed(
                             BaseAppModuleRouting.hiringFinishPage,
                           );

@@ -11,6 +11,7 @@ class AnticipationInfoModel with _$AnticipationInfoModel {
   const AnticipationInfoModel._();
 
   factory AnticipationInfoModel({
+    required int anticipationId,
     required int customerId,
     required int paymentTermId,
     required double valuePoker,
@@ -33,6 +34,7 @@ class AnticipationInfoModel with _$AnticipationInfoModel {
 
   factory AnticipationInfoModel.fromJson(Map<String, dynamic> decodedToken) {
     return AnticipationInfoModel(
+      anticipationId: decodedToken['id'],
       customerId: decodedToken['customer_id'],
       paymentTermId: decodedToken['payment_term_id'],
       valuePoker: double.parse(decodedToken['value_poker'].toString()),
@@ -54,15 +56,16 @@ class AnticipationInfoModel with _$AnticipationInfoModel {
       anticipationOriginId: decodedToken['anticipation_origin_id'],
       agentId: decodedToken['agent_id'],
       status: decodedToken['status'],
-      paymentDescription: decodedToken['payment_term_description']??'',
+      paymentDescription: decodedToken['payment_term_description'] ?? '',
       useType: decodedToken['use'],
-      term: decodedToken['debt_settlement']??'',
+      term: decodedToken['debt_settlement'] ?? '',
     );
   }
 
   factory AnticipationInfoModel.fromToken(String token) {
     Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
     return AnticipationInfoModel(
+      anticipationId: decodedToken['id'],
       customerId: decodedToken['customer_id'],
       paymentTermId: decodedToken['payment_term_id'],
       valuePoker: double.parse(decodedToken['value_poker'].toString()),
@@ -91,6 +94,7 @@ class AnticipationInfoModel with _$AnticipationInfoModel {
   }
 
   AnticipationInfo toEntity() => AnticipationInfo(
+        anticipationId: anticipationId,
         customerId: customerId,
         paymentTermId: paymentTermId,
         valuePoker: valuePoker,

@@ -18,12 +18,13 @@ class HiringFinishPage extends StatefulWidget {
 }
 
 class _HiringFinishPageState extends State<HiringFinishPage> {
-  late H2PayViewModel loginViewModel;
+  late H2PayViewModel _h2payViewModel;
 
   @override
-  void initState() {
+  void initState() async {
     super.initState();
-    loginViewModel = DM.get<H2PayViewModel>();
+    _h2payViewModel = DM.get<H2PayViewModel>();
+    await _h2payViewModel.getAnticipation();
   }
 
   @override
@@ -93,7 +94,7 @@ class _HiringFinishPageState extends State<HiringFinishPage> {
                                 ),
                                 Dimension.sm.vertical,
                                 Text(
-                                  '${loginViewModel.state.anticipation!.valuePrincipal.toCurrency()}, a serem pagos em até ${loginViewModel.state.anticipation!.paymentDescription}, utilizando recursos próprios.',
+                                  '${_h2payViewModel.state.anticipation!.valuePrincipal.toCurrency()}, a serem pagos em até ${_h2payViewModel.state.anticipation!.paymentDescription}, utilizando recursos próprios.',
                                   textAlign: TextAlign.center,
                                   style: context.text.body1,
                                 ),
@@ -113,7 +114,7 @@ class _HiringFinishPageState extends State<HiringFinishPage> {
                 color: Colors.white,
                 child: NextWidget(
                   title: 'Finalizar',
-                  action: () {
+                  action: (){
                     Nav.pushNamedAndRemoveUntil(
                       BaseAppModuleRouting.root,
                       (p0) => false,

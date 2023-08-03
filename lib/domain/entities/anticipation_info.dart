@@ -5,6 +5,7 @@ part 'anticipation_info.freezed.dart';
 @freezed
 class AnticipationInfo with _$AnticipationInfo {
   factory AnticipationInfo({
+    required int anticipationId,
     required int customerId,
     required int paymentTermId,
     required double valuePoker,

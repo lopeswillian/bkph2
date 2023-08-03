@@ -32,7 +32,7 @@ class H2PayViewModel extends ViewModel<H2PayState> {
   void dispose() {}
 
   Future<void> loadCustomer() async {
-    if(!_loginViewModel.state.user!.ish2Pay) return;
+    if (!_loginViewModel.state.user!.ish2Pay) return;
     emit(
       state.copyWith(
         loading: true,
@@ -86,15 +86,13 @@ class H2PayViewModel extends ViewModel<H2PayState> {
     return newState;
   }
 
-  void getAnticipation() async {
-    emit(state.copyWith(loading: true));
-    if (state.customer == null) {
-      await loadCustomer();
-    }
-
-    if (state.customer!.h2PayUser == false) {
-      return;
-    }
+  Future<void> getAnticipation() async {
+    emit(
+      state.copyWith(
+        loading: true,
+        anticipation: null,
+      ),
+    );
 
     final result = await _getAnticipationUseCase(
       AnticipationParams(
@@ -103,7 +101,10 @@ class H2PayViewModel extends ViewModel<H2PayState> {
     );
 
     final newState = result.fold(
-      (l) => state.copyWith(loading: false, error: 'Erro'),
+      (l) => state.copyWith(
+        loading: false,
+        error: 'Erro',
+      ),
       (anticipation) => state.copyWith(
         anticipation: anticipation,
         loading: false,

@@ -9,6 +9,7 @@ part of 'anticipation_info_model.dart';
 AnticipationInfoModel _$AnticipationInfoModelFromJson(
         Map<String, dynamic> json) =>
     AnticipationInfoModel(
+      anticipationId: json['anticipationId'] as int,
       customerId: json['customerId'] as int,
       paymentTermId: json['paymentTermId'] as int,
       valuePoker: (json['valuePoker'] as num).toDouble(),
@@ -38,6 +39,7 @@ AnticipationInfoModel _$AnticipationInfoModelFromJson(
 Map<String, dynamic> _$AnticipationInfoModelToJson(
         AnticipationInfoModel instance) =>
     <String, dynamic>{
+      'anticipationId': instance.anticipationId,
       'customerId': instance.customerId,
       'paymentTermId': instance.paymentTermId,
       'valuePoker': instance.valuePoker,

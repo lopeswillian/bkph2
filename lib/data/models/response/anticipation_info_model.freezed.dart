@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AnticipationInfoModel {
+  int get anticipationId => throw _privateConstructorUsedError;
   int get customerId => throw _privateConstructorUsedError;
   int get paymentTermId => throw _privateConstructorUsedError;
   double get valuePoker => throw _privateConstructorUsedError;
@@ -47,7 +48,8 @@ abstract class $AnticipationInfoModelCopyWith<$Res> {
       _$AnticipationInfoModelCopyWithImpl<$Res, AnticipationInfoModel>;
   @useResult
   $Res call(
-      {int customerId,
+      {int anticipationId,
+      int customerId,
       int paymentTermId,
       double valuePoker,
       double valueBet,
@@ -81,6 +83,7 @@ class _$AnticipationInfoModelCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? anticipationId = null,
     Object? customerId = null,
     Object? paymentTermId = null,
     Object? valuePoker = null,
@@ -101,6 +104,10 @@ class _$AnticipationInfoModelCopyWithImpl<$Res,
     Object? term = null,
   }) {
     return _then(_value.copyWith(
+      anticipationId: null == anticipationId
+          ? _value.anticipationId
+          : anticipationId // ignore: cast_nullable_to_non_nullable
+              as int,
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
@@ -186,7 +193,8 @@ abstract class _$$_AnticipationInfoModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int customerId,
+      {int anticipationId,
+      int customerId,
       int paymentTermId,
       double valuePoker,
       double valueBet,
@@ -217,6 +225,7 @@ class __$$_AnticipationInfoModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? anticipationId = null,
     Object? customerId = null,
     Object? paymentTermId = null,
     Object? valuePoker = null,
@@ -237,6 +246,10 @@ class __$$_AnticipationInfoModelCopyWithImpl<$Res>
     Object? term = null,
   }) {
     return _then(_$_AnticipationInfoModel(
+      anticipationId: null == anticipationId
+          ? _value.anticipationId
+          : anticipationId // ignore: cast_nullable_to_non_nullable
+              as int,
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
@@ -317,7 +330,8 @@ class __$$_AnticipationInfoModelCopyWithImpl<$Res>
 
 class _$_AnticipationInfoModel extends _AnticipationInfoModel {
   _$_AnticipationInfoModel(
-      {required this.customerId,
+      {required this.anticipationId,
+      required this.customerId,
       required this.paymentTermId,
       required this.valuePoker,
       required this.valueBet,
@@ -337,6 +351,8 @@ class _$_AnticipationInfoModel extends _AnticipationInfoModel {
       required this.term})
       : super._();
 
+  @override
+  final int anticipationId;
   @override
   final int customerId;
   @override
@@ -376,7 +392,7 @@ class _$_AnticipationInfoModel extends _AnticipationInfoModel {
 
   @override
   String toString() {
-    return 'AnticipationInfoModel(customerId: $customerId, paymentTermId: $paymentTermId, valuePoker: $valuePoker, valueBet: $valueBet, dueDate: $dueDate, dateCreate: $dateCreate, signatureDate: $signatureDate, lastUpdate: $lastUpdate, valuePrincipal: $valuePrincipal, paymentDate: $paymentDate, paymentId: $paymentId, valuePayment: $valuePayment, anticipationOriginId: $anticipationOriginId, agentId: $agentId, status: $status, paymentDescription: $paymentDescription, useType: $useType, term: $term)';
+    return 'AnticipationInfoModel(anticipationId: $anticipationId, customerId: $customerId, paymentTermId: $paymentTermId, valuePoker: $valuePoker, valueBet: $valueBet, dueDate: $dueDate, dateCreate: $dateCreate, signatureDate: $signatureDate, lastUpdate: $lastUpdate, valuePrincipal: $valuePrincipal, paymentDate: $paymentDate, paymentId: $paymentId, valuePayment: $valuePayment, anticipationOriginId: $anticipationOriginId, agentId: $agentId, status: $status, paymentDescription: $paymentDescription, useType: $useType, term: $term)';
   }
 
   @override
@@ -384,6 +400,8 @@ class _$_AnticipationInfoModel extends _AnticipationInfoModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AnticipationInfoModel &&
+            (identical(other.anticipationId, anticipationId) ||
+                other.anticipationId == anticipationId) &&
             (identical(other.customerId, customerId) ||
                 other.customerId == customerId) &&
             (identical(other.paymentTermId, paymentTermId) ||
@@ -418,26 +436,28 @@ class _$_AnticipationInfoModel extends _AnticipationInfoModel {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      customerId,
-      paymentTermId,
-      valuePoker,
-      valueBet,
-      dueDate,
-      dateCreate,
-      signatureDate,
-      lastUpdate,
-      valuePrincipal,
-      paymentDate,
-      paymentId,
-      valuePayment,
-      anticipationOriginId,
-      agentId,
-      status,
-      paymentDescription,
-      useType,
-      term);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        anticipationId,
+        customerId,
+        paymentTermId,
+        valuePoker,
+        valueBet,
+        dueDate,
+        dateCreate,
+        signatureDate,
+        lastUpdate,
+        valuePrincipal,
+        paymentDate,
+        paymentId,
+        valuePayment,
+        anticipationOriginId,
+        agentId,
+        status,
+        paymentDescription,
+        useType,
+        term
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -449,7 +469,8 @@ class _$_AnticipationInfoModel extends _AnticipationInfoModel {
 
 abstract class _AnticipationInfoModel extends AnticipationInfoModel {
   factory _AnticipationInfoModel(
-      {required final int customerId,
+      {required final int anticipationId,
+      required final int customerId,
       required final int paymentTermId,
       required final double valuePoker,
       required final double valueBet,
@@ -469,6 +490,8 @@ abstract class _AnticipationInfoModel extends AnticipationInfoModel {
       required final String term}) = _$_AnticipationInfoModel;
   _AnticipationInfoModel._() : super._();
 
+  @override
+  int get anticipationId;
   @override
   int get customerId;
   @override

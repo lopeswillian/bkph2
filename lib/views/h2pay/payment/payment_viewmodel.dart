@@ -74,9 +74,7 @@ class PaymentViewModel extends ViewModel<PaymentState> {
     final result = await _signAnticipationUseCase(
       SignAnticipationParams(
         customerId: _h2payViewModel.state.customer!.id!.toString(),
-        anticipationId: _h2payViewModel.state.anticipation?.anticipationOriginId
-                .toString() ??
-            '',
+        anticipationId: _h2payViewModel.state.anticipation!.anticipationId.toString(),
         signed: true,
       ),
     );
@@ -93,9 +91,11 @@ class PaymentViewModel extends ViewModel<PaymentState> {
           orElse: () => '',
         ),
       ),
-      (anticipation) => state.copyWith(loading: false, error: ''),
+      (anticipation) => state.copyWith(
+        loading: false,
+        error: '',
+      ),
     );
-    _h2payViewModel.getAnticipation();
     emit(newState);
     return newState;
   }

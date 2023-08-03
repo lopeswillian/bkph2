@@ -26,12 +26,12 @@ class _HiringPageState extends State<HiringPage> with View<H2PayViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelConsumer<H2PayViewModel, H2PayState>(
+    return ViewModelBuilder<H2PayViewModel, H2PayState>(
       viewModel: viewModel,
-      listenWhen: (previous, current) =>
+      buildWhen: (previous, current) =>
           previous.customer != current.customer ||
-          previous.loading != current.loading,
-      listener: (context, state) => {},
+          previous.loading != current.loading ||
+          previous.anticipation != current.anticipation,
       builder: (context, state) {
         return state.loading
             ? const Scaffold(

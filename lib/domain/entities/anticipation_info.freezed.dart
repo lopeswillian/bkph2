@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AnticipationInfo {
+  int get anticipationId => throw _privateConstructorUsedError;
   int get customerId => throw _privateConstructorUsedError;
   int get paymentTermId => throw _privateConstructorUsedError;
   double get valuePoker => throw _privateConstructorUsedError;
@@ -47,7 +48,8 @@ abstract class $AnticipationInfoCopyWith<$Res> {
       _$AnticipationInfoCopyWithImpl<$Res, AnticipationInfo>;
   @useResult
   $Res call(
-      {int customerId,
+      {int anticipationId,
+      int customerId,
       int paymentTermId,
       double valuePoker,
       double valueBet,
@@ -80,6 +82,7 @@ class _$AnticipationInfoCopyWithImpl<$Res, $Val extends AnticipationInfo>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? anticipationId = null,
     Object? customerId = null,
     Object? paymentTermId = null,
     Object? valuePoker = null,
@@ -100,6 +103,10 @@ class _$AnticipationInfoCopyWithImpl<$Res, $Val extends AnticipationInfo>
     Object? term = null,
   }) {
     return _then(_value.copyWith(
+      anticipationId: null == anticipationId
+          ? _value.anticipationId
+          : anticipationId // ignore: cast_nullable_to_non_nullable
+              as int,
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
@@ -185,7 +192,8 @@ abstract class _$$_AnticipationInfoCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int customerId,
+      {int anticipationId,
+      int customerId,
       int paymentTermId,
       double valuePoker,
       double valueBet,
@@ -216,6 +224,7 @@ class __$$_AnticipationInfoCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? anticipationId = null,
     Object? customerId = null,
     Object? paymentTermId = null,
     Object? valuePoker = null,
@@ -236,6 +245,10 @@ class __$$_AnticipationInfoCopyWithImpl<$Res>
     Object? term = null,
   }) {
     return _then(_$_AnticipationInfo(
+      anticipationId: null == anticipationId
+          ? _value.anticipationId
+          : anticipationId // ignore: cast_nullable_to_non_nullable
+              as int,
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
@@ -316,7 +329,8 @@ class __$$_AnticipationInfoCopyWithImpl<$Res>
 
 class _$_AnticipationInfo implements _AnticipationInfo {
   _$_AnticipationInfo(
-      {required this.customerId,
+      {required this.anticipationId,
+      required this.customerId,
       required this.paymentTermId,
       required this.valuePoker,
       required this.valueBet,
@@ -335,6 +349,8 @@ class _$_AnticipationInfo implements _AnticipationInfo {
       this.useType,
       required this.term});
 
+  @override
+  final int anticipationId;
   @override
   final int customerId;
   @override
@@ -374,7 +390,7 @@ class _$_AnticipationInfo implements _AnticipationInfo {
 
   @override
   String toString() {
-    return 'AnticipationInfo(customerId: $customerId, paymentTermId: $paymentTermId, valuePoker: $valuePoker, valueBet: $valueBet, dueDate: $dueDate, dateCreate: $dateCreate, signatureDate: $signatureDate, lastUpdate: $lastUpdate, valuePrincipal: $valuePrincipal, paymentDate: $paymentDate, paymentId: $paymentId, valuePayment: $valuePayment, anticipationOriginId: $anticipationOriginId, agentId: $agentId, status: $status, paymentDescription: $paymentDescription, useType: $useType, term: $term)';
+    return 'AnticipationInfo(anticipationId: $anticipationId, customerId: $customerId, paymentTermId: $paymentTermId, valuePoker: $valuePoker, valueBet: $valueBet, dueDate: $dueDate, dateCreate: $dateCreate, signatureDate: $signatureDate, lastUpdate: $lastUpdate, valuePrincipal: $valuePrincipal, paymentDate: $paymentDate, paymentId: $paymentId, valuePayment: $valuePayment, anticipationOriginId: $anticipationOriginId, agentId: $agentId, status: $status, paymentDescription: $paymentDescription, useType: $useType, term: $term)';
   }
 
   @override
@@ -382,6 +398,8 @@ class _$_AnticipationInfo implements _AnticipationInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AnticipationInfo &&
+            (identical(other.anticipationId, anticipationId) ||
+                other.anticipationId == anticipationId) &&
             (identical(other.customerId, customerId) ||
                 other.customerId == customerId) &&
             (identical(other.paymentTermId, paymentTermId) ||
@@ -416,26 +434,28 @@ class _$_AnticipationInfo implements _AnticipationInfo {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      customerId,
-      paymentTermId,
-      valuePoker,
-      valueBet,
-      dueDate,
-      dateCreate,
-      signatureDate,
-      lastUpdate,
-      valuePrincipal,
-      paymentDate,
-      paymentId,
-      valuePayment,
-      anticipationOriginId,
-      agentId,
-      status,
-      paymentDescription,
-      useType,
-      term);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        anticipationId,
+        customerId,
+        paymentTermId,
+        valuePoker,
+        valueBet,
+        dueDate,
+        dateCreate,
+        signatureDate,
+        lastUpdate,
+        valuePrincipal,
+        paymentDate,
+        paymentId,
+        valuePayment,
+        anticipationOriginId,
+        agentId,
+        status,
+        paymentDescription,
+        useType,
+        term
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -446,7 +466,8 @@ class _$_AnticipationInfo implements _AnticipationInfo {
 
 abstract class _AnticipationInfo implements AnticipationInfo {
   factory _AnticipationInfo(
-      {required final int customerId,
+      {required final int anticipationId,
+      required final int customerId,
       required final int paymentTermId,
       required final double valuePoker,
       required final double valueBet,
@@ -465,6 +486,8 @@ abstract class _AnticipationInfo implements AnticipationInfo {
       final String? useType,
       required final String term}) = _$_AnticipationInfo;
 
+  @override
+  int get anticipationId;
   @override
   int get customerId;
   @override
