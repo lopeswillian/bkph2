@@ -157,6 +157,60 @@ class _VerifyValidateDocumentPageState extends State<VerifyValidateDocumentPage>
                               title: 'Tirar Foto',
                               subTitle: 'Tire uma foto do seu documento físico',
                             ),
+                            Dimension.md.vertical,
+                            Container(
+                              padding: EdgeInsets.all(Dimension.sm.value),
+                              decoration: const BoxDecoration(
+                                color: AppThemeBase.colorSecondary02,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      style: context.text.callout,
+                                      children: const <TextSpan>[
+                                        TextSpan(
+                                          text: 'Usuário,',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            color: AppThemeBase
+                                                .colorPrimaryDarkest,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text:
+                                              ' para realizar a verificação, siga os passos a seguir:',
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Dimension.md.vertical,
+                                  Text(
+                                    "1. Tire a capinha do seu documento e coloque sobre uma superfície plana.",
+                                    style: context.text.callout,
+                                  ),
+                                  Dimension.xs.vertical,
+                                  Text(
+                                    "2. Posicione seu documento na área indicada, tire a foto da frente, depois do verso e, se possível, não posicione seu dedo sobre documento.",
+                                    style: context.text.callout,
+                                  ),
+                                  Dimension.xs.vertical,
+                                  Text(
+                                    "3. Para garantir a qualidade procure um lugar iluminado.",
+                                    style: context.text.callout,
+                                  ),
+                                  Dimension.xs.vertical,
+                                  Text(
+                                    "4. Não use óculos ou boné.",
+                                    style: context.text.callout,
+                                  ),
+                                ],
+                              ),
+                            )
                           ],
                         ),
                       ),
@@ -262,8 +316,7 @@ class _VerifyValidateDocumentPageState extends State<VerifyValidateDocumentPage>
       await viewModel.sendCafvalidation();
     } else if (passiveFaceLivenessResult is PassiveFaceLivenessFailure) {
       const snackBar = SnackBar(
-        content: Text(
-            'Falha ao capturar selfie. Tente novamente!'),
+        content: Text('Falha ao capturar selfie. Tente novamente!'),
         duration: Duration(seconds: 2),
       );
       // ignore: use_build_context_synchronously

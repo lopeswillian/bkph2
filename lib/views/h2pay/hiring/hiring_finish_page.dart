@@ -9,8 +9,21 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+class HiringFinishPageParams {
+  final double valuePrincipal;
+  final String paymentDescription;
+  HiringFinishPageParams({
+    required this.valuePrincipal,
+    required this.paymentDescription,
+  });
+}
+
 class HiringFinishPage extends StatefulWidget {
-  const HiringFinishPage({Key? key}) : super(key: key);
+  final HiringFinishPageParams params;
+  const HiringFinishPage({
+    Key? key,
+    required this.params,
+  }) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -21,10 +34,10 @@ class _HiringFinishPageState extends State<HiringFinishPage> {
   late H2PayViewModel _h2payViewModel;
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
     _h2payViewModel = DM.get<H2PayViewModel>();
-    await _h2payViewModel.getAnticipation();
+    _h2payViewModel.getAnticipation();
   }
 
   @override
@@ -94,7 +107,7 @@ class _HiringFinishPageState extends State<HiringFinishPage> {
                                 ),
                                 Dimension.sm.vertical,
                                 Text(
-                                  '${_h2payViewModel.state.anticipation!.valuePrincipal.toCurrency()}, a serem pagos em até ${_h2payViewModel.state.anticipation!.paymentDescription}, utilizando recursos próprios.',
+                                  '${widget.params.valuePrincipal.toCurrency()}, a serem pagos em até ${widget.params.paymentDescription}, utilizando recursos próprios.',
                                   textAlign: TextAlign.center,
                                   style: context.text.body1,
                                 ),
@@ -114,7 +127,7 @@ class _HiringFinishPageState extends State<HiringFinishPage> {
                 color: Colors.white,
                 child: NextWidget(
                   title: 'Finalizar',
-                  action: (){
+                  action: () {
                     Nav.pushNamedAndRemoveUntil(
                       BaseAppModuleRouting.root,
                       (p0) => false,

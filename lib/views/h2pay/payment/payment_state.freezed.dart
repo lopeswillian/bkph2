@@ -24,6 +24,7 @@ mixin _$PaymentState {
   String get paymentImgBack => throw _privateConstructorUsedError;
   String get thirdPartCpf => throw _privateConstructorUsedError;
   String get thirdPartCnpj => throw _privateConstructorUsedError;
+  bool get successAnticipation => throw _privateConstructorUsedError;
   PixCodeInfo? get pixCodeInfo => throw _privateConstructorUsedError;
   TedDataInfo? get tedDataInfo => throw _privateConstructorUsedError;
   CompanyInfo? get selectedCustomerCompany =>
@@ -53,6 +54,7 @@ abstract class $PaymentStateCopyWith<$Res> {
       String paymentImgBack,
       String thirdPartCpf,
       String thirdPartCnpj,
+      bool successAnticipation,
       PixCodeInfo? pixCodeInfo,
       TedDataInfo? tedDataInfo,
       CompanyInfo? selectedCustomerCompany,
@@ -89,6 +91,7 @@ class _$PaymentStateCopyWithImpl<$Res, $Val extends PaymentState>
     Object? paymentImgBack = null,
     Object? thirdPartCpf = null,
     Object? thirdPartCnpj = null,
+    Object? successAnticipation = null,
     Object? pixCodeInfo = freezed,
     Object? tedDataInfo = freezed,
     Object? selectedCustomerCompany = freezed,
@@ -129,6 +132,10 @@ class _$PaymentStateCopyWithImpl<$Res, $Val extends PaymentState>
           ? _value.thirdPartCnpj
           : thirdPartCnpj // ignore: cast_nullable_to_non_nullable
               as String,
+      successAnticipation: null == successAnticipation
+          ? _value.successAnticipation
+          : successAnticipation // ignore: cast_nullable_to_non_nullable
+              as bool,
       pixCodeInfo: freezed == pixCodeInfo
           ? _value.pixCodeInfo
           : pixCodeInfo // ignore: cast_nullable_to_non_nullable
@@ -247,6 +254,7 @@ abstract class _$$_PaymentStateCopyWith<$Res>
       String paymentImgBack,
       String thirdPartCpf,
       String thirdPartCnpj,
+      bool successAnticipation,
       PixCodeInfo? pixCodeInfo,
       TedDataInfo? tedDataInfo,
       CompanyInfo? selectedCustomerCompany,
@@ -287,6 +295,7 @@ class __$$_PaymentStateCopyWithImpl<$Res>
     Object? paymentImgBack = null,
     Object? thirdPartCpf = null,
     Object? thirdPartCnpj = null,
+    Object? successAnticipation = null,
     Object? pixCodeInfo = freezed,
     Object? tedDataInfo = freezed,
     Object? selectedCustomerCompany = freezed,
@@ -327,6 +336,10 @@ class __$$_PaymentStateCopyWithImpl<$Res>
           ? _value.thirdPartCnpj
           : thirdPartCnpj // ignore: cast_nullable_to_non_nullable
               as String,
+      successAnticipation: null == successAnticipation
+          ? _value.successAnticipation
+          : successAnticipation // ignore: cast_nullable_to_non_nullable
+              as bool,
       pixCodeInfo: freezed == pixCodeInfo
           ? _value.pixCodeInfo
           : pixCodeInfo // ignore: cast_nullable_to_non_nullable
@@ -367,6 +380,7 @@ class _$_PaymentState implements _PaymentState {
       this.paymentImgBack = '',
       this.thirdPartCpf = '',
       this.thirdPartCnpj = '',
+      this.successAnticipation = false,
       this.pixCodeInfo,
       this.tedDataInfo,
       this.selectedCustomerCompany,
@@ -399,6 +413,9 @@ class _$_PaymentState implements _PaymentState {
   @JsonKey()
   final String thirdPartCnpj;
   @override
+  @JsonKey()
+  final bool successAnticipation;
+  @override
   final PixCodeInfo? pixCodeInfo;
   @override
   final TedDataInfo? tedDataInfo;
@@ -413,7 +430,7 @@ class _$_PaymentState implements _PaymentState {
 
   @override
   String toString() {
-    return 'PaymentState(loading: $loading, error: $error, valueToPay: $valueToPay, typeOfPayment: $typeOfPayment, paymentImgFront: $paymentImgFront, paymentImgBack: $paymentImgBack, thirdPartCpf: $thirdPartCpf, thirdPartCnpj: $thirdPartCnpj, pixCodeInfo: $pixCodeInfo, tedDataInfo: $tedDataInfo, selectedCustomerCompany: $selectedCustomerCompany, anticipationWithDischarge: $anticipationWithDischarge, bcoCnpjInfo: $bcoCnpjInfo, bcoCpfInfo: $bcoCpfInfo)';
+    return 'PaymentState(loading: $loading, error: $error, valueToPay: $valueToPay, typeOfPayment: $typeOfPayment, paymentImgFront: $paymentImgFront, paymentImgBack: $paymentImgBack, thirdPartCpf: $thirdPartCpf, thirdPartCnpj: $thirdPartCnpj, successAnticipation: $successAnticipation, pixCodeInfo: $pixCodeInfo, tedDataInfo: $tedDataInfo, selectedCustomerCompany: $selectedCustomerCompany, anticipationWithDischarge: $anticipationWithDischarge, bcoCnpjInfo: $bcoCnpjInfo, bcoCpfInfo: $bcoCpfInfo)';
   }
 
   @override
@@ -435,6 +452,8 @@ class _$_PaymentState implements _PaymentState {
                 other.thirdPartCpf == thirdPartCpf) &&
             (identical(other.thirdPartCnpj, thirdPartCnpj) ||
                 other.thirdPartCnpj == thirdPartCnpj) &&
+            (identical(other.successAnticipation, successAnticipation) ||
+                other.successAnticipation == successAnticipation) &&
             (identical(other.pixCodeInfo, pixCodeInfo) ||
                 other.pixCodeInfo == pixCodeInfo) &&
             (identical(other.tedDataInfo, tedDataInfo) ||
@@ -462,6 +481,7 @@ class _$_PaymentState implements _PaymentState {
       paymentImgBack,
       thirdPartCpf,
       thirdPartCnpj,
+      successAnticipation,
       pixCodeInfo,
       tedDataInfo,
       selectedCustomerCompany,
@@ -486,6 +506,7 @@ abstract class _PaymentState implements PaymentState {
       final String paymentImgBack,
       final String thirdPartCpf,
       final String thirdPartCnpj,
+      final bool successAnticipation,
       final PixCodeInfo? pixCodeInfo,
       final TedDataInfo? tedDataInfo,
       final CompanyInfo? selectedCustomerCompany,
@@ -509,6 +530,8 @@ abstract class _PaymentState implements PaymentState {
   String get thirdPartCpf;
   @override
   String get thirdPartCnpj;
+  @override
+  bool get successAnticipation;
   @override
   PixCodeInfo? get pixCodeInfo;
   @override

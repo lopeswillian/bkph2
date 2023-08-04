@@ -4,6 +4,7 @@ import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/theme/widgets/h2loading.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
+import 'package:apph2/views/h2pay/hiring/hiring_finish_page.dart';
 import 'package:apph2/views/h2pay/payment/payment_state.dart';
 import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
@@ -31,9 +32,35 @@ class _HiringSmsPageState extends State<HiringSmsPage>
   }
 
   @override
+  void dispose(){
+    pinCodeController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<PaymentViewModel, PaymentState>(
+    return ViewModelConsumer<PaymentViewModel, PaymentState>(
       viewModel: viewModel,
+      listener: (context, state) {
+        if (h2payViewModel.state.validSmsCode && state.successAnticipation) {
+          Nav.pushNamed(
+            BaseAppModuleRouting.hiringFinishPage,
+            arguments: HiringFinishPageParams(
+              valuePrincipal: h2payViewModel.state.anticipation!.valuePrincipal,
+              paymentDescription:
+                  h2payViewModel.state.anticipation!.paymentDescription,
+            ),
+          );
+        }
+
+        if (state.error != '') {
+          final snackBar = SnackBar(
+            content: Text(state.error),
+            duration: const Duration(seconds: 2),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
+      },
       buildWhen: (previous, current) {
         return previous.loading != current.loading ||
             previous.error != current.error;
@@ -46,12 +73,6 @@ class _HiringSmsPageState extends State<HiringSmsPage>
             : _buildPage(context, state);
       },
     );
-  }
-
-  @override
-  void dispose() {
-    pinCodeController.dispose();
-    super.dispose();
   }
 
   Widget _buildPage(BuildContext context, PaymentState state) {
@@ -134,7 +155,7 @@ class _HiringSmsPageState extends State<HiringSmsPage>
                               ),
                               child: PinCodeTextField(
                                 appContext: context,
-                                autoFocus: true,
+                                autoFocus: h2payViewModel.state.validSmsCode?false:true,
                                 autoDisposeControllers: false,
                                 length: 4,
                                 controller: pinCodeController,
@@ -168,6 +189,7 @@ class _HiringSmsPageState extends State<HiringSmsPage>
                                 h2payViewModel.getSmsCode();
                               },
                             ),
+                            const Dimension(329/8).vertical
                           ],
                         ),
                       ),
@@ -203,23 +225,7 @@ class _HiringSmsPageState extends State<HiringSmsPage>
                           return;
                         }
 
-                        final signResponse = await viewModel.signAnticipation();
-
-                        if (codeIsvalid && signResponse.error == '') {
-                          Nav.pushNamed(
-                            BaseAppModuleRouting.hiringFinishPage,
-                          );
-                          return;
-                        }
-
-                        final snackBar = SnackBar(
-                          content: codeIsvalid
-                              ? Text(state.error)
-                              : const Text('Código expirado ou inválido.'),
-                          duration: const Duration(seconds: 2),
-                        );
-                        // ignore: use_build_context_synchronously
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        await viewModel.signAnticipation();
                       },
                     ),
                   ),

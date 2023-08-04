@@ -647,8 +647,6 @@ class _CustomTextFormFieldState extends State<CustomTextFormField>
         return AnimatedBuilder(
           animation: _foregroundAnimationController,
           builder: (context, _) {
-            final labelStyle = context.theme.inputDecorationTheme.labelStyle;
-
             return Stack(
               alignment: Alignment.center,
               children: [
@@ -692,18 +690,6 @@ class _CustomTextFormFieldState extends State<CustomTextFormField>
                               widget.suffixText!.call() ?? '',
                             )
                           : null,
-                      labelStyle: _delayedColorOpacity(
-                        widget.labelStyle?.copyWith(
-                              color: _effectiveError != null
-                                  ? context.colorScheme.error
-                                  : widget.labelStyle?.color,
-                            ) ??
-                            labelStyle?.copyWith(
-                              color: _effectiveError != null
-                                  ? context.colorScheme.error
-                                  : labelStyle.color,
-                            ),
-                      ),
                       alignLabelWithHint: true,
                       hintText: widget.hintText,
                       counterText: widget.counterText,
@@ -711,7 +697,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField>
                       floatingLabelStyle: _focusNode.hasFocus
                           ? context.theme.inputDecorationTheme.labelStyle!
                               .copyWith(
-                              color: AppThemeBase.colorPrimaryMedium,
+                              color: _effectiveError != null
+                                  ? context.colorScheme.error
+                                  : AppThemeBase.colorPrimaryMedium,
                             )
                           : context.theme.inputDecorationTheme.labelStyle,
                       hintStyle: widget.hintStyle ??

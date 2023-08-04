@@ -291,7 +291,7 @@ abstract class BaseAppModuleRouting {
         ),
         ChildRoute(
           hiringFinishPage.path,
-          child: (_, __) => const HiringFinishPage(),
+          child: (_, args) =>  HiringFinishPage(params: args.data),
         ),
         ChildRoute(
           paymentPage.path,

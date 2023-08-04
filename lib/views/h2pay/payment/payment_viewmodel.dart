@@ -68,6 +68,7 @@ class PaymentViewModel extends ViewModel<PaymentState> {
       state.copyWith(
         loading: true,
         error: '',
+        successAnticipation: false,
       ),
     );
 
@@ -94,6 +95,7 @@ class PaymentViewModel extends ViewModel<PaymentState> {
       (anticipation) => state.copyWith(
         loading: false,
         error: '',
+        successAnticipation: true,
       ),
     );
     emit(newState);

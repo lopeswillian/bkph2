@@ -20,6 +20,7 @@ class PaymentState extends ViewModelState with _$PaymentState {
     @Default('') String paymentImgBack,
     @Default('') String thirdPartCpf,
     @Default('') String thirdPartCnpj,
+    @Default(false) bool successAnticipation,
     PixCodeInfo? pixCodeInfo,
     TedDataInfo? tedDataInfo,
     CompanyInfo? selectedCustomerCompany,

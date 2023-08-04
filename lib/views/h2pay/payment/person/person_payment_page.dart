@@ -12,6 +12,7 @@ import 'package:apph2/views/h2pay/payment/widgets/custom_switch_payment.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
 import 'package:flutter/material.dart' hide View;
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PersonPaymentPage extends StatefulWidget {
@@ -208,10 +209,29 @@ class _PersonPaymentPageState extends State<PersonPaymentPage>
           style: context.text.body2,
         ),
         Dimension.sm.vertical,
-        CustomTextFormField(
-          labelText: 'Banco',
-          enabled: false,
-          initialValue: state.tedDataInfo?.bank ?? '',
+        Row(
+          children: [
+            Flexible(
+              child: CustomTextFormField(
+                labelText: 'Banco',
+                enabled: false,
+                initialValue: state.tedDataInfo?.bank ?? '',
+              ),
+            ),
+            IconButton(
+              onPressed: () {
+                Clipboard.setData(
+                  ClipboardData(
+                    text: state.tedDataInfo?.bank ?? '',
+                  ),
+                );
+              },
+              icon: FaIcon(
+                FontAwesomeIcons.copy,
+                size: 20.fontSize,
+              ),
+            ),
+          ],
         ),
         const Dimension(2.5).vertical,
         Row(
@@ -223,7 +243,20 @@ class _PersonPaymentPageState extends State<PersonPaymentPage>
                 initialValue: state.tedDataInfo?.agency ?? '',
               ),
             ),
-            const Dimension(2.5).horizontal,
+            IconButton(
+              onPressed: () {
+                Clipboard.setData(
+                  ClipboardData(
+                    text: state.tedDataInfo?.agency ?? '',
+                  ),
+                );
+              },
+              icon: FaIcon(
+                FontAwesomeIcons.copy,
+                size: 20.fontSize,
+              ),
+            ),
+            Dimension.xs.horizontal,
             Flexible(
               child: CustomTextFormField(
                 labelText: 'Conta',
@@ -231,14 +264,46 @@ class _PersonPaymentPageState extends State<PersonPaymentPage>
                 initialValue: state.tedDataInfo?.account ?? '',
               ),
             ),
+            IconButton(
+              onPressed: () {
+                Clipboard.setData(
+                  ClipboardData(
+                    text: state.tedDataInfo?.account ?? '',
+                  ),
+                );
+              },
+              icon: FaIcon(
+                FontAwesomeIcons.copy,
+                size: 20.fontSize,
+              ),
+            ),
           ],
         ),
         const Dimension(2.5).vertical,
-        CustomTextFormField(
-          labelText: 'Favorecido',
-          enabled: false,
-          initialValue: state.tedDataInfo?.favoured ?? '',
-        )
+        Row(
+          children: [
+            Flexible(
+              child: CustomTextFormField(
+                labelText: 'Favorecido',
+                enabled: false,
+                initialValue: state.tedDataInfo?.favoured ?? '',
+              ),
+            ),
+            IconButton(
+              onPressed: () {
+                Clipboard.setData(
+                  ClipboardData(
+                    text: state.tedDataInfo?.favoured ?? '',
+                  ),
+                );
+              },
+              icon: FaIcon(
+                FontAwesomeIcons.copy,
+                size: 20.fontSize,
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }

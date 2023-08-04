@@ -147,6 +147,13 @@ class _PaymentPageState extends ViewState<PaymentPage, PaymentViewModel> {
                                   (state.anticipationWithDischarge?.discharge ??
                                           0) >
                                       0,
+                              errorMessage: MoneyInputFormatter()
+                                          .parseValue(valueToPay.text) >
+                                      (state.anticipationWithDischarge
+                                              ?.discharge ??
+                                          0)
+                                  ? 'Valor maior que a quitação'
+                                  : null,
                               onChanged: (value) => {
                                 viewModel.changeValueToPay(
                                     MoneyInputFormatter().parseValue(value))
@@ -208,7 +215,9 @@ class _PaymentPageState extends ViewState<PaymentPage, PaymentViewModel> {
                 ),
               ),
               Visibility(
-                visible: valueToPay.text != '',
+                visible: valueToPay.text != '' &&
+                    MoneyInputFormatter().parseValue(valueToPay.text) <=
+                        (state.anticipationWithDischarge?.discharge ?? 0),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: IntrinsicHeight(
