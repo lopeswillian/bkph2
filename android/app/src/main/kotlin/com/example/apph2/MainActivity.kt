@@ -1,6 +1,7 @@
 package com.h2.app
 
 import android.os.Bundle
+import android.content.Intent
 import android.view.KeyEvent
 import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.android.FlutterActivity
@@ -10,18 +11,24 @@ class MainActivity : FlutterFragmentActivity() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean { 
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             val fragmentManager = supportFragmentManager
             if (fragmentManager.backStackEntryCount > 0) {
                 fragmentManager.popBackStack()
                 return true
             } else {
-                // Caso não haja fragments na pilha de retrocesso,
-                // pode executar a lógica padrão de retorno para Flutter.
-                return super.onKeyDown(keyCode, event)
+                minimizeApp()
+                return true
             }
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    private fun minimizeApp() {
+        val intent = Intent(Intent.ACTION_MAIN)
+        intent.addCategory(Intent.CATEGORY_HOME)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
     }
 }

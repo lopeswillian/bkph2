@@ -208,7 +208,7 @@ class ContainedButton extends StatelessWidget {
               backgroundColor: MaterialStateProperty.resolveWith<Color?>(
                 (Set<MaterialState> states) {
                   if (states.contains(MaterialState.disabled)) {
-                    return const Color(0xFFC6C6C6);
+                    return Colors.transparent;
                   }
                   return Colors.transparent;
                 },

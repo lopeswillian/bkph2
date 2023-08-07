@@ -162,8 +162,8 @@ class _RegisterStep3State extends State<RegisterStep3> {
                                 },
                                 icon: Icon(
                                   obscureText1
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
                                 ),
                               ),
                             ),
@@ -185,8 +185,8 @@ class _RegisterStep3State extends State<RegisterStep3> {
                                 },
                                 icon: Icon(
                                   obscureText2
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
                                 ),
                               ),
                             ),

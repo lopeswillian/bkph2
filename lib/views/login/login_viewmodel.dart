@@ -1,20 +1,24 @@
 import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/domain/entities/login_params.dart';
+import 'package:apph2/domain/entities/rewards_id_param.dart';
 import 'package:apph2/domain/entities/user_info.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/usecases/login_with_credentials_usecase.dart';
 import 'package:apph2/views/login/login_state.dart';
+import 'package:apph2/views/profile/profile_viewmodel.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginViewModel extends ViewModel<LoginState> {
   final ILoginWithCredentialsUsecase _loginWithCredentials;
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  final ProfileViewModel _profileViewModel;
 
   UserInfo? get loggedUser => state.user;
 
   LoginViewModel(
     this._loginWithCredentials,
+    this._profileViewModel,
   ) : super(LoginState.initial());
 
   void clearError() {
@@ -60,8 +64,15 @@ class LoginViewModel extends ViewModel<LoginState> {
           vipOnlineId: decodedToken['customer_vip_online_id'],
           vipLive: decodedToken['customer_vip_live'],
           vipOnline: decodedToken['customer_vip_online'],
-          ish2Pay: decodedToken['customer_h2_pay']
+          ish2Pay: decodedToken['customer_h2_pay'],
         );
+
+        _profileViewModel.getProfile(
+          rewardsIdParam: RewardsIdParam(
+            rewardsId: user.id.toString(),
+          ),
+        );
+        
         return state.copyWith(
           loading: false,
           token: login.token,
@@ -77,7 +88,7 @@ class LoginViewModel extends ViewModel<LoginState> {
     emit(
       state.copyWith(loading: true),
     );
-    
+
     Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
     final UserInfo user = UserInfo(
       id: decodedToken['customer_id'],
@@ -94,6 +105,13 @@ class LoginViewModel extends ViewModel<LoginState> {
       vipOnline: decodedToken['customer_vip_online'],
       ish2Pay: decodedToken['customer_h2_pay'],
     );
+
+    _profileViewModel.getProfile(
+      rewardsIdParam: RewardsIdParam(
+        rewardsId: user.id.toString(),
+      ),
+    );
+
     emit(
       state.copyWith(
         loading: false,
@@ -106,23 +124,30 @@ class LoginViewModel extends ViewModel<LoginState> {
   Future<void> isAuth() async {
     final SharedPreferences prefs = await _prefs;
     final String? token = prefs.getString('token');
+
     if (token != null && token.isNotEmpty) {
       Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
       final UserInfo user = UserInfo(
-        id: decodedToken['customer_id'],
-        avatarUrl: decodedToken['customer_avatar_url'],
-        name: decodedToken['customer_name'],
-        email: decodedToken['customer_email'],
-        birthdate: decodedToken['customer_birthdate'],
-        cpf: decodedToken['customer_cpf'],
-        nickname: decodedToken['customer_nickname'],
-        cellphone: decodedToken['customer_cellphone'],
-        vipLiveId: decodedToken['customer_vip_live_id'],
-        vipOnlineId: decodedToken['customer_vip_online_id'],
-        vipLive: decodedToken['customer_vip_live'],
-        vipOnline: decodedToken['customer_vip_online'],
-        ish2Pay: decodedToken['customer_h2_pay']??false
+          id: decodedToken['customer_id'],
+          avatarUrl: decodedToken['customer_avatar_url'],
+          name: decodedToken['customer_name'],
+          email: decodedToken['customer_email'],
+          birthdate: decodedToken['customer_birthdate'],
+          cpf: decodedToken['customer_cpf'],
+          nickname: decodedToken['customer_nickname'],
+          cellphone: decodedToken['customer_cellphone'],
+          vipLiveId: decodedToken['customer_vip_live_id'],
+          vipOnlineId: decodedToken['customer_vip_online_id'],
+          vipLive: decodedToken['customer_vip_live'],
+          vipOnline: decodedToken['customer_vip_online'],
+          ish2Pay: decodedToken['customer_h2_pay'] ?? false);
+
+      _profileViewModel.getProfile(
+        rewardsIdParam: RewardsIdParam(
+          rewardsId: user.id.toString(),
+        ),
       );
+
       emit(
         state.copyWith(
           loading: false,

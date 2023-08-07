@@ -268,6 +268,7 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<LoginViewModel>(
           (i) => LoginViewModel(
             i.get<ILoginWithCredentialsUsecase>(),
+            i.get<ProfileViewModel>()
           ),
         ),
         Bind.lazySingleton<RegisterViewModel>(

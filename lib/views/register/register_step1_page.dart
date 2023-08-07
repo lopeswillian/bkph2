@@ -154,11 +154,10 @@ class _RegisterStep1State extends ViewState<RegisterStep1, RegisterViewModel> {
                         onStep: 1,
                         action: () {
                           if (state.document!.isRewardsCustomer) {
-                            const snackBar = SnackBar(
-                              content: Text('Cpf já registrado'),
-                              duration: Duration(seconds: 2),
+                            final snackBar = SnackBar(
+                              content: Text(state.error),
+                              duration: const Duration(seconds: 2),
                             );
-                            // ignore: use_build_context_synchronously
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBar);
                             return;

@@ -23,7 +23,14 @@ class RegisterViewModel extends ViewModel<RegisterState> {
       emit(
         state.copyWith(
           loading: false,
-          error: 'Cpf não encontrado',
+          error: error.maybeMap(
+            server: (error) => error.message,
+            invalidParams: (error) => error.message,
+            unauthorized: (error) => error.message,
+            invalidData: (error) => error.message,
+            unprocessableEntity: (error) => error.message,
+            orElse: () => '',
+          ),
         ),
       );
     }, (document) async {

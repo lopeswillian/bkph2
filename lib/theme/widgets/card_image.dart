@@ -39,10 +39,7 @@ class CardImage extends StatelessWidget {
   ///
   /// Creates a small sized Card Image
   ///
-  factory CardImage.small({
-    String? backgroundImage,
-    VoidCallback? action
-  }) {
+  factory CardImage.small({String? backgroundImage, VoidCallback? action}) {
     return CardImage._(
       backgroundImage: backgroundImage,
       action: action,
@@ -54,10 +51,7 @@ class CardImage extends StatelessWidget {
   ///
   /// Creates a medium sized Card Image
   ///
-  factory CardImage.medium({
-    String? backgroundImage,
-    VoidCallback? action
-  }) {
+  factory CardImage.medium({String? backgroundImage, VoidCallback? action}) {
     return CardImage._(
       backgroundImage: backgroundImage,
       action: action,
@@ -69,10 +63,7 @@ class CardImage extends StatelessWidget {
   ///
   /// Creates a large sized Card Image
   ///
-  factory CardImage.large({
-    String? backgroundImage,
-    VoidCallback? action
-  }) {
+  factory CardImage.large({String? backgroundImage, VoidCallback? action}) {
     return CardImage._(
       backgroundImage: backgroundImage,
       action: action,
@@ -150,8 +141,10 @@ class CardImage extends StatelessWidget {
   Widget detailSchedule(String title, String value, BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-          vertical: Dimension.xxs.height, horizontal: Dimension.xs.width),
-      width: const Dimension(8.75).width,
+        vertical: Dimension.xxs.height,
+        horizontal: Dimension.xs.width,
+      ),
+      width: const Dimension(10).width,
       decoration: BoxDecoration(
         border: Border.all(color: AppThemeBase.colorSecondary01),
         borderRadius: BorderRadius.circular(2.5),

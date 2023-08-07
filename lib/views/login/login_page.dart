@@ -61,7 +61,6 @@ class _LoginPageState extends State<LoginPage> with View<LoginViewModel> {
               CustomTextFormField(
                 controller: identifier,
                 labelText: 'E-mail ou CPF',
-                autoFocus: true,
                 contentPadding: EdgeInsets.symmetric(
                   horizontal: Dimension.sm.width,
                   vertical: Dimension.sm.width,

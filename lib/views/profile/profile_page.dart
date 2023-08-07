@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:apph2/domain/entities/profile_update_params.dart';
-import 'package:apph2/domain/entities/rewards_id_param.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/theme/widgets/custom_text.dart';
@@ -22,7 +21,7 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends ViewState<ProfilePage, ProfileViewModel> {
+class _ProfilePageState extends State<ProfilePage> with View<ProfileViewModel> {
   final _formKey = GlobalKey<FormState>();
 
   late String _selectedGender = '';
@@ -61,21 +60,10 @@ class _ProfilePageState extends ViewState<ProfilePage, ProfileViewModel> {
   void initState() {
     super.initState();
     _loginViewModel = DM.get<LoginViewModel>();
-    viewModel.getProfile(
-      rewardsIdParam: RewardsIdParam(
-        rewardsId: _loginViewModel.state.user?.id.toString() ?? '',
-      ),
-    );
   }
 
   logout() async {
     _loginViewModel.logout();
-  }
-
-  @override
-  void dispose(){
-    viewModel.dispose();
-    super.dispose();
   }
 
   updateProfile() async {
@@ -551,7 +539,7 @@ class _ProfilePageState extends ViewState<ProfilePage, ProfileViewModel> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Atualizar',
+                                'Salvar',
                                 style: context.text.calloutMedium,
                               ),
                               Text(
