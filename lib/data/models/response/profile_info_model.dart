@@ -37,6 +37,11 @@ class ProfileInfoModel with _$ProfileInfoModel {
     required String ddd,
     @JsonKey(name: 'cpf_masked') required String cpfMasked,
     @JsonKey(name: 'birthdate_masked') required String birthdateMasked,
+    @JsonKey(name: 'vip_level_live_id') required int vipLiveId,
+    @JsonKey(name: 'vip_level_online_id') required int vipOnlineId,
+    @JsonKey(name: 'vip_level_live') required String vipLive,
+    @JsonKey(name: 'vip_level_online') required String vipOnline,
+    @JsonKey(name: 'h2_pay') required int ish2Pay,
   }) = _ProfileInfoModel;
 
   factory ProfileInfoModel.fromJson(
@@ -72,5 +77,10 @@ class ProfileInfoModel with _$ProfileInfoModel {
         ddd: ddd,
         cpfMasked: cpfMasked,
         birthdateMasked: birthdateMasked,
+        vipLiveId: vipLiveId,
+        vipOnlineId: vipOnlineId,
+        vipLive: vipLive,
+        vipOnline: vipOnline,
+        ish2Pay: ish2Pay > 0,
       );
 }

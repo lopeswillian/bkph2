@@ -7,6 +7,7 @@ import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/h2pay/hiring/hiring_finish_page.dart';
 import 'package:apph2/views/h2pay/payment/payment_state.dart';
 import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
+import 'package:apph2/views/login/login_viewmodel.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
 import 'package:flutter/material.dart' hide View;
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -22,12 +23,14 @@ class HiringSmsPage extends StatefulWidget {
 class _HiringSmsPageState extends State<HiringSmsPage>
     with View<PaymentViewModel> {
   late H2PayViewModel h2payViewModel;
+  late LoginViewModel _loginViewModel;
   TextEditingController pinCodeController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     h2payViewModel = DM.get<H2PayViewModel>();
+    _loginViewModel = DM.get<LoginViewModel>();
     h2payViewModel.getSmsCode();
   }
 
@@ -138,7 +141,7 @@ class _HiringSmsPageState extends State<HiringSmsPage>
                                     ),
                                     TextSpan(
                                       text:
-                                          '\n ${h2payViewModel.state.customer!.cellphone}',
+                                          '\n ${_loginViewModel.state.user!.cellphone}',
                                       style: TextStyle(
                                         color: context
                                             .colorScheme.colorPrimaryDarkest,

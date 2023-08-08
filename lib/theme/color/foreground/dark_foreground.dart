@@ -7,20 +7,20 @@ import 'foreground_color_palette.dart';
 ///
 class DarkForeground implements IForegroundColorPalette {
   @override
-  Color get active => const Color(0xffFAFBFF);
+  Color get active => const Color(0xFF575756);
 
   @override
-  Color get normal => const Color(0xffFAFBFF).withOpacity(0.9);
+  Color get normal => const Color(0xFF575756).withOpacity(0.9);
 
   @override
-  Color get minimal => const Color(0xffFAFBFF).withOpacity(0.7);
+  Color get minimal => const Color(0xFF575756).withOpacity(0.7);
 
   @override
-  Color get disabled => const Color(0xffFAFBFF).withOpacity(0.5);
+  Color get disabled => const Color(0xFF575756).withOpacity(0.5);
 
   @override
-  Color get detail => const Color(0xffFAFBFF).withOpacity(0.25);
+  Color get detail => const Color(0xFF575756).withOpacity(0.25);
 
   @override
-  Color get soft => const Color(0xffFAFBFF).withOpacity(0.15);
+  Color get soft => const Color(0xFF575756).withOpacity(0.15);
 }

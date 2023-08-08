@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:apph2/domain/entities/profile_info.dart';
 import 'package:apph2/domain/entities/profile_update_params.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/theme.dart';
@@ -60,6 +61,28 @@ class _ProfilePageState extends State<ProfilePage> with View<ProfileViewModel> {
   void initState() {
     super.initState();
     _loginViewModel = DM.get<LoginViewModel>();
+    if (viewModel.state.profile != null) {
+      setValuesOnController(viewModel.state.profile!);
+    }
+  }
+
+  setValuesOnController(ProfileInfo profile) {
+    _selectedGender = profile.gender;
+    nickName.text = profile.nickname;
+    email.text = profile.email;
+    phone.text = phoneNumberFormatter.maskText(profile.ddd + profile.cellphone);
+    cep.text = cepFormater.maskText(profile.zipCode);
+    stateParam.text = profile.stateAbbreviation;
+    city.text = profile.cityName;
+    address.text = profile.address;
+    district.text = profile.district;
+    numberAddress.text = profile.number;
+    complement.text = profile.complement;
+    notifyScore = profile.notifyScore;
+    notifyRedemption = profile.notifyRedemption;
+    notifyPromotion = profile.notifyPromotion;
+    notifyCategory = profile.notifyCategory;
+    
   }
 
   logout() async {
@@ -91,6 +114,7 @@ class _ProfilePageState extends State<ProfilePage> with View<ProfileViewModel> {
         ddd: user.ddd,
       ),
     );
+    await _loginViewModel.updateProfile(viewModel.state.profile!);
   }
 
   @override
@@ -106,23 +130,8 @@ class _ProfilePageState extends State<ProfilePage> with View<ProfileViewModel> {
           previous.updated != current.updated,
       listener: (context, state) {
         if (state.profile != null) {
-          _selectedGender = state.profile?.gender ?? '';
-          nickName.text = state.profile?.nickname ?? '';
-          email.text = state.profile?.email ?? '';
-          phone.text = phoneNumberFormatter
-              .maskText(state.profile!.ddd + state.profile!.cellphone);
-          cep.text = cepFormater.maskText(state.profile!.zipCode);
-          stateParam.text = state.profile?.stateAbbreviation ?? '';
-          city.text = state.profile?.cityName ?? '';
-          address.text = state.profile?.address ?? '';
-          district.text = state.profile?.district ?? '';
-          numberAddress.text = state.profile?.number ?? '';
-          complement.text = state.profile?.complement ?? '';
-          notifyScore = state.profile!.notifyScore;
-          notifyRedemption = state.profile!.notifyRedemption;
-          notifyPromotion = state.profile!.notifyPromotion;
-          notifyCategory = state.profile!.notifyCategory;
-        }else{
+          setValuesOnController(state.profile!);
+        } else {
           logout();
         }
 

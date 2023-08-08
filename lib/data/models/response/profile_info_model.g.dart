@@ -35,6 +35,11 @@ _$_ProfileInfoModel _$$_ProfileInfoModelFromJson(Map<String, dynamic> json) =>
       ddd: json['ddd'] as String,
       cpfMasked: json['cpf_masked'] as String,
       birthdateMasked: json['birthdate_masked'] as String,
+      vipLiveId: json['vip_level_live_id'] as int,
+      vipOnlineId: json['vip_level_online_id'] as int,
+      vipLive: json['vip_level_live'] as String,
+      vipOnline: json['vip_level_online'] as String,
+      ish2Pay: json['h2_pay'] as int,
     );
 
 Map<String, dynamic> _$$_ProfileInfoModelToJson(_$_ProfileInfoModel instance) =>
@@ -66,4 +71,9 @@ Map<String, dynamic> _$$_ProfileInfoModelToJson(_$_ProfileInfoModel instance) =>
       'ddd': instance.ddd,
       'cpf_masked': instance.cpfMasked,
       'birthdate_masked': instance.birthdateMasked,
+      'vip_level_live_id': instance.vipLiveId,
+      'vip_level_online_id': instance.vipOnlineId,
+      'vip_level_live': instance.vipLive,
+      'vip_level_online': instance.vipOnline,
+      'h2_pay': instance.ish2Pay,
     };

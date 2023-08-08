@@ -120,10 +120,10 @@ class CardImage extends StatelessWidget {
                 ),
                 child: Align(
                   alignment: AlignmentDirectional.centerEnd,
-                  child: SizedBox(
-                    width: const Dimension(8.75).width,
+                  child: IntrinsicWidth(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         detailSchedule("Data", date!, context),
                         detailSchedule("Horário", time!, context),
@@ -144,7 +144,6 @@ class CardImage extends StatelessWidget {
         vertical: Dimension.xxs.height,
         horizontal: Dimension.xs.width,
       ),
-      width: const Dimension(10).width,
       decoration: BoxDecoration(
         border: Border.all(color: AppThemeBase.colorSecondary01),
         borderRadius: BorderRadius.circular(2.5),
@@ -155,12 +154,14 @@ class CardImage extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-                color: AppThemeBase.colorPrimaryLight, fontSize: 8.fontSize),
+              color: AppThemeBase.colorPrimaryLight,
+              fontSize: 8.fontSize,
+            ),
           ),
           Dimension.xxs.vertical,
           Text(
             value,
-            style: context.text.buttonBold.copyWith(fontSize: 11.fontSize),
+            style: context.text.buttonBold.copyWith(fontSize: 10.fontSize),
           ),
         ],
       ),

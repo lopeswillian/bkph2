@@ -610,7 +610,7 @@ class AppThemeFactory {
           height: AppThemeBase.lineHeightMedium,
         ),
         hintStyle: TextStyle(
-          color: AppThemeBase.colorNeutralLightmodeLight,
+          color: AppThemeBase.colorNeutralLightmodeDark,
           fontWeight: AppThemeBase.fontWeightRegular,
           fontSize: AppThemeBase.fontSizeBody1,
           height: AppThemeBase.lineHeightMedium,

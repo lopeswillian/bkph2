@@ -59,6 +59,16 @@ mixin _$ProfileInfoModel {
   String get cpfMasked => throw _privateConstructorUsedError;
   @JsonKey(name: 'birthdate_masked')
   String get birthdateMasked => throw _privateConstructorUsedError;
+  @JsonKey(name: 'vip_level_live_id')
+  int get vipLiveId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'vip_level_online_id')
+  int get vipOnlineId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'vip_level_live')
+  String get vipLive => throw _privateConstructorUsedError;
+  @JsonKey(name: 'vip_level_online')
+  String get vipOnline => throw _privateConstructorUsedError;
+  @JsonKey(name: 'h2_pay')
+  int get ish2Pay => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -99,7 +109,12 @@ abstract class $ProfileInfoModelCopyWith<$Res> {
       String cellphone,
       String ddd,
       @JsonKey(name: 'cpf_masked') String cpfMasked,
-      @JsonKey(name: 'birthdate_masked') String birthdateMasked});
+      @JsonKey(name: 'birthdate_masked') String birthdateMasked,
+      @JsonKey(name: 'vip_level_live_id') int vipLiveId,
+      @JsonKey(name: 'vip_level_online_id') int vipOnlineId,
+      @JsonKey(name: 'vip_level_live') String vipLive,
+      @JsonKey(name: 'vip_level_online') String vipOnline,
+      @JsonKey(name: 'h2_pay') int ish2Pay});
 }
 
 /// @nodoc
@@ -142,6 +157,11 @@ class _$ProfileInfoModelCopyWithImpl<$Res, $Val extends ProfileInfoModel>
     Object? ddd = null,
     Object? cpfMasked = null,
     Object? birthdateMasked = null,
+    Object? vipLiveId = null,
+    Object? vipOnlineId = null,
+    Object? vipLive = null,
+    Object? vipOnline = null,
+    Object? ish2Pay = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -252,6 +272,26 @@ class _$ProfileInfoModelCopyWithImpl<$Res, $Val extends ProfileInfoModel>
           ? _value.birthdateMasked
           : birthdateMasked // ignore: cast_nullable_to_non_nullable
               as String,
+      vipLiveId: null == vipLiveId
+          ? _value.vipLiveId
+          : vipLiveId // ignore: cast_nullable_to_non_nullable
+              as int,
+      vipOnlineId: null == vipOnlineId
+          ? _value.vipOnlineId
+          : vipOnlineId // ignore: cast_nullable_to_non_nullable
+              as int,
+      vipLive: null == vipLive
+          ? _value.vipLive
+          : vipLive // ignore: cast_nullable_to_non_nullable
+              as String,
+      vipOnline: null == vipOnline
+          ? _value.vipOnline
+          : vipOnline // ignore: cast_nullable_to_non_nullable
+              as String,
+      ish2Pay: null == ish2Pay
+          ? _value.ish2Pay
+          : ish2Pay // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -291,7 +331,12 @@ abstract class _$$_ProfileInfoModelCopyWith<$Res>
       String cellphone,
       String ddd,
       @JsonKey(name: 'cpf_masked') String cpfMasked,
-      @JsonKey(name: 'birthdate_masked') String birthdateMasked});
+      @JsonKey(name: 'birthdate_masked') String birthdateMasked,
+      @JsonKey(name: 'vip_level_live_id') int vipLiveId,
+      @JsonKey(name: 'vip_level_online_id') int vipOnlineId,
+      @JsonKey(name: 'vip_level_live') String vipLive,
+      @JsonKey(name: 'vip_level_online') String vipOnline,
+      @JsonKey(name: 'h2_pay') int ish2Pay});
 }
 
 /// @nodoc
@@ -332,6 +377,11 @@ class __$$_ProfileInfoModelCopyWithImpl<$Res>
     Object? ddd = null,
     Object? cpfMasked = null,
     Object? birthdateMasked = null,
+    Object? vipLiveId = null,
+    Object? vipOnlineId = null,
+    Object? vipLive = null,
+    Object? vipOnline = null,
+    Object? ish2Pay = null,
   }) {
     return _then(_$_ProfileInfoModel(
       id: null == id
@@ -442,6 +492,26 @@ class __$$_ProfileInfoModelCopyWithImpl<$Res>
           ? _value.birthdateMasked
           : birthdateMasked // ignore: cast_nullable_to_non_nullable
               as String,
+      vipLiveId: null == vipLiveId
+          ? _value.vipLiveId
+          : vipLiveId // ignore: cast_nullable_to_non_nullable
+              as int,
+      vipOnlineId: null == vipOnlineId
+          ? _value.vipOnlineId
+          : vipOnlineId // ignore: cast_nullable_to_non_nullable
+              as int,
+      vipLive: null == vipLive
+          ? _value.vipLive
+          : vipLive // ignore: cast_nullable_to_non_nullable
+              as String,
+      vipOnline: null == vipOnline
+          ? _value.vipOnline
+          : vipOnline // ignore: cast_nullable_to_non_nullable
+              as String,
+      ish2Pay: null == ish2Pay
+          ? _value.ish2Pay
+          : ish2Pay // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -476,7 +546,12 @@ class _$_ProfileInfoModel extends _ProfileInfoModel {
       required this.cellphone,
       required this.ddd,
       @JsonKey(name: 'cpf_masked') required this.cpfMasked,
-      @JsonKey(name: 'birthdate_masked') required this.birthdateMasked})
+      @JsonKey(name: 'birthdate_masked') required this.birthdateMasked,
+      @JsonKey(name: 'vip_level_live_id') required this.vipLiveId,
+      @JsonKey(name: 'vip_level_online_id') required this.vipOnlineId,
+      @JsonKey(name: 'vip_level_live') required this.vipLive,
+      @JsonKey(name: 'vip_level_online') required this.vipOnline,
+      @JsonKey(name: 'h2_pay') required this.ish2Pay})
       : super._();
 
   factory _$_ProfileInfoModel.fromJson(Map<String, dynamic> json) =>
@@ -548,10 +623,25 @@ class _$_ProfileInfoModel extends _ProfileInfoModel {
   @override
   @JsonKey(name: 'birthdate_masked')
   final String birthdateMasked;
+  @override
+  @JsonKey(name: 'vip_level_live_id')
+  final int vipLiveId;
+  @override
+  @JsonKey(name: 'vip_level_online_id')
+  final int vipOnlineId;
+  @override
+  @JsonKey(name: 'vip_level_live')
+  final String vipLive;
+  @override
+  @JsonKey(name: 'vip_level_online')
+  final String vipOnline;
+  @override
+  @JsonKey(name: 'h2_pay')
+  final int ish2Pay;
 
   @override
   String toString() {
-    return 'ProfileInfoModel(id: $id, nationality: $nationality, name: $name, email: $email, nickname: $nickname, cpf: $cpf, photo: $photo, birthdate: $birthdate, zipCode: $zipCode, address: $address, number: $number, complement: $complement, stateId: $stateId, stateName: $stateName, stateAbbreviation: $stateAbbreviation, cityId: $cityId, cityName: $cityName, district: $district, gender: $gender, notifyScore: $notifyScore, notifyRedemption: $notifyRedemption, notifyPromotion: $notifyPromotion, notifyCategory: $notifyCategory, cellphone: $cellphone, ddd: $ddd, cpfMasked: $cpfMasked, birthdateMasked: $birthdateMasked)';
+    return 'ProfileInfoModel(id: $id, nationality: $nationality, name: $name, email: $email, nickname: $nickname, cpf: $cpf, photo: $photo, birthdate: $birthdate, zipCode: $zipCode, address: $address, number: $number, complement: $complement, stateId: $stateId, stateName: $stateName, stateAbbreviation: $stateAbbreviation, cityId: $cityId, cityName: $cityName, district: $district, gender: $gender, notifyScore: $notifyScore, notifyRedemption: $notifyRedemption, notifyPromotion: $notifyPromotion, notifyCategory: $notifyCategory, cellphone: $cellphone, ddd: $ddd, cpfMasked: $cpfMasked, birthdateMasked: $birthdateMasked, vipLiveId: $vipLiveId, vipOnlineId: $vipOnlineId, vipLive: $vipLive, vipOnline: $vipOnline, ish2Pay: $ish2Pay)';
   }
 
   @override
@@ -600,7 +690,15 @@ class _$_ProfileInfoModel extends _ProfileInfoModel {
             (identical(other.cpfMasked, cpfMasked) ||
                 other.cpfMasked == cpfMasked) &&
             (identical(other.birthdateMasked, birthdateMasked) ||
-                other.birthdateMasked == birthdateMasked));
+                other.birthdateMasked == birthdateMasked) &&
+            (identical(other.vipLiveId, vipLiveId) ||
+                other.vipLiveId == vipLiveId) &&
+            (identical(other.vipOnlineId, vipOnlineId) ||
+                other.vipOnlineId == vipOnlineId) &&
+            (identical(other.vipLive, vipLive) || other.vipLive == vipLive) &&
+            (identical(other.vipOnline, vipOnline) ||
+                other.vipOnline == vipOnline) &&
+            (identical(other.ish2Pay, ish2Pay) || other.ish2Pay == ish2Pay));
   }
 
   @JsonKey(ignore: true)
@@ -633,7 +731,12 @@ class _$_ProfileInfoModel extends _ProfileInfoModel {
         cellphone,
         ddd,
         cpfMasked,
-        birthdateMasked
+        birthdateMasked,
+        vipLiveId,
+        vipOnlineId,
+        vipLive,
+        vipOnline,
+        ish2Pay
       ]);
 
   @JsonKey(ignore: true)
@@ -690,7 +793,17 @@ abstract class _ProfileInfoModel extends ProfileInfoModel {
       @JsonKey(name: 'cpf_masked')
           required final String cpfMasked,
       @JsonKey(name: 'birthdate_masked')
-          required final String birthdateMasked}) = _$_ProfileInfoModel;
+          required final String birthdateMasked,
+      @JsonKey(name: 'vip_level_live_id')
+          required final int vipLiveId,
+      @JsonKey(name: 'vip_level_online_id')
+          required final int vipOnlineId,
+      @JsonKey(name: 'vip_level_live')
+          required final String vipLive,
+      @JsonKey(name: 'vip_level_online')
+          required final String vipOnline,
+      @JsonKey(name: 'h2_pay')
+          required final int ish2Pay}) = _$_ProfileInfoModel;
   _ProfileInfoModel._() : super._();
 
   factory _ProfileInfoModel.fromJson(Map<String, dynamic> json) =
@@ -762,6 +875,21 @@ abstract class _ProfileInfoModel extends ProfileInfoModel {
   @override
   @JsonKey(name: 'birthdate_masked')
   String get birthdateMasked;
+  @override
+  @JsonKey(name: 'vip_level_live_id')
+  int get vipLiveId;
+  @override
+  @JsonKey(name: 'vip_level_online_id')
+  int get vipOnlineId;
+  @override
+  @JsonKey(name: 'vip_level_live')
+  String get vipLive;
+  @override
+  @JsonKey(name: 'vip_level_online')
+  String get vipOnline;
+  @override
+  @JsonKey(name: 'h2_pay')
+  int get ish2Pay;
   @override
   @JsonKey(ignore: true)
   _$$_ProfileInfoModelCopyWith<_$_ProfileInfoModel> get copyWith =>

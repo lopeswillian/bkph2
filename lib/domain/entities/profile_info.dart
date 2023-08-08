@@ -32,5 +32,10 @@ class ProfileInfo with _$ProfileInfo {
     required String ddd,
     required String cpfMasked,
     required String birthdateMasked,
+    required int vipLiveId,
+    required int vipOnlineId,
+    required String vipLive,
+    required String vipOnline,
+    required bool ish2Pay,
   }) = _ProfileInfo;
 }

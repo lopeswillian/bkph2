@@ -16,7 +16,7 @@ class LightForeground implements IForegroundColorPalette {
   Color get minimal => const Color(0xff050922).withOpacity(0.6);
 
   @override
-  Color get disabled => const Color(0xff050922).withOpacity(0.38);
+  Color get disabled => const Color(0xff050922).withOpacity(0.5);
 
   @override
   Color get detail => const Color(0xff050922).withOpacity(0.16);

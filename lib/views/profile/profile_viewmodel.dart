@@ -15,9 +15,9 @@ class ProfileViewModel extends ViewModel<ProfileState> {
   ) : super(ProfileState.initial());
 
   @override
-  void dispose(){}
+  void dispose() {}
 
-  void getProfile({
+  Future<void> getProfile({
     required RewardsIdParam rewardsIdParam,
   }) async {
     emit(
@@ -28,8 +28,9 @@ class ProfileViewModel extends ViewModel<ProfileState> {
     );
     final result = await _getProfileUseCase(rewardsIdParam);
     final newState = result.fold(
-      (error) => state.copyWith(loading: false, error: 'error'),
-      (profile) => state.copyWith(loading: false, error: '', profile: profile),
+      (error) =>
+          state.copyWith(loading: false, error: 'Erro ao buscar perfil.'),
+      (profile) => state.copyWith(loading: false, profile: profile),
     );
 
     emit(newState);
@@ -60,6 +61,13 @@ class ProfileViewModel extends ViewModel<ProfileState> {
         zipCode: params.zipCode.replaceAll(RegExp(r'[^0-9]'), ''));
 
     final result = await _updateProfileUseCase(updateParams);
+    final resultProfile = await _getProfileUseCase(
+      RewardsIdParam(
+        rewardsId: updateParams.customerId.toString(),
+      ),
+    );
+
+    final newProfile = resultProfile.fold((l) => null, (profile) => profile);
 
     final newState = result.fold(
       (error) => state.copyWith(
@@ -77,6 +85,7 @@ class ProfileViewModel extends ViewModel<ProfileState> {
       (profile) => state.copyWith(
         loading: false,
         error: '',
+        profile: newProfile,
         updated: true,
       ),
     );

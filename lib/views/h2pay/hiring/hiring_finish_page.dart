@@ -107,7 +107,7 @@ class _HiringFinishPageState extends State<HiringFinishPage> {
                                 ),
                                 Dimension.sm.vertical,
                                 Text(
-                                  '${widget.params.valuePrincipal.toCurrency()}, a serem pagos em até ${widget.params.paymentDescription}, utilizando recursos próprios.',
+                                  '${widget.params.valuePrincipal.toCurrency()} à serem pagos ${widget.params.paymentDescription}, utilizando recursos próprios.',
                                   textAlign: TextAlign.center,
                                   style: context.text.body1,
                                 ),

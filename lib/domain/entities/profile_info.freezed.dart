@@ -43,6 +43,11 @@ mixin _$ProfileInfo {
   String get ddd => throw _privateConstructorUsedError;
   String get cpfMasked => throw _privateConstructorUsedError;
   String get birthdateMasked => throw _privateConstructorUsedError;
+  int get vipLiveId => throw _privateConstructorUsedError;
+  int get vipOnlineId => throw _privateConstructorUsedError;
+  String get vipLive => throw _privateConstructorUsedError;
+  String get vipOnline => throw _privateConstructorUsedError;
+  bool get ish2Pay => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProfileInfoCopyWith<ProfileInfo> get copyWith =>
@@ -82,7 +87,12 @@ abstract class $ProfileInfoCopyWith<$Res> {
       String cellphone,
       String ddd,
       String cpfMasked,
-      String birthdateMasked});
+      String birthdateMasked,
+      int vipLiveId,
+      int vipOnlineId,
+      String vipLive,
+      String vipOnline,
+      bool ish2Pay});
 }
 
 /// @nodoc
@@ -125,6 +135,11 @@ class _$ProfileInfoCopyWithImpl<$Res, $Val extends ProfileInfo>
     Object? ddd = null,
     Object? cpfMasked = null,
     Object? birthdateMasked = null,
+    Object? vipLiveId = null,
+    Object? vipOnlineId = null,
+    Object? vipLive = null,
+    Object? vipOnline = null,
+    Object? ish2Pay = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -235,6 +250,26 @@ class _$ProfileInfoCopyWithImpl<$Res, $Val extends ProfileInfo>
           ? _value.birthdateMasked
           : birthdateMasked // ignore: cast_nullable_to_non_nullable
               as String,
+      vipLiveId: null == vipLiveId
+          ? _value.vipLiveId
+          : vipLiveId // ignore: cast_nullable_to_non_nullable
+              as int,
+      vipOnlineId: null == vipOnlineId
+          ? _value.vipOnlineId
+          : vipOnlineId // ignore: cast_nullable_to_non_nullable
+              as int,
+      vipLive: null == vipLive
+          ? _value.vipLive
+          : vipLive // ignore: cast_nullable_to_non_nullable
+              as String,
+      vipOnline: null == vipOnline
+          ? _value.vipOnline
+          : vipOnline // ignore: cast_nullable_to_non_nullable
+              as String,
+      ish2Pay: null == ish2Pay
+          ? _value.ish2Pay
+          : ish2Pay // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -274,7 +309,12 @@ abstract class _$$_ProfileInfoCopyWith<$Res>
       String cellphone,
       String ddd,
       String cpfMasked,
-      String birthdateMasked});
+      String birthdateMasked,
+      int vipLiveId,
+      int vipOnlineId,
+      String vipLive,
+      String vipOnline,
+      bool ish2Pay});
 }
 
 /// @nodoc
@@ -315,6 +355,11 @@ class __$$_ProfileInfoCopyWithImpl<$Res>
     Object? ddd = null,
     Object? cpfMasked = null,
     Object? birthdateMasked = null,
+    Object? vipLiveId = null,
+    Object? vipOnlineId = null,
+    Object? vipLive = null,
+    Object? vipOnline = null,
+    Object? ish2Pay = null,
   }) {
     return _then(_$_ProfileInfo(
       id: null == id
@@ -425,6 +470,26 @@ class __$$_ProfileInfoCopyWithImpl<$Res>
           ? _value.birthdateMasked
           : birthdateMasked // ignore: cast_nullable_to_non_nullable
               as String,
+      vipLiveId: null == vipLiveId
+          ? _value.vipLiveId
+          : vipLiveId // ignore: cast_nullable_to_non_nullable
+              as int,
+      vipOnlineId: null == vipOnlineId
+          ? _value.vipOnlineId
+          : vipOnlineId // ignore: cast_nullable_to_non_nullable
+              as int,
+      vipLive: null == vipLive
+          ? _value.vipLive
+          : vipLive // ignore: cast_nullable_to_non_nullable
+              as String,
+      vipOnline: null == vipOnline
+          ? _value.vipOnline
+          : vipOnline // ignore: cast_nullable_to_non_nullable
+              as String,
+      ish2Pay: null == ish2Pay
+          ? _value.ish2Pay
+          : ish2Pay // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -459,7 +524,12 @@ class _$_ProfileInfo implements _ProfileInfo {
       required this.cellphone,
       required this.ddd,
       required this.cpfMasked,
-      required this.birthdateMasked});
+      required this.birthdateMasked,
+      required this.vipLiveId,
+      required this.vipOnlineId,
+      required this.vipLive,
+      required this.vipOnline,
+      required this.ish2Pay});
 
   @override
   final int id;
@@ -515,10 +585,20 @@ class _$_ProfileInfo implements _ProfileInfo {
   final String cpfMasked;
   @override
   final String birthdateMasked;
+  @override
+  final int vipLiveId;
+  @override
+  final int vipOnlineId;
+  @override
+  final String vipLive;
+  @override
+  final String vipOnline;
+  @override
+  final bool ish2Pay;
 
   @override
   String toString() {
-    return 'ProfileInfo(id: $id, nationality: $nationality, name: $name, email: $email, nickname: $nickname, cpf: $cpf, photo: $photo, birthdate: $birthdate, zipCode: $zipCode, address: $address, number: $number, complement: $complement, stateId: $stateId, stateName: $stateName, stateAbbreviation: $stateAbbreviation, cityId: $cityId, cityName: $cityName, district: $district, gender: $gender, notifyScore: $notifyScore, notifyRedemption: $notifyRedemption, notifyPromotion: $notifyPromotion, notifyCategory: $notifyCategory, cellphone: $cellphone, ddd: $ddd, cpfMasked: $cpfMasked, birthdateMasked: $birthdateMasked)';
+    return 'ProfileInfo(id: $id, nationality: $nationality, name: $name, email: $email, nickname: $nickname, cpf: $cpf, photo: $photo, birthdate: $birthdate, zipCode: $zipCode, address: $address, number: $number, complement: $complement, stateId: $stateId, stateName: $stateName, stateAbbreviation: $stateAbbreviation, cityId: $cityId, cityName: $cityName, district: $district, gender: $gender, notifyScore: $notifyScore, notifyRedemption: $notifyRedemption, notifyPromotion: $notifyPromotion, notifyCategory: $notifyCategory, cellphone: $cellphone, ddd: $ddd, cpfMasked: $cpfMasked, birthdateMasked: $birthdateMasked, vipLiveId: $vipLiveId, vipOnlineId: $vipOnlineId, vipLive: $vipLive, vipOnline: $vipOnline, ish2Pay: $ish2Pay)';
   }
 
   @override
@@ -567,7 +647,15 @@ class _$_ProfileInfo implements _ProfileInfo {
             (identical(other.cpfMasked, cpfMasked) ||
                 other.cpfMasked == cpfMasked) &&
             (identical(other.birthdateMasked, birthdateMasked) ||
-                other.birthdateMasked == birthdateMasked));
+                other.birthdateMasked == birthdateMasked) &&
+            (identical(other.vipLiveId, vipLiveId) ||
+                other.vipLiveId == vipLiveId) &&
+            (identical(other.vipOnlineId, vipOnlineId) ||
+                other.vipOnlineId == vipOnlineId) &&
+            (identical(other.vipLive, vipLive) || other.vipLive == vipLive) &&
+            (identical(other.vipOnline, vipOnline) ||
+                other.vipOnline == vipOnline) &&
+            (identical(other.ish2Pay, ish2Pay) || other.ish2Pay == ish2Pay));
   }
 
   @override
@@ -599,7 +687,12 @@ class _$_ProfileInfo implements _ProfileInfo {
         cellphone,
         ddd,
         cpfMasked,
-        birthdateMasked
+        birthdateMasked,
+        vipLiveId,
+        vipOnlineId,
+        vipLive,
+        vipOnline,
+        ish2Pay
       ]);
 
   @JsonKey(ignore: true)
@@ -637,7 +730,12 @@ abstract class _ProfileInfo implements ProfileInfo {
       required final String cellphone,
       required final String ddd,
       required final String cpfMasked,
-      required final String birthdateMasked}) = _$_ProfileInfo;
+      required final String birthdateMasked,
+      required final int vipLiveId,
+      required final int vipOnlineId,
+      required final String vipLive,
+      required final String vipOnline,
+      required final bool ish2Pay}) = _$_ProfileInfo;
 
   @override
   int get id;
@@ -693,6 +791,16 @@ abstract class _ProfileInfo implements ProfileInfo {
   String get cpfMasked;
   @override
   String get birthdateMasked;
+  @override
+  int get vipLiveId;
+  @override
+  int get vipOnlineId;
+  @override
+  String get vipLive;
+  @override
+  String get vipOnline;
+  @override
+  bool get ish2Pay;
   @override
   @JsonKey(ignore: true)
   _$$_ProfileInfoCopyWith<_$_ProfileInfo> get copyWith =>

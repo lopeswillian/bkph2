@@ -1,5 +1,6 @@
 import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/domain/entities/login_params.dart';
+import 'package:apph2/domain/entities/profile_info.dart';
 import 'package:apph2/domain/entities/rewards_id_param.dart';
 import 'package:apph2/domain/entities/user_info.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
@@ -67,12 +68,6 @@ class LoginViewModel extends ViewModel<LoginState> {
           ish2Pay: decodedToken['customer_h2_pay'],
         );
 
-        _profileViewModel.getProfile(
-          rewardsIdParam: RewardsIdParam(
-            rewardsId: user.id.toString(),
-          ),
-        );
-        
         return state.copyWith(
           loading: false,
           token: login.token,
@@ -81,10 +76,40 @@ class LoginViewModel extends ViewModel<LoginState> {
       },
     );
 
+    await _profileViewModel.getProfile(
+      rewardsIdParam: RewardsIdParam(
+        rewardsId: newState.user!.id.toString(),
+      ),
+    );
+
     emit(newState);
   }
 
-  void loginByRegister(String token) {
+  Future<void> updateProfile(ProfileInfo profile) async {
+    final UserInfo user = UserInfo(
+      id: profile.id,
+      avatarUrl: '',
+      name: profile.name,
+      email: profile.email,
+      birthdate: profile.birthdate,
+      cpf: profile.cpf,
+      nickname: profile.nickname,
+      cellphone: '55${profile.ddd}${profile.cellphone}',
+      vipLiveId: profile.vipLiveId,
+      vipOnlineId: profile.vipOnlineId,
+      vipLive: profile.vipLive,
+      vipOnline: profile.vipOnline,
+      ish2Pay: profile.ish2Pay,
+    );
+
+    emit(
+      state.copyWith(
+        user: user,
+      ),
+    );
+  }
+
+  void loginByRegister(String token) async {
     emit(
       state.copyWith(loading: true),
     );
@@ -106,7 +131,7 @@ class LoginViewModel extends ViewModel<LoginState> {
       ish2Pay: decodedToken['customer_h2_pay'],
     );
 
-    _profileViewModel.getProfile(
+    await _profileViewModel.getProfile(
       rewardsIdParam: RewardsIdParam(
         rewardsId: user.id.toString(),
       ),
@@ -142,7 +167,7 @@ class LoginViewModel extends ViewModel<LoginState> {
           vipOnline: decodedToken['customer_vip_online'],
           ish2Pay: decodedToken['customer_h2_pay'] ?? false);
 
-      _profileViewModel.getProfile(
+      await _profileViewModel.getProfile(
         rewardsIdParam: RewardsIdParam(
           rewardsId: user.id.toString(),
         ),

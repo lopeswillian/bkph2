@@ -106,11 +106,12 @@ class _ListSchedulePageState extends State<ListSchedulePage>
                                 children: [
                                   CardImage.schedule(
                                     action: () => Nav.pushNamed(
-                                        BaseAppModuleRouting.scheduleDetail,
-                                        arguments: SchedulePageArguments(
-                                          eventId: eventDetail.id,
-                                          title: state.listEvents?.name ?? '',
-                                        )),
+                                      BaseAppModuleRouting.scheduleDetail,
+                                      arguments: SchedulePageArguments(
+                                        eventId: eventDetail.id,
+                                        title: state.listEvents?.name ?? '',
+                                      ),
+                                    ),
                                     date: eventDetail.dateFormatted,
                                     time: eventDetail.start,
                                     buyIn: eventDetail.buyin.toCurrency(),

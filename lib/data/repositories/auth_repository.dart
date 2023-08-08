@@ -76,9 +76,16 @@ class AuthRepository implements IAuthRepository {
       final document = await datasource.getCpf(
         CpfParamsModel.fromEntity(params),
       );
+      if (document.isRewardsCustomer) {
+        throw const UnprocessableEntityException(
+          data: 'CPF já registrado!',
+        );
+      }
       return Right(document.toEntity());
-    } on IHttpException {
-      return const Left(H2Failure.unexpected());
+    } on IHttpException catch (e) {
+      return Left(
+        H2Failure.unprocessableEntity(message: e.data ?? 'Erro inexperado.'),
+      );
     } on Exception {
       return const Left(H2Failure.unexpected());
     }
@@ -111,7 +118,8 @@ class AuthRepository implements IAuthRepository {
       return const Right(unit);
     } on IHttpException catch (e) {
       return Left(
-          H2Failure.unprocessableEntity(message: e.data ?? 'Erro inexperado.'));
+        H2Failure.unprocessableEntity(message: e.data ?? 'Erro inexperado.'),
+      );
     } on Exception {
       return const Left(H2Failure.unexpected());
     }

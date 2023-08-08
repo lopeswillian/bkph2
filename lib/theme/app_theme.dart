@@ -143,7 +143,7 @@ class AppTheme {
         fillColor: MaterialStateProperty.all(AppThemeBase.colorPrimaryMedium),
         overlayColor: MaterialStateProperty.all(foreground.disabled),
       ),
-      disabledColor: foreground.soft,
+      disabledColor: foreground.detail,
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
           borderSide: const BorderSide(
@@ -163,7 +163,7 @@ class AppTheme {
           borderRadius: BorderRadius.circular(Dimension.xs.value),
         ),
         disabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 1.0, color: foreground.soft),
+          borderSide: BorderSide(width: 1.0, color: foreground.detail),
           borderRadius: BorderRadius.circular(Dimension.xs.value),
         ),
         labelStyle: TextStyle(
@@ -255,7 +255,7 @@ class AppTheme {
           textStyle: MaterialStateProperty.resolveWith((states) {
             return appTextStyle.buttonMedium.copyWith(
               color: states.contains(MaterialState.disabled)
-                  ? foreground.soft
+                  ? foreground.detail
                   : foreground.active,
             );
           }),
