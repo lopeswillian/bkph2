@@ -175,7 +175,7 @@ class _RedemptionRescuePageState extends State<RedemptionRescuePage>
                                                   style: context.text.caption,
                                                 ),
                                                 Text(
-                                                  '600 pts.',
+                                                  '${(state.userPoints?.rewardsPoints??0).toStringAsFixed(0)} pts.',
                                                   style: context
                                                       .text.body1Medium
                                                       .copyWith(

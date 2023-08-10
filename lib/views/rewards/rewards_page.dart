@@ -32,6 +32,12 @@ class _RewardsPageState extends ViewState<RewardsPage, RewardsViewModel> {
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+    viewModel.getUserPoints();
+  }
+
   Widget _buildPage(BuildContext context, RewardsState state) {
     return Container(
       decoration: const BoxDecoration(

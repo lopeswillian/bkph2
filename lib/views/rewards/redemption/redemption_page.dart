@@ -112,7 +112,7 @@ class _RewardsRedemptionPageState extends State<RewardsRedemptionPage>
                                         style: context.text.caption,
                                       ),
                                       Text(
-                                        '600 pts.',
+                                        '${(state.userPoints?.rewardsPoints??0).toStringAsFixed(0)} pts.',
                                         style:
                                             context.text.body1Medium.copyWith(
                                           fontSize: 25.fontSize,
@@ -139,8 +139,10 @@ class _RewardsRedemptionPageState extends State<RewardsRedemptionPage>
                               Radius.circular(10),
                             ),
                             image: DecorationImage(
+                              fit: BoxFit.cover,
                               image: AssetImage(
-                                  "assets/images/rewards_prizes.png"),
+                                "assets/images/rewards_prizes.png",
+                              ),
                             ),
                           ),
                           height: const Dimension(130 / 8).height,
@@ -189,10 +191,8 @@ class _RewardsRedemptionPageState extends State<RewardsRedemptionPage>
   }) {
     return GestureDetector(
       onTap: () => {
-        Nav.pushNamed(
-          BaseAppModuleRouting.redemptionRescuePage,
-          arguments: prize.id
-        )
+        Nav.pushNamed(BaseAppModuleRouting.redemptionRescuePage,
+            arguments: prize.id)
       },
       child: SizedBox(
         width: const Dimension(149 / 8).width,

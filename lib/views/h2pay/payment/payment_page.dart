@@ -256,15 +256,6 @@ class _PaymentPageState extends ViewState<PaymentPage, PaymentViewModel> {
     }
 
     return listAnticipation
-        .where((element) {
-          if (position == 1) {
-            return [0, 1].contains(element.status);
-          }
-          if (position == 2) {
-            return element.status == 4;
-          }
-          return true;
-        })
         .map(
           (anticipation) => Column(
             children: [

@@ -1,5 +1,7 @@
 import 'package:apph2/domain/entities/rewards_accordion_category.dart';
 import 'package:apph2/domain/entities/rewards_category.dart';
+import 'package:apph2/domain/entities/user_points_info.dart';
+import 'package:apph2/domain/entities/user_statement_info.dart';
 import 'package:apph2/infraestructure/mvvm/mvvm.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -12,6 +14,8 @@ class RewardsState extends ViewModelState with _$RewardsState {
     @Default('') String error,
     @Default([]) List<RewardsAccordionCategory> listRewardsCategories,
     RewardsCategory? rewardDetails,
+    @Default([]) List<UserStatementInfo> listUserStatement,
+    UserPointsInfo? userPoints,
   }) = _RewardsState;
 
   factory RewardsState.initial() => const RewardsState();

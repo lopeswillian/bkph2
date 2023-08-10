@@ -1,12 +1,22 @@
 import 'dart:async';
 import 'package:apph2/data/models/response/rewards_accordion_category_model.dart';
 import 'package:apph2/data/models/response/rewards_category_model.dart';
+import 'package:apph2/data/models/response/user_points_info_model.dart';
+import 'package:apph2/data/models/response/user_statement_info_model.dart';
 import 'package:apph2/infraestructure/http/http_client.dart';
 
 abstract class IRewardsDataSource {
   FutureOr<List<RewardsAccordionCategoryModel>> getRewardsAccordionCategory();
 
   FutureOr<RewardsCategoryModel> getRewardsCategoryDetail(int id);
+
+  FutureOr<List<UserStatementInfoModel>> getUserStatement({
+    required String cpf,
+  });
+
+  FutureOr<UserPointsInfoModel> getUserPoints({
+    required String cpf,
+  });
 }
 
 class RewardsDataSource implements IRewardsDataSource {
@@ -35,5 +45,29 @@ class RewardsDataSource implements IRewardsDataSource {
     );
 
     return RewardsCategoryModel.fromJson(response.data['data']);
+  }
+
+  @override
+  FutureOr<List<UserStatementInfoModel>> getUserStatement(
+      {required String cpf}) async {
+    final response = await client.get(
+      'bco-rewards-statement/$cpf',
+    );
+
+    List<dynamic> dynamicStatement = response.data['data'];
+    List<UserStatementInfoModel> listStatement = dynamicStatement
+        .map((e) => UserStatementInfoModel.fromJson(e))
+        .toList();
+
+    return listStatement;
+  }
+
+  @override
+  FutureOr<UserPointsInfoModel> getUserPoints({required String cpf}) async {
+    final response = await client.get(
+      'bco-rewards-user/$cpf',
+    );
+
+    return UserPointsInfoModel.fromJson(response.data['data']);
   }
 }

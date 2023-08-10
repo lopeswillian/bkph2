@@ -35,6 +35,8 @@ import 'package:apph2/usecases/get_rewards_category_detail_usecase.dart';
 import 'package:apph2/usecases/get_sms_code_usecase.dart';
 import 'package:apph2/usecases/get_ted_data_usecase.dart';
 import 'package:apph2/usecases/get_terms_condition.dart';
+import 'package:apph2/usecases/get_user_points_usecase.dart';
+import 'package:apph2/usecases/get_user_statement_usecase.dart';
 import 'package:apph2/usecases/login_recovery_usecase.dart';
 import 'package:apph2/usecases/login_with_credentials_usecase.dart';
 import 'package:apph2/usecases/register_usecase.dart';
@@ -262,6 +264,12 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<IGetRewardsCategoryDetailUseCase>(
           (i) => GetRewardsCategoryDetailUseCase(i.get<IRewardsRepository>()),
         ),
+        Bind.lazySingleton<IGetUserStatementUseCase>(
+          (i) => GetUserStatementUseCase(i.get<IRewardsRepository>()),
+        ),
+        Bind.lazySingleton<IGetuserPointsUseCase>(
+          (i) => GetuserPointsUseCase(i.get<IRewardsRepository>()),
+        ),
       ];
 
   static List<Bind> get _viewModels => [
@@ -332,6 +340,9 @@ class BaseAppModuleBindings {
           (i) => RewardsViewModel(
             i.get<IGetRewardsCategoriesUseCase>(),
             i.get<IGetRewardsCategoryDetailUseCase>(),
+            i.get<IGetUserStatementUseCase>(),
+            i.get<IGetuserPointsUseCase>(),
+            i.get<LoginViewModel>()
           ),
         ),
       ];

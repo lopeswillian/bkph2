@@ -1,3 +1,4 @@
+import 'package:apph2/domain/entities/user_statement_info.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/theme/widgets/h2loading.dart';
@@ -25,6 +26,12 @@ class _RewardsPointsPageState extends State<RewardsPointsPage>
       position = newPosition;
     });
   }
+
+  @override
+  void initState() {
+    super.initState();
+    viewModel.getUserStatement();
+  }  
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +119,7 @@ class _RewardsPointsPageState extends State<RewardsPointsPage>
                                         style: context.text.caption,
                                       ),
                                       Text(
-                                        '600 pts.',
+                                        '${(state.userPoints?.rewardsPoints??0).toStringAsFixed(0)} pts.',
                                         style:
                                             context.text.body1Medium.copyWith(
                                           fontSize: 25.fontSize,
@@ -136,53 +143,31 @@ class _RewardsPointsPageState extends State<RewardsPointsPage>
                         const Dimension(2.5).vertical,
                         const Divider(),
                         const Dimension(2.5).vertical,
-                        detailPayments(
-                          context: context,
-                          dateCreate: '25/05/2023  14:00',
-                          status: 2,
-                          value: 2,
-                        ),
-                        Dimension.sm.vertical,
-                        detailPayments(
-                          context: context,
-                          dateCreate: '25/05/2023  14:00',
-                          status: 0,
-                          value: 2,
-                        ),
-                        Dimension.sm.vertical,
-                        detailPayments(
-                          context: context,
-                          dateCreate: '25/05/2023  14:00',
-                          status: 1,
-                          value: 2,
-                        ),
-                        // if (state.anticipationWithDischarge != null)
-                        //   ...state
-                        //       .anticipationWithDischarge!.listAnticipation
-                        //       .where((element) {
-                        //         if (position == 1) {
-                        //           return [0, 1].contains(element.status);
-                        //         }
-                        //         if (position == 2) {
-                        //           return element.status == 4;
-                        //         }
-                        //         return true;
-                        //       })
-                        //       .map(
-                        //         (anticipation) => Column(
-                        //           children: [
-                        //             detailPayments(
-                        //               context: context,
-                        //               dateCreate: anticipation.dateCreate
-                        //                   .toString(),
-                        //               status: anticipation.status,
-                        //               value: anticipation.valuePrincipal,
-                        //             ),
-                        //             Dimension.sm.vertical
-                        //           ],
-                        //         ),
-                        //       )
-                        //       .toList(),
+                        if (state.listUserStatement.isEmpty)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Não há lançamentos.',
+                                textAlign: TextAlign.center,
+                                style: context.text.callout,
+                              )
+                            ],
+                          )
+                        else
+                          ...mapStatement(
+                              state.listUserStatement.where((element) {
+                            if (position == 1) {
+                              return element.type == 'a';
+                            }
+                            if (position == 2) {
+                              return element.type == 'r';
+                            }
+                            if (position == 3) {
+                              return element.type == 'x';
+                            }
+                            return true;
+                          }).toList()),
                       ],
                     ),
                   ),
@@ -195,21 +180,61 @@ class _RewardsPointsPageState extends State<RewardsPointsPage>
     );
   }
 
-  TemplateCard getTemplateDetail(int status) {
-    switch (status) {
-      case 0:
+  List<Widget> mapStatement(List<UserStatementInfo> listStatement) {
+    if (listStatement.isEmpty) {
+      return [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Não há lançamentos.',
+              textAlign: TextAlign.center,
+              style: context.text.callout,
+            )
+          ],
+        )
+      ];
+    }
+
+    return listStatement
+        .map(
+          (statement) => Column(
+            children: [
+              detailPayments(context: context, statement: statement),
+              Dimension.sm.vertical
+            ],
+          ),
+        )
+        .toList();
+  }
+
+  TemplateCard getTemplateDetail(String type) {
+    switch (type) {
+      case 'a':
         return TemplateCard(
           bgColor: const Color(0xFFEAFCE2),
           title: 'Acumulado',
           titleColor: const Color(0xFF8FCD8E),
         );
-      case 1:
+      case 'r':
         return TemplateCard(
           bgColor: const Color(0xFFF9DFDF),
           title: 'Resgatado',
           titleColor: const Color(0xFFD47C7C),
         );
-      case 2:
+      case 'c':
+        return TemplateCard(
+          bgColor: const Color(0xFFDADADA),
+          title: 'Cancelado',
+          titleColor: const Color(0xFF979797),
+        );
+      case 'e':
+        return TemplateCard(
+          bgColor: const Color(0xFFDADADA),
+          title: 'Extornado',
+          titleColor: const Color(0xFF979797),
+        );
+      case 'x':
       default:
         return TemplateCard(
           bgColor: const Color(0xFFDADADA),
@@ -221,71 +246,81 @@ class _RewardsPointsPageState extends State<RewardsPointsPage>
 
   Widget detailPayments({
     required BuildContext context,
-    required String dateCreate,
-    required double value,
-    required int status,
+    required UserStatementInfo statement,
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: getTemplateDetail(status).bgColor,
+        color: getTemplateDetail(statement.type).bgColor,
         borderRadius: BorderRadius.circular(10),
       ),
       padding: EdgeInsets.all(const Dimension(14 / 8).value),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                getTemplateDetail(status).title,
-                style: context.text.captionBold.copyWith(
-                  color: getTemplateDetail(status).titleColor,
+              Flexible(
+                flex: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      getTemplateDetail(statement.type).title,
+                      style: context.text.captionBold.copyWith(
+                        color: getTemplateDetail(statement.type).titleColor,
+                      ),
+                    ),
+                    const Dimension(1).vertical,
+                    Text(
+                      statement.description,
+                      maxLines: 1,
+                      style: context.text.callout,
+                    ),
+                  ],
                 ),
               ),
-              const Dimension(1).vertical,
-              Text(
-                'Bar & Restaurante (Curitiba)',
-                style: context.text.callout,
-              ),
-              const Dimension(1).vertical,
-              Row(
-                children: [
-                  Text(
-                    dateCreate,
-                    style: context.text.captionLight,
-                  ),
-                  const Dimension(10 / 8).horizontal,
-                  const FaIcon(FontAwesomeIcons.personWalking),
-                  const Dimension(10 / 8).horizontal,
-                  Text(
-                    dateCreate,
-                    style: context.text.captionLight,
-                  ),
-                ],
-              )
-            ],
-          ),
-          Column(
-            children: [
-              Text(
-                '600',
-                style: TextStyle(
-                  fontSize: 20.fontSize,
-                  fontWeight: FontWeight.w600,
-                  color: getTemplateDetail(status).titleColor,
-                ),
-              ),
-              Text(
-                'pts.',
-                style: TextStyle(
-                  fontSize: 10.fontSize,
-                  fontWeight: FontWeight.normal,
-                  color: getTemplateDetail(status).titleColor,
+              Flexible(
+                child: Column(
+                  children: [
+                    Text(
+                      statement.rewardsPoints.toStringAsFixed(0).toString(),
+                      style: TextStyle(
+                        fontSize: 20.fontSize,
+                        fontWeight: FontWeight.w600,
+                        color: getTemplateDetail(statement.type).titleColor,
+                      ),
+                    ),
+                    Text(
+                      'pts.',
+                      style: TextStyle(
+                        fontSize: 10.fontSize,
+                        fontWeight: FontWeight.normal,
+                        color: getTemplateDetail(statement.type).titleColor,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
+          const Dimension(1).vertical,
+          Row(
+            children: [
+              Text(
+                statement.formattedDate,
+                style: context.text.captionLight,
+              ),
+              const Dimension(10 / 8).horizontal,
+              if (statement.dateCountingEnd != null) ...[
+                const FaIcon(FontAwesomeIcons.personWalking),
+                const Dimension(10 / 8).horizontal,
+                Text(
+                  statement.dateCountingEnd!,
+                  style: context.text.captionLight,
+                ),
+              ]
+            ],
+          )
         ],
       ),
     );

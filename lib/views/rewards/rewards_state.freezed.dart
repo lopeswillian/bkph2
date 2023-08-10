@@ -21,6 +21,9 @@ mixin _$RewardsState {
   List<RewardsAccordionCategory> get listRewardsCategories =>
       throw _privateConstructorUsedError;
   RewardsCategory? get rewardDetails => throw _privateConstructorUsedError;
+  List<UserStatementInfo> get listUserStatement =>
+      throw _privateConstructorUsedError;
+  UserPointsInfo? get userPoints => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RewardsStateCopyWith<RewardsState> get copyWith =>
@@ -37,9 +40,12 @@ abstract class $RewardsStateCopyWith<$Res> {
       {bool loading,
       String error,
       List<RewardsAccordionCategory> listRewardsCategories,
-      RewardsCategory? rewardDetails});
+      RewardsCategory? rewardDetails,
+      List<UserStatementInfo> listUserStatement,
+      UserPointsInfo? userPoints});
 
   $RewardsCategoryCopyWith<$Res>? get rewardDetails;
+  $UserPointsInfoCopyWith<$Res>? get userPoints;
 }
 
 /// @nodoc
@@ -59,6 +65,8 @@ class _$RewardsStateCopyWithImpl<$Res, $Val extends RewardsState>
     Object? error = null,
     Object? listRewardsCategories = null,
     Object? rewardDetails = freezed,
+    Object? listUserStatement = null,
+    Object? userPoints = freezed,
   }) {
     return _then(_value.copyWith(
       loading: null == loading
@@ -77,6 +85,14 @@ class _$RewardsStateCopyWithImpl<$Res, $Val extends RewardsState>
           ? _value.rewardDetails
           : rewardDetails // ignore: cast_nullable_to_non_nullable
               as RewardsCategory?,
+      listUserStatement: null == listUserStatement
+          ? _value.listUserStatement
+          : listUserStatement // ignore: cast_nullable_to_non_nullable
+              as List<UserStatementInfo>,
+      userPoints: freezed == userPoints
+          ? _value.userPoints
+          : userPoints // ignore: cast_nullable_to_non_nullable
+              as UserPointsInfo?,
     ) as $Val);
   }
 
@@ -89,6 +105,18 @@ class _$RewardsStateCopyWithImpl<$Res, $Val extends RewardsState>
 
     return $RewardsCategoryCopyWith<$Res>(_value.rewardDetails!, (value) {
       return _then(_value.copyWith(rewardDetails: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserPointsInfoCopyWith<$Res>? get userPoints {
+    if (_value.userPoints == null) {
+      return null;
+    }
+
+    return $UserPointsInfoCopyWith<$Res>(_value.userPoints!, (value) {
+      return _then(_value.copyWith(userPoints: value) as $Val);
     });
   }
 }
@@ -105,10 +133,14 @@ abstract class _$$_RewardsStateCopyWith<$Res>
       {bool loading,
       String error,
       List<RewardsAccordionCategory> listRewardsCategories,
-      RewardsCategory? rewardDetails});
+      RewardsCategory? rewardDetails,
+      List<UserStatementInfo> listUserStatement,
+      UserPointsInfo? userPoints});
 
   @override
   $RewardsCategoryCopyWith<$Res>? get rewardDetails;
+  @override
+  $UserPointsInfoCopyWith<$Res>? get userPoints;
 }
 
 /// @nodoc
@@ -126,6 +158,8 @@ class __$$_RewardsStateCopyWithImpl<$Res>
     Object? error = null,
     Object? listRewardsCategories = null,
     Object? rewardDetails = freezed,
+    Object? listUserStatement = null,
+    Object? userPoints = freezed,
   }) {
     return _then(_$_RewardsState(
       loading: null == loading
@@ -144,6 +178,14 @@ class __$$_RewardsStateCopyWithImpl<$Res>
           ? _value.rewardDetails
           : rewardDetails // ignore: cast_nullable_to_non_nullable
               as RewardsCategory?,
+      listUserStatement: null == listUserStatement
+          ? _value._listUserStatement
+          : listUserStatement // ignore: cast_nullable_to_non_nullable
+              as List<UserStatementInfo>,
+      userPoints: freezed == userPoints
+          ? _value.userPoints
+          : userPoints // ignore: cast_nullable_to_non_nullable
+              as UserPointsInfo?,
     ));
   }
 }
@@ -155,8 +197,11 @@ class _$_RewardsState implements _RewardsState {
       {this.loading = false,
       this.error = '',
       final List<RewardsAccordionCategory> listRewardsCategories = const [],
-      this.rewardDetails})
-      : _listRewardsCategories = listRewardsCategories;
+      this.rewardDetails,
+      final List<UserStatementInfo> listUserStatement = const [],
+      this.userPoints})
+      : _listRewardsCategories = listRewardsCategories,
+        _listUserStatement = listUserStatement;
 
   @override
   @JsonKey()
@@ -176,10 +221,22 @@ class _$_RewardsState implements _RewardsState {
 
   @override
   final RewardsCategory? rewardDetails;
+  final List<UserStatementInfo> _listUserStatement;
+  @override
+  @JsonKey()
+  List<UserStatementInfo> get listUserStatement {
+    if (_listUserStatement is EqualUnmodifiableListView)
+      return _listUserStatement;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_listUserStatement);
+  }
+
+  @override
+  final UserPointsInfo? userPoints;
 
   @override
   String toString() {
-    return 'RewardsState(loading: $loading, error: $error, listRewardsCategories: $listRewardsCategories, rewardDetails: $rewardDetails)';
+    return 'RewardsState(loading: $loading, error: $error, listRewardsCategories: $listRewardsCategories, rewardDetails: $rewardDetails, listUserStatement: $listUserStatement, userPoints: $userPoints)';
   }
 
   @override
@@ -192,7 +249,11 @@ class _$_RewardsState implements _RewardsState {
             const DeepCollectionEquality()
                 .equals(other._listRewardsCategories, _listRewardsCategories) &&
             (identical(other.rewardDetails, rewardDetails) ||
-                other.rewardDetails == rewardDetails));
+                other.rewardDetails == rewardDetails) &&
+            const DeepCollectionEquality()
+                .equals(other._listUserStatement, _listUserStatement) &&
+            (identical(other.userPoints, userPoints) ||
+                other.userPoints == userPoints));
   }
 
   @override
@@ -201,7 +262,9 @@ class _$_RewardsState implements _RewardsState {
       loading,
       error,
       const DeepCollectionEquality().hash(_listRewardsCategories),
-      rewardDetails);
+      rewardDetails,
+      const DeepCollectionEquality().hash(_listUserStatement),
+      userPoints);
 
   @JsonKey(ignore: true)
   @override
@@ -215,7 +278,9 @@ abstract class _RewardsState implements RewardsState {
       {final bool loading,
       final String error,
       final List<RewardsAccordionCategory> listRewardsCategories,
-      final RewardsCategory? rewardDetails}) = _$_RewardsState;
+      final RewardsCategory? rewardDetails,
+      final List<UserStatementInfo> listUserStatement,
+      final UserPointsInfo? userPoints}) = _$_RewardsState;
 
   @override
   bool get loading;
@@ -225,6 +290,10 @@ abstract class _RewardsState implements RewardsState {
   List<RewardsAccordionCategory> get listRewardsCategories;
   @override
   RewardsCategory? get rewardDetails;
+  @override
+  List<UserStatementInfo> get listUserStatement;
+  @override
+  UserPointsInfo? get userPoints;
   @override
   @JsonKey(ignore: true)
   _$$_RewardsStateCopyWith<_$_RewardsState> get copyWith =>
