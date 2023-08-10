@@ -10,6 +10,7 @@ import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
 import 'package:apph2/views/login/login_viewmodel.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
 import 'package:flutter/material.dart' hide View;
+import 'package:intl/intl.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class HiringSmsPage extends StatefulWidget {
@@ -35,7 +36,7 @@ class _HiringSmsPageState extends State<HiringSmsPage>
   }
 
   @override
-  void dispose(){
+  void dispose() {
     pinCodeController.dispose();
     super.dispose();
   }
@@ -50,8 +51,9 @@ class _HiringSmsPageState extends State<HiringSmsPage>
             BaseAppModuleRouting.hiringFinishPage,
             arguments: HiringFinishPageParams(
               valuePrincipal: h2payViewModel.state.anticipation!.valuePrincipal,
-              paymentDescription:
-                  h2payViewModel.state.anticipation!.paymentDescription,
+              paymentDescription: DateFormat('dd/MM/yyy')
+                  .format(h2payViewModel.state.anticipation!.dueDate)
+                  .toString(),
             ),
           );
         }
@@ -158,7 +160,9 @@ class _HiringSmsPageState extends State<HiringSmsPage>
                               ),
                               child: PinCodeTextField(
                                 appContext: context,
-                                autoFocus: h2payViewModel.state.validSmsCode?false:true,
+                                autoFocus: h2payViewModel.state.validSmsCode
+                                    ? false
+                                    : true,
                                 autoDisposeControllers: false,
                                 length: 4,
                                 controller: pinCodeController,
@@ -192,7 +196,7 @@ class _HiringSmsPageState extends State<HiringSmsPage>
                                 h2payViewModel.getSmsCode();
                               },
                             ),
-                            const Dimension(329/8).vertical
+                            const Dimension(329 / 8).vertical
                           ],
                         ),
                       ),

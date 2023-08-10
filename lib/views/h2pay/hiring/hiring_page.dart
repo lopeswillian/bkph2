@@ -1,6 +1,7 @@
 import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/infraestructure/num_extension.dart';
+import 'package:apph2/theme/app_theme_factory.dart';
 import 'package:apph2/theme/theme.dart';
 import 'package:apph2/theme/widgets/custom_text.dart';
 import 'package:apph2/theme/widgets/h2loading.dart';
@@ -8,6 +9,8 @@ import 'package:apph2/views/h2pay/h2pay_state.dart';
 import 'package:apph2/views/h2pay/h2pay_viewmodel.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
 import 'package:flutter/material.dart' hide View;
+import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 
 class HiringPage extends StatefulWidget {
   const HiringPage({Key? key}) : super(key: key);
@@ -73,20 +76,55 @@ class _HiringPageState extends State<HiringPage> with View<H2PayViewModel> {
             ),
           ),
           child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(27),
-                  topRight: Radius.circular(27),
-                ),
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(27),
+                topRight: Radius.circular(27),
               ),
-              child: Center(
-                child: Text(
-                  'Você ainda não possui antecipação disponível para assinatura.',
-                  textAlign: TextAlign.center,
-                  style: context.text.body1,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('assets/images/no_anticipation.svg'),
+                const Dimension(8).vertical,
+                SizedBox(
+                  width: const Dimension(270 / 8).width,
+                  child: RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      style: TextStyle(
+                        fontSize: 18.fontSize,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Você ainda',
+                          style: context.text.body1.copyWith(
+                            color: context.colorScheme.colorPrimaryDarkest,
+                          ),
+                        ),
+                        TextSpan(
+                          text: ' não possui antecipação disponível',
+                          style: context.text.body1Bold.copyWith(
+                            color: AppThemeBase.colorPrimaryLight,
+                          ),
+                        ),
+                        TextSpan(
+                          text:
+                              ' para assinatura. Por favor entre em contato com seu gerente.',
+                          style: context.text.body1.copyWith(
+                            color: context.colorScheme.colorPrimaryDarkest,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-              )),
+              ],
+            ),
+          ),
         ),
       );
     }
@@ -151,8 +189,9 @@ class _HiringPageState extends State<HiringPage> with View<H2PayViewModel> {
                             Dimension.md.vertical,
                             CustomTextFormField(
                               labelText: 'Prazo de Pagamento',
-                              initialValue:
-                                  state.anticipation!.paymentDescription,
+                              initialValue: DateFormat('dd/MM/yyy')
+                                  .format(state.anticipation!.dueDate)
+                                  .toString(),
                               enabled: false,
                               contentPadding: EdgeInsets.symmetric(
                                 horizontal: Dimension.sm.width,

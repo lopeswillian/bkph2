@@ -685,6 +685,14 @@ class _CustomTextFormFieldState extends State<CustomTextFormField>
                     textAlign: widget.textAlign,
                     decoration: InputDecoration(
                       labelText: widget.labelText,
+                      labelStyle: widget.labelStyle ??
+                          (widget.enabled
+                              ? _delayedColorOpacity(
+                                  context.theme.inputDecorationTheme.labelStyle,
+                                )?.copyWith(fontSize: widget.style?.fontSize)
+                              : _delayedColorOpacity(
+                                  context.theme.inputDecorationTheme.hintStyle,
+                                )?.copyWith(fontSize: widget.style?.fontSize)),
                       suffix: widget.suffixText != null
                           ? Text(
                               widget.suffixText!.call() ?? '',

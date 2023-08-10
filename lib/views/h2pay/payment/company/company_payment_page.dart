@@ -129,7 +129,8 @@ class _CompanyPaymentPageState extends State<CompanyPaymentPage>
                             const Dimension(3.125).vertical,
                             const Divider(),
                             const Dimension(3.125).vertical,
-                            _getPage()
+                            _getPage(),
+                            const Dimension(15).vertical
                           ],
                         ),
                       ),
@@ -213,6 +214,12 @@ class _CompanyPaymentPageState extends State<CompanyPaymentPage>
                     text: state.tedDataInfo?.bank ?? '',
                   ),
                 );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Dados copiados.'),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
               },
               icon: FaIcon(
                 FontAwesomeIcons.copy,
@@ -238,6 +245,12 @@ class _CompanyPaymentPageState extends State<CompanyPaymentPage>
                     text: state.tedDataInfo?.agency ?? '',
                   ),
                 );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Dados copiados.'),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
               },
               icon: FaIcon(
                 FontAwesomeIcons.copy,
@@ -257,6 +270,12 @@ class _CompanyPaymentPageState extends State<CompanyPaymentPage>
                 Clipboard.setData(
                   ClipboardData(
                     text: state.tedDataInfo?.account ?? '',
+                  ),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Dados copiados.'),
+                    duration: Duration(seconds: 2),
                   ),
                 );
               },
@@ -282,6 +301,12 @@ class _CompanyPaymentPageState extends State<CompanyPaymentPage>
                 Clipboard.setData(
                   ClipboardData(
                     text: state.tedDataInfo?.favoured ?? '',
+                  ),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Dados copiados.'),
+                    duration: Duration(seconds: 2),
                   ),
                 );
               },
@@ -328,10 +353,12 @@ class _CompanyPaymentPageState extends State<CompanyPaymentPage>
                   text: state.pixCodeInfo?.pixCode ?? '',
                 ),
               );
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text('Código copiado.'),
-                duration: Duration(seconds: 2),
-              ));
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Código copiado.'),
+                  duration: Duration(seconds: 2),
+                ),
+              );
             },
             child: Text(
               "Copiar código Pix",

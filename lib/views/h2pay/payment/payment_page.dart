@@ -1,4 +1,5 @@
 import 'package:apph2/base_app_module_routing.dart';
+import 'package:apph2/domain/entities/anticipation_info.dart';
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/infraestructure/num_extension.dart';
 import 'package:apph2/theme/app_theme_factory.dart';
@@ -180,33 +181,29 @@ class _PaymentPageState extends ViewState<PaymentPage, PaymentViewModel> {
                             const Dimension(2.5).vertical,
                             const Divider(),
                             const Dimension(2.5).vertical,
-                            if (state.anticipationWithDischarge != null)
-                              ...state
+                            if (state.anticipationWithDischarge == null)
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Não há lançamentos.',
+                                    textAlign: TextAlign.center,
+                                    style: context.text.callout,
+                                  )
+                                ],
+                              )
+                            else
+                              ...mapAnticipations(state
                                   .anticipationWithDischarge!.listAnticipation
                                   .where((element) {
-                                    if (position == 1) {
-                                      return [0, 1].contains(element.status);
-                                    }
-                                    if (position == 2) {
-                                      return element.status == 4;
-                                    }
-                                    return true;
-                                  })
-                                  .map(
-                                    (anticipation) => Column(
-                                      children: [
-                                        detailPayments(
-                                          context: context,
-                                          dateCreate: anticipation.dateCreate
-                                              .toString(),
-                                          status: anticipation.status,
-                                          value: anticipation.valuePrincipal,
-                                        ),
-                                        Dimension.sm.vertical
-                                      ],
-                                    ),
-                                  )
-                                  .toList(),
+                                if (position == 1) {
+                                  return [0, 1].contains(element.status);
+                                }
+                                if (position == 2) {
+                                  return element.status == 4;
+                                }
+                                return true;
+                              }).toList())
                           ],
                         ),
                       ),
@@ -242,19 +239,86 @@ class _PaymentPageState extends ViewState<PaymentPage, PaymentViewModel> {
     );
   }
 
-  String getTitleDetail(int status) {
+  List<Widget> mapAnticipations(List<AnticipationInfo> listAnticipation) {
+    if (listAnticipation.isEmpty) {
+      return [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Não há lançamentos.',
+              textAlign: TextAlign.center,
+              style: context.text.callout,
+            )
+          ],
+        )
+      ];
+    }
+
+    return listAnticipation
+        .where((element) {
+          if (position == 1) {
+            return [0, 1].contains(element.status);
+          }
+          if (position == 2) {
+            return element.status == 4;
+          }
+          return true;
+        })
+        .map(
+          (anticipation) => Column(
+            children: [
+              detailPayments(
+                context: context,
+                dateCreate: anticipation.dateCreate.toString(),
+                status: anticipation.status,
+                value: anticipation.valuePrincipal,
+              ),
+              Dimension.sm.vertical
+            ],
+          ),
+        )
+        .toList();
+  }
+
+  TemplatePayment getTemplateDetail(int status) {
     switch (status) {
       case 0:
+        return TemplatePayment(
+          bgColor: const Color(0xFFF1F7FF),
+          title: 'Em aberto',
+          titleColor: context.colorScheme.colorPrimaryLight,
+        );
       case 1:
-        return 'Em aberto';
+        return TemplatePayment(
+          bgColor: const Color(0xFFF1F7FF),
+          title: 'Em aberto',
+          titleColor: context.colorScheme.colorPrimaryLight,
+        );
       case 2:
-        return 'Pago';
+        return TemplatePayment(
+          bgColor: const Color(0xFFEAFCE2),
+          title: 'Pago',
+          titleColor: const Color(0xFF8FCD8E),
+        );
       case 3:
-        return 'Cancelada';
+        return TemplatePayment(
+          bgColor: const Color(0xFFDADADA),
+          title: 'Cancelado',
+          titleColor: const Color(0xFF979797),
+        );
       case 4:
-        return 'Vencido';
+        return TemplatePayment(
+          bgColor: const Color(0xFFF9DFDF),
+          title: 'Vencido',
+          titleColor: const Color(0xFFD47C7C),
+        );
       default:
-        return '';
+        return TemplatePayment(
+          bgColor: const Color(0xFFF1F7FF),
+          title: 'Em aberto',
+          titleColor: context.colorScheme.colorPrimaryLight,
+        );
     }
   }
 
@@ -266,7 +330,7 @@ class _PaymentPageState extends ViewState<PaymentPage, PaymentViewModel> {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFF1F7FF),
+        color: getTemplateDetail(status).bgColor,
         borderRadius: BorderRadius.circular(10),
       ),
       padding: EdgeInsets.symmetric(
@@ -280,9 +344,9 @@ class _PaymentPageState extends ViewState<PaymentPage, PaymentViewModel> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                getTitleDetail(status),
+                getTemplateDetail(status).title,
                 style: context.text.captionBold.copyWith(
-                  color: context.colorScheme.colorPrimaryLight,
+                  color: getTemplateDetail(status).titleColor,
                 ),
               ),
               const Dimension(1).vertical,
@@ -299,7 +363,7 @@ class _PaymentPageState extends ViewState<PaymentPage, PaymentViewModel> {
                 style: TextStyle(
                   fontSize: 10.fontSize,
                   fontWeight: FontWeight.normal,
-                  color: context.colorScheme.colorPrimaryLight,
+                  color: getTemplateDetail(status).titleColor,
                 ),
               ),
               Text(
@@ -307,23 +371,25 @@ class _PaymentPageState extends ViewState<PaymentPage, PaymentViewModel> {
                 style: TextStyle(
                   fontSize: 20.fontSize,
                   fontWeight: FontWeight.w600,
-                  color: context.colorScheme.colorPrimaryLight,
+                  color: getTemplateDetail(status).titleColor,
                 ),
               )
             ],
           ),
-          // RichText(
-          //   textAlign: TextAlign.center,
-          //   text: TextSpan(
-          //     style: TextStyle(
-          //       fontSize: 18.fontSize,
-          //       color: context.colorScheme.colorPrimaryLight,
-          //     ),
-          //     children: <TextSpan>[],
-          //   ),
-          // ),
         ],
       ),
     );
   }
+}
+
+class TemplatePayment {
+  Color bgColor;
+  Color titleColor;
+  String title;
+
+  TemplatePayment({
+    required this.bgColor,
+    required this.titleColor,
+    required this.title,
+  });
 }

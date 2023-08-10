@@ -89,7 +89,7 @@ class _HiringFinishPageState extends State<HiringFinishPage> {
                             color: AppThemeBase.colorSecondary03,
                             radius: const Radius.circular(10),
                             padding: EdgeInsets.symmetric(
-                              horizontal: const Dimension(1.25).width,
+                              horizontal:Dimension.xs.width,
                               vertical: Dimension.md.height,
                             ),
                             child: Column(
@@ -107,7 +107,7 @@ class _HiringFinishPageState extends State<HiringFinishPage> {
                                 ),
                                 Dimension.sm.vertical,
                                 Text(
-                                  '${widget.params.valuePrincipal.toCurrency()} à serem pagos ${widget.params.paymentDescription}, utilizando recursos próprios.',
+                                  '${widget.params.valuePrincipal.toCurrency()} à serem pagos até dia ${widget.params.paymentDescription}, utilizando recursos próprios.',
                                   textAlign: TextAlign.center,
                                   style: context.text.body1,
                                 ),

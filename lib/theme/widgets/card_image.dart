@@ -145,7 +145,9 @@ class CardImage extends StatelessWidget {
         horizontal: Dimension.xs.width,
       ),
       decoration: BoxDecoration(
-        border: Border.all(color: AppThemeBase.colorSecondary01),
+        border: Border.all(
+          color: AppThemeBase.colorSecondary01,
+        ),
         borderRadius: BorderRadius.circular(2.5),
       ),
       child: Column(
@@ -161,7 +163,10 @@ class CardImage extends StatelessWidget {
           Dimension.xxs.vertical,
           Text(
             value,
-            style: context.text.buttonBold.copyWith(fontSize: 10.fontSize),
+            style: context.text.buttonBold.copyWith(
+              fontSize: 10.fontSize,
+              color: AppThemeBase.colorSecondary01,
+            ),
           ),
         ],
       ),

@@ -110,7 +110,9 @@ class _PersonPaymentPageState extends State<PersonPaymentPage>
           child: Stack(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: Dimension.sm.width),
+                padding: EdgeInsets.symmetric(
+                  horizontal: Dimension.sm.width,
+                ),
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     return SingleChildScrollView(
@@ -141,7 +143,8 @@ class _PersonPaymentPageState extends State<PersonPaymentPage>
                             const Dimension(3.125).vertical,
                             const Divider(),
                             const Dimension(3.125).vertical,
-                            _getPage()
+                            _getPage(),
+                            const Dimension(15).vertical
                           ],
                         ),
                       ),
@@ -225,6 +228,12 @@ class _PersonPaymentPageState extends State<PersonPaymentPage>
                     text: state.tedDataInfo?.bank ?? '',
                   ),
                 );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Dados copiados.'),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
               },
               icon: FaIcon(
                 FontAwesomeIcons.copy,
@@ -250,6 +259,12 @@ class _PersonPaymentPageState extends State<PersonPaymentPage>
                     text: state.tedDataInfo?.agency ?? '',
                   ),
                 );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Dados copiados.'),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
               },
               icon: FaIcon(
                 FontAwesomeIcons.copy,
@@ -269,6 +284,12 @@ class _PersonPaymentPageState extends State<PersonPaymentPage>
                 Clipboard.setData(
                   ClipboardData(
                     text: state.tedDataInfo?.account ?? '',
+                  ),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Dados copiados.'),
+                    duration: Duration(seconds: 2),
                   ),
                 );
               },
@@ -294,6 +315,12 @@ class _PersonPaymentPageState extends State<PersonPaymentPage>
                 Clipboard.setData(
                   ClipboardData(
                     text: state.tedDataInfo?.favoured ?? '',
+                  ),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Dados copiados.'),
+                    duration: Duration(seconds: 2),
                   ),
                 );
               },
