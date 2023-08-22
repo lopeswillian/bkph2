@@ -1,4 +1,6 @@
 import 'package:apph2/data/datasources/rewards_remote_datasource.dart';
+import 'package:apph2/data/models/request/rewards/reedem_prize_params_model.dart';
+import 'package:apph2/domain/entities/reedem_prize_params.dart';
 import 'package:apph2/domain/entities/rewards_accordion_category.dart';
 import 'package:apph2/domain/entities/rewards_category.dart';
 import 'package:apph2/domain/entities/user_points_info.dart';
@@ -53,7 +55,7 @@ class RewardsRepository implements IRewardsRepository {
     }
   }
 
-   @override
+  @override
   Future<Either<H2Failure, UserPointsInfo>> getUserPoints({
     required String cpf,
   }) async {
@@ -62,6 +64,24 @@ class RewardsRepository implements IRewardsRepository {
       return Right(res.toEntity());
     } on IHttpException {
       return const Left(H2Failure.unexpected());
+    } on Exception {
+      return const Left(H2Failure.unexpected());
+    }
+  }
+
+  @override
+  Future<Either<H2Failure, Unit>> reedemPrize(ReedemPrizeParams params) async {
+    try {
+      await datasource.reedemPrize(
+        ReedemPrizeParamsModel.fromEntity(params),
+      );
+      return const Right(unit);
+    } on IHttpException catch (e) {
+      return Left(
+        H2Failure.invalidParams(
+          message: e.data ?? 'Erro ao processar resgate.',
+        ),
+      );
     } on Exception {
       return const Left(H2Failure.unexpected());
     }

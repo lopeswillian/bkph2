@@ -30,7 +30,7 @@ android {
     dataBinding.enabled = true
 
     namespace "com.h2.app"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 33
     ndkVersion flutter.ndkVersion
 
     compileOptions {

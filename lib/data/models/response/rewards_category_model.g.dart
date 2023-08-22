@@ -17,6 +17,8 @@ _$_RewardsCategoryModel _$$_RewardsCategoryModelFromJson(
       minPoints: json['min_points'] as int?,
       maxPoints: json['max_points'] as int?,
       isCashBack: json['is_cashback'] as bool?,
+      bgUrl: json['image'] as String,
+      fixedValue: json['fixed_value'] as int,
     );
 
 Map<String, dynamic> _$$_RewardsCategoryModelToJson(
@@ -30,4 +32,6 @@ Map<String, dynamic> _$$_RewardsCategoryModelToJson(
       'min_points': instance.minPoints,
       'max_points': instance.maxPoints,
       'is_cashback': instance.isCashBack,
+      'image': instance.bgUrl,
+      'fixed_value': instance.fixedValue,
     };

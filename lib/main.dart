@@ -6,6 +6,7 @@ import 'package:apph2/base_app_module_routing.dart';
 import 'package:apph2/firebase_options.dart';
 import 'package:apph2/theme/theme_factory.dart';
 import 'package:apph2/theme/widgets/custom_bottom_navigation.dart';
+import 'package:apph2/views/chat/chat_page.dart';
 import 'package:apph2/views/feedback/error_network_page.dart';
 import 'package:apph2/views/h2pay/h2pay_home_page.dart';
 import 'package:apph2/views/home/home_page.dart';
@@ -120,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> with View<LoginViewModel> {
         ),
         child: const FaIcon(FontAwesomeIcons.comments),
       ),
-      label: 'Chat',
+      label: 'Contato',
     ),
   ];
 
@@ -140,12 +141,7 @@ class _MyHomePageState extends State<MyHomePage> with View<LoginViewModel> {
       state.user != null ? const RewardsPage() : const LoginPage(),
       state.user != null ? const H2HomePage() : const LoginPage(),
       state.user != null ? const H2PayHomePage() : const LoginPage(),
-      Center(
-        child: Text(
-          'Em breve...',
-          style: context.text.body1,
-        ),
-      )
+      const ChatPage(),
     ];
 
     return Scaffold(

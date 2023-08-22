@@ -12,6 +12,7 @@ class RewardsState extends ViewModelState with _$RewardsState {
   const factory RewardsState({
     @Default(false) bool loading,
     @Default('') String error,
+    @Default('') String successReedem,
     @Default([]) List<RewardsAccordionCategory> listRewardsCategories,
     RewardsCategory? rewardDetails,
     @Default([]) List<UserStatementInfo> listUserStatement,

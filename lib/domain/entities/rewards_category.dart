@@ -14,5 +14,6 @@ class RewardsCategory with _$RewardsCategory {
     int? maxPoints,
     required bool isCashBack,
     required String bgUrl,
+    required bool fixedValue,
   }) = _RewardsCategory;
 }

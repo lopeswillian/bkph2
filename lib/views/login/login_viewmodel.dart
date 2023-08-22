@@ -153,19 +153,20 @@ class LoginViewModel extends ViewModel<LoginState> {
     if (token != null && token.isNotEmpty) {
       Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
       final UserInfo user = UserInfo(
-          id: decodedToken['customer_id'],
-          avatarUrl: decodedToken['customer_avatar_url'],
-          name: decodedToken['customer_name'],
-          email: decodedToken['customer_email'],
-          birthdate: decodedToken['customer_birthdate'],
-          cpf: decodedToken['customer_cpf'],
-          nickname: decodedToken['customer_nickname'],
-          cellphone: decodedToken['customer_cellphone'],
-          vipLiveId: decodedToken['customer_vip_live_id'],
-          vipOnlineId: decodedToken['customer_vip_online_id'],
-          vipLive: decodedToken['customer_vip_live'],
-          vipOnline: decodedToken['customer_vip_online'],
-          ish2Pay: decodedToken['customer_h2_pay'] ?? false);
+        id: decodedToken['customer_id'],
+        avatarUrl: decodedToken['customer_avatar_url'],
+        name: decodedToken['customer_name'],
+        email: decodedToken['customer_email'],
+        birthdate: decodedToken['customer_birthdate'],
+        cpf: decodedToken['customer_cpf'],
+        nickname: decodedToken['customer_nickname'],
+        cellphone: decodedToken['customer_cellphone'],
+        vipLiveId: decodedToken['customer_vip_live_id'],
+        vipOnlineId: decodedToken['customer_vip_online_id'],
+        vipLive: decodedToken['customer_vip_live'],
+        vipOnline: decodedToken['customer_vip_online'],
+        ish2Pay: decodedToken['customer_h2_pay'] ?? false,
+      );
 
       await _profileViewModel.getProfile(
         rewardsIdParam: RewardsIdParam(

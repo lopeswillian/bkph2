@@ -52,7 +52,9 @@ class AnticipationInfoModel with _$AnticipationInfoModel {
           ? DateTime.parse(decodedToken['payment_date'])
           : null,
       paymentId: decodedToken['payment_id'],
-      valuePayment: decodedToken['value_payment'],
+      valuePayment: decodedToken['value_payment'] != null
+          ? double.tryParse(decodedToken['value_payment'].toString()) ?? 0.0
+          : null,
       anticipationOriginId: decodedToken['anticipation_origin_id'],
       agentId: decodedToken['agent_id'],
       status: decodedToken['status'],

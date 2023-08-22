@@ -25,6 +25,7 @@ mixin _$RewardsCategory {
   int? get maxPoints => throw _privateConstructorUsedError;
   bool get isCashBack => throw _privateConstructorUsedError;
   String get bgUrl => throw _privateConstructorUsedError;
+  bool get fixedValue => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RewardsCategoryCopyWith<RewardsCategory> get copyWith =>
@@ -46,7 +47,8 @@ abstract class $RewardsCategoryCopyWith<$Res> {
       int? minPoints,
       int? maxPoints,
       bool isCashBack,
-      String bgUrl});
+      String bgUrl,
+      bool fixedValue});
 }
 
 /// @nodoc
@@ -71,6 +73,7 @@ class _$RewardsCategoryCopyWithImpl<$Res, $Val extends RewardsCategory>
     Object? maxPoints = freezed,
     Object? isCashBack = null,
     Object? bgUrl = null,
+    Object? fixedValue = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -109,6 +112,10 @@ class _$RewardsCategoryCopyWithImpl<$Res, $Val extends RewardsCategory>
           ? _value.bgUrl
           : bgUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      fixedValue: null == fixedValue
+          ? _value.fixedValue
+          : fixedValue // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -130,7 +137,8 @@ abstract class _$$_RewardsCategoryCopyWith<$Res>
       int? minPoints,
       int? maxPoints,
       bool isCashBack,
-      String bgUrl});
+      String bgUrl,
+      bool fixedValue});
 }
 
 /// @nodoc
@@ -153,6 +161,7 @@ class __$$_RewardsCategoryCopyWithImpl<$Res>
     Object? maxPoints = freezed,
     Object? isCashBack = null,
     Object? bgUrl = null,
+    Object? fixedValue = null,
   }) {
     return _then(_$_RewardsCategory(
       id: null == id
@@ -191,6 +200,10 @@ class __$$_RewardsCategoryCopyWithImpl<$Res>
           ? _value.bgUrl
           : bgUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      fixedValue: null == fixedValue
+          ? _value.fixedValue
+          : fixedValue // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -207,7 +220,8 @@ class _$_RewardsCategory implements _RewardsCategory {
       this.minPoints,
       this.maxPoints,
       required this.isCashBack,
-      required this.bgUrl});
+      required this.bgUrl,
+      required this.fixedValue});
 
   @override
   final int id;
@@ -227,10 +241,12 @@ class _$_RewardsCategory implements _RewardsCategory {
   final bool isCashBack;
   @override
   final String bgUrl;
+  @override
+  final bool fixedValue;
 
   @override
   String toString() {
-    return 'RewardsCategory(id: $id, title: $title, points: $points, description: $description, valuePoint: $valuePoint, minPoints: $minPoints, maxPoints: $maxPoints, isCashBack: $isCashBack, bgUrl: $bgUrl)';
+    return 'RewardsCategory(id: $id, title: $title, points: $points, description: $description, valuePoint: $valuePoint, minPoints: $minPoints, maxPoints: $maxPoints, isCashBack: $isCashBack, bgUrl: $bgUrl, fixedValue: $fixedValue)';
   }
 
   @override
@@ -251,12 +267,14 @@ class _$_RewardsCategory implements _RewardsCategory {
                 other.maxPoints == maxPoints) &&
             (identical(other.isCashBack, isCashBack) ||
                 other.isCashBack == isCashBack) &&
-            (identical(other.bgUrl, bgUrl) || other.bgUrl == bgUrl));
+            (identical(other.bgUrl, bgUrl) || other.bgUrl == bgUrl) &&
+            (identical(other.fixedValue, fixedValue) ||
+                other.fixedValue == fixedValue));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, id, title, points, description,
-      valuePoint, minPoints, maxPoints, isCashBack, bgUrl);
+      valuePoint, minPoints, maxPoints, isCashBack, bgUrl, fixedValue);
 
   @JsonKey(ignore: true)
   @override
@@ -275,7 +293,8 @@ abstract class _RewardsCategory implements RewardsCategory {
       final int? minPoints,
       final int? maxPoints,
       required final bool isCashBack,
-      required final String bgUrl}) = _$_RewardsCategory;
+      required final String bgUrl,
+      required final bool fixedValue}) = _$_RewardsCategory;
 
   @override
   int get id;
@@ -295,6 +314,8 @@ abstract class _RewardsCategory implements RewardsCategory {
   bool get isCashBack;
   @override
   String get bgUrl;
+  @override
+  bool get fixedValue;
   @override
   @JsonKey(ignore: true)
   _$$_RewardsCategoryCopyWith<_$_RewardsCategory> get copyWith =>

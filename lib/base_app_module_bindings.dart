@@ -39,6 +39,7 @@ import 'package:apph2/usecases/get_user_points_usecase.dart';
 import 'package:apph2/usecases/get_user_statement_usecase.dart';
 import 'package:apph2/usecases/login_recovery_usecase.dart';
 import 'package:apph2/usecases/login_with_credentials_usecase.dart';
+import 'package:apph2/usecases/reedem_prize_usecase.dart';
 import 'package:apph2/usecases/register_usecase.dart';
 import 'package:apph2/usecases/send_caf_validation_usecase.dart';
 import 'package:apph2/usecases/send_payment_customer_usecase.dart';
@@ -270,6 +271,9 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<IGetuserPointsUseCase>(
           (i) => GetuserPointsUseCase(i.get<IRewardsRepository>()),
         ),
+        Bind.lazySingleton<IReedemPrizeUseCase>(
+          (i) => ReedemPrizeUseCase(i.get<IRewardsRepository>()),
+        ),
       ];
 
   static List<Bind> get _viewModels => [
@@ -342,7 +346,8 @@ class BaseAppModuleBindings {
             i.get<IGetRewardsCategoryDetailUseCase>(),
             i.get<IGetUserStatementUseCase>(),
             i.get<IGetuserPointsUseCase>(),
-            i.get<LoginViewModel>()
+            i.get<LoginViewModel>(),
+            i.get<IReedemPrizeUseCase>()
           ),
         ),
       ];

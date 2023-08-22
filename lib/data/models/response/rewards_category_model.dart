@@ -18,7 +18,8 @@ class RewardsCategoryModel with _$RewardsCategoryModel {
     @JsonKey(name: 'min_points') int? minPoints,
     @JsonKey(name: 'max_points') int? maxPoints,
     @JsonKey(name: 'is_cashback') bool? isCashBack,
-    // @JsonKey(name: 'background_image') required String bgUrl,
+    @JsonKey(name: 'image') required String bgUrl,
+    @JsonKey(name: 'fixed_value') required int fixedValue,
   }) = _RewardsCategoryModel;
 
   factory RewardsCategoryModel.fromJson(
@@ -27,14 +28,14 @@ class RewardsCategoryModel with _$RewardsCategoryModel {
       _$RewardsCategoryModelFromJson(json);
 
   RewardsCategory toEntity() => RewardsCategory(
-        id: id,
-        title: title,
-        points: points,
-        valuePoint: valuePoint,
-        description: description,
-        minPoints: minPoints,
-        maxPoints: maxPoints,
-        isCashBack: isCashBack ?? false,
-        bgUrl: '',
-      );
+      id: id,
+      title: title,
+      points: points,
+      valuePoint: valuePoint,
+      description: description,
+      minPoints: minPoints,
+      maxPoints: maxPoints,
+      isCashBack: isCashBack ?? false,
+      bgUrl: bgUrl,
+      fixedValue: true);
 }

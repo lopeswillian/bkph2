@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:apph2/data/models/request/rewards/reedem_prize_params_model.dart';
 import 'package:apph2/data/models/response/rewards_accordion_category_model.dart';
 import 'package:apph2/data/models/response/rewards_category_model.dart';
 import 'package:apph2/data/models/response/user_points_info_model.dart';
@@ -17,6 +18,8 @@ abstract class IRewardsDataSource {
   FutureOr<UserPointsInfoModel> getUserPoints({
     required String cpf,
   });
+
+  FutureOr<bool> reedemPrize(ReedemPrizeParamsModel params);
 }
 
 class RewardsDataSource implements IRewardsDataSource {
@@ -69,5 +72,18 @@ class RewardsDataSource implements IRewardsDataSource {
     );
 
     return UserPointsInfoModel.fromJson(response.data['data']);
+  }
+
+  @override
+  FutureOr<bool> reedemPrize(ReedemPrizeParamsModel reedemPrizeParams) async {
+    final body  =reedemPrizeParams.toJson();
+    final response = await client.post(
+      'bco-rewards-prize/redeem',
+      body: body,
+    );
+
+    List<int> succesCodes = [200];
+    // ignore: iterable_contains_unrelated_type
+    return succesCodes.contains(response.status);
   }
 }

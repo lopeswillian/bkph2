@@ -112,7 +112,7 @@ class _RewardsRedemptionPageState extends State<RewardsRedemptionPage>
                                         style: context.text.caption,
                                       ),
                                       Text(
-                                        '${(state.userPoints?.rewardsPoints??0).toStringAsFixed(0)} pts.',
+                                        '${(state.userPoints?.rewardsPoints ?? 0).toStringAsFixed(0)} pts.',
                                         style:
                                             context.text.body1Medium.copyWith(
                                           fontSize: 25.fontSize,
@@ -125,9 +125,17 @@ class _RewardsRedemptionPageState extends State<RewardsRedemptionPage>
                             ),
                             Align(
                               alignment: Alignment.centerRight,
-                              child: Image.asset(
-                                'assets/images/cash_back.png',
-                                width: const Dimension(86 / 8).width,
+                              child: GestureDetector(
+                                onTap: () => {
+                                  Nav.pushNamed(
+                                    BaseAppModuleRouting.redemptionRescuePage,
+                                    arguments: 585,
+                                  )
+                                },
+                                child: Image.asset(
+                                  'assets/images/cash_back.png',
+                                  width: const Dimension(86 / 8).width,
+                                ),
                               ),
                             ),
                           ],
@@ -191,23 +199,40 @@ class _RewardsRedemptionPageState extends State<RewardsRedemptionPage>
   }) {
     return GestureDetector(
       onTap: () => {
-        Nav.pushNamed(BaseAppModuleRouting.redemptionRescuePage,
-            arguments: prize.id)
+        Nav.pushNamed(
+          BaseAppModuleRouting.redemptionRescuePage,
+          arguments: prize.id,
+        )
       },
       child: SizedBox(
         width: const Dimension(149 / 8).width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage("assets/images/rewards_vip.png"),
+            SizedBox(
+              width: const Dimension(17.8).width,
+              height: const Dimension(17.8).height,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(
+                  const Dimension(17.8).value,
+                ),
+                child: FadeInImage(
+                  fit: BoxFit.fitHeight,
+                  repeat: ImageRepeat.noRepeat,
+                  fadeInDuration: const Duration(milliseconds: 100),
+                  placeholder: const AssetImage(
+                    'assets/images/prize_h2.png',
+                  ),
+                  image: NetworkImage(
+                    prize.bgUrl,
+                  ),
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      'assets/images/prize_h2.png',
+                    );
+                  },
                 ),
               ),
-              width: const Dimension(143 / 8).width,
-              height: const Dimension(143 / 8).height,
             ),
             const Dimension(10 / 8).vertical,
             Text(

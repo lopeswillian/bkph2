@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$RewardsState {
   bool get loading => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
+  String get successReedem => throw _privateConstructorUsedError;
   List<RewardsAccordionCategory> get listRewardsCategories =>
       throw _privateConstructorUsedError;
   RewardsCategory? get rewardDetails => throw _privateConstructorUsedError;
@@ -39,6 +40,7 @@ abstract class $RewardsStateCopyWith<$Res> {
   $Res call(
       {bool loading,
       String error,
+      String successReedem,
       List<RewardsAccordionCategory> listRewardsCategories,
       RewardsCategory? rewardDetails,
       List<UserStatementInfo> listUserStatement,
@@ -63,6 +65,7 @@ class _$RewardsStateCopyWithImpl<$Res, $Val extends RewardsState>
   $Res call({
     Object? loading = null,
     Object? error = null,
+    Object? successReedem = null,
     Object? listRewardsCategories = null,
     Object? rewardDetails = freezed,
     Object? listUserStatement = null,
@@ -76,6 +79,10 @@ class _$RewardsStateCopyWithImpl<$Res, $Val extends RewardsState>
       error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
+              as String,
+      successReedem: null == successReedem
+          ? _value.successReedem
+          : successReedem // ignore: cast_nullable_to_non_nullable
               as String,
       listRewardsCategories: null == listRewardsCategories
           ? _value.listRewardsCategories
@@ -132,6 +139,7 @@ abstract class _$$_RewardsStateCopyWith<$Res>
   $Res call(
       {bool loading,
       String error,
+      String successReedem,
       List<RewardsAccordionCategory> listRewardsCategories,
       RewardsCategory? rewardDetails,
       List<UserStatementInfo> listUserStatement,
@@ -156,6 +164,7 @@ class __$$_RewardsStateCopyWithImpl<$Res>
   $Res call({
     Object? loading = null,
     Object? error = null,
+    Object? successReedem = null,
     Object? listRewardsCategories = null,
     Object? rewardDetails = freezed,
     Object? listUserStatement = null,
@@ -169,6 +178,10 @@ class __$$_RewardsStateCopyWithImpl<$Res>
       error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
+              as String,
+      successReedem: null == successReedem
+          ? _value.successReedem
+          : successReedem // ignore: cast_nullable_to_non_nullable
               as String,
       listRewardsCategories: null == listRewardsCategories
           ? _value._listRewardsCategories
@@ -196,6 +209,7 @@ class _$_RewardsState implements _RewardsState {
   const _$_RewardsState(
       {this.loading = false,
       this.error = '',
+      this.successReedem = '',
       final List<RewardsAccordionCategory> listRewardsCategories = const [],
       this.rewardDetails,
       final List<UserStatementInfo> listUserStatement = const [],
@@ -209,6 +223,9 @@ class _$_RewardsState implements _RewardsState {
   @override
   @JsonKey()
   final String error;
+  @override
+  @JsonKey()
+  final String successReedem;
   final List<RewardsAccordionCategory> _listRewardsCategories;
   @override
   @JsonKey()
@@ -236,7 +253,7 @@ class _$_RewardsState implements _RewardsState {
 
   @override
   String toString() {
-    return 'RewardsState(loading: $loading, error: $error, listRewardsCategories: $listRewardsCategories, rewardDetails: $rewardDetails, listUserStatement: $listUserStatement, userPoints: $userPoints)';
+    return 'RewardsState(loading: $loading, error: $error, successReedem: $successReedem, listRewardsCategories: $listRewardsCategories, rewardDetails: $rewardDetails, listUserStatement: $listUserStatement, userPoints: $userPoints)';
   }
 
   @override
@@ -246,6 +263,8 @@ class _$_RewardsState implements _RewardsState {
             other is _$_RewardsState &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error) &&
+            (identical(other.successReedem, successReedem) ||
+                other.successReedem == successReedem) &&
             const DeepCollectionEquality()
                 .equals(other._listRewardsCategories, _listRewardsCategories) &&
             (identical(other.rewardDetails, rewardDetails) ||
@@ -261,6 +280,7 @@ class _$_RewardsState implements _RewardsState {
       runtimeType,
       loading,
       error,
+      successReedem,
       const DeepCollectionEquality().hash(_listRewardsCategories),
       rewardDetails,
       const DeepCollectionEquality().hash(_listUserStatement),
@@ -277,6 +297,7 @@ abstract class _RewardsState implements RewardsState {
   const factory _RewardsState(
       {final bool loading,
       final String error,
+      final String successReedem,
       final List<RewardsAccordionCategory> listRewardsCategories,
       final RewardsCategory? rewardDetails,
       final List<UserStatementInfo> listUserStatement,
@@ -286,6 +307,8 @@ abstract class _RewardsState implements RewardsState {
   bool get loading;
   @override
   String get error;
+  @override
+  String get successReedem;
   @override
   List<RewardsAccordionCategory> get listRewardsCategories;
   @override
