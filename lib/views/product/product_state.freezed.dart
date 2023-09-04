@@ -20,6 +20,8 @@ mixin _$ProductState {
   String get error => throw _privateConstructorUsedError;
   List<ProductAccordionInfo> get accordionProducts =>
       throw _privateConstructorUsedError;
+  List<ProductAccordionInfo> get accordionProductsSchedule =>
+      throw _privateConstructorUsedError;
   CalendarListInfo? get listEvents => throw _privateConstructorUsedError;
   CalendarEvent? get detailsEvent => throw _privateConstructorUsedError;
 
@@ -38,6 +40,7 @@ abstract class $ProductStateCopyWith<$Res> {
       {bool loading,
       String error,
       List<ProductAccordionInfo> accordionProducts,
+      List<ProductAccordionInfo> accordionProductsSchedule,
       CalendarListInfo? listEvents,
       CalendarEvent? detailsEvent});
 
@@ -61,6 +64,7 @@ class _$ProductStateCopyWithImpl<$Res, $Val extends ProductState>
     Object? loading = null,
     Object? error = null,
     Object? accordionProducts = null,
+    Object? accordionProductsSchedule = null,
     Object? listEvents = freezed,
     Object? detailsEvent = freezed,
   }) {
@@ -76,6 +80,10 @@ class _$ProductStateCopyWithImpl<$Res, $Val extends ProductState>
       accordionProducts: null == accordionProducts
           ? _value.accordionProducts
           : accordionProducts // ignore: cast_nullable_to_non_nullable
+              as List<ProductAccordionInfo>,
+      accordionProductsSchedule: null == accordionProductsSchedule
+          ? _value.accordionProductsSchedule
+          : accordionProductsSchedule // ignore: cast_nullable_to_non_nullable
               as List<ProductAccordionInfo>,
       listEvents: freezed == listEvents
           ? _value.listEvents
@@ -125,6 +133,7 @@ abstract class _$$_ProductStateCopyWith<$Res>
       {bool loading,
       String error,
       List<ProductAccordionInfo> accordionProducts,
+      List<ProductAccordionInfo> accordionProductsSchedule,
       CalendarListInfo? listEvents,
       CalendarEvent? detailsEvent});
 
@@ -148,6 +157,7 @@ class __$$_ProductStateCopyWithImpl<$Res>
     Object? loading = null,
     Object? error = null,
     Object? accordionProducts = null,
+    Object? accordionProductsSchedule = null,
     Object? listEvents = freezed,
     Object? detailsEvent = freezed,
   }) {
@@ -163,6 +173,10 @@ class __$$_ProductStateCopyWithImpl<$Res>
       accordionProducts: null == accordionProducts
           ? _value._accordionProducts
           : accordionProducts // ignore: cast_nullable_to_non_nullable
+              as List<ProductAccordionInfo>,
+      accordionProductsSchedule: null == accordionProductsSchedule
+          ? _value._accordionProductsSchedule
+          : accordionProductsSchedule // ignore: cast_nullable_to_non_nullable
               as List<ProductAccordionInfo>,
       listEvents: freezed == listEvents
           ? _value.listEvents
@@ -183,9 +197,11 @@ class _$_ProductState implements _ProductState {
       {this.loading = false,
       this.error = '',
       final List<ProductAccordionInfo> accordionProducts = const [],
+      final List<ProductAccordionInfo> accordionProductsSchedule = const [],
       this.listEvents,
       this.detailsEvent})
-      : _accordionProducts = accordionProducts;
+      : _accordionProducts = accordionProducts,
+        _accordionProductsSchedule = accordionProductsSchedule;
 
   @override
   @JsonKey()
@@ -203,6 +219,16 @@ class _$_ProductState implements _ProductState {
     return EqualUnmodifiableListView(_accordionProducts);
   }
 
+  final List<ProductAccordionInfo> _accordionProductsSchedule;
+  @override
+  @JsonKey()
+  List<ProductAccordionInfo> get accordionProductsSchedule {
+    if (_accordionProductsSchedule is EqualUnmodifiableListView)
+      return _accordionProductsSchedule;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_accordionProductsSchedule);
+  }
+
   @override
   final CalendarListInfo? listEvents;
   @override
@@ -210,7 +236,7 @@ class _$_ProductState implements _ProductState {
 
   @override
   String toString() {
-    return 'ProductState(loading: $loading, error: $error, accordionProducts: $accordionProducts, listEvents: $listEvents, detailsEvent: $detailsEvent)';
+    return 'ProductState(loading: $loading, error: $error, accordionProducts: $accordionProducts, accordionProductsSchedule: $accordionProductsSchedule, listEvents: $listEvents, detailsEvent: $detailsEvent)';
   }
 
   @override
@@ -222,6 +248,8 @@ class _$_ProductState implements _ProductState {
             (identical(other.error, error) || other.error == error) &&
             const DeepCollectionEquality()
                 .equals(other._accordionProducts, _accordionProducts) &&
+            const DeepCollectionEquality().equals(
+                other._accordionProductsSchedule, _accordionProductsSchedule) &&
             (identical(other.listEvents, listEvents) ||
                 other.listEvents == listEvents) &&
             (identical(other.detailsEvent, detailsEvent) ||
@@ -234,6 +262,7 @@ class _$_ProductState implements _ProductState {
       loading,
       error,
       const DeepCollectionEquality().hash(_accordionProducts),
+      const DeepCollectionEquality().hash(_accordionProductsSchedule),
       listEvents,
       detailsEvent);
 
@@ -249,6 +278,7 @@ abstract class _ProductState implements ProductState {
       {final bool loading,
       final String error,
       final List<ProductAccordionInfo> accordionProducts,
+      final List<ProductAccordionInfo> accordionProductsSchedule,
       final CalendarListInfo? listEvents,
       final CalendarEvent? detailsEvent}) = _$_ProductState;
 
@@ -258,6 +288,8 @@ abstract class _ProductState implements ProductState {
   String get error;
   @override
   List<ProductAccordionInfo> get accordionProducts;
+  @override
+  List<ProductAccordionInfo> get accordionProductsSchedule;
   @override
   CalendarListInfo? get listEvents;
   @override

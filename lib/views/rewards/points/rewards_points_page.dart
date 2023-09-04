@@ -30,6 +30,7 @@ class _RewardsPointsPageState extends State<RewardsPointsPage>
   @override
   void initState() {
     super.initState();
+    viewModel.getUserPoints();
     viewModel.getUserStatement();
   }  
 

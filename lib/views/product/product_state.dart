@@ -12,6 +12,7 @@ class ProductState extends ViewModelState with _$ProductState {
     @Default(false) bool loading,
     @Default('') String error,
     @Default([]) List<ProductAccordionInfo> accordionProducts,
+    @Default([]) List<ProductAccordionInfo> accordionProductsSchedule,
     CalendarListInfo? listEvents,
     CalendarEvent? detailsEvent,
   }) = _ProductState;

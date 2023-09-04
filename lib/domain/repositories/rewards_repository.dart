@@ -10,7 +10,10 @@ abstract class IRewardsRepository {
   Future<Either<H2Failure, List<RewardsAccordionCategory>>>
       getRewardsAccordionCategory();
 
-  Future<Either<H2Failure, RewardsCategory>> getRewardsCategoryDetail(int id);
+  Future<Either<H2Failure, RewardsCategory>> getRewardsCategoryDetail(
+    int id,
+    String cpf,
+  );
 
   Future<Either<H2Failure, List<UserStatementInfo>>> getUserStatement({
     required String cpf,
@@ -20,5 +23,6 @@ abstract class IRewardsRepository {
     required String cpf,
   });
 
-  Future<Either<H2Failure, Unit>> reedemPrize(ReedemPrizeParams reedemPrizeParams);
+  Future<Either<H2Failure, Unit>> reedemPrize(
+      ReedemPrizeParams reedemPrizeParams);
 }

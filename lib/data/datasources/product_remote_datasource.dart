@@ -7,6 +7,8 @@ import 'package:apph2/infraestructure/http/http_client.dart';
 abstract class IProductDatasource {
   FutureOr<List<ProductAccordionInfoModel>> getProducts();
 
+  FutureOr<List<ProductAccordionInfoModel>> getProductsSchedule();
+
   FutureOr<CalendarListInfoModel> getEvents(int houseId);
 
   FutureOr<CalendarEventModel> getEventDetails(int eventId);
@@ -23,6 +25,19 @@ class ProductDatasource implements IProductDatasource {
   FutureOr<List<ProductAccordionInfoModel>> getProducts() async {
     final response = await client.get(
       '$_basePath/all',
+    );
+
+    List<dynamic> dynamicAnticipation = response.data;
+    List<ProductAccordionInfoModel> listProducts = dynamicAnticipation
+        .map((e) => ProductAccordionInfoModel.fromJson(e))
+        .toList();
+    return listProducts;
+  }
+
+  @override
+  FutureOr<List<ProductAccordionInfoModel>> getProductsSchedule() async {
+    final response = await client.get(
+      '$_basePath/calendar',
     );
 
     List<dynamic> dynamicAnticipation = response.data;

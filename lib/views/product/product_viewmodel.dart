@@ -1,6 +1,7 @@
 import 'package:apph2/infraestructure/infraestructure.dart';
 import 'package:apph2/usecases/get_calendar_details_usecase.dart';
 import 'package:apph2/usecases/get_calendar_events_usecase.dart';
+import 'package:apph2/usecases/get_products_schedule_usecase.dart';
 import 'package:apph2/usecases/get_products_usecase.dart';
 import 'package:apph2/views/product/product_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,12 +10,14 @@ class ProductViewModel extends ViewModel<ProductState> {
   final IGetProductsUseCase _getProductsUseCase;
   final IGetCalendarEventsUseCase _getCalendarEventsUseCase;
   final IGetCalendarDetailsUseCase _getCalendarDetailsUseCase;
+  final IGetProductsScheduleUseCase _getProductsScheduleUseCase;
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   ProductViewModel(
     this._getProductsUseCase,
     this._getCalendarEventsUseCase,
     this._getCalendarDetailsUseCase,
+    this._getProductsScheduleUseCase,
   ) : super(ProductState.initial());
 
   @override
@@ -43,6 +46,35 @@ class ProductViewModel extends ViewModel<ProductState> {
       ),
       (listProducts) => state.copyWith(
         accordionProducts: listProducts,
+        loading: false,
+      ),
+    );
+    emit(newState);
+  }
+
+  Future<void> getProductsSchedule() async {
+    final SharedPreferences prefs = await _prefs;
+    final lastUpdate = state.accordionProductsSchedule.isEmpty
+        ? null
+        : prefs.getString('productsScheduleDateLoading');
+
+    if (lastUpdate != null &&
+        DateTime.now().difference(DateTime.parse(lastUpdate)).inMinutes < 30) {
+      return;
+    }
+
+    emit(state.copyWith(loading: true));
+    prefs.setString('productsScheduleDateLoading', DateTime.now().toString());
+
+    final response = await _getProductsScheduleUseCase();
+
+    final newState = response.fold(
+      (error) => state.copyWith(
+        error: 'Erro ao buscar agendas',
+        loading: false,
+      ),
+      (listProductsSchedule) => state.copyWith(
+        accordionProductsSchedule: listProductsSchedule,
         loading: false,
       ),
     );

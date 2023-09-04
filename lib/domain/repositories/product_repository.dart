@@ -7,6 +7,8 @@ import 'package:dartz/dartz.dart';
 abstract class IProductRepository {
   Future<Either<H2Failure, List<ProductAccordionInfo>>> getProducts();
 
+  Future<Either<H2Failure, List<ProductAccordionInfo>>> getProductsSchedule();
+
   Future<Either<H2Failure, CalendarListInfo>> getEvents(int houseId);
 
   Future<Either<H2Failure, CalendarEvent>> getEventDetails(int eventId);

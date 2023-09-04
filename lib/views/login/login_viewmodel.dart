@@ -76,11 +76,13 @@ class LoginViewModel extends ViewModel<LoginState> {
       },
     );
 
-    await _profileViewModel.getProfile(
-      rewardsIdParam: RewardsIdParam(
-        rewardsId: newState.user!.id.toString(),
-      ),
-    );
+    if (newState.user != null) {
+      await _profileViewModel.getProfile(
+        rewardsIdParam: RewardsIdParam(
+          rewardsId: newState.user!.id.toString(),
+        ),
+      );
+    }
 
     emit(newState);
   }
@@ -198,6 +200,14 @@ class LoginViewModel extends ViewModel<LoginState> {
     Nav.pushNamedAndRemoveUntil(BaseAppModuleRouting.root, (p0) => false);
     emit(
       state.copyWith(user: null, token: ''),
+    );
+  }
+
+  switchBottomNavigation(int index) {
+    emit(
+      state.copyWith(
+        currentPage: index,
+      ),
     );
   }
 }

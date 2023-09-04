@@ -38,7 +38,10 @@ mixin _$RewardsCategoryModel {
   @JsonKey(name: 'image')
   String get bgUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'fixed_value')
-  int get fixedValue => throw _privateConstructorUsedError;
+  bool get fixedValue => throw _privateConstructorUsedError;
+  @JsonKey(name: 'cashback_data')
+  RewardsCashbackObjectModel? get cashbackObject =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,15 +57,28 @@ abstract class $RewardsCategoryModelCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      @JsonKey(name: 'name') String title,
-      @JsonKey(name: 'points') int points,
-      @JsonKey(name: 'complete_description') String description,
-      @JsonKey(name: 'value_per_point') double? valuePoint,
-      @JsonKey(name: 'min_points') int? minPoints,
-      @JsonKey(name: 'max_points') int? maxPoints,
-      @JsonKey(name: 'is_cashback') bool? isCashBack,
-      @JsonKey(name: 'image') String bgUrl,
-      @JsonKey(name: 'fixed_value') int fixedValue});
+      @JsonKey(name: 'name')
+          String title,
+      @JsonKey(name: 'points')
+          int points,
+      @JsonKey(name: 'complete_description')
+          String description,
+      @JsonKey(name: 'value_per_point')
+          double? valuePoint,
+      @JsonKey(name: 'min_points')
+          int? minPoints,
+      @JsonKey(name: 'max_points')
+          int? maxPoints,
+      @JsonKey(name: 'is_cashback')
+          bool? isCashBack,
+      @JsonKey(name: 'image')
+          String bgUrl,
+      @JsonKey(name: 'fixed_value')
+          bool fixedValue,
+      @JsonKey(name: 'cashback_data')
+          RewardsCashbackObjectModel? cashbackObject});
+
+  $RewardsCashbackObjectModelCopyWith<$Res>? get cashbackObject;
 }
 
 /// @nodoc
@@ -89,6 +105,7 @@ class _$RewardsCategoryModelCopyWithImpl<$Res,
     Object? isCashBack = freezed,
     Object? bgUrl = null,
     Object? fixedValue = null,
+    Object? cashbackObject = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -130,8 +147,25 @@ class _$RewardsCategoryModelCopyWithImpl<$Res,
       fixedValue: null == fixedValue
           ? _value.fixedValue
           : fixedValue // ignore: cast_nullable_to_non_nullable
-              as int,
+              as bool,
+      cashbackObject: freezed == cashbackObject
+          ? _value.cashbackObject
+          : cashbackObject // ignore: cast_nullable_to_non_nullable
+              as RewardsCashbackObjectModel?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RewardsCashbackObjectModelCopyWith<$Res>? get cashbackObject {
+    if (_value.cashbackObject == null) {
+      return null;
+    }
+
+    return $RewardsCashbackObjectModelCopyWith<$Res>(_value.cashbackObject!,
+        (value) {
+      return _then(_value.copyWith(cashbackObject: value) as $Val);
+    });
   }
 }
 
@@ -145,15 +179,29 @@ abstract class _$$_RewardsCategoryModelCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
-      @JsonKey(name: 'name') String title,
-      @JsonKey(name: 'points') int points,
-      @JsonKey(name: 'complete_description') String description,
-      @JsonKey(name: 'value_per_point') double? valuePoint,
-      @JsonKey(name: 'min_points') int? minPoints,
-      @JsonKey(name: 'max_points') int? maxPoints,
-      @JsonKey(name: 'is_cashback') bool? isCashBack,
-      @JsonKey(name: 'image') String bgUrl,
-      @JsonKey(name: 'fixed_value') int fixedValue});
+      @JsonKey(name: 'name')
+          String title,
+      @JsonKey(name: 'points')
+          int points,
+      @JsonKey(name: 'complete_description')
+          String description,
+      @JsonKey(name: 'value_per_point')
+          double? valuePoint,
+      @JsonKey(name: 'min_points')
+          int? minPoints,
+      @JsonKey(name: 'max_points')
+          int? maxPoints,
+      @JsonKey(name: 'is_cashback')
+          bool? isCashBack,
+      @JsonKey(name: 'image')
+          String bgUrl,
+      @JsonKey(name: 'fixed_value')
+          bool fixedValue,
+      @JsonKey(name: 'cashback_data')
+          RewardsCashbackObjectModel? cashbackObject});
+
+  @override
+  $RewardsCashbackObjectModelCopyWith<$Res>? get cashbackObject;
 }
 
 /// @nodoc
@@ -177,6 +225,7 @@ class __$$_RewardsCategoryModelCopyWithImpl<$Res>
     Object? isCashBack = freezed,
     Object? bgUrl = null,
     Object? fixedValue = null,
+    Object? cashbackObject = freezed,
   }) {
     return _then(_$_RewardsCategoryModel(
       id: null == id
@@ -218,7 +267,11 @@ class __$$_RewardsCategoryModelCopyWithImpl<$Res>
       fixedValue: null == fixedValue
           ? _value.fixedValue
           : fixedValue // ignore: cast_nullable_to_non_nullable
-              as int,
+              as bool,
+      cashbackObject: freezed == cashbackObject
+          ? _value.cashbackObject
+          : cashbackObject // ignore: cast_nullable_to_non_nullable
+              as RewardsCashbackObjectModel?,
     ));
   }
 }
@@ -236,7 +289,8 @@ class _$_RewardsCategoryModel extends _RewardsCategoryModel {
       @JsonKey(name: 'max_points') this.maxPoints,
       @JsonKey(name: 'is_cashback') this.isCashBack,
       @JsonKey(name: 'image') required this.bgUrl,
-      @JsonKey(name: 'fixed_value') required this.fixedValue})
+      @JsonKey(name: 'fixed_value') required this.fixedValue,
+      @JsonKey(name: 'cashback_data') this.cashbackObject})
       : super._();
 
   factory _$_RewardsCategoryModel.fromJson(Map<String, dynamic> json) =>
@@ -270,11 +324,14 @@ class _$_RewardsCategoryModel extends _RewardsCategoryModel {
   final String bgUrl;
   @override
   @JsonKey(name: 'fixed_value')
-  final int fixedValue;
+  final bool fixedValue;
+  @override
+  @JsonKey(name: 'cashback_data')
+  final RewardsCashbackObjectModel? cashbackObject;
 
   @override
   String toString() {
-    return 'RewardsCategoryModel(id: $id, title: $title, points: $points, description: $description, valuePoint: $valuePoint, minPoints: $minPoints, maxPoints: $maxPoints, isCashBack: $isCashBack, bgUrl: $bgUrl, fixedValue: $fixedValue)';
+    return 'RewardsCategoryModel(id: $id, title: $title, points: $points, description: $description, valuePoint: $valuePoint, minPoints: $minPoints, maxPoints: $maxPoints, isCashBack: $isCashBack, bgUrl: $bgUrl, fixedValue: $fixedValue, cashbackObject: $cashbackObject)';
   }
 
   @override
@@ -297,13 +354,26 @@ class _$_RewardsCategoryModel extends _RewardsCategoryModel {
                 other.isCashBack == isCashBack) &&
             (identical(other.bgUrl, bgUrl) || other.bgUrl == bgUrl) &&
             (identical(other.fixedValue, fixedValue) ||
-                other.fixedValue == fixedValue));
+                other.fixedValue == fixedValue) &&
+            (identical(other.cashbackObject, cashbackObject) ||
+                other.cashbackObject == cashbackObject));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, points, description,
-      valuePoint, minPoints, maxPoints, isCashBack, bgUrl, fixedValue);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      title,
+      points,
+      description,
+      valuePoint,
+      minPoints,
+      maxPoints,
+      isCashBack,
+      bgUrl,
+      fixedValue,
+      cashbackObject);
 
   @JsonKey(ignore: true)
   @override
@@ -322,25 +392,28 @@ class _$_RewardsCategoryModel extends _RewardsCategoryModel {
 
 abstract class _RewardsCategoryModel extends RewardsCategoryModel {
   factory _RewardsCategoryModel(
-      {required final int id,
-      @JsonKey(name: 'name')
-          required final String title,
-      @JsonKey(name: 'points')
-          required final int points,
-      @JsonKey(name: 'complete_description')
-          required final String description,
-      @JsonKey(name: 'value_per_point')
-          final double? valuePoint,
-      @JsonKey(name: 'min_points')
-          final int? minPoints,
-      @JsonKey(name: 'max_points')
-          final int? maxPoints,
-      @JsonKey(name: 'is_cashback')
-          final bool? isCashBack,
-      @JsonKey(name: 'image')
-          required final String bgUrl,
-      @JsonKey(name: 'fixed_value')
-          required final int fixedValue}) = _$_RewardsCategoryModel;
+          {required final int id,
+          @JsonKey(name: 'name')
+              required final String title,
+          @JsonKey(name: 'points')
+              required final int points,
+          @JsonKey(name: 'complete_description')
+              required final String description,
+          @JsonKey(name: 'value_per_point')
+              final double? valuePoint,
+          @JsonKey(name: 'min_points')
+              final int? minPoints,
+          @JsonKey(name: 'max_points')
+              final int? maxPoints,
+          @JsonKey(name: 'is_cashback')
+              final bool? isCashBack,
+          @JsonKey(name: 'image')
+              required final String bgUrl,
+          @JsonKey(name: 'fixed_value')
+              required final bool fixedValue,
+          @JsonKey(name: 'cashback_data')
+              final RewardsCashbackObjectModel? cashbackObject}) =
+      _$_RewardsCategoryModel;
   _RewardsCategoryModel._() : super._();
 
   factory _RewardsCategoryModel.fromJson(Map<String, dynamic> json) =
@@ -374,7 +447,10 @@ abstract class _RewardsCategoryModel extends RewardsCategoryModel {
   String get bgUrl;
   @override
   @JsonKey(name: 'fixed_value')
-  int get fixedValue;
+  bool get fixedValue;
+  @override
+  @JsonKey(name: 'cashback_data')
+  RewardsCashbackObjectModel? get cashbackObject;
   @override
   @JsonKey(ignore: true)
   _$$_RewardsCategoryModelCopyWith<_$_RewardsCategoryModel> get copyWith =>

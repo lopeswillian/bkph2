@@ -28,6 +28,7 @@ import 'package:apph2/usecases/get_customer_usecase.dart';
 import 'package:apph2/usecases/get_jobs_usecase.dart';
 import 'package:apph2/usecases/get_monthly_income_usecase.dart';
 import 'package:apph2/usecases/get_pix_code_usecase.dart';
+import 'package:apph2/usecases/get_products_schedule_usecase.dart';
 import 'package:apph2/usecases/get_products_usecase.dart';
 import 'package:apph2/usecases/get_profile_usecase.dart';
 import 'package:apph2/usecases/get_rewards_categories_usecase.dart';
@@ -79,7 +80,7 @@ class BaseAppModuleBindings {
           (i) => AuthDatasource(
             HttpAdapter(
               client: io.HttpClient(),
-              baseUrl: "https://a89f1fa024.nxcli.io/",
+              baseUrl: "https://h2api.app/",
               apiVersion: 'v1',
               headers: {
                 'Content-Type': 'application/json; charset=utf-8',
@@ -93,7 +94,7 @@ class BaseAppModuleBindings {
           (i) => H2PayDatasource(
             HttpAdapter(
               client: io.HttpClient(),
-              baseUrl: "http://dc023ad05f.nxcli.io/",
+              baseUrl: "https://h2pay.app/",
               apiVersion: 'v1',
               headers: {
                 'Content-Type': 'application/json; charset=utf-8',
@@ -107,7 +108,7 @@ class BaseAppModuleBindings {
           (i) => ProductDatasource(
             HttpAdapter(
               client: io.HttpClient(),
-              baseUrl: "https://a89f1fa024.nxcli.io/",
+              baseUrl: "https://h2api.app/",
               apiVersion: 'v1',
               headers: {
                 'Content-Type': 'application/json; charset=utf-8',
@@ -121,7 +122,7 @@ class BaseAppModuleBindings {
           (i) => CafDatasource(
             HttpAdapter(
               client: io.HttpClient(),
-              baseUrl: "https://a89f1fa024.nxcli.io/",
+              baseUrl: "https://h2api.app/",
               apiVersion: 'v1',
               headers: {
                 'Content-Type': 'application/json; charset=utf-8',
@@ -135,7 +136,7 @@ class BaseAppModuleBindings {
           (i) => RewardsDataSource(
             HttpAdapter(
               client: io.HttpClient(),
-              baseUrl: "https://a89f1fa024.nxcli.io/",
+              baseUrl: "https://h2api.app/",
               apiVersion: 'v1',
               headers: {
                 'Content-Type': 'application/json; charset=utf-8',
@@ -244,6 +245,9 @@ class BaseAppModuleBindings {
         Bind.lazySingleton<IGetProductsUseCase>(
           (i) => GetProductUseCase(i.get<IProductRepository>()),
         ),
+        Bind.lazySingleton<IGetProductsScheduleUseCase>(
+          (i) => GetProductScheduleUseCase(i.get<IProductRepository>()),
+        ),
         Bind.lazySingleton<IGetCalendarEventsUseCase>(
           (i) => GetCalendarEventsUseCase(i.get<IProductRepository>()),
         ),
@@ -332,6 +336,7 @@ class BaseAppModuleBindings {
             i.get<IGetProductsUseCase>(),
             i.get<IGetCalendarEventsUseCase>(),
             i.get<IGetCalendarDetailsUseCase>(),
+            i.get<IGetProductsScheduleUseCase>(),
           ),
         ),
         Bind.lazySingleton<ProfileViewModel>(

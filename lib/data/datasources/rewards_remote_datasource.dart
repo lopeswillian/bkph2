@@ -9,7 +9,10 @@ import 'package:apph2/infraestructure/http/http_client.dart';
 abstract class IRewardsDataSource {
   FutureOr<List<RewardsAccordionCategoryModel>> getRewardsAccordionCategory();
 
-  FutureOr<RewardsCategoryModel> getRewardsCategoryDetail(int id);
+  FutureOr<RewardsCategoryModel> getRewardsCategoryDetail(
+    int id,
+    String cpf,
+  );
 
   FutureOr<List<UserStatementInfoModel>> getUserStatement({
     required String cpf,
@@ -42,9 +45,15 @@ class RewardsDataSource implements IRewardsDataSource {
   }
 
   @override
-  FutureOr<RewardsCategoryModel> getRewardsCategoryDetail(int id) async {
+  FutureOr<RewardsCategoryModel> getRewardsCategoryDetail(
+    int id,
+    String cpf,
+  ) async {    
     final response = await client.get(
       'bco-rewards-prize/$id',
+      query: {
+        'cpf':cpf
+      } 
     );
 
     return RewardsCategoryModel.fromJson(response.data['data']);
@@ -76,7 +85,7 @@ class RewardsDataSource implements IRewardsDataSource {
 
   @override
   FutureOr<bool> reedemPrize(ReedemPrizeParamsModel reedemPrizeParams) async {
-    final body  =reedemPrizeParams.toJson();
+    final body = reedemPrizeParams.toJson();
     final response = await client.post(
       'bco-rewards-prize/redeem',
       body: body,

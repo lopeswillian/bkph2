@@ -43,7 +43,11 @@ class RewardsViewModel extends ViewModel<RewardsState> {
       ),
       (listRewardsCategories) => state.copyWith(
         loading: false,
-        listRewardsCategories: listRewardsCategories,
+        listRewardsCategories: listRewardsCategories
+            .where(
+              (element) => element.prizes.isNotEmpty,
+            )
+            .toList(),
       ),
     );
 
@@ -114,7 +118,10 @@ class RewardsViewModel extends ViewModel<RewardsState> {
       ),
     );
 
-    final response = await _getRewardsCategoryDetailUseCase(id);
+    final response = await _getRewardsCategoryDetailUseCase(
+      id,
+      _loginViewModel.loggedUser!.cpf,
+    );
 
     final newState = response.fold(
       (error) => state.copyWith(
@@ -130,11 +137,14 @@ class RewardsViewModel extends ViewModel<RewardsState> {
     emit(newState);
   }
 
-  Future<void> reedemPrize({
-    required int prizeId,
-    required double value,
-    required int points,
-  }) async {
+  Future<void> reedemPrize(
+      {required int prizeId,
+      required double value,
+      required int points,
+      bool? receiptDifference = false,
+      int? clubId,
+      int? idApp,
+      int? unityId}) async {
     emit(
       state.copyWith(
         loading: true,
@@ -145,12 +155,14 @@ class RewardsViewModel extends ViewModel<RewardsState> {
 
     final response = await _reedemPrizeUseCase(
       ReedemPrizeParams(
-        clientId: _loginViewModel.loggedUser!.id,
-        prizeId: prizeId,
-        value: value,
-        points: points,
-        receiptDifference: false,
-      ),
+          clientId: _loginViewModel.loggedUser!.id,
+          prizeId: prizeId,
+          value: value,
+          points: points,
+          receiptDifference: receiptDifference!,
+          clubId: clubId,
+          idApp: idApp,
+          unityId: unityId),
     );
 
     final newState = response.fold(

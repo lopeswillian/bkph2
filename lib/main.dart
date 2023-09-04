@@ -14,6 +14,7 @@ import 'package:apph2/views/login/login_page.dart';
 import 'package:apph2/views/login/login_state.dart';
 import 'package:apph2/views/login/login_viewmodel.dart';
 import 'package:apph2/views/product/list_product_page.dart';
+import 'package:apph2/views/product/list_product_schedule_page.dart';
 import 'package:apph2/views/product/product_viewmodel.dart';
 import 'package:apph2/views/rewards/rewards_page.dart';
 import 'package:bot_toast/bot_toast.dart';
@@ -78,9 +79,9 @@ class _MyHomePageState extends State<MyHomePage> with View<LoginViewModel> {
           bottom: Dimension.xs.height,
           top: Dimension.xs.height,
         ),
-        child: const FaIcon(FontAwesomeIcons.coins),
+        child: const FaIcon(FontAwesomeIcons.lightCalendar),
       ),
-      label: 'Produtos',
+      label: 'Agenda',
     ),
     BottomNavigationBarItem(
       icon: Padding(
@@ -88,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> with View<LoginViewModel> {
           bottom: Dimension.xs.height,
           top: Dimension.xs.height,
         ),
-        child: const FaIcon(FontAwesomeIcons.gift),
+        child: const FaIcon(FontAwesomeIcons.lightGift),
       ),
       label: 'Rewards',
     ),
@@ -109,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> with View<LoginViewModel> {
           bottom: Dimension.xs.height,
           top: Dimension.xs.height,
         ),
-        child: const FaIcon(FontAwesomeIcons.circleDollar),
+        child: const FaIcon(FontAwesomeIcons.lightCircleDollar),
       ),
       label: 'H2 Pay',
     ),
@@ -119,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> with View<LoginViewModel> {
           bottom: Dimension.xs.height,
           top: Dimension.xs.height,
         ),
-        child: const FaIcon(FontAwesomeIcons.comments),
+        child: const FaIcon(FontAwesomeIcons.lightComments),
       ),
       label: 'Contato',
     ),
@@ -130,74 +131,83 @@ class _MyHomePageState extends State<MyHomePage> with View<LoginViewModel> {
     return ViewModelBuilder<LoginViewModel, LoginState>(
       viewModel: viewModel,
       buildWhen: (previous, current) =>
-          previous.user != current.user || previous.token != current.token,
+          previous.user != current.user ||
+          previous.token != current.token ||
+          previous.currentPage != current.currentPage,
       builder: _buildPage,
     );
   }
 
   Widget _buildPage(BuildContext context, LoginState state) {
     final pages = [
-      const ListProductPage(),
+      const ListProductSchedulePage(),
       state.user != null ? const RewardsPage() : const LoginPage(),
-      state.user != null ? const H2HomePage() : const LoginPage(),
+      const ListProductPage(),
       state.user != null ? const H2PayHomePage() : const LoginPage(),
       const ChatPage(),
+      state.user != null ? const H2HomePage() : const LoginPage(),
     ];
 
-    return Scaffold(
-      appBar: const H2AppBar(),
-      backgroundColor: Colors.transparent,
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFF166FED),
-              Color(0xFF00092A),
-            ],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-        ),
-        child: Container(
+    return WillPopScope(
+      onWillPop: () async {
+        SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+        return false;
+      },
+      child: Scaffold(
+        appBar: const H2AppBar(),
+        backgroundColor: Colors.transparent,
+        body: Container(
           decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF166FED),
+                Color(0xFF00092A),
+              ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+          ),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(27),
               topRight: Radius.circular(27),
             ),
-          ),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: constraints.maxHeight,
-                  ),
-                  child: pages[currentTab],
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(27),
+                  topRight: Radius.circular(27),
                 ),
-              );
-            },
+              ),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return SingleChildScrollView(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: constraints.maxHeight,
+                      ),
+                      child: pages[state.currentPage],
+                    ),
+                  );
+                },
+              ),
+            ),
           ),
         ),
-      ),
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: CustomBottomNavigationBar(
-          onTap: _onItemTapped,
-          selectedIndex: currentTab,
-          items: _options,
+        bottomNavigationBar: Theme(
+          data: Theme.of(context).copyWith(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
+          child: CustomBottomNavigationBar(
+            onTap: viewModel.switchBottomNavigation,
+            selectedIndex: state.currentPage == 5 ? 2 : state.currentPage,
+            items: _options,
+          ),
         ),
       ),
     );
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      currentTab = index;
-    });
   }
 }
 
@@ -313,6 +323,7 @@ class _MyAppState extends State<MyApp> {
     Modular.setInitialRoute(Modular.initialRoute);
     Modular.get<LoginViewModel>().isAuth();
     Modular.get<ProductViewModel>().getProducts();
+    Modular.get<ProductViewModel>().getProductsSchedule();
     Future.delayed(const Duration(seconds: 3)).then(
       (value) => Nav.navigate(BaseAppModuleRouting.root),
     );
@@ -333,15 +344,20 @@ class _MyAppState extends State<MyApp> {
               theme: ThemeFactory.light(),
               // darkTheme: ThemeFactory.dark(),
               builder: (context, child) {
-                return StreamBuilder(
-                  stream: checkInternetConnectivity(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData && snapshot.data == false) {
-                      return const ErrorNetworkPage();
-                    } else {
-                      return BotToastInit()(context, child);
-                    }
+                return WillPopScope(
+                  onWillPop: () async {
+                    return false;
                   },
+                  child: StreamBuilder(
+                    stream: checkInternetConnectivity(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData && snapshot.data == false) {
+                        return const ErrorNetworkPage();
+                      } else {
+                        return BotToastInit()(context, child);
+                      }
+                    },
+                  ),
                 );
               },
             );

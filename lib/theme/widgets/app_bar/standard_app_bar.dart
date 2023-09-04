@@ -49,9 +49,6 @@ class _StandardAppBar extends H2AppBar {
     final leading = logoPosition == H2LogoAppBarPosition.leading
         ? logoOrBackButton
         : actionOrBackButton;
-    // final trailing = logoPosition == H2LogoAppBarPosition.trailing
-    //     ? [h2Logo]
-    //     : [action ?? const SizedBox.shrink()];
 
     return AppBar(
       elevation: 0,

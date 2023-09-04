@@ -12,6 +12,7 @@ import 'package:apph2/views/h2pay/payment/payment_viewmodel.dart';
 import 'package:apph2/views/h2pay/payment/widgets/custom_switch_antecipation.dart';
 import 'package:apph2/views/register/widgets/next_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({Key? key}) : super(key: key);
@@ -261,7 +262,9 @@ class _PaymentPageState extends ViewState<PaymentPage, PaymentViewModel> {
             children: [
               detailPayments(
                 context: context,
-                dateCreate: anticipation.dateCreate.toString(),
+                dateCreate: DateFormat('dd/MM/yyy hh:mm:ss')
+                    .format(anticipation.dateCreate)
+                    .toString(),
                 status: anticipation.status,
                 value: anticipation.valuePrincipal,
               ),

@@ -30,9 +30,11 @@ class RewardsRepository implements IRewardsRepository {
 
   @override
   Future<Either<H2Failure, RewardsCategory>> getRewardsCategoryDetail(
-      int id) async {
+    int id,
+    String cpf,
+  ) async {
     try {
-      var res = await datasource.getRewardsCategoryDetail(id);
+      var res = await datasource.getRewardsCategoryDetail(id, cpf);
       return Right(res.toEntity());
     } on IHttpException {
       return const Left(H2Failure.unexpected());

@@ -8,6 +8,7 @@ class H2Accordion extends StatefulWidget {
   final Widget content;
   final String? icon;
   final EdgeInsets? paddingTitle;
+  final bool? expanded;
 
   H2Accordion({
     required this.title,
@@ -15,6 +16,7 @@ class H2Accordion extends StatefulWidget {
     required this.content,
     this.icon,
     this.paddingTitle,
+    this.expanded = true,
   });
 
   @override
@@ -22,12 +24,17 @@ class H2Accordion extends StatefulWidget {
 }
 
 class _H2AccordionState extends State<H2Accordion> {
-  bool _expanded = true;
-
+  bool expanded = true;
   toggleAccordion() {
     setState(() {
-      _expanded = !_expanded;
+      expanded = !expanded;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    expanded = widget.expanded ?? true;
   }
 
   @override
@@ -78,7 +85,7 @@ class _H2AccordionState extends State<H2Accordion> {
                 IconButton(
                   onPressed: toggleAccordion,
                   icon: Icon(
-                    _expanded ? Icons.expand_less : Icons.expand_more,
+                    expanded ? Icons.expand_less : Icons.expand_more,
                     size: 24.0,
                   ),
                 ),
@@ -87,7 +94,7 @@ class _H2AccordionState extends State<H2Accordion> {
           ),
         ),
         Dimension.md.vertical,
-        _expanded ? widget.content : const SizedBox.shrink(),
+        expanded ? widget.content : const SizedBox.shrink(),
       ],
     );
   }

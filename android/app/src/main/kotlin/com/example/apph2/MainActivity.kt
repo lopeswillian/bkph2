@@ -12,16 +12,6 @@ class MainActivity : FlutterFragmentActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean { 
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            val fragmentManager = supportFragmentManager
-            if (fragmentManager.backStackEntryCount > 0) {
-                fragmentManager.popBackStack()
-                return true
-            } else {
-                minimizeApp()
-                return true
-            }
-        }
         return super.onKeyDown(keyCode, event)
     }
 

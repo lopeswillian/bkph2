@@ -1,3 +1,4 @@
+import 'package:apph2/domain/entities/rewards_cashback_object.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'rewards_category.freezed.dart';
@@ -15,5 +16,6 @@ class RewardsCategory with _$RewardsCategory {
     required bool isCashBack,
     required String bgUrl,
     required bool fixedValue,
+    RewardsCashbackObject? cashbackObject,
   }) = _RewardsCategory;
 }

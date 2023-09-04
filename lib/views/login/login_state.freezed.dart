@@ -19,6 +19,7 @@ mixin _$LoginState {
   bool get loading => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
   String get token => throw _privateConstructorUsedError;
+  int get currentPage => throw _privateConstructorUsedError;
   UserInfo? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -32,7 +33,12 @@ abstract class $LoginStateCopyWith<$Res> {
           LoginState value, $Res Function(LoginState) then) =
       _$LoginStateCopyWithImpl<$Res, LoginState>;
   @useResult
-  $Res call({bool loading, String error, String token, UserInfo? user});
+  $Res call(
+      {bool loading,
+      String error,
+      String token,
+      int currentPage,
+      UserInfo? user});
 
   $UserInfoCopyWith<$Res>? get user;
 }
@@ -53,6 +59,7 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
     Object? loading = null,
     Object? error = null,
     Object? token = null,
+    Object? currentPage = null,
     Object? user = freezed,
   }) {
     return _then(_value.copyWith(
@@ -68,6 +75,10 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      currentPage: null == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -96,7 +107,12 @@ abstract class _$$_LoginStateCopyWith<$Res>
       __$$_LoginStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool loading, String error, String token, UserInfo? user});
+  $Res call(
+      {bool loading,
+      String error,
+      String token,
+      int currentPage,
+      UserInfo? user});
 
   @override
   $UserInfoCopyWith<$Res>? get user;
@@ -116,6 +132,7 @@ class __$$_LoginStateCopyWithImpl<$Res>
     Object? loading = null,
     Object? error = null,
     Object? token = null,
+    Object? currentPage = null,
     Object? user = freezed,
   }) {
     return _then(_$_LoginState(
@@ -131,6 +148,10 @@ class __$$_LoginStateCopyWithImpl<$Res>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      currentPage: null == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -143,7 +164,11 @@ class __$$_LoginStateCopyWithImpl<$Res>
 
 class _$_LoginState implements _LoginState {
   const _$_LoginState(
-      {this.loading = false, this.error = '', this.token = '', this.user});
+      {this.loading = false,
+      this.error = '',
+      this.token = '',
+      this.currentPage = 2,
+      this.user});
 
   @override
   @JsonKey()
@@ -155,11 +180,14 @@ class _$_LoginState implements _LoginState {
   @JsonKey()
   final String token;
   @override
+  @JsonKey()
+  final int currentPage;
+  @override
   final UserInfo? user;
 
   @override
   String toString() {
-    return 'LoginState(loading: $loading, error: $error, token: $token, user: $user)';
+    return 'LoginState(loading: $loading, error: $error, token: $token, currentPage: $currentPage, user: $user)';
   }
 
   @override
@@ -170,11 +198,14 @@ class _$_LoginState implements _LoginState {
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error) &&
             (identical(other.token, token) || other.token == token) &&
+            (identical(other.currentPage, currentPage) ||
+                other.currentPage == currentPage) &&
             (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loading, error, token, user);
+  int get hashCode =>
+      Object.hash(runtimeType, loading, error, token, currentPage, user);
 
   @JsonKey(ignore: true)
   @override
@@ -188,6 +219,7 @@ abstract class _LoginState implements LoginState {
       {final bool loading,
       final String error,
       final String token,
+      final int currentPage,
       final UserInfo? user}) = _$_LoginState;
 
   @override
@@ -196,6 +228,8 @@ abstract class _LoginState implements LoginState {
   String get error;
   @override
   String get token;
+  @override
+  int get currentPage;
   @override
   UserInfo? get user;
   @override

@@ -10,6 +10,7 @@ class LoginState extends ViewModelState with _$LoginState {
     @Default(false) bool loading,
     @Default('') String error,
     @Default('') String token,
+    @Default(2) int currentPage,
     UserInfo? user,
   }) = _LoginState;
 

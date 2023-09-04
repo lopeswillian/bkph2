@@ -18,7 +18,11 @@ _$_RewardsCategoryModel _$$_RewardsCategoryModelFromJson(
       maxPoints: json['max_points'] as int?,
       isCashBack: json['is_cashback'] as bool?,
       bgUrl: json['image'] as String,
-      fixedValue: json['fixed_value'] as int,
+      fixedValue: json['fixed_value'] as bool,
+      cashbackObject: json['cashback_data'] == null
+          ? null
+          : RewardsCashbackObjectModel.fromJson(
+              json['cashback_data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_RewardsCategoryModelToJson(
@@ -34,4 +38,5 @@ Map<String, dynamic> _$$_RewardsCategoryModelToJson(
       'is_cashback': instance.isCashBack,
       'image': instance.bgUrl,
       'fixed_value': instance.fixedValue,
+      'cashback_data': instance.cashbackObject,
     };

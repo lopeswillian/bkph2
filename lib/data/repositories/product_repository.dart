@@ -25,6 +25,18 @@ class ProductRepository implements IProductRepository {
   }
 
   @override
+  Future<Either<H2Failure, List<ProductAccordionInfo>>> getProductsSchedule() async {
+    try {
+      var res = await datasource.getProductsSchedule();
+      return Right(res.map((e) => e.toEntity()).toList());
+    } on IHttpException {
+      return const Left(H2Failure.unexpected());
+    } on Exception {
+      return const Left(H2Failure.unexpected());
+    }
+  }
+
+  @override
   Future<Either<H2Failure, CalendarListInfo>> getEvents(int houseId) async {
     try {
       var res = await datasource.getEvents(houseId);

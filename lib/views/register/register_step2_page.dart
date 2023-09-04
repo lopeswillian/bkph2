@@ -51,7 +51,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
   );
 
   var cepFormater = MaskTextInputFormatter(
-    mask: '##.###-###',
+    mask: '#####-###',
     filter: {'#': RegExp(r'[0-9]')},
   );
 

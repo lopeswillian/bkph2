@@ -1,4 +1,5 @@
 // ignore_for_file: invalid_annotation_target
+import 'package:apph2/data/models/response/rewards_cashback_object_model.dart';
 import 'package:apph2/domain/entities/rewards_category.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -19,7 +20,8 @@ class RewardsCategoryModel with _$RewardsCategoryModel {
     @JsonKey(name: 'max_points') int? maxPoints,
     @JsonKey(name: 'is_cashback') bool? isCashBack,
     @JsonKey(name: 'image') required String bgUrl,
-    @JsonKey(name: 'fixed_value') required int fixedValue,
+    @JsonKey(name: 'fixed_value') required bool fixedValue,
+    @JsonKey(name: 'cashback_data') RewardsCashbackObjectModel? cashbackObject,
   }) = _RewardsCategoryModel;
 
   factory RewardsCategoryModel.fromJson(
@@ -28,14 +30,16 @@ class RewardsCategoryModel with _$RewardsCategoryModel {
       _$RewardsCategoryModelFromJson(json);
 
   RewardsCategory toEntity() => RewardsCategory(
-      id: id,
-      title: title,
-      points: points,
-      valuePoint: valuePoint,
-      description: description,
-      minPoints: minPoints,
-      maxPoints: maxPoints,
-      isCashBack: isCashBack ?? false,
-      bgUrl: bgUrl,
-      fixedValue: true);
+        id: id,
+        title: title,
+        points: points,
+        valuePoint: valuePoint,
+        description: description,
+        minPoints: minPoints,
+        maxPoints: maxPoints,
+        isCashBack: isCashBack ?? false,
+        bgUrl: bgUrl,
+        fixedValue: fixedValue,
+        cashbackObject: cashbackObject?.toEntity(),
+      );
 }

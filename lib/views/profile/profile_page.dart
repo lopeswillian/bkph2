@@ -52,7 +52,7 @@ class _ProfilePageState extends State<ProfilePage> with View<ProfileViewModel> {
   );
 
   var cepFormater = MaskTextInputFormatter(
-    mask: '##.###-###',
+    mask: '#####-###',
     filter: {'#': RegExp(r'[0-9]')},
   );
 

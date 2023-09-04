@@ -26,6 +26,8 @@ mixin _$RewardsCategory {
   bool get isCashBack => throw _privateConstructorUsedError;
   String get bgUrl => throw _privateConstructorUsedError;
   bool get fixedValue => throw _privateConstructorUsedError;
+  RewardsCashbackObject? get cashbackObject =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RewardsCategoryCopyWith<RewardsCategory> get copyWith =>
@@ -48,7 +50,10 @@ abstract class $RewardsCategoryCopyWith<$Res> {
       int? maxPoints,
       bool isCashBack,
       String bgUrl,
-      bool fixedValue});
+      bool fixedValue,
+      RewardsCashbackObject? cashbackObject});
+
+  $RewardsCashbackObjectCopyWith<$Res>? get cashbackObject;
 }
 
 /// @nodoc
@@ -74,6 +79,7 @@ class _$RewardsCategoryCopyWithImpl<$Res, $Val extends RewardsCategory>
     Object? isCashBack = null,
     Object? bgUrl = null,
     Object? fixedValue = null,
+    Object? cashbackObject = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -116,7 +122,24 @@ class _$RewardsCategoryCopyWithImpl<$Res, $Val extends RewardsCategory>
           ? _value.fixedValue
           : fixedValue // ignore: cast_nullable_to_non_nullable
               as bool,
+      cashbackObject: freezed == cashbackObject
+          ? _value.cashbackObject
+          : cashbackObject // ignore: cast_nullable_to_non_nullable
+              as RewardsCashbackObject?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RewardsCashbackObjectCopyWith<$Res>? get cashbackObject {
+    if (_value.cashbackObject == null) {
+      return null;
+    }
+
+    return $RewardsCashbackObjectCopyWith<$Res>(_value.cashbackObject!,
+        (value) {
+      return _then(_value.copyWith(cashbackObject: value) as $Val);
+    });
   }
 }
 
@@ -138,7 +161,11 @@ abstract class _$$_RewardsCategoryCopyWith<$Res>
       int? maxPoints,
       bool isCashBack,
       String bgUrl,
-      bool fixedValue});
+      bool fixedValue,
+      RewardsCashbackObject? cashbackObject});
+
+  @override
+  $RewardsCashbackObjectCopyWith<$Res>? get cashbackObject;
 }
 
 /// @nodoc
@@ -162,6 +189,7 @@ class __$$_RewardsCategoryCopyWithImpl<$Res>
     Object? isCashBack = null,
     Object? bgUrl = null,
     Object? fixedValue = null,
+    Object? cashbackObject = freezed,
   }) {
     return _then(_$_RewardsCategory(
       id: null == id
@@ -204,6 +232,10 @@ class __$$_RewardsCategoryCopyWithImpl<$Res>
           ? _value.fixedValue
           : fixedValue // ignore: cast_nullable_to_non_nullable
               as bool,
+      cashbackObject: freezed == cashbackObject
+          ? _value.cashbackObject
+          : cashbackObject // ignore: cast_nullable_to_non_nullable
+              as RewardsCashbackObject?,
     ));
   }
 }
@@ -221,7 +253,8 @@ class _$_RewardsCategory implements _RewardsCategory {
       this.maxPoints,
       required this.isCashBack,
       required this.bgUrl,
-      required this.fixedValue});
+      required this.fixedValue,
+      this.cashbackObject});
 
   @override
   final int id;
@@ -243,10 +276,12 @@ class _$_RewardsCategory implements _RewardsCategory {
   final String bgUrl;
   @override
   final bool fixedValue;
+  @override
+  final RewardsCashbackObject? cashbackObject;
 
   @override
   String toString() {
-    return 'RewardsCategory(id: $id, title: $title, points: $points, description: $description, valuePoint: $valuePoint, minPoints: $minPoints, maxPoints: $maxPoints, isCashBack: $isCashBack, bgUrl: $bgUrl, fixedValue: $fixedValue)';
+    return 'RewardsCategory(id: $id, title: $title, points: $points, description: $description, valuePoint: $valuePoint, minPoints: $minPoints, maxPoints: $maxPoints, isCashBack: $isCashBack, bgUrl: $bgUrl, fixedValue: $fixedValue, cashbackObject: $cashbackObject)';
   }
 
   @override
@@ -269,12 +304,25 @@ class _$_RewardsCategory implements _RewardsCategory {
                 other.isCashBack == isCashBack) &&
             (identical(other.bgUrl, bgUrl) || other.bgUrl == bgUrl) &&
             (identical(other.fixedValue, fixedValue) ||
-                other.fixedValue == fixedValue));
+                other.fixedValue == fixedValue) &&
+            (identical(other.cashbackObject, cashbackObject) ||
+                other.cashbackObject == cashbackObject));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, points, description,
-      valuePoint, minPoints, maxPoints, isCashBack, bgUrl, fixedValue);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      title,
+      points,
+      description,
+      valuePoint,
+      minPoints,
+      maxPoints,
+      isCashBack,
+      bgUrl,
+      fixedValue,
+      cashbackObject);
 
   @JsonKey(ignore: true)
   @override
@@ -294,7 +342,8 @@ abstract class _RewardsCategory implements RewardsCategory {
       final int? maxPoints,
       required final bool isCashBack,
       required final String bgUrl,
-      required final bool fixedValue}) = _$_RewardsCategory;
+      required final bool fixedValue,
+      final RewardsCashbackObject? cashbackObject}) = _$_RewardsCategory;
 
   @override
   int get id;
@@ -316,6 +365,8 @@ abstract class _RewardsCategory implements RewardsCategory {
   String get bgUrl;
   @override
   bool get fixedValue;
+  @override
+  RewardsCashbackObject? get cashbackObject;
   @override
   @JsonKey(ignore: true)
   _$$_RewardsCategoryCopyWith<_$_RewardsCategory> get copyWith =>
