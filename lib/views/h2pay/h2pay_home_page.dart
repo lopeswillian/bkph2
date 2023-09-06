@@ -50,7 +50,7 @@ class _H2PayHomePageState extends ViewState<H2PayHomePage, H2PayViewModel> {
   }
 
   Widget _buildPage(BuildContext context, H2PayState state) {
-    if (!userState.user!.ish2Pay) {
+    if (state.customer == null || !state.customer!.h2PayActive) {
       return Padding(
         padding: EdgeInsets.symmetric(horizontal: Dimension.sm.width),
         child: Column(

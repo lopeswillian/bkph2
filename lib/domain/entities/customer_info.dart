@@ -7,6 +7,7 @@ class CustomerInfo with _$CustomerInfo {
   factory CustomerInfo({
     int? id,
     required bool h2PayUser,
+    required bool h2PayActive,
     required int rewardsId,
     required String name,
     required String email,

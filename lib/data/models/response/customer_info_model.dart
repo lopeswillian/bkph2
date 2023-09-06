@@ -13,6 +13,7 @@ class CustomerInfoModel with _$CustomerInfoModel {
   factory CustomerInfoModel({
     int? id,
     required bool h2PayUser,
+    required bool h2PayActive,
     required int rewardsId,
     required String name,
     required String email,
@@ -32,11 +33,13 @@ class CustomerInfoModel with _$CustomerInfoModel {
       cellphone: decodedToken['customer_cellphone'],
       h2PayUser: decodedToken['h2_pay_user'],
       rewardsId: decodedToken['customer_rewards_id'],
+      h2PayActive: decodedToken['is_h2pay_active']
     );
   }
 
   CustomerInfo toEntity() => CustomerInfo(
         id: id,
+        h2PayActive: h2PayActive,
         h2PayUser: h2PayUser,
         rewardsId: rewardsId,
         name: name,

@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CustomerInfo {
   int? get id => throw _privateConstructorUsedError;
   bool get h2PayUser => throw _privateConstructorUsedError;
+  bool get h2PayActive => throw _privateConstructorUsedError;
   int get rewardsId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
@@ -39,6 +40,7 @@ abstract class $CustomerInfoCopyWith<$Res> {
   $Res call(
       {int? id,
       bool h2PayUser,
+      bool h2PayActive,
       int rewardsId,
       String name,
       String email,
@@ -62,6 +64,7 @@ class _$CustomerInfoCopyWithImpl<$Res, $Val extends CustomerInfo>
   $Res call({
     Object? id = freezed,
     Object? h2PayUser = null,
+    Object? h2PayActive = null,
     Object? rewardsId = null,
     Object? name = null,
     Object? email = null,
@@ -77,6 +80,10 @@ class _$CustomerInfoCopyWithImpl<$Res, $Val extends CustomerInfo>
       h2PayUser: null == h2PayUser
           ? _value.h2PayUser
           : h2PayUser // ignore: cast_nullable_to_non_nullable
+              as bool,
+      h2PayActive: null == h2PayActive
+          ? _value.h2PayActive
+          : h2PayActive // ignore: cast_nullable_to_non_nullable
               as bool,
       rewardsId: null == rewardsId
           ? _value.rewardsId
@@ -117,6 +124,7 @@ abstract class _$$_CustomerInfoCopyWith<$Res>
   $Res call(
       {int? id,
       bool h2PayUser,
+      bool h2PayActive,
       int rewardsId,
       String name,
       String email,
@@ -138,6 +146,7 @@ class __$$_CustomerInfoCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? h2PayUser = null,
+    Object? h2PayActive = null,
     Object? rewardsId = null,
     Object? name = null,
     Object? email = null,
@@ -153,6 +162,10 @@ class __$$_CustomerInfoCopyWithImpl<$Res>
       h2PayUser: null == h2PayUser
           ? _value.h2PayUser
           : h2PayUser // ignore: cast_nullable_to_non_nullable
+              as bool,
+      h2PayActive: null == h2PayActive
+          ? _value.h2PayActive
+          : h2PayActive // ignore: cast_nullable_to_non_nullable
               as bool,
       rewardsId: null == rewardsId
           ? _value.rewardsId
@@ -188,6 +201,7 @@ class _$_CustomerInfo implements _CustomerInfo {
   _$_CustomerInfo(
       {this.id,
       required this.h2PayUser,
+      required this.h2PayActive,
       required this.rewardsId,
       required this.name,
       required this.email,
@@ -199,6 +213,8 @@ class _$_CustomerInfo implements _CustomerInfo {
   final int? id;
   @override
   final bool h2PayUser;
+  @override
+  final bool h2PayActive;
   @override
   final int rewardsId;
   @override
@@ -214,7 +230,7 @@ class _$_CustomerInfo implements _CustomerInfo {
 
   @override
   String toString() {
-    return 'CustomerInfo(id: $id, h2PayUser: $h2PayUser, rewardsId: $rewardsId, name: $name, email: $email, birthdate: $birthdate, cpf: $cpf, cellphone: $cellphone)';
+    return 'CustomerInfo(id: $id, h2PayUser: $h2PayUser, h2PayActive: $h2PayActive, rewardsId: $rewardsId, name: $name, email: $email, birthdate: $birthdate, cpf: $cpf, cellphone: $cellphone)';
   }
 
   @override
@@ -225,6 +241,8 @@ class _$_CustomerInfo implements _CustomerInfo {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.h2PayUser, h2PayUser) ||
                 other.h2PayUser == h2PayUser) &&
+            (identical(other.h2PayActive, h2PayActive) ||
+                other.h2PayActive == h2PayActive) &&
             (identical(other.rewardsId, rewardsId) ||
                 other.rewardsId == rewardsId) &&
             (identical(other.name, name) || other.name == name) &&
@@ -237,8 +255,8 @@ class _$_CustomerInfo implements _CustomerInfo {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, h2PayUser, rewardsId, name,
-      email, birthdate, cpf, cellphone);
+  int get hashCode => Object.hash(runtimeType, id, h2PayUser, h2PayActive,
+      rewardsId, name, email, birthdate, cpf, cellphone);
 
   @JsonKey(ignore: true)
   @override
@@ -251,6 +269,7 @@ abstract class _CustomerInfo implements CustomerInfo {
   factory _CustomerInfo(
       {final int? id,
       required final bool h2PayUser,
+      required final bool h2PayActive,
       required final int rewardsId,
       required final String name,
       required final String email,
@@ -262,6 +281,8 @@ abstract class _CustomerInfo implements CustomerInfo {
   int? get id;
   @override
   bool get h2PayUser;
+  @override
+  bool get h2PayActive;
   @override
   int get rewardsId;
   @override

@@ -94,6 +94,12 @@ class RewardsViewModel extends ViewModel<RewardsState> {
       cpf: _loginViewModel.loggedUser!.cpf,
     );
 
+    final getUserPoints = await _getuserPointsUseCase(
+      cpf: _loginViewModel.loggedUser!.cpf,
+    );
+
+    final userPoints = getUserPoints.fold((l) => null, (r) => r);
+
     final newState = response.fold(
       (error) => state.copyWith(
         loading: false,
@@ -102,6 +108,7 @@ class RewardsViewModel extends ViewModel<RewardsState> {
       (listUserStatement) => state.copyWith(
         loading: false,
         listUserStatement: listUserStatement,
+        userPoints: userPoints,
       ),
     );
 
