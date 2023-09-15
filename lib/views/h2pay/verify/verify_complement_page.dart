@@ -30,7 +30,7 @@ class _VerifyComplementPageState extends State<VerifyComplementPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const H2AppBar(
-        title: Text('H2 Pay'),
+        title: Text('H2 Club'),
         centerTitle: true,
       ),
       backgroundColor: Colors.transparent,

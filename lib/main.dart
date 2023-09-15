@@ -112,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> with View<LoginViewModel> {
         ),
         child: const FaIcon(FontAwesomeIcons.lightCircleDollar),
       ),
-      label: 'H2 Pay',
+      label: 'H2 Club',
     ),
     BottomNavigationBarItem(
       icon: Padding(

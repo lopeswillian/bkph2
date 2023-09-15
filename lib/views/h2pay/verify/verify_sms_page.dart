@@ -63,7 +63,7 @@ class _VerifySmsPageState extends State<VerifySmsPage>
   Widget _buildPage(BuildContext context, VerifyState state) {
     return Scaffold(
       appBar: const H2AppBar(
-        title: Text('H2 Pay'),
+        title: Text('H2 Club'),
         centerTitle: true,
       ),
       backgroundColor: Colors.transparent,

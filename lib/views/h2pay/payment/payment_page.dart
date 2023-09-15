@@ -65,7 +65,7 @@ class _PaymentPageState extends ViewState<PaymentPage, PaymentViewModel> {
             const Text('Pagamentos'),
             Dimension.xxs.vertical,
             Text(
-              'H2 Pay',
+              'H2 Club',
               style: TextStyle(fontSize: 12.fontSize),
             )
           ],

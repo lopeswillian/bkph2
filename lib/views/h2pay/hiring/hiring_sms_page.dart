@@ -83,7 +83,7 @@ class _HiringSmsPageState extends State<HiringSmsPage>
   Widget _buildPage(BuildContext context, PaymentState state) {
     return Scaffold(
       appBar: const H2AppBar(
-        title: Text('H2 Pay'),
+        title: Text('H2 Club'),
         centerTitle: true,
       ),
       backgroundColor: Colors.transparent,

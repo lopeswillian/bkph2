@@ -56,7 +56,7 @@ class _HiringPageState extends State<HiringPage> with View<H2PayViewModel> {
               const Text('Contratação'),
               Dimension.xxs.vertical,
               Text(
-                'H2 Pay',
+                'H2 Club',
                 style: TextStyle(fontSize: 12.fontSize),
               )
             ],
@@ -135,7 +135,7 @@ class _HiringPageState extends State<HiringPage> with View<H2PayViewModel> {
             const Text('Contratação'),
             Dimension.xxs.vertical,
             Text(
-              'H2 Pay',
+              'H2 Club',
               style: TextStyle(fontSize: 12.fontSize),
             )
           ],

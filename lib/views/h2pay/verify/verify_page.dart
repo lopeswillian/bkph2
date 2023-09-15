@@ -60,7 +60,7 @@ class _VerifyPageState extends State<VerifyPage> with View<VerifyViewModel>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const H2AppBar(
-        title: Text('H2 Pay'),
+        title: Text('H2 Club'),
         centerTitle: true,
       ),
       backgroundColor: Colors.transparent,

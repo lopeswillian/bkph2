@@ -47,7 +47,7 @@ class _PaymentAccountPageState extends State<PaymentAccountPage>
   Widget _buildPage(BuildContext context, H2PayState state) {
     return Scaffold(
       appBar: const H2AppBar(
-        title: Text('H2 Pay'),
+        title: Text('H2 Club'),
         centerTitle: true,
       ),
       backgroundColor: Colors.transparent,

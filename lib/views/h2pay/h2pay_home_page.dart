@@ -104,7 +104,7 @@ class _H2PayHomePageState extends ViewState<H2PayHomePage, H2PayViewModel> {
             ),
             const Dimension(15.125).vertical,
             Text(
-              'Para acessar o H2 PAY você precisa verificar sua conta',
+              'Para acessar o H2 Club você precisa verificar sua conta',
               textAlign: TextAlign.center,
               style: context.text.body1,
             ),

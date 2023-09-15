@@ -251,15 +251,15 @@ abstract class BaseAppModuleRouting {
         ),
         ChildRoute(
           verifyPage.path,
-          child: (_, __) => const VerifyPage(title: "H2 Pay"),
+          child: (_, __) => const VerifyPage(title: "H2 Club"),
         ),
         ChildRoute(
           verifySmsPage.path,
-          child: (_, __) => const VerifySmsPage(title: "H2 Pay"),
+          child: (_, __) => const VerifySmsPage(title: "H2 Club"),
         ),
         ChildRoute(
           verifyTermsPage.path,
-          child: (_, __) => const VerifyTermsPage(title: "H2 Pay"),
+          child: (_, __) => const VerifyTermsPage(title: "H2 Club"),
         ),
         ChildRoute(
           verifyComplementPage.path,
