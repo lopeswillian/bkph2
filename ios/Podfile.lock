@@ -80,6 +80,8 @@ PODS:
     - nanopb/encode (= 2.30909.0)
   - nanopb/decode (2.30909.0)
   - nanopb/encode (2.30909.0)
+  - notification_permissions (0.4.4):
+    - Flutter
   - passive_face_liveness (4.30.0):
     - Flutter
     - PassiveFaceLiveness (= 5.25.0)
@@ -114,6 +116,7 @@ DEPENDENCIES:
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
+  - notification_permissions (from `.symlinks/plugins/notification_permissions/ios`)
   - passive_face_liveness (from `.symlinks/plugins/passive_face_liveness/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
@@ -160,6 +163,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/fluttertoast/ios"
   image_picker_ios:
     :path: ".symlinks/plugins/image_picker_ios/ios"
+  notification_permissions:
+    :path: ".symlinks/plugins/notification_permissions/ios"
   passive_face_liveness:
     :path: ".symlinks/plugins/passive_face_liveness/ios"
   path_provider_foundation:
@@ -192,6 +197,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: c63691989bf362ba0505507da00eeb326192e83e
   image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
+  notification_permissions: 825ea1bf2a52ab585c53fd7b5e8e96876d735d4b
   passive_face_liveness: ea495cd027c8831fbc5a4fbcc8de0f0395ed58ca
   PassiveFaceLiveness: 0a7a696e7a232b897da3db4b767d641259c77f83
   path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
