@@ -30,10 +30,6 @@
 		<false/>
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
-		<key>NSCameraUsageDescription</key>
-		<string>Uso da câmera para captura de documentos</string>
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>Permissão para acessar a biblioteca de fotos</string>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
 		<key>UIBackgroundModes</key>

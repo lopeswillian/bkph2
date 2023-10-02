@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:apph2/base_app_module_routing.dart';
-import 'package:apph2/firebase_options.dart';
 import 'package:apph2/theme/theme_factory.dart';
 import 'package:apph2/theme/widgets/custom_bottom_navigation.dart';
 import 'package:apph2/views/chat/chat_page.dart';
@@ -225,15 +223,21 @@ late AndroidNotificationChannel channel;
 /// Initialize the [FlutterLocalNotificationsPlugin] package.
 late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
-Future getDeviceToken() async {
-  FirebaseMessaging.instance.requestPermission(
+Future<String> getDeviceToken() async {
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+  NotificationSettings settings = await messaging.requestPermission(
     alert: true,
     badge: true,
     sound: true,
   );
-  FirebaseMessaging firebaseMessage = FirebaseMessaging.instance;
-  String? deviceToken = await firebaseMessage.getToken();
-  return (deviceToken == null) ? "" : deviceToken;
+
+  if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+    String? deviceToken = await messaging.getToken();
+    return deviceToken ?? "";
+  } else {
+    return "";
+  }
 }
 
 void main() async {
